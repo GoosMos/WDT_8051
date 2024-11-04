@@ -488,11 +488,11 @@ S _BIT_TMP Def000000
 S G$BIT_TMP$0_0$0 Def000000
 A PSEG size 0 flags 50 addr 0
 A XSEG size 6 flags 40 addr 0
-S Lcommon.Read_APROM_BYTE$u16_addr$1_0$153 Def000000
-S Lcommon.Software_Reset$u8Bootarea$1_0$155 Def000002
-S Lcommon.Global_Interrupt$u8IntStatus$1_0$169 Def000005
-S Lcommon.Idle_Mode$IdleStatus$1_0$160 Def000004
-S Lcommon.PowerDown_Mode$PDStatus$1_0$157 Def000003
+S Lcommon.Read_APROM_BYTE$u16_addr$1_0$145 Def000000
+S Lcommon.Software_Reset$u8Bootarea$1_0$147 Def000002
+S Lcommon.Global_Interrupt$u8IntStatus$1_0$161 Def000005
+S Lcommon.Idle_Mode$IdleStatus$1_0$152 Def000004
+S Lcommon.PowerDown_Mode$PDStatus$1_0$149 Def000003
 A XABS size 0 flags 48 addr 0
 A XISEG size 0 flags 40 addr 0
 A HOME size 0 flags 20 addr 0

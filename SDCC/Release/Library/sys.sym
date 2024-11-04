@@ -667,12 +667,12 @@ Symbol Table
  1E Ldebug_loc_start                                               000000 R
  21 Ldebug_pubnames_end                                            0008B6 R
  21 Ldebug_pubnames_start                                          000004 R
-  C Lsys.ClockDisable$u8FsysMode$1_0$165                        =  000004 GR
-  C Lsys.ClockEnable$u8FsysMode$1_0$162                         =  000003 GR
-  C Lsys.ClockSwitch$u8FsysMode$1_0$168                         =  000005 GR
-  C Lsys.FsysSelect$u8FsysMode$1_0$159                          =  000002 GR
-  C Lsys.MODIFY_HIRC$trimvalue16bit$1_0$154                     =  000001 GR
-  C Lsys.MODIFY_HIRC$u8HIRCSEL$1_0$153                          =  000000 GR
+  C Lsys.ClockDisable$u8FsysMode$1_0$157                        =  000004 GR
+  C Lsys.ClockEnable$u8FsysMode$1_0$154                         =  000003 GR
+  C Lsys.ClockSwitch$u8FsysMode$1_0$160                         =  000005 GR
+  C Lsys.FsysSelect$u8FsysMode$1_0$151                          =  000002 GR
+  C Lsys.MODIFY_HIRC$trimvalue16bit$1_0$146                     =  000001 GR
+  C Lsys.MODIFY_HIRC$u8HIRCSEL$1_0$145                          =  000000 GR
     OV                                                          =  0000D2 L
     P                                                           =  0000D0 L
     P0                                                          =  000080 L
@@ -988,11 +988,11 @@ Symbol Table
     _CM_RL2                                                     =  0000C8 G
     _CY                                                         =  0000D7 G
  18 _ClockDisable                                                  0001CD GR
-  C _ClockDisable_u8FsysMode_65536_165                             000004 R
+  C _ClockDisable_u8FsysMode_65536_157                             000004 R
  18 _ClockEnable                                                   000192 GR
-  C _ClockEnable_u8FsysMode_65536_162                              000003 R
+  C _ClockEnable_u8FsysMode_65536_154                              000003 R
  18 _ClockSwitch                                                   000201 GR
-  C _ClockSwitch_u8FsysMode_65536_168                              000005 R
+  C _ClockSwitch_u8FsysMode_65536_160                              000005 R
     _DPH                                                        =  000083 G
     _DPL                                                        =  000082 G
     _EA                                                         =  0000AF G
@@ -1016,7 +1016,7 @@ Symbol Table
     _FE                                                         =  00009F G
     _FE_1                                                       =  0000FF G
  18 _FsysSelect                                                    000126 GR
-  C _FsysSelect_u8FsysMode_65536_159                               000002 R
+  C _FsysSelect_u8FsysMode_65536_151                               000002 R
     _I2ADDR                                                     =  0000C1 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051)              Page 18
 Hexadecimal [24-Bits]
@@ -1046,8 +1046,8 @@ Symbol Table
     _LOAD                                                       =  0000DE G
     _MISO                                                       =  000081 G
  18 _MODIFY_HIRC                                                   000000 GR
-  C _MODIFY_HIRC_trimvalue16bit_65536_154                          000001 R
-  C _MODIFY_HIRC_u8HIRCSEL_65536_153                               000000 R
+  C _MODIFY_HIRC_trimvalue16bit_65536_146                          000001 R
+  C _MODIFY_HIRC_u8HIRCSEL_65536_145                               000000 R
     _MOSI                                                       =  000080 G
     _OV                                                         =  0000D2 G
     _P                                                          =  0000D0 G

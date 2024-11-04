@@ -778,26 +778,26 @@ _uart0_receive_data::
 G$uart1_receive_data$0_0$0==.
 _uart1_receive_data::
 	.ds 1
-Luart.UART_Open$u8UARTPort$1_0$153==.
+Luart.UART_Open$u8UARTPort$1_0$145==.
 _UART_Open_PARM_2:
 	.ds 1
-Luart.UART_Open$u32Baudrate$1_0$153==.
+Luart.UART_Open$u32Baudrate$1_0$145==.
 _UART_Open_PARM_3:
 	.ds 4
-Luart.UART_Open$u32SysClock$1_0$153==.
-_UART_Open_u32SysClock_65536_153:
+Luart.UART_Open$u32SysClock$1_0$145==.
+_UART_Open_u32SysClock_65536_145:
 	.ds 4
-Luart.Receive_Data$UARTPort$1_0$156==.
-_Receive_Data_UARTPort_65536_156:
+Luart.Receive_Data$UARTPort$1_0$148==.
+_Receive_Data_UARTPort_65536_148:
 	.ds 1
-Luart.Receive_Data$c$1_0$157==.
-_Receive_Data_c_65536_157:
+Luart.Receive_Data$c$1_0$149==.
+_Receive_Data_c_65536_149:
 	.ds 1
-Luart.UART_Send_Data$c$1_0$159==.
+Luart.UART_Send_Data$c$1_0$151==.
 _UART_Send_Data_PARM_2:
 	.ds 1
-Luart.UART_Send_Data$UARTPort$1_0$159==.
-_UART_Send_Data_UARTPort_65536_159:
+Luart.UART_Send_Data$UARTPort$1_0$151==.
+_UART_Send_Data_UARTPort_65536_151:
 	.ds 1
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -838,7 +838,7 @@ _UART_Send_Data_UARTPort_65536_159:
 ;------------------------------------------------------------
 ;u8UARTPort                Allocated with name '_UART_Open_PARM_2'
 ;u32Baudrate               Allocated with name '_UART_Open_PARM_3'
-;u32SysClock               Allocated with name '_UART_Open_u32SysClock_65536_153'
+;u32SysClock               Allocated with name '_UART_Open_u32SysClock_65536_145'
 ;------------------------------------------------------------
 	Suart$UART_Open$0 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:82: void UART_Open(uint32_t u32SysClock, uint8_t u8UARTPort,uint32_t u32Baudrate)
@@ -859,7 +859,7 @@ _UART_Open:
 	mov	r6,dph
 	mov	r5,b
 	mov	r4,a
-	mov	dptr,#_UART_Open_u32SysClock_65536_153
+	mov	dptr,#_UART_Open_u32SysClock_65536_145
 	mov	a,r7
 	movx	@dptr,a
 	mov	a,r6
@@ -916,7 +916,7 @@ _UART_Open:
 	anl	_T3CON,#0xdf
 	Suart$UART_Open$10 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:92: TH1 = 256 - (u32SysClock/16/u32Baudrate);
-	mov	dptr,#_UART_Open_u32SysClock_65536_153
+	mov	dptr,#_UART_Open_u32SysClock_65536_145
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1030,7 +1030,7 @@ _UART_Open:
 	orl	_T3CON,#0x20
 	Suart$UART_Open$19 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:101: RH3    = HIBYTE(65536 - (u32SysClock/16/u32Baudrate));  
-	mov	dptr,#_UART_Open_u32SysClock_65536_153
+	mov	dptr,#_UART_Open_u32SysClock_65536_145
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1153,7 +1153,7 @@ _UART_Open:
 	mov	_T3CON,#0x80
 	Suart$UART_Open$26 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:109: RH3    = HIBYTE(65536 - (u32SysClock/16/u32Baudrate));  
-	mov	dptr,#_UART_Open_u32SysClock_65536_153
+	mov	dptr,#_UART_Open_u32SysClock_65536_145
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1274,8 +1274,8 @@ _UART_Open:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Receive_Data'
 ;------------------------------------------------------------
-;UARTPort                  Allocated with name '_Receive_Data_UARTPort_65536_156'
-;c                         Allocated with name '_Receive_Data_c_65536_157'
+;UARTPort                  Allocated with name '_Receive_Data_UARTPort_65536_148'
+;c                         Allocated with name '_Receive_Data_c_65536_149'
 ;------------------------------------------------------------
 	Suart$Receive_Data$33 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:116: uint8_t Receive_Data(uint8_t UARTPort)
@@ -1285,16 +1285,16 @@ _UART_Open:
 _Receive_Data:
 	Suart$Receive_Data$34 ==.
 	mov	a,dpl
-	mov	dptr,#_Receive_Data_UARTPort_65536_156
+	mov	dptr,#_Receive_Data_UARTPort_65536_148
 	movx	@dptr,a
 	Suart$Receive_Data$35 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:119: c = 0;
-	mov	dptr,#_Receive_Data_c_65536_157
+	mov	dptr,#_Receive_Data_c_65536_149
 	clr	a
 	movx	@dptr,a
 	Suart$Receive_Data$36 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:120: switch (UARTPort)
-	mov	dptr,#_Receive_Data_UARTPort_65536_156
+	mov	dptr,#_Receive_Data_UARTPort_65536_148
 	movx	a,@dptr
 	mov	r7,a
 	jz	00102$
@@ -1307,7 +1307,7 @@ _Receive_Data:
 	jnb	_RI,00102$
 	Suart$Receive_Data$39 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:124: c = SBUF;
-	mov	dptr,#_Receive_Data_c_65536_157
+	mov	dptr,#_Receive_Data_c_65536_149
 	mov	a,_SBUF
 	movx	@dptr,a
 	Suart$Receive_Data$40 ==.
@@ -1323,7 +1323,7 @@ _Receive_Data:
 	jnb	_RI_1,00106$
 	Suart$Receive_Data$43 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:129: c = SBUF_1;
-	mov	dptr,#_Receive_Data_c_65536_157
+	mov	dptr,#_Receive_Data_c_65536_149
 	mov	a,_SBUF_1
 	movx	@dptr,a
 	Suart$Receive_Data$44 ==.
@@ -1336,7 +1336,7 @@ _Receive_Data:
 00109$:
 	Suart$Receive_Data$47 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:133: return (c);
-	mov	dptr,#_Receive_Data_c_65536_157
+	mov	dptr,#_Receive_Data_c_65536_149
 	movx	a,@dptr
 	Suart$Receive_Data$48 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:134: }
@@ -1349,7 +1349,7 @@ _Receive_Data:
 ;Allocation info for local variables in function 'UART_Send_Data'
 ;------------------------------------------------------------
 ;c                         Allocated with name '_UART_Send_Data_PARM_2'
-;UARTPort                  Allocated with name '_UART_Send_Data_UARTPort_65536_159'
+;UARTPort                  Allocated with name '_UART_Send_Data_UARTPort_65536_151'
 ;------------------------------------------------------------
 	Suart$UART_Send_Data$51 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:136: void UART_Send_Data(uint8_t UARTPort, uint8_t c)
@@ -1359,15 +1359,14 @@ _Receive_Data:
 _UART_Send_Data:
 	Suart$UART_Send_Data$52 ==.
 	mov	a,dpl
-	mov	dptr,#_UART_Send_Data_UARTPort_65536_159
+	mov	dptr,#_UART_Send_Data_UARTPort_65536_151
 	movx	@dptr,a
 	Suart$UART_Send_Data$53 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:138: DISABLE_UART0_INTERRUPT;
-;	assignBit
-	clr	_ES
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:138: DISABLE_UART1_INTERRUPT;
+	anl	_EIE1,#0xfe
 	Suart$UART_Send_Data$54 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:139: switch (UARTPort)
-	mov	dptr,#_UART_Send_Data_UARTPort_65536_159
+	mov	dptr,#_UART_Send_Data_UARTPort_65536_151
 	movx	a,@dptr
 	mov	r7,a
 	jz	00101$
@@ -1414,9 +1413,8 @@ _UART_Send_Data:
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:151: }
 00109$:
 	Suart$UART_Send_Data$67 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:152: ENABLE_UART0_INTERRUPT;
-;	assignBit
-	setb	_ES
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:152: ENABLE_UART1_INTERRUPT;
+	orl	_EIE1,#0x01
 	Suart$UART_Send_Data$68 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/uart.c:153: }
 	Suart$UART_Send_Data$69 ==.
@@ -2059,7 +2057,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_UART_Open_u32SysClock_65536_153)
+	.dw	0,(_UART_Open_u32SysClock_65536_145)
 	.ascii "u32SysClock"
 	.db	0
 	.dw	0,255
@@ -2097,7 +2095,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_Receive_Data_UARTPort_65536_156)
+	.dw	0,(_Receive_Data_UARTPort_65536_148)
 	.ascii "UARTPort"
 	.db	0
 	.dw	0,272
@@ -2107,7 +2105,7 @@ Ldebug_info_start:
 	.uleb128	8
 	.db	5
 	.db	3
-	.dw	0,(_Receive_Data_c_65536_157)
+	.dw	0,(_Receive_Data_c_65536_149)
 	.ascii "c"
 	.db	0
 	.dw	0,272
@@ -2123,7 +2121,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_UART_Send_Data_UARTPort_65536_159)
+	.dw	0,(_UART_Send_Data_UARTPort_65536_151)
 	.ascii "UARTPort"
 	.db	0
 	.dw	0,272

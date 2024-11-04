@@ -773,20 +773,20 @@ _BIT_TMP::
 ; uninitialized external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-Lcommon.Read_APROM_BYTE$u16_addr$1_0$153==.
-_Read_APROM_BYTE_u16_addr_65536_153:
+Lcommon.Read_APROM_BYTE$u16_addr$1_0$145==.
+_Read_APROM_BYTE_u16_addr_65536_145:
 	.ds 2
-Lcommon.Software_Reset$u8Bootarea$1_0$155==.
-_Software_Reset_u8Bootarea_65536_155:
+Lcommon.Software_Reset$u8Bootarea$1_0$147==.
+_Software_Reset_u8Bootarea_65536_147:
 	.ds 1
-Lcommon.PowerDown_Mode$PDStatus$1_0$157==.
-_PowerDown_Mode_PDStatus_65536_157:
+Lcommon.PowerDown_Mode$PDStatus$1_0$149==.
+_PowerDown_Mode_PDStatus_65536_149:
 	.ds 1
-Lcommon.Idle_Mode$IdleStatus$1_0$160==.
-_Idle_Mode_IdleStatus_65536_160:
+Lcommon.Idle_Mode$IdleStatus$1_0$152==.
+_Idle_Mode_IdleStatus_65536_152:
 	.ds 1
-Lcommon.Global_Interrupt$u8IntStatus$1_0$169==.
-_Global_Interrupt_u8IntStatus_65536_169:
+Lcommon.Global_Interrupt$u8IntStatus$1_0$161==.
+_Global_Interrupt_u8IntStatus_65536_161:
 	.ds 1
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -825,8 +825,8 @@ _Global_Interrupt_u8IntStatus_65536_169:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Read_APROM_BYTE'
 ;------------------------------------------------------------
-;u16_addr                  Allocated with name '_Read_APROM_BYTE_u16_addr_65536_153'
-;rdata                     Allocated with name '_Read_APROM_BYTE_rdata_65536_154'
+;u16_addr                  Allocated with name '_Read_APROM_BYTE_u16_addr_65536_145'
+;rdata                     Allocated with name '_Read_APROM_BYTE_rdata_65536_146'
 ;------------------------------------------------------------
 	Scommon$Read_APROM_BYTE$0 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:34: uint8_t Read_APROM_BYTE(const uint16_t __code *u16_addr)
@@ -845,14 +845,14 @@ _Read_APROM_BYTE:
 	Scommon$Read_APROM_BYTE$1 ==.
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_Read_APROM_BYTE_u16_addr_65536_153
+	mov	dptr,#_Read_APROM_BYTE_u16_addr_65536_145
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
 	Scommon$Read_APROM_BYTE$2 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:39: rdata = *u16_addr >> 8;
-	mov	dptr,#_Read_APROM_BYTE_u16_addr_65536_153
+	mov	dptr,#_Read_APROM_BYTE_u16_addr_65536_145
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -877,8 +877,8 @@ _Read_APROM_BYTE:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Software_Reset'
 ;------------------------------------------------------------
-;u8Bootarea                Allocated with name '_Software_Reset_u8Bootarea_65536_155'
-;boottemp                  Allocated with name '_Software_Reset_boottemp_65536_156'
+;u8Bootarea                Allocated with name '_Software_Reset_u8Bootarea_65536_147'
+;boottemp                  Allocated with name '_Software_Reset_boottemp_65536_148'
 ;------------------------------------------------------------
 	Scommon$Software_Reset$7 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:52: void Software_Reset(uint8_t u8Bootarea)
@@ -888,7 +888,7 @@ _Read_APROM_BYTE:
 _Software_Reset:
 	Scommon$Software_Reset$8 ==.
 	mov	a,dpl
-	mov	dptr,#_Software_Reset_u8Bootarea_65536_155
+	mov	dptr,#_Software_Reset_u8Bootarea_65536_147
 	movx	@dptr,a
 	Scommon$Software_Reset$9 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:55: boottemp = (0x80|u8Bootarea);
@@ -913,7 +913,7 @@ _Software_Reset:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'PowerDown_Mode'
 ;------------------------------------------------------------
-;PDStatus                  Allocated with name '_PowerDown_Mode_PDStatus_65536_157'
+;PDStatus                  Allocated with name '_PowerDown_Mode_PDStatus_65536_149'
 ;------------------------------------------------------------
 	Scommon$PowerDown_Mode$16 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:68: void PowerDown_Mode(uint8_t PDStatus)
@@ -923,7 +923,7 @@ _Software_Reset:
 _PowerDown_Mode:
 	Scommon$PowerDown_Mode$17 ==.
 	mov	a,dpl
-	mov	dptr,#_PowerDown_Mode_PDStatus_65536_157
+	mov	dptr,#_PowerDown_Mode_PDStatus_65536_149
 	movx	@dptr,a
 	Scommon$PowerDown_Mode$18 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:70: if (PDStatus)
@@ -950,7 +950,7 @@ _PowerDown_Mode:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Idle_Mode'
 ;------------------------------------------------------------
-;IdleStatus                Allocated with name '_Idle_Mode_IdleStatus_65536_160'
+;IdleStatus                Allocated with name '_Idle_Mode_IdleStatus_65536_152'
 ;------------------------------------------------------------
 	Scommon$Idle_Mode$27 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:85: void Idle_Mode(uint8_t IdleStatus)
@@ -960,7 +960,7 @@ _PowerDown_Mode:
 _Idle_Mode:
 	Scommon$Idle_Mode$28 ==.
 	mov	a,dpl
-	mov	dptr,#_Idle_Mode_IdleStatus_65536_160
+	mov	dptr,#_Idle_Mode_IdleStatus_65536_152
 	movx	@dptr,a
 	Scommon$Idle_Mode$29 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:87: if (IdleStatus)
@@ -987,8 +987,8 @@ _Idle_Mode:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function '_delay_'
 ;------------------------------------------------------------
-;t1                        Allocated with name '__delay__t1_65536_164'
-;t2                        Allocated with name '__delay__t2_65536_164'
+;t1                        Allocated with name '__delay__t1_65536_156'
+;t2                        Allocated with name '__delay__t2_65536_156'
 ;------------------------------------------------------------
 	Scommon$_delay_$38 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:102: void _delay_(void)
@@ -1029,7 +1029,7 @@ __delay_:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Global_Interrupt'
 ;------------------------------------------------------------
-;u8IntStatus               Allocated with name '_Global_Interrupt_u8IntStatus_65536_169'
+;u8IntStatus               Allocated with name '_Global_Interrupt_u8IntStatus_65536_161'
 ;------------------------------------------------------------
 	Scommon$Global_Interrupt$51 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:122: void Global_Interrupt(uint8_t u8IntStatus)
@@ -1039,7 +1039,7 @@ __delay_:
 _Global_Interrupt:
 	Scommon$Global_Interrupt$52 ==.
 	mov	a,dpl
-	mov	dptr,#_Global_Interrupt_u8IntStatus_65536_169
+	mov	dptr,#_Global_Interrupt_u8IntStatus_65536_161
 	movx	@dptr,a
 	Scommon$Global_Interrupt$53 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/common.c:124: EA = u8IntStatus;
@@ -1512,7 +1512,7 @@ Ldebug_info_start:
 	.uleb128	6
 	.db	5
 	.db	3
-	.dw	0,(_Read_APROM_BYTE_u16_addr_65536_153)
+	.dw	0,(_Read_APROM_BYTE_u16_addr_65536_145)
 	.ascii "u16_addr"
 	.db	0
 	.dw	0,223
@@ -1537,7 +1537,7 @@ Ldebug_info_start:
 	.uleb128	6
 	.db	5
 	.db	3
-	.dw	0,(_Software_Reset_u8Bootarea_65536_155)
+	.dw	0,(_Software_Reset_u8Bootarea_65536_147)
 	.ascii "u8Bootarea"
 	.db	0
 	.dw	0,163
@@ -1557,7 +1557,7 @@ Ldebug_info_start:
 	.uleb128	6
 	.db	5
 	.db	3
-	.dw	0,(_PowerDown_Mode_PDStatus_65536_157)
+	.dw	0,(_PowerDown_Mode_PDStatus_65536_149)
 	.ascii "PDStatus"
 	.db	0
 	.dw	0,163
@@ -1576,7 +1576,7 @@ Ldebug_info_start:
 	.uleb128	6
 	.db	5
 	.db	3
-	.dw	0,(_Idle_Mode_IdleStatus_65536_160)
+	.dw	0,(_Idle_Mode_IdleStatus_65536_152)
 	.ascii "IdleStatus"
 	.db	0
 	.dw	0,163
@@ -1619,7 +1619,7 @@ Ldebug_info_start:
 	.uleb128	6
 	.db	5
 	.db	3
-	.dw	0,(_Global_Interrupt_u8IntStatus_65536_169)
+	.dw	0,(_Global_Interrupt_u8IntStatus_65536_161)
 	.ascii "u8IntStatus"
 	.db	0
 	.dw	0,163

@@ -771,47 +771,47 @@ _Timer3_Delay_sloc0_1_0:
 ; uninitialized external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-Ldelay.Timer0_Delay$u16CNT$1_0$153==.
+Ldelay.Timer0_Delay$u16CNT$1_0$149==.
 _Timer0_Delay_PARM_2:
 	.ds 2
-Ldelay.Timer0_Delay$u16DLYUnit$1_0$153==.
+Ldelay.Timer0_Delay$u16DLYUnit$1_0$149==.
 _Timer0_Delay_PARM_3:
 	.ds 2
-Ldelay.Timer0_Delay$u32SYSCLK$1_0$153==.
-_Timer0_Delay_u32SYSCLK_65536_153:
+Ldelay.Timer0_Delay$u32SYSCLK$1_0$149==.
+_Timer0_Delay_u32SYSCLK_65536_149:
 	.ds 4
-Ldelay.Timer1_Delay$u16CNT$1_0$156==.
+Ldelay.Timer1_Delay$u16CNT$1_0$152==.
 _Timer1_Delay_PARM_2:
 	.ds 2
-Ldelay.Timer1_Delay$u16DLYUnit$1_0$156==.
+Ldelay.Timer1_Delay$u16DLYUnit$1_0$152==.
 _Timer1_Delay_PARM_3:
 	.ds 2
-Ldelay.Timer1_Delay$u32SYSCLK$1_0$156==.
-_Timer1_Delay_u32SYSCLK_65536_156:
+Ldelay.Timer1_Delay$u32SYSCLK$1_0$152==.
+_Timer1_Delay_u32SYSCLK_65536_152:
 	.ds 4
-Ldelay.Timer2_Delay$u16TMDIV$1_0$159==.
+Ldelay.Timer2_Delay$u16TMDIV$1_0$155==.
 _Timer2_Delay_PARM_2:
 	.ds 2
-Ldelay.Timer2_Delay$u16CNT$1_0$159==.
+Ldelay.Timer2_Delay$u16CNT$1_0$155==.
 _Timer2_Delay_PARM_3:
 	.ds 2
-Ldelay.Timer2_Delay$u32DLYUnit$1_0$159==.
+Ldelay.Timer2_Delay$u32DLYUnit$1_0$155==.
 _Timer2_Delay_PARM_4:
 	.ds 4
-Ldelay.Timer2_Delay$u32SYSCLK$1_0$159==.
-_Timer2_Delay_u32SYSCLK_65536_159:
+Ldelay.Timer2_Delay$u32SYSCLK$1_0$155==.
+_Timer2_Delay_u32SYSCLK_65536_155:
 	.ds 4
-Ldelay.Timer3_Delay$u8TMDIV$1_0$163==.
+Ldelay.Timer3_Delay$u8TMDIV$1_0$159==.
 _Timer3_Delay_PARM_2:
 	.ds 1
-Ldelay.Timer3_Delay$u16CNT$1_0$163==.
+Ldelay.Timer3_Delay$u16CNT$1_0$159==.
 _Timer3_Delay_PARM_3:
 	.ds 2
-Ldelay.Timer3_Delay$u32DLYUnit$1_0$163==.
+Ldelay.Timer3_Delay$u32DLYUnit$1_0$159==.
 _Timer3_Delay_PARM_4:
 	.ds 4
-Ldelay.Timer3_Delay$u32SYSCLK$1_0$163==.
-_Timer3_Delay_u32SYSCLK_65536_163:
+Ldelay.Timer3_Delay$u32SYSCLK$1_0$159==.
+_Timer3_Delay_u32SYSCLK_65536_159:
 	.ds 4
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -852,9 +852,9 @@ _Timer3_Delay_u32SYSCLK_65536_163:
 ;------------------------------------------------------------
 ;u16CNT                    Allocated with name '_Timer0_Delay_PARM_2'
 ;u16DLYUnit                Allocated with name '_Timer0_Delay_PARM_3'
-;u32SYSCLK                 Allocated with name '_Timer0_Delay_u32SYSCLK_65536_153'
-;TL0TMP                    Allocated with name '_Timer0_Delay_TL0TMP_65536_154'
-;TH0TMP                    Allocated with name '_Timer0_Delay_TH0TMP_65536_154'
+;u32SYSCLK                 Allocated with name '_Timer0_Delay_u32SYSCLK_65536_149'
+;TL0TMP                    Allocated with name '_Timer0_Delay_TL0TMP_65536_150'
+;TH0TMP                    Allocated with name '_Timer0_Delay_TH0TMP_65536_150'
 ;------------------------------------------------------------
 	Sdelay$Timer0_Delay$0 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/delay.c:23: void Timer0_Delay(uint32_t u32SYSCLK, uint16_t u16CNT, uint16_t u16DLYUnit)
@@ -875,7 +875,7 @@ _Timer0_Delay:
 	mov	r6,dph
 	mov	r5,b
 	mov	r4,a
-	mov	dptr,#_Timer0_Delay_u32SYSCLK_65536_153
+	mov	dptr,#_Timer0_Delay_u32SYSCLK_65536_149
 	mov	a,r7
 	movx	@dptr,a
 	mov	a,r6
@@ -896,7 +896,7 @@ _Timer0_Delay:
 	orl	_TMOD,#0x01
 	Sdelay$Timer0_Delay$4 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/delay.c:28: TL0TMP = LOBYTE(65535ul-((u32SYSCLK/1000000ul)*u16DLYUnit/12ul));
-	mov	dptr,#_Timer0_Delay_u32SYSCLK_65536_153
+	mov	dptr,#_Timer0_Delay_u32SYSCLK_65536_149
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1048,9 +1048,9 @@ _Timer0_Delay:
 ;------------------------------------------------------------
 ;u16CNT                    Allocated with name '_Timer1_Delay_PARM_2'
 ;u16DLYUnit                Allocated with name '_Timer1_Delay_PARM_3'
-;u32SYSCLK                 Allocated with name '_Timer1_Delay_u32SYSCLK_65536_156'
-;TL1TMP                    Allocated with name '_Timer1_Delay_TL1TMP_65536_157'
-;TH1TMP                    Allocated with name '_Timer1_Delay_TH1TMP_65536_157'
+;u32SYSCLK                 Allocated with name '_Timer1_Delay_u32SYSCLK_65536_152'
+;TL1TMP                    Allocated with name '_Timer1_Delay_TL1TMP_65536_153'
+;TH1TMP                    Allocated with name '_Timer1_Delay_TH1TMP_65536_153'
 ;------------------------------------------------------------
 	Sdelay$Timer1_Delay$19 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/delay.c:56: void Timer1_Delay(uint32_t u32SYSCLK, uint16_t u16CNT, uint16_t u16DLYUnit)
@@ -1063,7 +1063,7 @@ _Timer1_Delay:
 	mov	r6,dph
 	mov	r5,b
 	mov	r4,a
-	mov	dptr,#_Timer1_Delay_u32SYSCLK_65536_156
+	mov	dptr,#_Timer1_Delay_u32SYSCLK_65536_152
 	mov	a,r7
 	movx	@dptr,a
 	mov	a,r6
@@ -1084,7 +1084,7 @@ _Timer1_Delay:
 	orl	_TMOD,#0x10
 	Sdelay$Timer1_Delay$23 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/delay.c:62: TL1TMP = LOBYTE(65535ul-((u32SYSCLK/1000000ul)*u16DLYUnit)/12ul);
-	mov	dptr,#_Timer1_Delay_u32SYSCLK_65536_156
+	mov	dptr,#_Timer1_Delay_u32SYSCLK_65536_152
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1238,9 +1238,9 @@ _Timer1_Delay:
 ;u16TMDIV                  Allocated with name '_Timer2_Delay_PARM_2'
 ;u16CNT                    Allocated with name '_Timer2_Delay_PARM_3'
 ;u32DLYUnit                Allocated with name '_Timer2_Delay_PARM_4'
-;u32SYSCLK                 Allocated with name '_Timer2_Delay_u32SYSCLK_65536_159'
-;TL2TMP                    Allocated with name '_Timer2_Delay_TL2TMP_65536_160'
-;TH2TMP                    Allocated with name '_Timer2_Delay_TH2TMP_65536_160'
+;u32SYSCLK                 Allocated with name '_Timer2_Delay_u32SYSCLK_65536_155'
+;TL2TMP                    Allocated with name '_Timer2_Delay_TL2TMP_65536_156'
+;TH2TMP                    Allocated with name '_Timer2_Delay_TH2TMP_65536_156'
 ;------------------------------------------------------------
 	Sdelay$Timer2_Delay$38 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/delay.c:92: void Timer2_Delay(uint32_t u32SYSCLK,uint16_t u16TMDIV, uint16_t u16CNT, uint32_t u32DLYUnit)
@@ -1253,7 +1253,7 @@ _Timer2_Delay:
 	mov	r6,dph
 	mov	r5,b
 	mov	r4,a
-	mov	dptr,#_Timer2_Delay_u32SYSCLK_65536_159
+	mov	dptr,#_Timer2_Delay_u32SYSCLK_65536_155
 	mov	a,r7
 	movx	@dptr,a
 	mov	a,r6
@@ -1372,7 +1372,7 @@ _Timer2_Delay:
 	orl	_T2MOD,#0x04
 	Sdelay$Timer2_Delay$56 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/delay.c:111: TL2TMP = LOBYTE(65536ul-((u32SYSCLK/1000000ul)*u32DLYUnit/u16TMDIV));
-	mov	dptr,#_Timer2_Delay_u32SYSCLK_65536_159
+	mov	dptr,#_Timer2_Delay_u32SYSCLK_65536_155
 	movx	a,@dptr
 	mov	r2,a
 	inc	dptr
@@ -1538,9 +1538,9 @@ _Timer2_Delay:
 ;u8TMDIV                   Allocated with name '_Timer3_Delay_PARM_2'
 ;u16CNT                    Allocated with name '_Timer3_Delay_PARM_3'
 ;u32DLYUnit                Allocated with name '_Timer3_Delay_PARM_4'
-;u32SYSCLK                 Allocated with name '_Timer3_Delay_u32SYSCLK_65536_163'
-;TL3TMP                    Allocated with name '_Timer3_Delay_TL3TMP_65536_164'
-;TH3TMP                    Allocated with name '_Timer3_Delay_TH3TMP_65536_164'
+;u32SYSCLK                 Allocated with name '_Timer3_Delay_u32SYSCLK_65536_159'
+;TL3TMP                    Allocated with name '_Timer3_Delay_TL3TMP_65536_160'
+;TH3TMP                    Allocated with name '_Timer3_Delay_TH3TMP_65536_160'
 ;------------------------------------------------------------
 	Sdelay$Timer3_Delay$71 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/delay.c:139: void Timer3_Delay(uint32_t u32SYSCLK,uint8_t u8TMDIV, uint16_t u16CNT, uint32_t u32DLYUnit)
@@ -1553,7 +1553,7 @@ _Timer3_Delay:
 	mov	r6,dph
 	mov	r5,b
 	mov	r4,a
-	mov	dptr,#_Timer3_Delay_u32SYSCLK_65536_163
+	mov	dptr,#_Timer3_Delay_u32SYSCLK_65536_159
 	mov	a,r7
 	movx	@dptr,a
 	mov	a,r6
@@ -1649,7 +1649,7 @@ _Timer3_Delay:
 00109$:
 	Sdelay$Timer3_Delay$86 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/delay.c:155: TL3TMP = LOBYTE(65536ul-((u32SYSCLK/1000000ul)*u32DLYUnit/u8TMDIV));
-	mov	dptr,#_Timer3_Delay_u32SYSCLK_65536_163
+	mov	dptr,#_Timer3_Delay_u32SYSCLK_65536_159
 	movx	a,@dptr
 	mov	r3,a
 	inc	dptr
@@ -2498,7 +2498,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_Timer0_Delay_u32SYSCLK_65536_153)
+	.dw	0,(_Timer0_Delay_u32SYSCLK_65536_149)
 	.ascii "u32SYSCLK"
 	.db	0
 	.dw	0,276
@@ -2543,7 +2543,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_Timer1_Delay_u32SYSCLK_65536_156)
+	.dw	0,(_Timer1_Delay_u32SYSCLK_65536_152)
 	.ascii "u32SYSCLK"
 	.db	0
 	.dw	0,276
@@ -2578,7 +2578,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_Timer2_Delay_u32SYSCLK_65536_159)
+	.dw	0,(_Timer2_Delay_u32SYSCLK_65536_155)
 	.ascii "u32SYSCLK"
 	.db	0
 	.dw	0,276
@@ -2620,7 +2620,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_Timer3_Delay_u32SYSCLK_65536_163)
+	.dw	0,(_Timer3_Delay_u32SYSCLK_65536_159)
 	.ascii "u32SYSCLK"
 	.db	0
 	.dw	0,276

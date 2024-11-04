@@ -1100,22 +1100,22 @@ Symbol Table
  1D Ldebug_loc_start                                               000000 R
  20 Ldebug_pubnames_end                                            0008AA R
  20 Ldebug_pubnames_start                                          000004 R
-  B Ldelay.Timer0_Delay$u16CNT$1_0$153                          =  000000 GR
-  B Ldelay.Timer0_Delay$u16DLYUnit$1_0$153                      =  000002 GR
-  B Ldelay.Timer0_Delay$u32SYSCLK$1_0$153                       =  000004 GR
-  B Ldelay.Timer1_Delay$u16CNT$1_0$156                          =  000008 GR
-  B Ldelay.Timer1_Delay$u16DLYUnit$1_0$156                      =  00000A GR
-  B Ldelay.Timer1_Delay$u32SYSCLK$1_0$156                       =  00000C GR
+  B Ldelay.Timer0_Delay$u16CNT$1_0$149                          =  000000 GR
+  B Ldelay.Timer0_Delay$u16DLYUnit$1_0$149                      =  000002 GR
+  B Ldelay.Timer0_Delay$u32SYSCLK$1_0$149                       =  000004 GR
+  B Ldelay.Timer1_Delay$u16CNT$1_0$152                          =  000008 GR
+  B Ldelay.Timer1_Delay$u16DLYUnit$1_0$152                      =  00000A GR
+  B Ldelay.Timer1_Delay$u32SYSCLK$1_0$152                       =  00000C GR
   5 Ldelay.Timer2_Delay$sloc0$0_1$0                             =  000000 GR
-  B Ldelay.Timer2_Delay$u16CNT$1_0$159                          =  000012 GR
-  B Ldelay.Timer2_Delay$u16TMDIV$1_0$159                        =  000010 GR
-  B Ldelay.Timer2_Delay$u32DLYUnit$1_0$159                      =  000014 GR
-  B Ldelay.Timer2_Delay$u32SYSCLK$1_0$159                       =  000018 GR
+  B Ldelay.Timer2_Delay$u16CNT$1_0$155                          =  000012 GR
+  B Ldelay.Timer2_Delay$u16TMDIV$1_0$155                        =  000010 GR
+  B Ldelay.Timer2_Delay$u32DLYUnit$1_0$155                      =  000014 GR
+  B Ldelay.Timer2_Delay$u32SYSCLK$1_0$155                       =  000018 GR
   5 Ldelay.Timer3_Delay$sloc0$0_1$0                             =  000004 GR
-  B Ldelay.Timer3_Delay$u16CNT$1_0$163                          =  00001D GR
-  B Ldelay.Timer3_Delay$u32DLYUnit$1_0$163                      =  00001F GR
-  B Ldelay.Timer3_Delay$u32SYSCLK$1_0$163                       =  000023 GR
-  B Ldelay.Timer3_Delay$u8TMDIV$1_0$163                         =  00001C GR
+  B Ldelay.Timer3_Delay$u16CNT$1_0$159                          =  00001D GR
+  B Ldelay.Timer3_Delay$u32DLYUnit$1_0$159                      =  00001F GR
+  B Ldelay.Timer3_Delay$u32SYSCLK$1_0$159                       =  000023 GR
+  B Ldelay.Timer3_Delay$u8TMDIV$1_0$159                         =  00001C GR
     OV                                                          =  0000D2 L
     P                                                           =  0000D0 L
     P0                                                          =  000080 L
@@ -1609,11 +1609,11 @@ Symbol Table
  17 _Timer0_Delay                                                  000000 GR
   B _Timer0_Delay_PARM_2                                           000000 GR
   B _Timer0_Delay_PARM_3                                           000002 GR
-  B _Timer0_Delay_u32SYSCLK_65536_153                              000004 R
+  B _Timer0_Delay_u32SYSCLK_65536_149                              000004 R
  17 _Timer1_Delay                                                  0000C8 GR
   B _Timer1_Delay_PARM_2                                           000008 GR
   B _Timer1_Delay_PARM_3                                           00000A GR
-  B _Timer1_Delay_u32SYSCLK_65536_156                              00000C R
+  B _Timer1_Delay_u32SYSCLK_65536_152                              00000C R
  17 _Timer2_Delay                                                  000190 GR
   B _Timer2_Delay_PARM_2                                           000010 GR
   B _Timer2_Delay_PARM_3                                           000012 GR
@@ -1624,13 +1624,13 @@ Hexadecimal [24-Bits]
 Symbol Table
 
   5 _Timer2_Delay_sloc0_1_0                                        000000 R
-  B _Timer2_Delay_u32SYSCLK_65536_159                              000018 R
+  B _Timer2_Delay_u32SYSCLK_65536_155                              000018 R
  17 _Timer3_Delay                                                  0002F6 GR
   B _Timer3_Delay_PARM_2                                           00001C GR
   B _Timer3_Delay_PARM_3                                           00001D GR
   B _Timer3_Delay_PARM_4                                           00001F GR
   5 _Timer3_Delay_sloc0_1_0                                        000004 R
-  B _Timer3_Delay_u32SYSCLK_65536_163                              000023 R
+  B _Timer3_Delay_u32SYSCLK_65536_159                              000023 R
     _WDCON                                                      =  0000AA G
     _WKCON                                                      =  00008F G
     __divulong                                                     ****** GX

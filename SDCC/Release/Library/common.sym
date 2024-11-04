@@ -402,11 +402,11 @@ Symbol Table
     IP.5                                                        =  0000BD L
     IT0                                                         =  000088 L
     IT1                                                         =  00008A L
-  B Lcommon.Global_Interrupt$u8IntStatus$1_0$169                =  000005 GR
-  B Lcommon.Idle_Mode$IdleStatus$1_0$160                        =  000004 GR
-  B Lcommon.PowerDown_Mode$PDStatus$1_0$157                     =  000003 GR
-  B Lcommon.Read_APROM_BYTE$u16_addr$1_0$153                    =  000000 GR
-  B Lcommon.Software_Reset$u8Bootarea$1_0$155                   =  000002 GR
+  B Lcommon.Global_Interrupt$u8IntStatus$1_0$161                =  000005 GR
+  B Lcommon.Idle_Mode$IdleStatus$1_0$152                        =  000004 GR
+  B Lcommon.PowerDown_Mode$PDStatus$1_0$149                     =  000003 GR
+  B Lcommon.Read_APROM_BYTE$u16_addr$1_0$145                    =  000000 GR
+  B Lcommon.Software_Reset$u8Bootarea$1_0$147                   =  000002 GR
  21 Ldebug_CIE0_end                                                000014 R
  21 Ldebug_CIE0_start                                              000004 R
  21 Ldebug_CIE1_end                                                000040 R
@@ -694,7 +694,7 @@ Symbol Table
     _FE                                                         =  00009F G
     _FE_1                                                       =  0000FF G
  17 _Global_Interrupt                                              00005E GR
-  B _Global_Interrupt_u8IntStatus_65536_169                        000005 R
+  B _Global_Interrupt_u8IntStatus_65536_161                        000005 R
     _I2ADDR                                                     =  0000C1 G
     _I2CEN                                                      =  0000C6 G
     _I2CLK                                                      =  0000BE G
@@ -717,7 +717,7 @@ Symbol Table
     _IT0                                                        =  000088 G
     _IT1                                                        =  00008A G
  17 _Idle_Mode                                                     000041 GR
-  B _Idle_Mode_IdleStatus_65536_160                                000004 R
+  B _Idle_Mode_IdleStatus_65536_152                                000004 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051)              Page 13
 Hexadecimal [24-Bits]
 
@@ -808,7 +808,7 @@ Symbol Table
     _PX0                                                        =  0000B8 G
     _PX1                                                        =  0000BA G
  17 _PowerDown_Mode                                                000032 GR
-  B _PowerDown_Mode_PDStatus_65536_157                             000003 R
+  B _PowerDown_Mode_PDStatus_65536_149                             000003 R
     _RB8                                                        =  00009A G
     _RB8_1                                                      =  0000FA G
     _RCMP2H                                                     =  0000CB G
@@ -827,7 +827,7 @@ Symbol Table
     _RXD                                                        =  000087 G
     _RXD_1                                                      =  000082 G
  17 _Read_APROM_BYTE                                               000000 GR
-  B _Read_APROM_BYTE_u16_addr_65536_153                            000000 R
+  B _Read_APROM_BYTE_u16_addr_65536_145                            000000 R
     _SADDR                                                      =  0000A9 G
     _SADDR_1                                                    =  0000BB G
     _SADEN                                                      =  0000B9 G
@@ -861,7 +861,7 @@ Symbol Table
     _STADC                                                      =  000084 G
     _STO                                                        =  0000C4 G
  17 _Software_Reset                                                00001F GR
-  B _Software_Reset_u8Bootarea_65536_155                           000002 R
+  B _Software_Reset_u8Bootarea_65536_147                           000002 R
     _T2CON                                                      =  0000C8 G
     _T2MOD                                                      =  0000C9 G
     _T3CON                                                      =  0000C4 G

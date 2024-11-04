@@ -753,11 +753,11 @@ _MOSI	=	0x0080
 ; uninitialized external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-Lsdcc_stdio.putchar$c$1_0$153==.
-_putchar_c_65536_153:
+Lsdcc_stdio.putchar$c$1_0$145==.
+_putchar_c_65536_145:
 	.ds 2
-Lsdcc_stdio.getchar$c$1_0$156==.
-_getchar_c_65536_156:
+Lsdcc_stdio.getchar$c$1_0$148==.
+_getchar_c_65536_148:
 	.ds 1
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -796,7 +796,7 @@ _getchar_c_65536_156:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putchar'
 ;------------------------------------------------------------
-;c                         Allocated with name '_putchar_c_65536_153'
+;c                         Allocated with name '_putchar_c_65536_145'
 ;------------------------------------------------------------
 	Ssdcc_stdio$putchar$0 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:36: int putchar (int c)  {
@@ -815,7 +815,7 @@ _putchar:
 	Ssdcc_stdio$putchar$1 ==.
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_putchar_c_65536_153
+	mov	dptr,#_putchar_c_65536_145
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
@@ -831,7 +831,7 @@ _putchar:
 00114$:
 	Ssdcc_stdio$putchar$4 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:39: return (SBUF = c);
-	mov	dptr,#_putchar_c_65536_153
+	mov	dptr,#_putchar_c_65536_145
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -849,7 +849,7 @@ _putchar:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;c                         Allocated with name '_getchar_c_65536_156'
+;c                         Allocated with name '_getchar_c_65536_148'
 ;------------------------------------------------------------
 	Ssdcc_stdio$getchar$8 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:52: char getchar (void)
@@ -864,7 +864,7 @@ _getchar:
 	jnb	_RI,00101$
 	Ssdcc_stdio$getchar$11 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:57: c = SBUF;
-	mov	dptr,#_getchar_c_65536_156
+	mov	dptr,#_getchar_c_65536_148
 	mov	a,_SBUF
 	movx	@dptr,a
 	Ssdcc_stdio$getchar$12 ==.
@@ -873,7 +873,7 @@ _getchar:
 	clr	_RI
 	Ssdcc_stdio$getchar$13 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:60: return c;
-	mov	dptr,#_getchar_c_65536_156
+	mov	dptr,#_getchar_c_65536_148
 	movx	a,@dptr
 	Ssdcc_stdio$getchar$14 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:61: }
@@ -1126,7 +1126,7 @@ Ldebug_info_start:
 	.uleb128	4
 	.db	5
 	.db	3
-	.dw	0,(_putchar_c_65536_153)
+	.dw	0,(_putchar_c_65536_145)
 	.ascii "c"
 	.db	0
 	.dw	0,167
@@ -1148,7 +1148,7 @@ Ldebug_info_start:
 	.uleb128	5
 	.db	5
 	.db	3
-	.dw	0,(_getchar_c_65536_156)
+	.dw	0,(_getchar_c_65536_148)
 	.ascii "c"
 	.db	0
 	.dw	0,218

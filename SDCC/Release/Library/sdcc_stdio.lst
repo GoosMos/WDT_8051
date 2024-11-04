@@ -753,11 +753,11 @@
                                     753 ; uninitialized external ram data
                                     754 ;--------------------------------------------------------
                                     755 	.area XSEG    (XDATA)
-                           000000   756 Lsdcc_stdio.putchar$c$1_0$153==.
-      000000                        757 _putchar_c_65536_153:
+                           000000   756 Lsdcc_stdio.putchar$c$1_0$145==.
+      000000                        757 _putchar_c_65536_145:
       000000                        758 	.ds 2
-                           000002   759 Lsdcc_stdio.getchar$c$1_0$156==.
-      000002                        760 _getchar_c_65536_156:
+                           000002   759 Lsdcc_stdio.getchar$c$1_0$148==.
+      000002                        760 _getchar_c_65536_148:
       000002                        761 	.ds 1
                                     762 ;--------------------------------------------------------
                                     763 ; absolute external ram data
@@ -796,7 +796,7 @@
                                     796 ;------------------------------------------------------------
                                     797 ;Allocation info for local variables in function 'putchar'
                                     798 ;------------------------------------------------------------
-                                    799 ;c                         Allocated with name '_putchar_c_65536_153'
+                                    799 ;c                         Allocated with name '_putchar_c_65536_145'
                                     800 ;------------------------------------------------------------
                            000000   801 	Ssdcc_stdio$putchar$0 ==.
                                     802 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:36: int putchar (int c)  {
@@ -815,7 +815,7 @@
                            000000   815 	Ssdcc_stdio$putchar$1 ==.
       000000 AF 83            [24]  816 	mov	r7,dph
       000002 E5 82            [12]  817 	mov	a,dpl
-      000004 90r00r00         [24]  818 	mov	dptr,#_putchar_c_65536_153
+      000004 90r00r00         [24]  818 	mov	dptr,#_putchar_c_65536_145
       000007 F0               [24]  819 	movx	@dptr,a
       000008 EF               [12]  820 	mov	a,r7
       000009 A3               [24]  821 	inc	dptr
@@ -831,7 +831,7 @@
       000010                        831 00114$:
                            000010   832 	Ssdcc_stdio$putchar$4 ==.
                                     833 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:39: return (SBUF = c);
-      000010 90r00r00         [24]  834 	mov	dptr,#_putchar_c_65536_153
+      000010 90r00r00         [24]  834 	mov	dptr,#_putchar_c_65536_145
       000013 E0               [24]  835 	movx	a,@dptr
       000014 FE               [12]  836 	mov	r6,a
       000015 A3               [24]  837 	inc	dptr
@@ -849,7 +849,7 @@
                                     849 ;------------------------------------------------------------
                                     850 ;Allocation info for local variables in function 'getchar'
                                     851 ;------------------------------------------------------------
-                                    852 ;c                         Allocated with name '_getchar_c_65536_156'
+                                    852 ;c                         Allocated with name '_getchar_c_65536_148'
                                     853 ;------------------------------------------------------------
                            000020   854 	Ssdcc_stdio$getchar$8 ==.
                                     855 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:52: char getchar (void)
@@ -864,7 +864,7 @@
       000020 30 98 FD         [24]  864 	jnb	_RI,00101$
                            000023   865 	Ssdcc_stdio$getchar$11 ==.
                                     866 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:57: c = SBUF;
-      000023 90r00r02         [24]  867 	mov	dptr,#_getchar_c_65536_156
+      000023 90r00r02         [24]  867 	mov	dptr,#_getchar_c_65536_148
       000026 E5 99            [12]  868 	mov	a,_SBUF
       000028 F0               [24]  869 	movx	@dptr,a
                            000029   870 	Ssdcc_stdio$getchar$12 ==.
@@ -873,7 +873,7 @@
       000029 C2 98            [12]  873 	clr	_RI
                            00002B   874 	Ssdcc_stdio$getchar$13 ==.
                                     875 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:60: return c;
-      00002B 90r00r02         [24]  876 	mov	dptr,#_getchar_c_65536_156
+      00002B 90r00r02         [24]  876 	mov	dptr,#_getchar_c_65536_148
       00002E E0               [24]  877 	movx	a,@dptr
                            00002F   878 	Ssdcc_stdio$getchar$14 ==.
                                     879 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sdcc_stdio.c:61: }
@@ -1166,7 +1166,7 @@
       0000CC 04                    1126 	.uleb128	4
       0000CD 05                    1127 	.db	5
       0000CE 03                    1128 	.db	3
-      0000CF 00 00r00r00           1129 	.dw	0,(_putchar_c_65536_153)
+      0000CF 00 00r00r00           1129 	.dw	0,(_putchar_c_65536_145)
       0000D3 63                    1130 	.ascii "c"
       0000D4 00                    1131 	.db	0
       0000D5 00 00 00 A7           1132 	.dw	0,167
@@ -1189,7 +1189,7 @@
       000109 05                    1148 	.uleb128	5
       00010A 05                    1149 	.db	5
       00010B 03                    1150 	.db	3
-      00010C 00 00r00r02           1151 	.dw	0,(_getchar_c_65536_156)
+      00010C 00 00r00r02           1151 	.dw	0,(_getchar_c_65536_148)
       000110 63                    1152 	.ascii "c"
       000111 00                    1153 	.db	0
       000112 00 00 00 DA           1154 	.dw	0,218

@@ -757,23 +757,23 @@ _MOSI	=	0x0080
 ; uninitialized external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-Lsys.MODIFY_HIRC$u8HIRCSEL$1_0$153==.
-_MODIFY_HIRC_u8HIRCSEL_65536_153:
+Lsys.MODIFY_HIRC$u8HIRCSEL$1_0$145==.
+_MODIFY_HIRC_u8HIRCSEL_65536_145:
 	.ds 1
-Lsys.MODIFY_HIRC$trimvalue16bit$1_0$154==.
-_MODIFY_HIRC_trimvalue16bit_65536_154:
+Lsys.MODIFY_HIRC$trimvalue16bit$1_0$146==.
+_MODIFY_HIRC_trimvalue16bit_65536_146:
 	.ds 1
-Lsys.FsysSelect$u8FsysMode$1_0$159==.
-_FsysSelect_u8FsysMode_65536_159:
+Lsys.FsysSelect$u8FsysMode$1_0$151==.
+_FsysSelect_u8FsysMode_65536_151:
 	.ds 1
-Lsys.ClockEnable$u8FsysMode$1_0$162==.
-_ClockEnable_u8FsysMode_65536_162:
+Lsys.ClockEnable$u8FsysMode$1_0$154==.
+_ClockEnable_u8FsysMode_65536_154:
 	.ds 1
-Lsys.ClockDisable$u8FsysMode$1_0$165==.
-_ClockDisable_u8FsysMode_65536_165:
+Lsys.ClockDisable$u8FsysMode$1_0$157==.
+_ClockDisable_u8FsysMode_65536_157:
 	.ds 1
-Lsys.ClockSwitch$u8FsysMode$1_0$168==.
-_ClockSwitch_u8FsysMode_65536_168:
+Lsys.ClockSwitch$u8FsysMode$1_0$160==.
+_ClockSwitch_u8FsysMode_65536_160:
 	.ds 1
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -812,8 +812,8 @@ _ClockSwitch_u8FsysMode_65536_168:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'MODIFY_HIRC'
 ;------------------------------------------------------------
-;u8HIRCSEL                 Allocated with name '_MODIFY_HIRC_u8HIRCSEL_65536_153'
-;trimvalue16bit            Allocated with name '_MODIFY_HIRC_trimvalue16bit_65536_154'
+;u8HIRCSEL                 Allocated with name '_MODIFY_HIRC_u8HIRCSEL_65536_145'
+;trimvalue16bit            Allocated with name '_MODIFY_HIRC_trimvalue16bit_65536_146'
 ;hircmap0                  Allocated to registers r6 
 ;hircmap1                  Allocated to registers r5 
 ;offset                    Allocated to registers r3 
@@ -835,7 +835,7 @@ _MODIFY_HIRC:
 	ar0 = 0x00
 	Ssys$MODIFY_HIRC$1 ==.
 	mov	a,dpl
-	mov	dptr,#_MODIFY_HIRC_u8HIRCSEL_65536_153
+	mov	dptr,#_MODIFY_HIRC_u8HIRCSEL_65536_145
 	movx	@dptr,a
 	Ssys$MODIFY_HIRC$2 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:29: set_CHPCON_IAPEN;
@@ -855,7 +855,7 @@ _MODIFY_HIRC:
 	mov	_SFRS,#0x00
 	Ssys$MODIFY_HIRC$4 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:31: switch (u8HIRCSEL)
-	mov	dptr,#_MODIFY_HIRC_u8HIRCSEL_65536_153
+	mov	dptr,#_MODIFY_HIRC_u8HIRCSEL_65536_145
 	movx	a,@dptr
 	mov	r7,a
 	cjne	r7,#0x06,00157$
@@ -896,13 +896,13 @@ _MODIFY_HIRC:
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:42: }
 00104$:
 	Ssys$MODIFY_HIRC$16 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:43: IAPAH = 0x00;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:44: IAPAH = 0x00;
 	mov	_IAPAH,#0x00
 	Ssys$MODIFY_HIRC$17 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:44: IAPCN = READ_UID;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:45: IAPCN = READ_UID;
 	mov	_IAPCN,#0x04
 	Ssys$MODIFY_HIRC$18 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:45: set_IAPTRG_IAPGO;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:46: set_IAPTRG_IAPGO;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -915,15 +915,15 @@ _MODIFY_HIRC:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$MODIFY_HIRC$19 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:46: hircmap0 = IAPFD;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:47: hircmap0 = IAPFD;
 	mov	r6,_IAPFD
 	Ssys$MODIFY_HIRC$20 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:47: IAPAL++;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:48: IAPAL++;
 	mov	a,_IAPAL
 	inc	a
 	mov	_IAPAL,a
 	Ssys$MODIFY_HIRC$21 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:48: set_IAPTRG_IAPGO;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:49: set_IAPTRG_IAPGO;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -936,10 +936,10 @@ _MODIFY_HIRC:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$MODIFY_HIRC$22 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:49: hircmap1 = IAPFD;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:50: hircmap1 = IAPFD;
 	mov	r5,_IAPFD
 	Ssys$MODIFY_HIRC$23 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:51: switch (u8HIRCSEL)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:52: switch (u8HIRCSEL)
 	cjne	r7,#0x08,00160$
 	sjmp	00161$
 00160$:
@@ -947,7 +947,7 @@ _MODIFY_HIRC:
 00161$:
 	Ssys$MODIFY_HIRC$24 ==.
 	Ssys$MODIFY_HIRC$25 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:54: trimvalue16bit = ((hircmap0 << 1) + (hircmap1 & 0x01));
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:55: trimvalue16bit = ((hircmap0 << 1) + (hircmap1 & 0x01));
 	mov	ar7,r6
 	mov	a,r7
 	add	a,r7
@@ -958,33 +958,33 @@ _MODIFY_HIRC:
 	add	a,r7
 	mov	r7,a
 	Ssys$MODIFY_HIRC$26 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:55: judge = trimvalue16bit&0xC0;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:56: judge = trimvalue16bit&0xC0;
 	mov	a,#0xc0
 	anl	a,r7
 	mov	r4,a
 	Ssys$MODIFY_HIRC$27 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:56: offset = trimvalue16bit&0x3F;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:57: offset = trimvalue16bit&0x3F;
 	mov	a,#0x3f
 	anl	a,r7
 	mov	r3,a
 	Ssys$MODIFY_HIRC$28 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:57: trimvalue16bit -= 14;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:58: trimvalue16bit -= 14;
 	mov	a,r7
 	add	a,#0xf2
 	mov	r7,a
-	mov	dptr,#_MODIFY_HIRC_trimvalue16bit_65536_154
+	mov	dptr,#_MODIFY_HIRC_trimvalue16bit_65536_146
 	movx	@dptr,a
 	Ssys$MODIFY_HIRC$29 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:58: IAPCN = READ_DID;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:59: IAPCN = READ_DID;
 	mov	_IAPCN,#0x0c
 	Ssys$MODIFY_HIRC$30 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:59: IAPAL = 1;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:60: IAPAL = 1;
 	mov	_IAPAL,#0x01
 	Ssys$MODIFY_HIRC$31 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:60: IAPAH = 0;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:61: IAPAH = 0;
 	mov	_IAPAH,#0x00
 	Ssys$MODIFY_HIRC$32 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:61: set_IAPTRG_IAPGO_WDCLR;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:62: set_IAPTRG_IAPGO_WDCLR;
 	mov	c,_EA
 ;	assignBit
 	clr	_EA
@@ -1006,7 +1006,7 @@ _MODIFY_HIRC:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$MODIFY_HIRC$33 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:63: if ((IAPFD==0x4B)||(IAPFD==0x52)||(IAPFD==0x53))    /* MG51 process */
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:64: if ((IAPFD==0x4B)||(IAPFD==0x52)||(IAPFD==0x53))    // MG51 process
 	mov	a,#0x4b
 	cjne	a,_IAPFD,00162$
 	sjmp	00113$
@@ -1020,13 +1020,13 @@ _MODIFY_HIRC:
 00113$:
 	Ssys$MODIFY_HIRC$34 ==.
 	Ssys$MODIFY_HIRC$35 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:65: if (offset<15)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:66: if (offset<15)
 	cjne	r3,#0x0f,00166$
 00166$:
 	jnc	00111$
 	Ssys$MODIFY_HIRC$36 ==.
 	Ssys$MODIFY_HIRC$37 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:67: if ((judge==0x40)||(judge==0x80)||(judge==0xC0))
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:68: if ((judge==0x40)||(judge==0x80)||(judge==0xC0))
 	cjne	r4,#0x40,00168$
 	sjmp	00106$
 00168$:
@@ -1036,26 +1036,26 @@ _MODIFY_HIRC:
 	cjne	r4,#0xc0,00114$
 00106$:
 	Ssys$MODIFY_HIRC$38 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:68: trimvalue16bit -= 14;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:69: trimvalue16bit -= 14;
 	mov	ar4,r7
 	mov	a,r4
 	add	a,#0xf2
-	mov	dptr,#_MODIFY_HIRC_trimvalue16bit_65536_154
+	mov	dptr,#_MODIFY_HIRC_trimvalue16bit_65536_146
 	movx	@dptr,a
 	Ssys$MODIFY_HIRC$39 ==.
 	sjmp	00114$
 00111$:
 	Ssys$MODIFY_HIRC$40 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:71: trimvalue16bit -= 4;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:72: trimvalue16bit -= 4;
 	mov	a,r7
 	add	a,#0xfc
-	mov	dptr,#_MODIFY_HIRC_trimvalue16bit_65536_154
+	mov	dptr,#_MODIFY_HIRC_trimvalue16bit_65536_146
 	movx	@dptr,a
 	Ssys$MODIFY_HIRC$41 ==.
 00114$:
 	Ssys$MODIFY_HIRC$42 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:73: hircmap0 = (trimvalue16bit >> 1);
-	mov	dptr,#_MODIFY_HIRC_trimvalue16bit_65536_154
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:74: hircmap0 = (trimvalue16bit >> 1);
+	mov	dptr,#_MODIFY_HIRC_trimvalue16bit_65536_146
 	movx	a,@dptr
 	mov	r7,a
 	clr	c
@@ -1063,28 +1063,28 @@ _MODIFY_HIRC:
 	mov	r6,a
 	Ssys$MODIFY_HIRC$43 ==.
 	Ssys$MODIFY_HIRC$44 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:77: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:78: }
 00118$:
 	Ssys$MODIFY_HIRC$45 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:79: TA = 0xAA;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:80: TA = 0xAA;
 	mov	_TA,#0xaa
 	Ssys$MODIFY_HIRC$46 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:80: TA = 0x55;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:81: TA = 0x55;
 	mov	_TA,#0x55
 	Ssys$MODIFY_HIRC$47 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:81: RCTRIM0 = hircmap0;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:82: RCTRIM0 = hircmap0;
 	mov	_RCTRIM0,r6
 	Ssys$MODIFY_HIRC$48 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:82: TA = 0xAA;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:83: TA = 0xAA;
 	mov	_TA,#0xaa
 	Ssys$MODIFY_HIRC$49 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:83: TA = 0x55;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:84: TA = 0x55;
 	mov	_TA,#0x55
 	Ssys$MODIFY_HIRC$50 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:84: RCTRIM1 = hircmap1;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:85: RCTRIM1 = hircmap1;
 	mov	_RCTRIM1,r5
 	Ssys$MODIFY_HIRC$51 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:85: clr_CHPCON_IAPEN;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:86: clr_CHPCON_IAPEN;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -1097,7 +1097,7 @@ _MODIFY_HIRC:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$MODIFY_HIRC$52 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:86: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:87: }
 	Ssys$MODIFY_HIRC$53 ==.
 	XG$MODIFY_HIRC$0$0 ==.
 	ret
@@ -1105,20 +1105,20 @@ _MODIFY_HIRC:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'FsysSelect'
 ;------------------------------------------------------------
-;u8FsysMode                Allocated with name '_FsysSelect_u8FsysMode_65536_159'
+;u8FsysMode                Allocated with name '_FsysSelect_u8FsysMode_65536_151'
 ;------------------------------------------------------------
 	Ssys$FsysSelect$55 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:98: void FsysSelect(uint8_t u8FsysMode)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:99: void FsysSelect(uint8_t u8FsysMode)
 ;	-----------------------------------------
 ;	 function FsysSelect
 ;	-----------------------------------------
 _FsysSelect:
 	Ssys$FsysSelect$56 ==.
 	mov	a,dpl
-	mov	dptr,#_FsysSelect_u8FsysMode_65536_159
+	mov	dptr,#_FsysSelect_u8FsysMode_65536_151
 	movx	@dptr,a
 	Ssys$FsysSelect$57 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:100: switch (u8FsysMode)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:101: switch (u8FsysMode)
 	movx	a,@dptr
 	mov	r7,a
 	cjne	r7,#0x02,00119$
@@ -1129,30 +1129,30 @@ _FsysSelect:
 00120$:
 	Ssys$FsysSelect$58 ==.
 	Ssys$FsysSelect$59 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:103: case FSYS_HIRC:
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:104: case FSYS_HIRC:
 	cjne	r7,#0x04,00105$
 	sjmp	00103$
 00101$:
 	Ssys$FsysSelect$60 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:104: ClockEnable(FSYS_HIRC);                 //Enable HIRC
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:105: ClockEnable(FSYS_HIRC);                 //Enable HIRC
 	mov	dpl,#0x02
 	lcall	_ClockEnable
 	Ssys$FsysSelect$61 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:105: ClockSwitch(FSYS_HIRC);                 //Switching system clock HIRC
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:106: ClockSwitch(FSYS_HIRC);                 //Switching system clock HIRC
 	mov	dpl,#0x02
 	lcall	_ClockSwitch
 	Ssys$FsysSelect$62 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:106: break;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:107: break;
 	Ssys$FsysSelect$63 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:109: case FSYS_LIRC:
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:110: case FSYS_LIRC:
 	sjmp	00105$
 00102$:
 	Ssys$FsysSelect$64 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:110: ClockSwitch(FSYS_LIRC);                 // LIRC always on switch system to LIRC
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:111: ClockSwitch(FSYS_LIRC);                 // LIRC always on switch system to LIRC
 	mov	dpl,#0x03
 	lcall	_ClockSwitch
 	Ssys$FsysSelect$65 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:111: clr_CKEN_HIRCEN;                        // Disable HIRC if needed 
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:112: clr_CKEN_HIRCEN;                        // Disable HIRC if needed 
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -1165,29 +1165,29 @@ _FsysSelect:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$FsysSelect$66 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:112: break;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:113: break;
 	Ssys$FsysSelect$67 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:115: case FSYS_OSCIN_P30:
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:116: case FSYS_OSCIN_P30:
 	sjmp	00105$
 00103$:
 	Ssys$FsysSelect$68 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:116: ClockEnable(FSYS_HIRC);                 //Enable and system clock to HIRC
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:117: ClockEnable(FSYS_HIRC);                 //Enable and system clock to HIRC
 	mov	dpl,#0x02
 	lcall	_ClockEnable
 	Ssys$FsysSelect$69 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:117: ClockSwitch(FSYS_HIRC);
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:118: ClockSwitch(FSYS_HIRC);
 	mov	dpl,#0x02
 	lcall	_ClockSwitch
 	Ssys$FsysSelect$70 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:118: ClockEnable(FSYS_OSCIN_P30);            //Enable External clock source
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:119: ClockEnable(FSYS_OSCIN_P30);            //Enable External clock source
 	mov	dpl,#0x04
 	lcall	_ClockEnable
 	Ssys$FsysSelect$71 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:119: ClockSwitch(FSYS_OSCIN_P30);            //Switching system clock to OSCIN 
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:120: ClockSwitch(FSYS_OSCIN_P30);            //Switching system clock to OSCIN 
 	mov	dpl,#0x04
 	lcall	_ClockSwitch
 	Ssys$FsysSelect$72 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:120: clr_CKEN_HIRCEN;                        //step5: disable HIRC if needed 
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:121: clr_CKEN_HIRCEN;                        //step5: disable HIRC if needed 
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -1201,10 +1201,10 @@ _FsysSelect:
 	mov	_EA,c
 	Ssys$FsysSelect$73 ==.
 	Ssys$FsysSelect$74 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:122: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:123: }
 00105$:
 	Ssys$FsysSelect$75 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:123: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:124: }
 	Ssys$FsysSelect$76 ==.
 	XG$FsysSelect$0$0 ==.
 	ret
@@ -1212,20 +1212,20 @@ _FsysSelect:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'ClockEnable'
 ;------------------------------------------------------------
-;u8FsysMode                Allocated with name '_ClockEnable_u8FsysMode_65536_162'
+;u8FsysMode                Allocated with name '_ClockEnable_u8FsysMode_65536_154'
 ;------------------------------------------------------------
 	Ssys$ClockEnable$78 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:125: void ClockEnable(uint8_t u8FsysMode)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:126: void ClockEnable(uint8_t u8FsysMode)
 ;	-----------------------------------------
 ;	 function ClockEnable
 ;	-----------------------------------------
 _ClockEnable:
 	Ssys$ClockEnable$79 ==.
 	mov	a,dpl
-	mov	dptr,#_ClockEnable_u8FsysMode_65536_162
+	mov	dptr,#_ClockEnable_u8FsysMode_65536_154
 	movx	@dptr,a
 	Ssys$ClockEnable$80 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:127: switch (u8FsysMode)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:128: switch (u8FsysMode)
 	movx	a,@dptr
 	mov	r7,a
 	cjne	r7,#0x02,00132$
@@ -1233,12 +1233,12 @@ _ClockEnable:
 00132$:
 	Ssys$ClockEnable$81 ==.
 	Ssys$ClockEnable$82 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:130: case FSYS_HIRC:
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:131: case FSYS_HIRC:
 	cjne	r7,#0x04,00110$
 	sjmp	00105$
 00101$:
 	Ssys$ClockEnable$83 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:131: set_CKEN_HIRCEN;                        //step1: Enable extnal clock source.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:132: set_CKEN_HIRCEN;                        //step1: Enable extnal clock source.
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -1251,30 +1251,30 @@ _ClockEnable:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$ClockEnable$84 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:132: while(!(CKSWT&SET_BIT5));               //step2: check clock source status and wait for ready
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:133: while(!(CKSWT&SET_BIT5));               //step2: check clock source status and wait for ready
 00102$:
 	mov	a,_CKSWT
 	jb	acc.5,00110$
 	Ssys$ClockEnable$85 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:135: case FSYS_OSCIN_P30:
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:136: case FSYS_OSCIN_P30:
 	sjmp	00102$
 00105$:
 	Ssys$ClockEnable$86 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:136: TA=0xAA;TA=0x55;CKEN|=0xC0;             //step1: Enable extnal clock source.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:137: TA=0xAA;TA=0x55;CKEN|=0xC0;             //step1: Enable extnal clock source.
 	mov	_TA,#0xaa
 	mov	_TA,#0x55
 	orl	_CKEN,#0xc0
 	Ssys$ClockEnable$87 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:137: while(!(CKSWT&SET_BIT3));               //step2: check clock source status and wait for ready
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:138: while(!(CKSWT&SET_BIT3));               //step2: check clock source status and wait for ready
 00106$:
 	mov	a,_CKSWT
 	jnb	acc.3,00106$
 	Ssys$ClockEnable$88 ==.
 	Ssys$ClockEnable$89 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:139: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:140: }
 00110$:
 	Ssys$ClockEnable$90 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:140: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:141: }
 	Ssys$ClockEnable$91 ==.
 	XG$ClockEnable$0$0 ==.
 	ret
@@ -1282,23 +1282,23 @@ _ClockEnable:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'ClockDisable'
 ;------------------------------------------------------------
-;u8FsysMode                Allocated with name '_ClockDisable_u8FsysMode_65536_165'
+;u8FsysMode                Allocated with name '_ClockDisable_u8FsysMode_65536_157'
 ;------------------------------------------------------------
 	Ssys$ClockDisable$93 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:142: void ClockDisable(uint8_t u8FsysMode)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:143: void ClockDisable(uint8_t u8FsysMode)
 ;	-----------------------------------------
 ;	 function ClockDisable
 ;	-----------------------------------------
 _ClockDisable:
 	Ssys$ClockDisable$94 ==.
 	mov	a,dpl
-	mov	dptr,#_ClockDisable_u8FsysMode_65536_165
+	mov	dptr,#_ClockDisable_u8FsysMode_65536_157
 	movx	@dptr,a
 	Ssys$ClockDisable$95 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:144: SFRS = 0;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:145: SFRS = 0;
 	mov	_SFRS,#0x00
 	Ssys$ClockDisable$96 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:145: switch (u8FsysMode)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:146: switch (u8FsysMode)
 	movx	a,@dptr
 	mov	r7,a
 	cjne	r7,#0x02,00114$
@@ -1306,12 +1306,12 @@ _ClockDisable:
 00114$:
 	Ssys$ClockDisable$97 ==.
 	Ssys$ClockDisable$98 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:148: case FSYS_HIRC:
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:149: case FSYS_HIRC:
 	cjne	r7,#0x04,00104$
 	sjmp	00102$
 00101$:
 	Ssys$ClockDisable$99 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:149: clr_CKEN_HIRCEN;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:150: clr_CKEN_HIRCEN;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -1324,22 +1324,22 @@ _ClockDisable:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$ClockDisable$100 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:150: break;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:151: break;
 	Ssys$ClockDisable$101 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:152: case FSYS_OSCIN_P30:
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:153: case FSYS_OSCIN_P30:
 	sjmp	00104$
 00102$:
 	Ssys$ClockDisable$102 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:153: TA=0xAA;TA=0x55;CKEN&=0x3F;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:154: TA=0xAA;TA=0x55;CKEN&=0x3F;
 	mov	_TA,#0xaa
 	mov	_TA,#0x55
 	anl	_CKEN,#0x3f
 	Ssys$ClockDisable$103 ==.
 	Ssys$ClockDisable$104 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:155: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:156: }
 00104$:
 	Ssys$ClockDisable$105 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:156: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:157: }
 	Ssys$ClockDisable$106 ==.
 	XG$ClockDisable$0$0 ==.
 	ret
@@ -1347,31 +1347,31 @@ _ClockDisable:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'ClockSwitch'
 ;------------------------------------------------------------
-;u8FsysMode                Allocated with name '_ClockSwitch_u8FsysMode_65536_168'
+;u8FsysMode                Allocated with name '_ClockSwitch_u8FsysMode_65536_160'
 ;------------------------------------------------------------
 	Ssys$ClockSwitch$108 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:158: void ClockSwitch(uint8_t u8FsysMode)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:159: void ClockSwitch(uint8_t u8FsysMode)
 ;	-----------------------------------------
 ;	 function ClockSwitch
 ;	-----------------------------------------
 _ClockSwitch:
 	Ssys$ClockSwitch$109 ==.
 	mov	a,dpl
-	mov	dptr,#_ClockSwitch_u8FsysMode_65536_168
+	mov	dptr,#_ClockSwitch_u8FsysMode_65536_160
 	movx	@dptr,a
 	Ssys$ClockSwitch$110 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:160: SFRS = 0 ;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:161: SFRS = 0 ;
 	mov	_SFRS,#0x00
 	Ssys$ClockSwitch$111 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:161: BIT_TMP=EA;EA=0;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:162: BIT_TMP=EA;EA=0;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
 ;	assignBit
 	clr	_EA
 	Ssys$ClockSwitch$112 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:162: switch (u8FsysMode)
-	mov	dptr,#_ClockSwitch_u8FsysMode_65536_168
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:163: switch (u8FsysMode)
+	mov	dptr,#_ClockSwitch_u8FsysMode_65536_160
 	movx	a,@dptr
 	mov	r7,a
 	cjne	r7,#0x02,00119$
@@ -1382,12 +1382,12 @@ _ClockSwitch:
 00120$:
 	Ssys$ClockSwitch$113 ==.
 	Ssys$ClockSwitch$114 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:165: case FSYS_HIRC:
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:166: case FSYS_HIRC:
 	cjne	r7,#0x04,00104$
 	sjmp	00103$
 00101$:
 	Ssys$ClockSwitch$115 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:166: clr_CKSWT_OSC1;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:167: clr_CKSWT_OSC1;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -1400,7 +1400,7 @@ _ClockSwitch:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$ClockSwitch$116 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:167: clr_CKSWT_OSC0;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:168: clr_CKSWT_OSC0;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -1413,13 +1413,13 @@ _ClockSwitch:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$ClockSwitch$117 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:168: break;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:169: break;
 	Ssys$ClockSwitch$118 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:170: case FSYS_LIRC:
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:171: case FSYS_LIRC:
 	sjmp	00104$
 00102$:
 	Ssys$ClockSwitch$119 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:171: set_CKSWT_OSC1;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:172: set_CKSWT_OSC1;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -1432,7 +1432,7 @@ _ClockSwitch:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$ClockSwitch$120 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:172: clr_CKSWT_OSC0;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:173: clr_CKSWT_OSC0;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -1445,13 +1445,13 @@ _ClockSwitch:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$ClockSwitch$121 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:173: break;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:174: break;
 	Ssys$ClockSwitch$122 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:175: case FSYS_OSCIN_P30:
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:176: case FSYS_OSCIN_P30:
 	sjmp	00104$
 00103$:
 	Ssys$ClockSwitch$123 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:176: set_CKSWT_ECLKST;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:177: set_CKSWT_ECLKST;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -1465,15 +1465,15 @@ _ClockSwitch:
 	mov	_EA,c
 	Ssys$ClockSwitch$124 ==.
 	Ssys$ClockSwitch$125 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:178: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:179: }
 00104$:
 	Ssys$ClockSwitch$126 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:179: EA = BIT_TMP;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:180: EA = BIT_TMP;
 ;	assignBit
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	Ssys$ClockSwitch$127 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:180: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/Library/StdDriver/src/sys.c:181: }
 	Ssys$ClockSwitch$128 ==.
 	XG$ClockSwitch$0$0 ==.
 	ret
@@ -1585,7 +1585,7 @@ Ldebug_line_stmt:
 	.db	9
 	.dw	Ssys$MODIFY_HIRC$16-Ssys$MODIFY_HIRC$15
 	.db	3
-	.sleb128	1
+	.sleb128	2
 	.db	1
 	.db	9
 	.dw	Ssys$MODIFY_HIRC$17-Ssys$MODIFY_HIRC$16
@@ -1747,7 +1747,7 @@ Ldebug_line_stmt:
 	.db	2
 	.dw	0,(Ssys$FsysSelect$55)
 	.db	3
-	.sleb128	97
+	.sleb128	98
 	.db	1
 	.db	9
 	.dw	Ssys$FsysSelect$57-Ssys$FsysSelect$55
@@ -1844,7 +1844,7 @@ Ldebug_line_stmt:
 	.db	2
 	.dw	0,(Ssys$ClockEnable$78)
 	.db	3
-	.sleb128	124
+	.sleb128	125
 	.db	1
 	.db	9
 	.dw	Ssys$ClockEnable$80-Ssys$ClockEnable$78
@@ -1901,7 +1901,7 @@ Ldebug_line_stmt:
 	.db	2
 	.dw	0,(Ssys$ClockDisable$93)
 	.db	3
-	.sleb128	141
+	.sleb128	142
 	.db	1
 	.db	9
 	.dw	Ssys$ClockDisable$95-Ssys$ClockDisable$93
@@ -1958,7 +1958,7 @@ Ldebug_line_stmt:
 	.db	2
 	.dw	0,(Ssys$ClockSwitch$108)
 	.db	3
-	.sleb128	157
+	.sleb128	158
 	.db	1
 	.db	9
 	.dw	Ssys$ClockSwitch$110-Ssys$ClockSwitch$108
@@ -2240,7 +2240,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_MODIFY_HIRC_u8HIRCSEL_65536_153)
+	.dw	0,(_MODIFY_HIRC_u8HIRCSEL_65536_145)
 	.ascii "u8HIRCSEL"
 	.db	0
 	.dw	0,280
@@ -2262,7 +2262,7 @@ Ldebug_info_start:
 	.uleb128	7
 	.db	5
 	.db	3
-	.dw	0,(_MODIFY_HIRC_trimvalue16bit_65536_154)
+	.dw	0,(_MODIFY_HIRC_trimvalue16bit_65536_146)
 	.ascii "trimvalue16bit"
 	.db	0
 	.dw	0,280
@@ -2283,7 +2283,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_FsysSelect_u8FsysMode_65536_159)
+	.dw	0,(_FsysSelect_u8FsysMode_65536_151)
 	.ascii "u8FsysMode"
 	.db	0
 	.dw	0,280
@@ -2302,7 +2302,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_ClockEnable_u8FsysMode_65536_162)
+	.dw	0,(_ClockEnable_u8FsysMode_65536_154)
 	.ascii "u8FsysMode"
 	.db	0
 	.dw	0,280
@@ -2321,7 +2321,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_ClockDisable_u8FsysMode_65536_165)
+	.dw	0,(_ClockDisable_u8FsysMode_65536_157)
 	.ascii "u8FsysMode"
 	.db	0
 	.dw	0,280
@@ -2340,7 +2340,7 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_ClockSwitch_u8FsysMode_65536_168)
+	.dw	0,(_ClockSwitch_u8FsysMode_65536_160)
 	.ascii "u8FsysMode"
 	.db	0
 	.dw	0,280

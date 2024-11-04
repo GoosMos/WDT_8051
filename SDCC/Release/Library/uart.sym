@@ -280,54 +280,54 @@ Symbol Table
  17 A$uart$1361                                                    000225 GR
  17 A$uart$1362                                                    000227 GR
  17 A$uart$1363                                                    00022A GR
- 17 A$uart$1367                                                    00022B GR
- 17 A$uart$1370                                                    00022D GR
- 17 A$uart$1371                                                    000230 GR
- 17 A$uart$1372                                                    000231 GR
- 17 A$uart$1373                                                    000232 GR
- 17 A$uart$1377                                                    000234 GR
- 17 A$uart$1378                                                    000237 GR
- 17 A$uart$1382                                                    000239 GR
- 17 A$uart$1383                                                    00023C GR
- 17 A$uart$1384                                                    00023D GR
- 17 A$uart$1391                                                    00023F GR
- 17 A$uart$1396                                                    000242 GR
- 17 A$uart$1400                                                    000244 GR
- 17 A$uart$1401                                                    000247 GR
- 17 A$uart$1402                                                    000248 GR
- 17 A$uart$1409                                                    00024A GR
- 17 A$uart$1410                                                    00024D GR
- 17 A$uart$1419                                                    00024F GR
+ 17 A$uart$1366                                                    00022B GR
+ 17 A$uart$1369                                                    00022E GR
+ 17 A$uart$1370                                                    000231 GR
+ 17 A$uart$1371                                                    000232 GR
+ 17 A$uart$1372                                                    000233 GR
+ 17 A$uart$1376                                                    000235 GR
+ 17 A$uart$1377                                                    000238 GR
+ 17 A$uart$1381                                                    00023A GR
+ 17 A$uart$1382                                                    00023D GR
+ 17 A$uart$1383                                                    00023E GR
+ 17 A$uart$1390                                                    000240 GR
+ 17 A$uart$1395                                                    000243 GR
+ 17 A$uart$1399                                                    000245 GR
+ 17 A$uart$1400                                                    000248 GR
+ 17 A$uart$1401                                                    000249 GR
+ 17 A$uart$1408                                                    00024B GR
+ 17 A$uart$1409                                                    00024E GR
+ 17 A$uart$1417                                                    000250 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051)               Page 6
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 17 A$uart$1424                                                    000251 GR
- 17 A$uart$1438                                                    000252 GR
- 17 A$uart$1439                                                    000255 GR
- 17 A$uart$1442                                                    000258 GR
- 17 A$uart$1443                                                    00025B GR
- 17 A$uart$1444                                                    00025C GR
- 17 A$uart$1445                                                    00025D GR
- 17 A$uart$1446                                                    000260 GR
- 17 A$uart$1447                                                    000261 GR
- 17 A$uart$1448                                                    000263 GR
- 17 A$uart$1449                                                    000264 GR
- 17 A$uart$1450                                                    000265 GR
- 17 A$uart$1451                                                    000267 GR
- 17 A$uart$1452                                                    000268 GR
- 17 A$uart$1453                                                    000269 GR
- 17 A$uart$1454                                                    00026A GR
- 17 A$uart$1455                                                    00026B GR
- 17 A$uart$1456                                                    00026C GR
- 17 A$uart$1457                                                    00026F GR
- 17 A$uart$1458                                                    000272 GR
- 17 A$uart$1459                                                    000274 GR
- 17 A$uart$1463                                                    000277 GR
- 17 A$uart$1465                                                    000279 GR
- 17 A$uart$1469                                                    00027B GR
- 17 A$uart$1474                                                    00027D GR
+ 17 A$uart$1422                                                    000253 GR
+ 17 A$uart$1436                                                    000254 GR
+ 17 A$uart$1437                                                    000257 GR
+ 17 A$uart$1440                                                    00025A GR
+ 17 A$uart$1441                                                    00025D GR
+ 17 A$uart$1442                                                    00025E GR
+ 17 A$uart$1443                                                    00025F GR
+ 17 A$uart$1444                                                    000262 GR
+ 17 A$uart$1445                                                    000263 GR
+ 17 A$uart$1446                                                    000265 GR
+ 17 A$uart$1447                                                    000266 GR
+ 17 A$uart$1448                                                    000267 GR
+ 17 A$uart$1449                                                    000269 GR
+ 17 A$uart$1450                                                    00026A GR
+ 17 A$uart$1451                                                    00026B GR
+ 17 A$uart$1452                                                    00026C GR
+ 17 A$uart$1453                                                    00026D GR
+ 17 A$uart$1454                                                    00026E GR
+ 17 A$uart$1455                                                    000271 GR
+ 17 A$uart$1456                                                    000274 GR
+ 17 A$uart$1457                                                    000276 GR
+ 17 A$uart$1461                                                    000279 GR
+ 17 A$uart$1463                                                    00027B GR
+ 17 A$uart$1467                                                    00027D GR
+ 17 A$uart$1472                                                    00027F GR
  17 A$uart$858                                                     000000 GR
  17 A$uart$859                                                     000002 GR
  17 A$uart$860                                                     000004 GR
@@ -801,13 +801,13 @@ Symbol Table
  1D Ldebug_loc_start                                               000000 R
  20 Ldebug_pubnames_end                                            000928 R
  20 Ldebug_pubnames_start                                          000004 R
-  B Luart.Receive_Data$UARTPort$1_0$156                         =  00000B GR
-  B Luart.Receive_Data$c$1_0$157                                =  00000C GR
-  B Luart.UART_Open$u32Baudrate$1_0$153                         =  000003 GR
-  B Luart.UART_Open$u32SysClock$1_0$153                         =  000007 GR
-  B Luart.UART_Open$u8UARTPort$1_0$153                          =  000002 GR
-  B Luart.UART_Send_Data$UARTPort$1_0$159                       =  00000E GR
-  B Luart.UART_Send_Data$c$1_0$159                              =  00000D GR
+  B Luart.Receive_Data$UARTPort$1_0$148                         =  00000B GR
+  B Luart.Receive_Data$c$1_0$149                                =  00000C GR
+  B Luart.UART_Open$u32Baudrate$1_0$145                         =  000003 GR
+  B Luart.UART_Open$u32SysClock$1_0$145                         =  000007 GR
+  B Luart.UART_Open$u8UARTPort$1_0$145                          =  000002 GR
+  B Luart.UART_Send_Data$UARTPort$1_0$151                       =  00000E GR
+  B Luart.UART_Send_Data$c$1_0$151                              =  00000D GR
     OV                                                          =  0000D2 L
     P                                                           =  0000D0 L
     P0                                                          =  000080 L
@@ -890,20 +890,20 @@ Symbol Table
     SM1                                                         =  00009E L
     SM2                                                         =  00009D L
     SP                                                          =  000081 L
- 17 Suart$Enable_UART0_VCOM_printf_24M_115200$71                =  000252 GR
- 17 Suart$Enable_UART0_VCOM_printf_24M_115200$72                =  000252 GR
- 17 Suart$Enable_UART0_VCOM_printf_24M_115200$73                =  000252 GR
- 17 Suart$Enable_UART0_VCOM_printf_24M_115200$74                =  000258 GR
- 17 Suart$Enable_UART0_VCOM_printf_24M_115200$75                =  000277 GR
- 17 Suart$Enable_UART0_VCOM_printf_24M_115200$76                =  00027B GR
- 17 Suart$Enable_UART0_VCOM_printf_24M_115200$77                =  00027D GR
- 17 Suart$Enable_UART0_VCOM_printf_24M_115200$78                =  00027D GR
+ 17 Suart$Enable_UART0_VCOM_printf_24M_115200$71                =  000254 GR
+ 17 Suart$Enable_UART0_VCOM_printf_24M_115200$72                =  000254 GR
+ 17 Suart$Enable_UART0_VCOM_printf_24M_115200$73                =  000254 GR
+ 17 Suart$Enable_UART0_VCOM_printf_24M_115200$74                =  00025A GR
+ 17 Suart$Enable_UART0_VCOM_printf_24M_115200$75                =  000279 GR
+ 17 Suart$Enable_UART0_VCOM_printf_24M_115200$76                =  00027D GR
+ 17 Suart$Enable_UART0_VCOM_printf_24M_115200$77                =  00027F GR
+ 17 Suart$Enable_UART0_VCOM_printf_24M_115200$78                =  00027F GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051)              Page 16
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 17 Suart$Enable_UART0_VCOM_printf_24M_115200$79                =  00027E GR
+ 17 Suart$Enable_UART0_VCOM_printf_24M_115200$79                =  000280 GR
  17 Suart$Receive_Data$33                                       =  0001EF GR
  17 Suart$Receive_Data$34                                       =  0001EF GR
  17 Suart$Receive_Data$35                                       =  0001F5 GR
@@ -963,23 +963,23 @@ Hexadecimal [24-Bits]
 
 Symbol Table
 
- 17 Suart$UART_Send_Data$54                                     =  00022D GR
- 17 Suart$UART_Send_Data$55                                     =  000234 GR
- 17 Suart$UART_Send_Data$56                                     =  000234 GR
- 17 Suart$UART_Send_Data$57                                     =  000239 GR
- 17 Suart$UART_Send_Data$58                                     =  00023F GR
- 17 Suart$UART_Send_Data$59                                     =  00023F GR
- 17 Suart$UART_Send_Data$60                                     =  000242 GR
- 17 Suart$UART_Send_Data$61                                     =  000242 GR
- 17 Suart$UART_Send_Data$62                                     =  000244 GR
- 17 Suart$UART_Send_Data$63                                     =  00024A GR
- 17 Suart$UART_Send_Data$64                                     =  00024A GR
- 17 Suart$UART_Send_Data$65                                     =  00024F GR
- 17 Suart$UART_Send_Data$66                                     =  00024F GR
- 17 Suart$UART_Send_Data$67                                     =  00024F GR
- 17 Suart$UART_Send_Data$68                                     =  000251 GR
- 17 Suart$UART_Send_Data$69                                     =  000251 GR
- 17 Suart$UART_Send_Data$70                                     =  000252 GR
+ 17 Suart$UART_Send_Data$54                                     =  00022E GR
+ 17 Suart$UART_Send_Data$55                                     =  000235 GR
+ 17 Suart$UART_Send_Data$56                                     =  000235 GR
+ 17 Suart$UART_Send_Data$57                                     =  00023A GR
+ 17 Suart$UART_Send_Data$58                                     =  000240 GR
+ 17 Suart$UART_Send_Data$59                                     =  000240 GR
+ 17 Suart$UART_Send_Data$60                                     =  000243 GR
+ 17 Suart$UART_Send_Data$61                                     =  000243 GR
+ 17 Suart$UART_Send_Data$62                                     =  000245 GR
+ 17 Suart$UART_Send_Data$63                                     =  00024B GR
+ 17 Suart$UART_Send_Data$64                                     =  00024B GR
+ 17 Suart$UART_Send_Data$65                                     =  000250 GR
+ 17 Suart$UART_Send_Data$66                                     =  000250 GR
+ 17 Suart$UART_Send_Data$67                                     =  000250 GR
+ 17 Suart$UART_Send_Data$68                                     =  000253 GR
+ 17 Suart$UART_Send_Data$69                                     =  000253 GR
+ 17 Suart$UART_Send_Data$70                                     =  000254 GR
     T2CON                                                       =  0000C8 L
     T2CON.0                                                     =  0000C8 L
     T2CON.1                                                     =  0000C9 L
@@ -1015,7 +1015,7 @@ Symbol Table
     TR1                                                         =  00008E L
     TR2                                                         =  0000CA L
     TXD                                                         =  0000B1 L
- 17 XG$Enable_UART0_VCOM_printf_24M_115200$0$0                  =  00027D GR
+ 17 XG$Enable_UART0_VCOM_printf_24M_115200$0$0                  =  00027F GR
  17 XG$Receive_Data$0$0                                         =  000222 GR
  17 XG$UART_Open$0$0                                            =  0001EE GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051)              Page 18
@@ -1023,7 +1023,7 @@ Hexadecimal [24-Bits]
 
 Symbol Table
 
- 17 XG$UART_Send_Data$0$0                                       =  000251 GR
+ 17 XG$UART_Send_Data$0$0                                       =  000253 GR
     _AA                                                         =  0000C2 G
     _AC                                                         =  0000D6 G
     _ACC                                                        =  0000E0 G
@@ -1089,7 +1089,7 @@ Symbol Table
     _ETGSEL1                                                    =  0000ED G
     _EX0                                                        =  0000A8 G
     _EX1                                                        =  0000AA G
- 17 _Enable_UART0_VCOM_printf_24M_115200                           000252 GR
+ 17 _Enable_UART0_VCOM_printf_24M_115200                           000254 GR
     _F0                                                         =  0000D5 G
     _FBD                                                        =  0000D7 G
     _FE                                                         =  00009F G
@@ -1223,8 +1223,8 @@ Symbol Table
     _RXD                                                        =  000087 G
     _RXD_1                                                      =  000082 G
  17 _Receive_Data                                                  0001EF GR
-  B _Receive_Data_UARTPort_65536_156                               00000B R
-  B _Receive_Data_c_65536_157                                      00000C R
+  B _Receive_Data_UARTPort_65536_148                               00000B R
+  B _Receive_Data_c_65536_149                                      00000C R
     _SADDR                                                      =  0000A9 G
     _SADDR_1                                                    =  0000BB G
     _SADEN                                                      =  0000B9 G
@@ -1283,10 +1283,10 @@ Symbol Table
  17 _UART_Open                                                     000000 GR
   B _UART_Open_PARM_2                                              000002 GR
   B _UART_Open_PARM_3                                              000003 GR
-  B _UART_Open_u32SysClock_65536_153                               000007 R
+  B _UART_Open_u32SysClock_65536_145                               000007 R
  17 _UART_Send_Data                                                000225 GR
   B _UART_Send_Data_PARM_2                                         00000D GR
-  B _UART_Send_Data_UARTPort_65536_159                             00000E R
+  B _UART_Send_Data_UARTPort_65536_151                             00000E R
     _WDCON                                                      =  0000AA G
     _WKCON                                                      =  00008F G
     __divulong                                                     ****** GX
@@ -1523,7 +1523,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      0   flags   20
-  17 CSEG                                       size    27E   flags   20
+  17 CSEG                                       size    280   flags   20
   18 CONST                                      size      0   flags   20
   19 XINIT                                      size      0   flags   20
   1A INITIALIZER                                size      0   flags    0

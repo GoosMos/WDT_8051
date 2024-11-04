@@ -374,8 +374,8 @@ Symbol Table
  1D Ldebug_loc_start                                               000000 R
  20 Ldebug_pubnames_end                                            000872 R
  20 Ldebug_pubnames_start                                          000004 R
-  B Lsdcc_stdio.getchar$c$1_0$156                               =  000002 GR
-  B Lsdcc_stdio.putchar$c$1_0$153                               =  000000 GR
+  B Lsdcc_stdio.getchar$c$1_0$148                               =  000002 GR
+  B Lsdcc_stdio.putchar$c$1_0$145                               =  000000 GR
     OV                                                          =  0000D2 L
     P                                                           =  0000D0 L
     P0                                                          =  000080 L
@@ -770,9 +770,9 @@ Symbol Table
     _WDCON                                                      =  0000AA G
     _WKCON                                                      =  00008F G
  17 _getchar                                                       000020 GR
-  B _getchar_c_65536_156                                           000002 R
+  B _getchar_c_65536_148                                           000002 R
  17 _putchar                                                       000000 GR
-  B _putchar_c_65536_153                                           000000 R
+  B _putchar_c_65536_145                                           000000 R
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
     a.1                                                         =  0000E1 L
