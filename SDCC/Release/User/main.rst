@@ -1,0 +1,13621 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.2.6 #13647 (MINGW32)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module main
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _next_mode
+                                     12 	.globl _temp_controlling
+                                     13 	.globl _flashing
+                                     14 	.globl _min_amp
+                                     15 	.globl _max_amp
+                                     16 	.globl _main
+                                     17 	.globl _wdt_clear
+                                     18 	.globl _wdt_init
+                                     19 	.globl _control_loop
+                                     20 	.globl _mode_stable_control
+                                     21 	.globl _is_stable
+                                     22 	.globl _mode_changing_control
+                                     23 	.globl _activate_leds
+                                     24 	.globl _stop_leds
+                                     25 	.globl _process_button
+                                     26 	.globl _process_uart
+                                     27 	.globl _toNextMode
+                                     28 	.globl _changeMode
+                                     29 	.globl _target_amp
+                                     30 	.globl _avg_amp
+                                     31 	.globl _has_high_beam
+                                     32 	.globl _sample_temperature
+                                     33 	.globl _sample_amps
+                                     34 	.globl _init_peripherals_but_button_n_uart
+                                     35 	.globl _init_sample
+                                     36 	.globl _disable_ntc
+                                     37 	.globl _enable_ntc
+                                     38 	.globl _button_interrupt_init
+                                     39 	.globl _PinInterrupt_ISR
+                                     40 	.globl _uart_interrupt_init
+                                     41 	.globl _SerialPort1_ISR
+                                     42 	.globl _log_init
+                                     43 	.globl _uart_logn
+                                     44 	.globl _uart_log
+                                     45 	.globl _Timer0_Delay
+                                     46 	.globl _UART_Send_Data
+                                     47 	.globl _UART_Open
+                                     48 	.globl _MODIFY_HIRC
+                                     49 	.globl _MOSI
+                                     50 	.globl _P00
+                                     51 	.globl _MISO
+                                     52 	.globl _P01
+                                     53 	.globl _RXD_1
+                                     54 	.globl _P02
+                                     55 	.globl _P03
+                                     56 	.globl _STADC
+                                     57 	.globl _P04
+                                     58 	.globl _P05
+                                     59 	.globl _TXD
+                                     60 	.globl _P06
+                                     61 	.globl _RXD
+                                     62 	.globl _P07
+                                     63 	.globl _IT0
+                                     64 	.globl _IE0
+                                     65 	.globl _IT1
+                                     66 	.globl _IE1
+                                     67 	.globl _TR0
+                                     68 	.globl _TF0
+                                     69 	.globl _TR1
+                                     70 	.globl _TF1
+                                     71 	.globl _P10
+                                     72 	.globl _P11
+                                     73 	.globl _P12
+                                     74 	.globl _SCL
+                                     75 	.globl _P13
+                                     76 	.globl _SDA
+                                     77 	.globl _P14
+                                     78 	.globl _P15
+                                     79 	.globl _TXD_1
+                                     80 	.globl _P16
+                                     81 	.globl _P17
+                                     82 	.globl _RI
+                                     83 	.globl _TI
+                                     84 	.globl _RB8
+                                     85 	.globl _TB8
+                                     86 	.globl _REN
+                                     87 	.globl _SM2
+                                     88 	.globl _SM1
+                                     89 	.globl _FE
+                                     90 	.globl _SM0
+                                     91 	.globl _P20
+                                     92 	.globl _EX0
+                                     93 	.globl _ET0
+                                     94 	.globl _EX1
+                                     95 	.globl _ET1
+                                     96 	.globl _ES
+                                     97 	.globl _EBOD
+                                     98 	.globl _EADC
+                                     99 	.globl _EA
+                                    100 	.globl _P30
+                                    101 	.globl _PX0
+                                    102 	.globl _PT0
+                                    103 	.globl _PX1
+                                    104 	.globl _PT1
+                                    105 	.globl _PS
+                                    106 	.globl _PBOD
+                                    107 	.globl _PADC
+                                    108 	.globl _I2CPX
+                                    109 	.globl _AA
+                                    110 	.globl _SI
+                                    111 	.globl _STO
+                                    112 	.globl _STA
+                                    113 	.globl _I2CEN
+                                    114 	.globl _CM_RL2
+                                    115 	.globl _TR2
+                                    116 	.globl _TF2
+                                    117 	.globl _P
+                                    118 	.globl _OV
+                                    119 	.globl _RS0
+                                    120 	.globl _RS1
+                                    121 	.globl _F0
+                                    122 	.globl _AC
+                                    123 	.globl _CY
+                                    124 	.globl _CLRPWM
+                                    125 	.globl _PWMF
+                                    126 	.globl _LOAD
+                                    127 	.globl _PWMRUN
+                                    128 	.globl _ADCHS0
+                                    129 	.globl _ADCHS1
+                                    130 	.globl _ADCHS2
+                                    131 	.globl _ADCHS3
+                                    132 	.globl _ETGSEL0
+                                    133 	.globl _ETGSEL1
+                                    134 	.globl _ADCS
+                                    135 	.globl _ADCF
+                                    136 	.globl _RI_1
+                                    137 	.globl _TI_1
+                                    138 	.globl _RB8_1
+                                    139 	.globl _TB8_1
+                                    140 	.globl _REN_1
+                                    141 	.globl _SM2_1
+                                    142 	.globl _SM1_1
+                                    143 	.globl _FE_1
+                                    144 	.globl _SM0_1
+                                    145 	.globl _EIPH1
+                                    146 	.globl _EIP1
+                                    147 	.globl _PMD
+                                    148 	.globl _PMEN
+                                    149 	.globl _PDTCNT
+                                    150 	.globl _PDTEN
+                                    151 	.globl _SCON_1
+                                    152 	.globl _EIPH
+                                    153 	.globl _AINDIDS
+                                    154 	.globl _SPDR
+                                    155 	.globl _SPSR
+                                    156 	.globl _SPCR2
+                                    157 	.globl _SPCR
+                                    158 	.globl _CAPCON4
+                                    159 	.globl _CAPCON3
+                                    160 	.globl _B
+                                    161 	.globl _EIP
+                                    162 	.globl _C2H
+                                    163 	.globl _C2L
+                                    164 	.globl _PIF
+                                    165 	.globl _PIPEN
+                                    166 	.globl _PINEN
+                                    167 	.globl _PICON
+                                    168 	.globl _ADCCON0
+                                    169 	.globl _C1H
+                                    170 	.globl _C1L
+                                    171 	.globl _C0H
+                                    172 	.globl _C0L
+                                    173 	.globl _ADCDLY
+                                    174 	.globl _ADCCON2
+                                    175 	.globl _ADCCON1
+                                    176 	.globl _ACC
+                                    177 	.globl _PWMCON1
+                                    178 	.globl _PIOCON0
+                                    179 	.globl _PWM3L
+                                    180 	.globl _PWM2L
+                                    181 	.globl _PWM1L
+                                    182 	.globl _PWM0L
+                                    183 	.globl _PWMPL
+                                    184 	.globl _PWMCON0
+                                    185 	.globl _FBD
+                                    186 	.globl _PNP
+                                    187 	.globl _PWM3H
+                                    188 	.globl _PWM2H
+                                    189 	.globl _PWM1H
+                                    190 	.globl _PWM0H
+                                    191 	.globl _PWMPH
+                                    192 	.globl _PSW
+                                    193 	.globl _ADCMPH
+                                    194 	.globl _ADCMPL
+                                    195 	.globl _PWM5L
+                                    196 	.globl _TH2
+                                    197 	.globl _PWM4L
+                                    198 	.globl _TL2
+                                    199 	.globl _RCMP2H
+                                    200 	.globl _RCMP2L
+                                    201 	.globl _T2MOD
+                                    202 	.globl _T2CON
+                                    203 	.globl _TA
+                                    204 	.globl _PIOCON1
+                                    205 	.globl _RH3
+                                    206 	.globl _PWM5H
+                                    207 	.globl _RL3
+                                    208 	.globl _PWM4H
+                                    209 	.globl _T3CON
+                                    210 	.globl _ADCRH
+                                    211 	.globl _ADCRL
+                                    212 	.globl _I2ADDR
+                                    213 	.globl _I2CON
+                                    214 	.globl _I2TOC
+                                    215 	.globl _I2CLK
+                                    216 	.globl _I2STAT
+                                    217 	.globl _I2DAT
+                                    218 	.globl _SADDR_1
+                                    219 	.globl _SADEN_1
+                                    220 	.globl _SADEN
+                                    221 	.globl _IP
+                                    222 	.globl _PWMINTC
+                                    223 	.globl _IPH
+                                    224 	.globl _P2S
+                                    225 	.globl _P1SR
+                                    226 	.globl _P1M2
+                                    227 	.globl _P1S
+                                    228 	.globl _P1M1
+                                    229 	.globl _P0SR
+                                    230 	.globl _P0M2
+                                    231 	.globl _P0S
+                                    232 	.globl _P0M1
+                                    233 	.globl _P3
+                                    234 	.globl _IAPCN
+                                    235 	.globl _IAPFD
+                                    236 	.globl _P3SR
+                                    237 	.globl _P3M2
+                                    238 	.globl _P3S
+                                    239 	.globl _P3M1
+                                    240 	.globl _BODCON1
+                                    241 	.globl _WDCON
+                                    242 	.globl _SADDR
+                                    243 	.globl _IE
+                                    244 	.globl _IAPAH
+                                    245 	.globl _IAPAL
+                                    246 	.globl _IAPUEN
+                                    247 	.globl _IAPTRG
+                                    248 	.globl _BODCON0
+                                    249 	.globl _AUXR1
+                                    250 	.globl _P2
+                                    251 	.globl _CHPCON
+                                    252 	.globl _EIE1
+                                    253 	.globl _EIE
+                                    254 	.globl _SBUF_1
+                                    255 	.globl _SBUF
+                                    256 	.globl _SCON
+                                    257 	.globl _CKEN
+                                    258 	.globl _CKSWT
+                                    259 	.globl _CKDIV
+                                    260 	.globl _CAPCON2
+                                    261 	.globl _CAPCON1
+                                    262 	.globl _CAPCON0
+                                    263 	.globl _SFRS
+                                    264 	.globl _P1
+                                    265 	.globl _WKCON
+                                    266 	.globl _CKCON
+                                    267 	.globl _TH1
+                                    268 	.globl _TH0
+                                    269 	.globl _TL1
+                                    270 	.globl _TL0
+                                    271 	.globl _TMOD
+                                    272 	.globl _TCON
+                                    273 	.globl _PCON
+                                    274 	.globl _RWK
+                                    275 	.globl _RCTRIM1
+                                    276 	.globl _RCTRIM0
+                                    277 	.globl _DPH
+                                    278 	.globl _DPL
+                                    279 	.globl _SP
+                                    280 	.globl _P0
+                                    281 	.globl _wdt_flag
+                                    282 	.globl _log_counter
+                                    283 	.globl _lamp_state
+                                    284 	.globl _uart_rx_state
+                                    285 	.globl _uart_counter
+                                    286 	.globl _button_unpressed
+                                    287 	.globl _button_pressed
+                                    288 	.globl _uart_flag
+                                    289 	.globl _uart1_read_idx
+                                    290 	.globl _uart1_next_idx
+                                    291 	.globl _good_amp_count
+                                    292 	.globl _cur_temp
+                                    293 	.globl _cur_amp
+                                    294 	.globl _acc_temp
+                                    295 	.globl _acc_amp
+                                    296 	.globl _sample_count
+                                    297 	.globl _light_control_mode
+                                    298 	.globl _pwm
+                                    299 	.globl _flashing_count
+                                    300 	.globl _flashing_on
+                                    301 	.globl _is_uart_mode
+                                    302 	.globl _light_mode
+                                    303 	.globl _target_amp_PARM_2
+                                    304 	.globl _uart1_rx_buffer
+                                    305 	.globl _Timer0_Delay_PARM_3
+                                    306 	.globl _Timer0_Delay_PARM_2
+                                    307 ;--------------------------------------------------------
+                                    308 ; special function registers
+                                    309 ;--------------------------------------------------------
+                                    310 	.area RSEG    (ABS,DATA)
+      000000                        311 	.org 0x0000
+                           000080   312 G$P0$0_0$0 == 0x0080
+                           000080   313 _P0	=	0x0080
+                           000081   314 G$SP$0_0$0 == 0x0081
+                           000081   315 _SP	=	0x0081
+                           000082   316 G$DPL$0_0$0 == 0x0082
+                           000082   317 _DPL	=	0x0082
+                           000083   318 G$DPH$0_0$0 == 0x0083
+                           000083   319 _DPH	=	0x0083
+                           000084   320 G$RCTRIM0$0_0$0 == 0x0084
+                           000084   321 _RCTRIM0	=	0x0084
+                           000085   322 G$RCTRIM1$0_0$0 == 0x0085
+                           000085   323 _RCTRIM1	=	0x0085
+                           000086   324 G$RWK$0_0$0 == 0x0086
+                           000086   325 _RWK	=	0x0086
+                           000087   326 G$PCON$0_0$0 == 0x0087
+                           000087   327 _PCON	=	0x0087
+                           000088   328 G$TCON$0_0$0 == 0x0088
+                           000088   329 _TCON	=	0x0088
+                           000089   330 G$TMOD$0_0$0 == 0x0089
+                           000089   331 _TMOD	=	0x0089
+                           00008A   332 G$TL0$0_0$0 == 0x008a
+                           00008A   333 _TL0	=	0x008a
+                           00008B   334 G$TL1$0_0$0 == 0x008b
+                           00008B   335 _TL1	=	0x008b
+                           00008C   336 G$TH0$0_0$0 == 0x008c
+                           00008C   337 _TH0	=	0x008c
+                           00008D   338 G$TH1$0_0$0 == 0x008d
+                           00008D   339 _TH1	=	0x008d
+                           00008E   340 G$CKCON$0_0$0 == 0x008e
+                           00008E   341 _CKCON	=	0x008e
+                           00008F   342 G$WKCON$0_0$0 == 0x008f
+                           00008F   343 _WKCON	=	0x008f
+                           000090   344 G$P1$0_0$0 == 0x0090
+                           000090   345 _P1	=	0x0090
+                           000091   346 G$SFRS$0_0$0 == 0x0091
+                           000091   347 _SFRS	=	0x0091
+                           000092   348 G$CAPCON0$0_0$0 == 0x0092
+                           000092   349 _CAPCON0	=	0x0092
+                           000093   350 G$CAPCON1$0_0$0 == 0x0093
+                           000093   351 _CAPCON1	=	0x0093
+                           000094   352 G$CAPCON2$0_0$0 == 0x0094
+                           000094   353 _CAPCON2	=	0x0094
+                           000095   354 G$CKDIV$0_0$0 == 0x0095
+                           000095   355 _CKDIV	=	0x0095
+                           000096   356 G$CKSWT$0_0$0 == 0x0096
+                           000096   357 _CKSWT	=	0x0096
+                           000097   358 G$CKEN$0_0$0 == 0x0097
+                           000097   359 _CKEN	=	0x0097
+                           000098   360 G$SCON$0_0$0 == 0x0098
+                           000098   361 _SCON	=	0x0098
+                           000099   362 G$SBUF$0_0$0 == 0x0099
+                           000099   363 _SBUF	=	0x0099
+                           00009A   364 G$SBUF_1$0_0$0 == 0x009a
+                           00009A   365 _SBUF_1	=	0x009a
+                           00009B   366 G$EIE$0_0$0 == 0x009b
+                           00009B   367 _EIE	=	0x009b
+                           00009C   368 G$EIE1$0_0$0 == 0x009c
+                           00009C   369 _EIE1	=	0x009c
+                           00009F   370 G$CHPCON$0_0$0 == 0x009f
+                           00009F   371 _CHPCON	=	0x009f
+                           0000A0   372 G$P2$0_0$0 == 0x00a0
+                           0000A0   373 _P2	=	0x00a0
+                           0000A2   374 G$AUXR1$0_0$0 == 0x00a2
+                           0000A2   375 _AUXR1	=	0x00a2
+                           0000A3   376 G$BODCON0$0_0$0 == 0x00a3
+                           0000A3   377 _BODCON0	=	0x00a3
+                           0000A4   378 G$IAPTRG$0_0$0 == 0x00a4
+                           0000A4   379 _IAPTRG	=	0x00a4
+                           0000A5   380 G$IAPUEN$0_0$0 == 0x00a5
+                           0000A5   381 _IAPUEN	=	0x00a5
+                           0000A6   382 G$IAPAL$0_0$0 == 0x00a6
+                           0000A6   383 _IAPAL	=	0x00a6
+                           0000A7   384 G$IAPAH$0_0$0 == 0x00a7
+                           0000A7   385 _IAPAH	=	0x00a7
+                           0000A8   386 G$IE$0_0$0 == 0x00a8
+                           0000A8   387 _IE	=	0x00a8
+                           0000A9   388 G$SADDR$0_0$0 == 0x00a9
+                           0000A9   389 _SADDR	=	0x00a9
+                           0000AA   390 G$WDCON$0_0$0 == 0x00aa
+                           0000AA   391 _WDCON	=	0x00aa
+                           0000AB   392 G$BODCON1$0_0$0 == 0x00ab
+                           0000AB   393 _BODCON1	=	0x00ab
+                           0000AC   394 G$P3M1$0_0$0 == 0x00ac
+                           0000AC   395 _P3M1	=	0x00ac
+                           0000AC   396 G$P3S$0_0$0 == 0x00ac
+                           0000AC   397 _P3S	=	0x00ac
+                           0000AD   398 G$P3M2$0_0$0 == 0x00ad
+                           0000AD   399 _P3M2	=	0x00ad
+                           0000AD   400 G$P3SR$0_0$0 == 0x00ad
+                           0000AD   401 _P3SR	=	0x00ad
+                           0000AE   402 G$IAPFD$0_0$0 == 0x00ae
+                           0000AE   403 _IAPFD	=	0x00ae
+                           0000AF   404 G$IAPCN$0_0$0 == 0x00af
+                           0000AF   405 _IAPCN	=	0x00af
+                           0000B0   406 G$P3$0_0$0 == 0x00b0
+                           0000B0   407 _P3	=	0x00b0
+                           0000B1   408 G$P0M1$0_0$0 == 0x00b1
+                           0000B1   409 _P0M1	=	0x00b1
+                           0000B1   410 G$P0S$0_0$0 == 0x00b1
+                           0000B1   411 _P0S	=	0x00b1
+                           0000B2   412 G$P0M2$0_0$0 == 0x00b2
+                           0000B2   413 _P0M2	=	0x00b2
+                           0000B2   414 G$P0SR$0_0$0 == 0x00b2
+                           0000B2   415 _P0SR	=	0x00b2
+                           0000B3   416 G$P1M1$0_0$0 == 0x00b3
+                           0000B3   417 _P1M1	=	0x00b3
+                           0000B3   418 G$P1S$0_0$0 == 0x00b3
+                           0000B3   419 _P1S	=	0x00b3
+                           0000B4   420 G$P1M2$0_0$0 == 0x00b4
+                           0000B4   421 _P1M2	=	0x00b4
+                           0000B4   422 G$P1SR$0_0$0 == 0x00b4
+                           0000B4   423 _P1SR	=	0x00b4
+                           0000B5   424 G$P2S$0_0$0 == 0x00b5
+                           0000B5   425 _P2S	=	0x00b5
+                           0000B7   426 G$IPH$0_0$0 == 0x00b7
+                           0000B7   427 _IPH	=	0x00b7
+                           0000B7   428 G$PWMINTC$0_0$0 == 0x00b7
+                           0000B7   429 _PWMINTC	=	0x00b7
+                           0000B8   430 G$IP$0_0$0 == 0x00b8
+                           0000B8   431 _IP	=	0x00b8
+                           0000B9   432 G$SADEN$0_0$0 == 0x00b9
+                           0000B9   433 _SADEN	=	0x00b9
+                           0000BA   434 G$SADEN_1$0_0$0 == 0x00ba
+                           0000BA   435 _SADEN_1	=	0x00ba
+                           0000BB   436 G$SADDR_1$0_0$0 == 0x00bb
+                           0000BB   437 _SADDR_1	=	0x00bb
+                           0000BC   438 G$I2DAT$0_0$0 == 0x00bc
+                           0000BC   439 _I2DAT	=	0x00bc
+                           0000BD   440 G$I2STAT$0_0$0 == 0x00bd
+                           0000BD   441 _I2STAT	=	0x00bd
+                           0000BE   442 G$I2CLK$0_0$0 == 0x00be
+                           0000BE   443 _I2CLK	=	0x00be
+                           0000BF   444 G$I2TOC$0_0$0 == 0x00bf
+                           0000BF   445 _I2TOC	=	0x00bf
+                           0000C0   446 G$I2CON$0_0$0 == 0x00c0
+                           0000C0   447 _I2CON	=	0x00c0
+                           0000C1   448 G$I2ADDR$0_0$0 == 0x00c1
+                           0000C1   449 _I2ADDR	=	0x00c1
+                           0000C2   450 G$ADCRL$0_0$0 == 0x00c2
+                           0000C2   451 _ADCRL	=	0x00c2
+                           0000C3   452 G$ADCRH$0_0$0 == 0x00c3
+                           0000C3   453 _ADCRH	=	0x00c3
+                           0000C4   454 G$T3CON$0_0$0 == 0x00c4
+                           0000C4   455 _T3CON	=	0x00c4
+                           0000C4   456 G$PWM4H$0_0$0 == 0x00c4
+                           0000C4   457 _PWM4H	=	0x00c4
+                           0000C5   458 G$RL3$0_0$0 == 0x00c5
+                           0000C5   459 _RL3	=	0x00c5
+                           0000C5   460 G$PWM5H$0_0$0 == 0x00c5
+                           0000C5   461 _PWM5H	=	0x00c5
+                           0000C6   462 G$RH3$0_0$0 == 0x00c6
+                           0000C6   463 _RH3	=	0x00c6
+                           0000C6   464 G$PIOCON1$0_0$0 == 0x00c6
+                           0000C6   465 _PIOCON1	=	0x00c6
+                           0000C7   466 G$TA$0_0$0 == 0x00c7
+                           0000C7   467 _TA	=	0x00c7
+                           0000C8   468 G$T2CON$0_0$0 == 0x00c8
+                           0000C8   469 _T2CON	=	0x00c8
+                           0000C9   470 G$T2MOD$0_0$0 == 0x00c9
+                           0000C9   471 _T2MOD	=	0x00c9
+                           0000CA   472 G$RCMP2L$0_0$0 == 0x00ca
+                           0000CA   473 _RCMP2L	=	0x00ca
+                           0000CB   474 G$RCMP2H$0_0$0 == 0x00cb
+                           0000CB   475 _RCMP2H	=	0x00cb
+                           0000CC   476 G$TL2$0_0$0 == 0x00cc
+                           0000CC   477 _TL2	=	0x00cc
+                           0000CC   478 G$PWM4L$0_0$0 == 0x00cc
+                           0000CC   479 _PWM4L	=	0x00cc
+                           0000CD   480 G$TH2$0_0$0 == 0x00cd
+                           0000CD   481 _TH2	=	0x00cd
+                           0000CD   482 G$PWM5L$0_0$0 == 0x00cd
+                           0000CD   483 _PWM5L	=	0x00cd
+                           0000CE   484 G$ADCMPL$0_0$0 == 0x00ce
+                           0000CE   485 _ADCMPL	=	0x00ce
+                           0000CF   486 G$ADCMPH$0_0$0 == 0x00cf
+                           0000CF   487 _ADCMPH	=	0x00cf
+                           0000D0   488 G$PSW$0_0$0 == 0x00d0
+                           0000D0   489 _PSW	=	0x00d0
+                           0000D1   490 G$PWMPH$0_0$0 == 0x00d1
+                           0000D1   491 _PWMPH	=	0x00d1
+                           0000D2   492 G$PWM0H$0_0$0 == 0x00d2
+                           0000D2   493 _PWM0H	=	0x00d2
+                           0000D3   494 G$PWM1H$0_0$0 == 0x00d3
+                           0000D3   495 _PWM1H	=	0x00d3
+                           0000D4   496 G$PWM2H$0_0$0 == 0x00d4
+                           0000D4   497 _PWM2H	=	0x00d4
+                           0000D5   498 G$PWM3H$0_0$0 == 0x00d5
+                           0000D5   499 _PWM3H	=	0x00d5
+                           0000D6   500 G$PNP$0_0$0 == 0x00d6
+                           0000D6   501 _PNP	=	0x00d6
+                           0000D7   502 G$FBD$0_0$0 == 0x00d7
+                           0000D7   503 _FBD	=	0x00d7
+                           0000D8   504 G$PWMCON0$0_0$0 == 0x00d8
+                           0000D8   505 _PWMCON0	=	0x00d8
+                           0000D9   506 G$PWMPL$0_0$0 == 0x00d9
+                           0000D9   507 _PWMPL	=	0x00d9
+                           0000DA   508 G$PWM0L$0_0$0 == 0x00da
+                           0000DA   509 _PWM0L	=	0x00da
+                           0000DB   510 G$PWM1L$0_0$0 == 0x00db
+                           0000DB   511 _PWM1L	=	0x00db
+                           0000DC   512 G$PWM2L$0_0$0 == 0x00dc
+                           0000DC   513 _PWM2L	=	0x00dc
+                           0000DD   514 G$PWM3L$0_0$0 == 0x00dd
+                           0000DD   515 _PWM3L	=	0x00dd
+                           0000DE   516 G$PIOCON0$0_0$0 == 0x00de
+                           0000DE   517 _PIOCON0	=	0x00de
+                           0000DF   518 G$PWMCON1$0_0$0 == 0x00df
+                           0000DF   519 _PWMCON1	=	0x00df
+                           0000E0   520 G$ACC$0_0$0 == 0x00e0
+                           0000E0   521 _ACC	=	0x00e0
+                           0000E1   522 G$ADCCON1$0_0$0 == 0x00e1
+                           0000E1   523 _ADCCON1	=	0x00e1
+                           0000E2   524 G$ADCCON2$0_0$0 == 0x00e2
+                           0000E2   525 _ADCCON2	=	0x00e2
+                           0000E3   526 G$ADCDLY$0_0$0 == 0x00e3
+                           0000E3   527 _ADCDLY	=	0x00e3
+                           0000E4   528 G$C0L$0_0$0 == 0x00e4
+                           0000E4   529 _C0L	=	0x00e4
+                           0000E5   530 G$C0H$0_0$0 == 0x00e5
+                           0000E5   531 _C0H	=	0x00e5
+                           0000E6   532 G$C1L$0_0$0 == 0x00e6
+                           0000E6   533 _C1L	=	0x00e6
+                           0000E7   534 G$C1H$0_0$0 == 0x00e7
+                           0000E7   535 _C1H	=	0x00e7
+                           0000E8   536 G$ADCCON0$0_0$0 == 0x00e8
+                           0000E8   537 _ADCCON0	=	0x00e8
+                           0000E9   538 G$PICON$0_0$0 == 0x00e9
+                           0000E9   539 _PICON	=	0x00e9
+                           0000EA   540 G$PINEN$0_0$0 == 0x00ea
+                           0000EA   541 _PINEN	=	0x00ea
+                           0000EB   542 G$PIPEN$0_0$0 == 0x00eb
+                           0000EB   543 _PIPEN	=	0x00eb
+                           0000EC   544 G$PIF$0_0$0 == 0x00ec
+                           0000EC   545 _PIF	=	0x00ec
+                           0000ED   546 G$C2L$0_0$0 == 0x00ed
+                           0000ED   547 _C2L	=	0x00ed
+                           0000EE   548 G$C2H$0_0$0 == 0x00ee
+                           0000EE   549 _C2H	=	0x00ee
+                           0000EF   550 G$EIP$0_0$0 == 0x00ef
+                           0000EF   551 _EIP	=	0x00ef
+                           0000F0   552 G$B$0_0$0 == 0x00f0
+                           0000F0   553 _B	=	0x00f0
+                           0000F1   554 G$CAPCON3$0_0$0 == 0x00f1
+                           0000F1   555 _CAPCON3	=	0x00f1
+                           0000F2   556 G$CAPCON4$0_0$0 == 0x00f2
+                           0000F2   557 _CAPCON4	=	0x00f2
+                           0000F3   558 G$SPCR$0_0$0 == 0x00f3
+                           0000F3   559 _SPCR	=	0x00f3
+                           0000F3   560 G$SPCR2$0_0$0 == 0x00f3
+                           0000F3   561 _SPCR2	=	0x00f3
+                           0000F4   562 G$SPSR$0_0$0 == 0x00f4
+                           0000F4   563 _SPSR	=	0x00f4
+                           0000F5   564 G$SPDR$0_0$0 == 0x00f5
+                           0000F5   565 _SPDR	=	0x00f5
+                           0000F6   566 G$AINDIDS$0_0$0 == 0x00f6
+                           0000F6   567 _AINDIDS	=	0x00f6
+                           0000F7   568 G$EIPH$0_0$0 == 0x00f7
+                           0000F7   569 _EIPH	=	0x00f7
+                           0000F8   570 G$SCON_1$0_0$0 == 0x00f8
+                           0000F8   571 _SCON_1	=	0x00f8
+                           0000F9   572 G$PDTEN$0_0$0 == 0x00f9
+                           0000F9   573 _PDTEN	=	0x00f9
+                           0000FA   574 G$PDTCNT$0_0$0 == 0x00fa
+                           0000FA   575 _PDTCNT	=	0x00fa
+                           0000FB   576 G$PMEN$0_0$0 == 0x00fb
+                           0000FB   577 _PMEN	=	0x00fb
+                           0000FC   578 G$PMD$0_0$0 == 0x00fc
+                           0000FC   579 _PMD	=	0x00fc
+                           0000FE   580 G$EIP1$0_0$0 == 0x00fe
+                           0000FE   581 _EIP1	=	0x00fe
+                           0000FF   582 G$EIPH1$0_0$0 == 0x00ff
+                           0000FF   583 _EIPH1	=	0x00ff
+                                    584 ;--------------------------------------------------------
+                                    585 ; special function bits
+                                    586 ;--------------------------------------------------------
+                                    587 	.area RSEG    (ABS,DATA)
+      000000                        588 	.org 0x0000
+                           0000FF   589 G$SM0_1$0_0$0 == 0x00ff
+                           0000FF   590 _SM0_1	=	0x00ff
+                           0000FF   591 G$FE_1$0_0$0 == 0x00ff
+                           0000FF   592 _FE_1	=	0x00ff
+                           0000FE   593 G$SM1_1$0_0$0 == 0x00fe
+                           0000FE   594 _SM1_1	=	0x00fe
+                           0000FD   595 G$SM2_1$0_0$0 == 0x00fd
+                           0000FD   596 _SM2_1	=	0x00fd
+                           0000FC   597 G$REN_1$0_0$0 == 0x00fc
+                           0000FC   598 _REN_1	=	0x00fc
+                           0000FB   599 G$TB8_1$0_0$0 == 0x00fb
+                           0000FB   600 _TB8_1	=	0x00fb
+                           0000FA   601 G$RB8_1$0_0$0 == 0x00fa
+                           0000FA   602 _RB8_1	=	0x00fa
+                           0000F9   603 G$TI_1$0_0$0 == 0x00f9
+                           0000F9   604 _TI_1	=	0x00f9
+                           0000F8   605 G$RI_1$0_0$0 == 0x00f8
+                           0000F8   606 _RI_1	=	0x00f8
+                           0000EF   607 G$ADCF$0_0$0 == 0x00ef
+                           0000EF   608 _ADCF	=	0x00ef
+                           0000EE   609 G$ADCS$0_0$0 == 0x00ee
+                           0000EE   610 _ADCS	=	0x00ee
+                           0000ED   611 G$ETGSEL1$0_0$0 == 0x00ed
+                           0000ED   612 _ETGSEL1	=	0x00ed
+                           0000EC   613 G$ETGSEL0$0_0$0 == 0x00ec
+                           0000EC   614 _ETGSEL0	=	0x00ec
+                           0000EB   615 G$ADCHS3$0_0$0 == 0x00eb
+                           0000EB   616 _ADCHS3	=	0x00eb
+                           0000EA   617 G$ADCHS2$0_0$0 == 0x00ea
+                           0000EA   618 _ADCHS2	=	0x00ea
+                           0000E9   619 G$ADCHS1$0_0$0 == 0x00e9
+                           0000E9   620 _ADCHS1	=	0x00e9
+                           0000E8   621 G$ADCHS0$0_0$0 == 0x00e8
+                           0000E8   622 _ADCHS0	=	0x00e8
+                           0000DF   623 G$PWMRUN$0_0$0 == 0x00df
+                           0000DF   624 _PWMRUN	=	0x00df
+                           0000DE   625 G$LOAD$0_0$0 == 0x00de
+                           0000DE   626 _LOAD	=	0x00de
+                           0000DD   627 G$PWMF$0_0$0 == 0x00dd
+                           0000DD   628 _PWMF	=	0x00dd
+                           0000DC   629 G$CLRPWM$0_0$0 == 0x00dc
+                           0000DC   630 _CLRPWM	=	0x00dc
+                           0000D7   631 G$CY$0_0$0 == 0x00d7
+                           0000D7   632 _CY	=	0x00d7
+                           0000D6   633 G$AC$0_0$0 == 0x00d6
+                           0000D6   634 _AC	=	0x00d6
+                           0000D5   635 G$F0$0_0$0 == 0x00d5
+                           0000D5   636 _F0	=	0x00d5
+                           0000D4   637 G$RS1$0_0$0 == 0x00d4
+                           0000D4   638 _RS1	=	0x00d4
+                           0000D3   639 G$RS0$0_0$0 == 0x00d3
+                           0000D3   640 _RS0	=	0x00d3
+                           0000D2   641 G$OV$0_0$0 == 0x00d2
+                           0000D2   642 _OV	=	0x00d2
+                           0000D0   643 G$P$0_0$0 == 0x00d0
+                           0000D0   644 _P	=	0x00d0
+                           0000CF   645 G$TF2$0_0$0 == 0x00cf
+                           0000CF   646 _TF2	=	0x00cf
+                           0000CA   647 G$TR2$0_0$0 == 0x00ca
+                           0000CA   648 _TR2	=	0x00ca
+                           0000C8   649 G$CM_RL2$0_0$0 == 0x00c8
+                           0000C8   650 _CM_RL2	=	0x00c8
+                           0000C6   651 G$I2CEN$0_0$0 == 0x00c6
+                           0000C6   652 _I2CEN	=	0x00c6
+                           0000C5   653 G$STA$0_0$0 == 0x00c5
+                           0000C5   654 _STA	=	0x00c5
+                           0000C4   655 G$STO$0_0$0 == 0x00c4
+                           0000C4   656 _STO	=	0x00c4
+                           0000C3   657 G$SI$0_0$0 == 0x00c3
+                           0000C3   658 _SI	=	0x00c3
+                           0000C2   659 G$AA$0_0$0 == 0x00c2
+                           0000C2   660 _AA	=	0x00c2
+                           0000C0   661 G$I2CPX$0_0$0 == 0x00c0
+                           0000C0   662 _I2CPX	=	0x00c0
+                           0000BE   663 G$PADC$0_0$0 == 0x00be
+                           0000BE   664 _PADC	=	0x00be
+                           0000BD   665 G$PBOD$0_0$0 == 0x00bd
+                           0000BD   666 _PBOD	=	0x00bd
+                           0000BC   667 G$PS$0_0$0 == 0x00bc
+                           0000BC   668 _PS	=	0x00bc
+                           0000BB   669 G$PT1$0_0$0 == 0x00bb
+                           0000BB   670 _PT1	=	0x00bb
+                           0000BA   671 G$PX1$0_0$0 == 0x00ba
+                           0000BA   672 _PX1	=	0x00ba
+                           0000B9   673 G$PT0$0_0$0 == 0x00b9
+                           0000B9   674 _PT0	=	0x00b9
+                           0000B8   675 G$PX0$0_0$0 == 0x00b8
+                           0000B8   676 _PX0	=	0x00b8
+                           0000B0   677 G$P30$0_0$0 == 0x00b0
+                           0000B0   678 _P30	=	0x00b0
+                           0000AF   679 G$EA$0_0$0 == 0x00af
+                           0000AF   680 _EA	=	0x00af
+                           0000AE   681 G$EADC$0_0$0 == 0x00ae
+                           0000AE   682 _EADC	=	0x00ae
+                           0000AD   683 G$EBOD$0_0$0 == 0x00ad
+                           0000AD   684 _EBOD	=	0x00ad
+                           0000AC   685 G$ES$0_0$0 == 0x00ac
+                           0000AC   686 _ES	=	0x00ac
+                           0000AB   687 G$ET1$0_0$0 == 0x00ab
+                           0000AB   688 _ET1	=	0x00ab
+                           0000AA   689 G$EX1$0_0$0 == 0x00aa
+                           0000AA   690 _EX1	=	0x00aa
+                           0000A9   691 G$ET0$0_0$0 == 0x00a9
+                           0000A9   692 _ET0	=	0x00a9
+                           0000A8   693 G$EX0$0_0$0 == 0x00a8
+                           0000A8   694 _EX0	=	0x00a8
+                           0000A0   695 G$P20$0_0$0 == 0x00a0
+                           0000A0   696 _P20	=	0x00a0
+                           00009F   697 G$SM0$0_0$0 == 0x009f
+                           00009F   698 _SM0	=	0x009f
+                           00009F   699 G$FE$0_0$0 == 0x009f
+                           00009F   700 _FE	=	0x009f
+                           00009E   701 G$SM1$0_0$0 == 0x009e
+                           00009E   702 _SM1	=	0x009e
+                           00009D   703 G$SM2$0_0$0 == 0x009d
+                           00009D   704 _SM2	=	0x009d
+                           00009C   705 G$REN$0_0$0 == 0x009c
+                           00009C   706 _REN	=	0x009c
+                           00009B   707 G$TB8$0_0$0 == 0x009b
+                           00009B   708 _TB8	=	0x009b
+                           00009A   709 G$RB8$0_0$0 == 0x009a
+                           00009A   710 _RB8	=	0x009a
+                           000099   711 G$TI$0_0$0 == 0x0099
+                           000099   712 _TI	=	0x0099
+                           000098   713 G$RI$0_0$0 == 0x0098
+                           000098   714 _RI	=	0x0098
+                           000097   715 G$P17$0_0$0 == 0x0097
+                           000097   716 _P17	=	0x0097
+                           000096   717 G$P16$0_0$0 == 0x0096
+                           000096   718 _P16	=	0x0096
+                           000096   719 G$TXD_1$0_0$0 == 0x0096
+                           000096   720 _TXD_1	=	0x0096
+                           000095   721 G$P15$0_0$0 == 0x0095
+                           000095   722 _P15	=	0x0095
+                           000094   723 G$P14$0_0$0 == 0x0094
+                           000094   724 _P14	=	0x0094
+                           000094   725 G$SDA$0_0$0 == 0x0094
+                           000094   726 _SDA	=	0x0094
+                           000093   727 G$P13$0_0$0 == 0x0093
+                           000093   728 _P13	=	0x0093
+                           000093   729 G$SCL$0_0$0 == 0x0093
+                           000093   730 _SCL	=	0x0093
+                           000092   731 G$P12$0_0$0 == 0x0092
+                           000092   732 _P12	=	0x0092
+                           000091   733 G$P11$0_0$0 == 0x0091
+                           000091   734 _P11	=	0x0091
+                           000090   735 G$P10$0_0$0 == 0x0090
+                           000090   736 _P10	=	0x0090
+                           00008F   737 G$TF1$0_0$0 == 0x008f
+                           00008F   738 _TF1	=	0x008f
+                           00008E   739 G$TR1$0_0$0 == 0x008e
+                           00008E   740 _TR1	=	0x008e
+                           00008D   741 G$TF0$0_0$0 == 0x008d
+                           00008D   742 _TF0	=	0x008d
+                           00008C   743 G$TR0$0_0$0 == 0x008c
+                           00008C   744 _TR0	=	0x008c
+                           00008B   745 G$IE1$0_0$0 == 0x008b
+                           00008B   746 _IE1	=	0x008b
+                           00008A   747 G$IT1$0_0$0 == 0x008a
+                           00008A   748 _IT1	=	0x008a
+                           000089   749 G$IE0$0_0$0 == 0x0089
+                           000089   750 _IE0	=	0x0089
+                           000088   751 G$IT0$0_0$0 == 0x0088
+                           000088   752 _IT0	=	0x0088
+                           000087   753 G$P07$0_0$0 == 0x0087
+                           000087   754 _P07	=	0x0087
+                           000087   755 G$RXD$0_0$0 == 0x0087
+                           000087   756 _RXD	=	0x0087
+                           000086   757 G$P06$0_0$0 == 0x0086
+                           000086   758 _P06	=	0x0086
+                           000086   759 G$TXD$0_0$0 == 0x0086
+                           000086   760 _TXD	=	0x0086
+                           000085   761 G$P05$0_0$0 == 0x0085
+                           000085   762 _P05	=	0x0085
+                           000084   763 G$P04$0_0$0 == 0x0084
+                           000084   764 _P04	=	0x0084
+                           000084   765 G$STADC$0_0$0 == 0x0084
+                           000084   766 _STADC	=	0x0084
+                           000083   767 G$P03$0_0$0 == 0x0083
+                           000083   768 _P03	=	0x0083
+                           000082   769 G$P02$0_0$0 == 0x0082
+                           000082   770 _P02	=	0x0082
+                           000082   771 G$RXD_1$0_0$0 == 0x0082
+                           000082   772 _RXD_1	=	0x0082
+                           000081   773 G$P01$0_0$0 == 0x0081
+                           000081   774 _P01	=	0x0081
+                           000081   775 G$MISO$0_0$0 == 0x0081
+                           000081   776 _MISO	=	0x0081
+                           000080   777 G$P00$0_0$0 == 0x0080
+                           000080   778 _P00	=	0x0080
+                           000080   779 G$MOSI$0_0$0 == 0x0080
+                           000080   780 _MOSI	=	0x0080
+                                    781 ;--------------------------------------------------------
+                                    782 ; overlayable register banks
+                                    783 ;--------------------------------------------------------
+                                    784 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        785 	.ds 8
+                                    786 ;--------------------------------------------------------
+                                    787 ; overlayable bit register bank
+                                    788 ;--------------------------------------------------------
+                                    789 	.area BIT_BANK	(REL,OVR,DATA)
+      000021                        790 bits:
+      000021                        791 	.ds 1
+                           008000   792 	b0 = bits[0]
+                           008100   793 	b1 = bits[1]
+                           008200   794 	b2 = bits[2]
+                           008300   795 	b3 = bits[3]
+                           008400   796 	b4 = bits[4]
+                           008500   797 	b5 = bits[5]
+                           008600   798 	b6 = bits[6]
+                           008700   799 	b7 = bits[7]
+                                    800 ;--------------------------------------------------------
+                                    801 ; internal ram data
+                                    802 ;--------------------------------------------------------
+                                    803 	.area DSEG    (DATA)
+                           000000   804 Lmain.uart_logn$sloc0$0_1$0==.
+      000022                        805 _uart_logn_sloc0_1_0:
+      000022                        806 	.ds 4
+                           000004   807 Lmain.control_loop$sloc0$0_1$0==.
+      000026                        808 _control_loop_sloc0_1_0:
+      000026                        809 	.ds 4
+                                    810 ;--------------------------------------------------------
+                                    811 ; internal ram data
+                                    812 ;--------------------------------------------------------
+                                    813 	.area INITIALIZED
+                                    814 ;--------------------------------------------------------
+                                    815 ; overlayable items in internal ram
+                                    816 ;--------------------------------------------------------
+                                    817 ;--------------------------------------------------------
+                                    818 ; Stack segment in internal ram
+                                    819 ;--------------------------------------------------------
+                                    820 	.area SSEG
+      000031                        821 __start__stack:
+      000031                        822 	.ds	1
+                                    823 
+                                    824 ;--------------------------------------------------------
+                                    825 ; indirectly addressable internal ram data
+                                    826 ;--------------------------------------------------------
+                                    827 	.area ISEG    (DATA)
+                                    828 ;--------------------------------------------------------
+                                    829 ; absolute internal ram data
+                                    830 ;--------------------------------------------------------
+                                    831 	.area IABS    (ABS,DATA)
+                                    832 	.area IABS    (ABS,DATA)
+                                    833 ;--------------------------------------------------------
+                                    834 ; bit data
+                                    835 ;--------------------------------------------------------
+                                    836 	.area BSEG    (BIT)
+                                    837 ;--------------------------------------------------------
+                                    838 ; paged external ram data
+                                    839 ;--------------------------------------------------------
+                                    840 	.area PSEG    (PAG,XDATA)
+                                    841 ;--------------------------------------------------------
+                                    842 ; uninitialized external ram data
+                                    843 ;--------------------------------------------------------
+                                    844 	.area XSEG    (XDATA)
+                           000000   845 Lmain.Timer0_Delay$u16CNT$1_0$145==.
+      000001                        846 _Timer0_Delay_PARM_2:
+      000001                        847 	.ds 2
+                           000002   848 Lmain.Timer0_Delay$u16DLYUnit$1_0$145==.
+      000003                        849 _Timer0_Delay_PARM_3:
+      000003                        850 	.ds 2
+                           000004   851 Lmain.Timer0_Delay$u32SYSCLK$1_0$145==.
+      000005                        852 _Timer0_Delay_u32SYSCLK_65536_145:
+      000005                        853 	.ds 4
+                           000008   854 Lmain.uart_log$c$1_0$148==.
+      000009                        855 _uart_log_c_65536_148:
+      000009                        856 	.ds 1
+                           000009   857 Lmain.uart_logn$n$1_0$150==.
+      00000A                        858 _uart_logn_n_65536_150:
+      00000A                        859 	.ds 4
+                           00000D   860 Lmain.uart_logn$e$1_1$153==.
+      00000E                        861 _uart_logn_e_65537_153:
+      00000E                        862 	.ds 4
+                           000011   863 G$uart1_rx_buffer$0_0$0==.
+      000012                        864 _uart1_rx_buffer::
+      000012                        865 	.ds 16
+                           000021   866 Lmain.has_high_beam$mode$1_0$186==.
+      000022                        867 _has_high_beam_mode_65536_186:
+      000022                        868 	.ds 1
+                           000022   869 Lmain.avg_amp$idx$1_0$188==.
+      000023                        870 _avg_amp_idx_65536_188:
+      000023                        871 	.ds 1
+                           000023   872 Lmain.target_amp$idx$1_0$192==.
+      000024                        873 _target_amp_PARM_2:
+      000024                        874 	.ds 1
+                           000024   875 Lmain.target_amp$mode$1_0$192==.
+      000025                        876 _target_amp_mode_65536_192:
+      000025                        877 	.ds 1
+                           000025   878 Lmain.changeMode$new_mode$1_0$198==.
+      000026                        879 _changeMode_new_mode_65536_198:
+      000026                        880 	.ds 1
+                           000026   881 Lmain.process_uart$ch$2_0$216==.
+      000027                        882 _process_uart_ch_131072_216:
+      000027                        883 	.ds 1
+                           000027   884 Lmain.mode_changing_control$light_changing$1_0$236==.
+      000028                        885 _mode_changing_control_light_changing_65536_236:
+      000028                        886 	.ds 1
+                           000028   887 Lmain.mode_stable_control$light_changing$1_0$259==.
+      000029                        888 _mode_stable_control_light_changing_65536_259:
+      000029                        889 	.ds 1
+                           000029   890 Lmain.control_loop$light_changing$1_0$266==.
+      00002A                        891 _control_loop_light_changing_65536_266:
+      00002A                        892 	.ds 1
+                                    893 ;--------------------------------------------------------
+                                    894 ; absolute external ram data
+                                    895 ;--------------------------------------------------------
+                                    896 	.area XABS    (ABS,XDATA)
+                                    897 ;--------------------------------------------------------
+                                    898 ; initialized external ram data
+                                    899 ;--------------------------------------------------------
+                                    900 	.area XISEG   (XDATA)
+                           000000   901 G$light_mode$0_0$0==.
+      00006C                        902 _light_mode::
+      00006C                        903 	.ds 1
+                           000001   904 G$is_uart_mode$0_0$0==.
+      00006D                        905 _is_uart_mode::
+      00006D                        906 	.ds 1
+                           000002   907 G$flashing_on$0_0$0==.
+      00006E                        908 _flashing_on::
+      00006E                        909 	.ds 1
+                           000003   910 G$flashing_count$0_0$0==.
+      00006F                        911 _flashing_count::
+      00006F                        912 	.ds 2
+                           000005   913 G$pwm$0_0$0==.
+      000071                        914 _pwm::
+      000071                        915 	.ds 4
+                           000009   916 G$light_control_mode$0_0$0==.
+      000075                        917 _light_control_mode::
+      000075                        918 	.ds 2
+                           00000B   919 G$sample_count$0_0$0==.
+      000077                        920 _sample_count::
+      000077                        921 	.ds 1
+                           00000C   922 G$acc_amp$0_0$0==.
+      000078                        923 _acc_amp::
+      000078                        924 	.ds 8
+                           000014   925 G$acc_temp$0_0$0==.
+      000080                        926 _acc_temp::
+      000080                        927 	.ds 4
+                           000018   928 G$cur_amp$0_0$0==.
+      000084                        929 _cur_amp::
+      000084                        930 	.ds 4
+                           00001C   931 G$cur_temp$0_0$0==.
+      000088                        932 _cur_temp::
+      000088                        933 	.ds 2
+                           00001E   934 G$good_amp_count$0_0$0==.
+      00008A                        935 _good_amp_count::
+      00008A                        936 	.ds 2
+                           000020   937 G$uart1_next_idx$0_0$0==.
+      00008C                        938 _uart1_next_idx::
+      00008C                        939 	.ds 1
+                           000021   940 G$uart1_read_idx$0_0$0==.
+      00008D                        941 _uart1_read_idx::
+      00008D                        942 	.ds 1
+                           000022   943 G$uart_flag$0_0$0==.
+      00008E                        944 _uart_flag::
+      00008E                        945 	.ds 1
+                           000023   946 G$button_pressed$0_0$0==.
+      00008F                        947 _button_pressed::
+      00008F                        948 	.ds 4
+                           000027   949 G$button_unpressed$0_0$0==.
+      000093                        950 _button_unpressed::
+      000093                        951 	.ds 4
+                           00002B   952 G$uart_counter$0_0$0==.
+      000097                        953 _uart_counter::
+      000097                        954 	.ds 4
+                           00002F   955 G$uart_rx_state$0_0$0==.
+      00009B                        956 _uart_rx_state::
+      00009B                        957 	.ds 1
+                           000030   958 G$lamp_state$0_0$0==.
+      00009C                        959 _lamp_state::
+      00009C                        960 	.ds 1
+                           000031   961 G$log_counter$0_0$0==.
+      00009D                        962 _log_counter::
+      00009D                        963 	.ds 4
+                           000035   964 G$wdt_flag$0_0$0==.
+      0000A1                        965 _wdt_flag::
+      0000A1                        966 	.ds 1
+                                    967 	.area HOME    (CODE)
+                                    968 	.area GSINIT0 (CODE)
+                                    969 	.area GSINIT1 (CODE)
+                                    970 	.area GSINIT2 (CODE)
+                                    971 	.area GSINIT3 (CODE)
+                                    972 	.area GSINIT4 (CODE)
+                                    973 	.area GSINIT5 (CODE)
+                                    974 	.area GSINIT  (CODE)
+                                    975 	.area GSFINAL (CODE)
+                                    976 	.area CSEG    (CODE)
+                                    977 ;--------------------------------------------------------
+                                    978 ; interrupt vector
+                                    979 ;--------------------------------------------------------
+                                    980 	.area HOME    (CODE)
+      000000                        981 __interrupt_vect:
+      000000 02 00 81         [24]  982 	ljmp	__sdcc_gsinit_startup
+      000003 32               [24]  983 	reti
+      000004                        984 	.ds	7
+      00000B 32               [24]  985 	reti
+      00000C                        986 	.ds	7
+      000013 32               [24]  987 	reti
+      000014                        988 	.ds	7
+      00001B 32               [24]  989 	reti
+      00001C                        990 	.ds	7
+      000023 32               [24]  991 	reti
+      000024                        992 	.ds	7
+      00002B 32               [24]  993 	reti
+      00002C                        994 	.ds	7
+      000033 32               [24]  995 	reti
+      000034                        996 	.ds	7
+      00003B 02 04 1C         [24]  997 	ljmp	_PinInterrupt_ISR
+      00003E                        998 	.ds	5
+      000043 32               [24]  999 	reti
+      000044                       1000 	.ds	7
+      00004B 32               [24] 1001 	reti
+      00004C                       1002 	.ds	7
+      000053 32               [24] 1003 	reti
+      000054                       1004 	.ds	7
+      00005B 32               [24] 1005 	reti
+      00005C                       1006 	.ds	7
+      000063 32               [24] 1007 	reti
+      000064                       1008 	.ds	7
+      00006B 32               [24] 1009 	reti
+      00006C                       1010 	.ds	7
+      000073 32               [24] 1011 	reti
+      000074                       1012 	.ds	7
+      00007B 02 03 79         [24] 1013 	ljmp	_SerialPort1_ISR
+                                   1014 ;--------------------------------------------------------
+                                   1015 ; global & static initialisations
+                                   1016 ;--------------------------------------------------------
+                                   1017 	.area HOME    (CODE)
+                                   1018 	.area GSINIT  (CODE)
+                                   1019 	.area GSFINAL (CODE)
+                                   1020 	.area GSINIT  (CODE)
+                                   1021 	.globl __sdcc_gsinit_startup
+                                   1022 	.globl __sdcc_program_startup
+                                   1023 	.globl __start__stack
+                                   1024 	.globl __mcs51_genXINIT
+                                   1025 	.globl __mcs51_genXRAMCLEAR
+                                   1026 	.globl __mcs51_genRAMCLEAR
+                                   1027 	.area GSFINAL (CODE)
+      0000DA 02 00 7E         [24] 1028 	ljmp	__sdcc_program_startup
+                                   1029 ;--------------------------------------------------------
+                                   1030 ; Home
+                                   1031 ;--------------------------------------------------------
+                                   1032 	.area HOME    (CODE)
+                                   1033 	.area HOME    (CODE)
+      00007E                       1034 __sdcc_program_startup:
+      00007E 02 12 BC         [24] 1035 	ljmp	_main
+                                   1036 ;	return from main will return to caller
+                                   1037 ;--------------------------------------------------------
+                                   1038 ; code
+                                   1039 ;--------------------------------------------------------
+                                   1040 	.area CSEG    (CODE)
+                                   1041 ;------------------------------------------------------------
+                                   1042 ;Allocation info for local variables in function 'Timer0_Delay'
+                                   1043 ;------------------------------------------------------------
+                                   1044 ;u16CNT                    Allocated with name '_Timer0_Delay_PARM_2'
+                                   1045 ;u16DLYUnit                Allocated with name '_Timer0_Delay_PARM_3'
+                                   1046 ;u32SYSCLK                 Allocated with name '_Timer0_Delay_u32SYSCLK_65536_145'
+                                   1047 ;TL0TMP                    Allocated with name '_Timer0_Delay_TL0TMP_65536_146'
+                                   1048 ;TH0TMP                    Allocated with name '_Timer0_Delay_TH0TMP_65536_146'
+                                   1049 ;------------------------------------------------------------
+                           000000  1050 	Smain$Timer0_Delay$0 ==.
+                                   1051 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:215: void Timer0_Delay(unsigned long u32SYSCLK, unsigned int u16CNT, unsigned int u16DLYUnit)
+                                   1052 ;	-----------------------------------------
+                                   1053 ;	 function Timer0_Delay
+                                   1054 ;	-----------------------------------------
+      0000DD                       1055 _Timer0_Delay:
+                           000007  1056 	ar7 = 0x07
+                           000006  1057 	ar6 = 0x06
+                           000005  1058 	ar5 = 0x05
+                           000004  1059 	ar4 = 0x04
+                           000003  1060 	ar3 = 0x03
+                           000002  1061 	ar2 = 0x02
+                           000001  1062 	ar1 = 0x01
+                           000000  1063 	ar0 = 0x00
+                           000000  1064 	Smain$Timer0_Delay$1 ==.
+      0000DD AF 82            [24] 1065 	mov	r7,dpl
+      0000DF AE 83            [24] 1066 	mov	r6,dph
+      0000E1 AD F0            [24] 1067 	mov	r5,b
+      0000E3 FC               [12] 1068 	mov	r4,a
+      0000E4 90 00 05         [24] 1069 	mov	dptr,#_Timer0_Delay_u32SYSCLK_65536_145
+      0000E7 EF               [12] 1070 	mov	a,r7
+      0000E8 F0               [24] 1071 	movx	@dptr,a
+      0000E9 EE               [12] 1072 	mov	a,r6
+      0000EA A3               [24] 1073 	inc	dptr
+      0000EB F0               [24] 1074 	movx	@dptr,a
+      0000EC ED               [12] 1075 	mov	a,r5
+      0000ED A3               [24] 1076 	inc	dptr
+      0000EE F0               [24] 1077 	movx	@dptr,a
+      0000EF EC               [12] 1078 	mov	a,r4
+      0000F0 A3               [24] 1079 	inc	dptr
+      0000F1 F0               [24] 1080 	movx	@dptr,a
+                           000015  1081 	Smain$Timer0_Delay$2 ==.
+                                   1082 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:219: TIMER0_FSYS_DIV12;                                  //T0M=0, Timer0 Clock = Fsys/12
+      0000F2 53 8E F7         [24] 1083 	anl	_CKCON,#0xf7
+                           000018  1084 	Smain$Timer0_Delay$3 ==.
+                                   1085 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:220: ENABLE_TIMER0_MODE1;                                   //Timer0 is 16-bit mode
+      0000F5 53 89 F0         [24] 1086 	anl	_TMOD,#0xf0
+      0000F8 43 89 01         [24] 1087 	orl	_TMOD,#0x01
+                           00001E  1088 	Smain$Timer0_Delay$4 ==.
+                                   1089 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:221: TL0TMP = LOBYTE(65535-((u32SYSCLK/1000000)*u16DLYUnit/12));
+      0000FB 90 00 05         [24] 1090 	mov	dptr,#_Timer0_Delay_u32SYSCLK_65536_145
+      0000FE E0               [24] 1091 	movx	a,@dptr
+      0000FF FC               [12] 1092 	mov	r4,a
+      000100 A3               [24] 1093 	inc	dptr
+      000101 E0               [24] 1094 	movx	a,@dptr
+      000102 FD               [12] 1095 	mov	r5,a
+      000103 A3               [24] 1096 	inc	dptr
+      000104 E0               [24] 1097 	movx	a,@dptr
+      000105 FE               [12] 1098 	mov	r6,a
+      000106 A3               [24] 1099 	inc	dptr
+      000107 E0               [24] 1100 	movx	a,@dptr
+      000108 FF               [12] 1101 	mov	r7,a
+      000109 90 00 52         [24] 1102 	mov	dptr,#__divulong_PARM_2
+      00010C 74 40            [12] 1103 	mov	a,#0x40
+      00010E F0               [24] 1104 	movx	@dptr,a
+      00010F 74 42            [12] 1105 	mov	a,#0x42
+      000111 A3               [24] 1106 	inc	dptr
+      000112 F0               [24] 1107 	movx	@dptr,a
+      000113 74 0F            [12] 1108 	mov	a,#0x0f
+      000115 A3               [24] 1109 	inc	dptr
+      000116 F0               [24] 1110 	movx	@dptr,a
+      000117 E4               [12] 1111 	clr	a
+      000118 A3               [24] 1112 	inc	dptr
+      000119 F0               [24] 1113 	movx	@dptr,a
+      00011A 8C 82            [24] 1114 	mov	dpl,r4
+      00011C 8D 83            [24] 1115 	mov	dph,r5
+      00011E 8E F0            [24] 1116 	mov	b,r6
+      000120 EF               [12] 1117 	mov	a,r7
+      000121 12 1B 61         [24] 1118 	lcall	__divulong
+      000124 AC 82            [24] 1119 	mov	r4,dpl
+      000126 AD 83            [24] 1120 	mov	r5,dph
+      000128 AE F0            [24] 1121 	mov	r6,b
+      00012A FF               [12] 1122 	mov	r7,a
+      00012B 90 00 03         [24] 1123 	mov	dptr,#_Timer0_Delay_PARM_3
+      00012E E0               [24] 1124 	movx	a,@dptr
+      00012F FA               [12] 1125 	mov	r2,a
+      000130 A3               [24] 1126 	inc	dptr
+      000131 E0               [24] 1127 	movx	a,@dptr
+      000132 FB               [12] 1128 	mov	r3,a
+      000133 90 00 5F         [24] 1129 	mov	dptr,#__mullong_PARM_2
+      000136 EA               [12] 1130 	mov	a,r2
+      000137 F0               [24] 1131 	movx	@dptr,a
+      000138 EB               [12] 1132 	mov	a,r3
+      000139 A3               [24] 1133 	inc	dptr
+      00013A F0               [24] 1134 	movx	@dptr,a
+      00013B E4               [12] 1135 	clr	a
+      00013C A3               [24] 1136 	inc	dptr
+      00013D F0               [24] 1137 	movx	@dptr,a
+      00013E A3               [24] 1138 	inc	dptr
+      00013F F0               [24] 1139 	movx	@dptr,a
+      000140 8C 82            [24] 1140 	mov	dpl,r4
+      000142 8D 83            [24] 1141 	mov	dph,r5
+      000144 8E F0            [24] 1142 	mov	b,r6
+      000146 EF               [12] 1143 	mov	a,r7
+      000147 12 1C 55         [24] 1144 	lcall	__mullong
+      00014A AC 82            [24] 1145 	mov	r4,dpl
+      00014C AD 83            [24] 1146 	mov	r5,dph
+      00014E AE F0            [24] 1147 	mov	r6,b
+      000150 FF               [12] 1148 	mov	r7,a
+      000151 90 00 52         [24] 1149 	mov	dptr,#__divulong_PARM_2
+      000154 74 0C            [12] 1150 	mov	a,#0x0c
+      000156 F0               [24] 1151 	movx	@dptr,a
+      000157 E4               [12] 1152 	clr	a
+      000158 A3               [24] 1153 	inc	dptr
+      000159 F0               [24] 1154 	movx	@dptr,a
+      00015A A3               [24] 1155 	inc	dptr
+      00015B F0               [24] 1156 	movx	@dptr,a
+      00015C A3               [24] 1157 	inc	dptr
+      00015D F0               [24] 1158 	movx	@dptr,a
+      00015E 8C 82            [24] 1159 	mov	dpl,r4
+      000160 8D 83            [24] 1160 	mov	dph,r5
+      000162 8E F0            [24] 1161 	mov	b,r6
+      000164 EF               [12] 1162 	mov	a,r7
+      000165 12 1B 61         [24] 1163 	lcall	__divulong
+      000168 AC 82            [24] 1164 	mov	r4,dpl
+      00016A AD 83            [24] 1165 	mov	r5,dph
+      00016C AE F0            [24] 1166 	mov	r6,b
+      00016E FF               [12] 1167 	mov	r7,a
+      00016F 8C 03            [24] 1168 	mov	ar3,r4
+      000171 74 FF            [12] 1169 	mov	a,#0xff
+      000173 C3               [12] 1170 	clr	c
+      000174 9B               [12] 1171 	subb	a,r3
+      000175 FB               [12] 1172 	mov	r3,a
+                           000099  1173 	Smain$Timer0_Delay$5 ==.
+                                   1174 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:222: TH0TMP = HIBYTE(65535-((u32SYSCLK/1000000)*u16DLYUnit/12));
+      000176 74 FF            [12] 1175 	mov	a,#0xff
+      000178 C3               [12] 1176 	clr	c
+      000179 9C               [12] 1177 	subb	a,r4
+      00017A 74 FF            [12] 1178 	mov	a,#0xff
+      00017C 9D               [12] 1179 	subb	a,r5
+      00017D FD               [12] 1180 	mov	r5,a
+      00017E E4               [12] 1181 	clr	a
+      00017F 9E               [12] 1182 	subb	a,r6
+      000180 E4               [12] 1183 	clr	a
+      000181 9F               [12] 1184 	subb	a,r7
+      000182 8D 07            [24] 1185 	mov	ar7,r5
+                           0000A7  1186 	Smain$Timer0_Delay$6 ==.
+                                   1187 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:224: while (u16CNT != 0)
+      000184 90 00 01         [24] 1188 	mov	dptr,#_Timer0_Delay_PARM_2
+      000187 E0               [24] 1189 	movx	a,@dptr
+      000188 FD               [12] 1190 	mov	r5,a
+      000189 A3               [24] 1191 	inc	dptr
+      00018A E0               [24] 1192 	movx	a,@dptr
+      00018B FE               [12] 1193 	mov	r6,a
+      00018C                       1194 00104$:
+      00018C ED               [12] 1195 	mov	a,r5
+      00018D 4E               [12] 1196 	orl	a,r6
+      00018E 60 14            [24] 1197 	jz	00107$
+                           0000B3  1198 	Smain$Timer0_Delay$7 ==.
+                           0000B3  1199 	Smain$Timer0_Delay$8 ==.
+                                   1200 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:226: TL0=TL0TMP;
+      000190 8B 8A            [24] 1201 	mov	_TL0,r3
+                           0000B5  1202 	Smain$Timer0_Delay$9 ==.
+                                   1203 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:227: TH0=TH0TMP;
+      000192 8F 8C            [24] 1204 	mov	_TH0,r7
+                           0000B7  1205 	Smain$Timer0_Delay$10 ==.
+                                   1206 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:228: set_TCON_TR0;                                    //Start Timer0
+                                   1207 ;	assignBit
+      000194 D2 8C            [12] 1208 	setb	_TR0
+                           0000B9  1209 	Smain$Timer0_Delay$11 ==.
+                                   1210 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:229: while (!TF0);                       //Check Timer0 Time-Out Flag
+      000196                       1211 00101$:
+                           0000B9  1212 	Smain$Timer0_Delay$12 ==.
+                                   1213 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:230: clr_TCON_TF0;
+                                   1214 ;	assignBit
+      000196 10 8D 02         [24] 1215 	jbc	_TF0,00127$
+      000199 80 FB            [24] 1216 	sjmp	00101$
+      00019B                       1217 00127$:
+                           0000BE  1218 	Smain$Timer0_Delay$13 ==.
+                                   1219 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:231: clr_TCON_TR0;                       //Stop Timer0
+                                   1220 ;	assignBit
+      00019B C2 8C            [12] 1221 	clr	_TR0
+                           0000C0  1222 	Smain$Timer0_Delay$14 ==.
+                                   1223 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:232: u16CNT --;
+      00019D 1D               [12] 1224 	dec	r5
+      00019E BD FF 01         [24] 1225 	cjne	r5,#0xff,00128$
+      0001A1 1E               [12] 1226 	dec	r6
+      0001A2                       1227 00128$:
+                           0000C5  1228 	Smain$Timer0_Delay$15 ==.
+      0001A2 80 E8            [24] 1229 	sjmp	00104$
+      0001A4                       1230 00107$:
+                           0000C7  1231 	Smain$Timer0_Delay$16 ==.
+                                   1232 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:235: }
+                           0000C7  1233 	Smain$Timer0_Delay$17 ==.
+                           0000C7  1234 	XG$Timer0_Delay$0$0 ==.
+      0001A4 22               [24] 1235 	ret
+                           0000C8  1236 	Smain$Timer0_Delay$18 ==.
+                                   1237 ;------------------------------------------------------------
+                                   1238 ;Allocation info for local variables in function 'uart_log'
+                                   1239 ;------------------------------------------------------------
+                                   1240 ;c                         Allocated with name '_uart_log_c_65536_148'
+                                   1241 ;------------------------------------------------------------
+                           0000C8  1242 	Smain$uart_log$19 ==.
+                                   1243 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:238: void uart_log(char c)
+                                   1244 ;	-----------------------------------------
+                                   1245 ;	 function uart_log
+                                   1246 ;	-----------------------------------------
+      0001A5                       1247 _uart_log:
+                           0000C8  1248 	Smain$uart_log$20 ==.
+      0001A5 E5 82            [12] 1249 	mov	a,dpl
+      0001A7 90 00 09         [24] 1250 	mov	dptr,#_uart_log_c_65536_148
+      0001AA F0               [24] 1251 	movx	@dptr,a
+                           0000CE  1252 	Smain$uart_log$21 ==.
+                                   1253 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:240: UART_Send_Data(UART1,c);
+      0001AB E0               [24] 1254 	movx	a,@dptr
+      0001AC 90 00 47         [24] 1255 	mov	dptr,#_UART_Send_Data_PARM_2
+      0001AF F0               [24] 1256 	movx	@dptr,a
+      0001B0 75 82 01         [24] 1257 	mov	dpl,#0x01
+      0001B3 12 19 C6         [24] 1258 	lcall	_UART_Send_Data
+                           0000D9  1259 	Smain$uart_log$22 ==.
+                                   1260 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:241: Timer0_Delay(24000000, 10, 10);
+      0001B6 90 00 01         [24] 1261 	mov	dptr,#_Timer0_Delay_PARM_2
+      0001B9 74 0A            [12] 1262 	mov	a,#0x0a
+      0001BB F0               [24] 1263 	movx	@dptr,a
+      0001BC E4               [12] 1264 	clr	a
+      0001BD A3               [24] 1265 	inc	dptr
+      0001BE F0               [24] 1266 	movx	@dptr,a
+      0001BF 90 00 03         [24] 1267 	mov	dptr,#_Timer0_Delay_PARM_3
+      0001C2 74 0A            [12] 1268 	mov	a,#0x0a
+      0001C4 F0               [24] 1269 	movx	@dptr,a
+      0001C5 E4               [12] 1270 	clr	a
+      0001C6 A3               [24] 1271 	inc	dptr
+      0001C7 F0               [24] 1272 	movx	@dptr,a
+      0001C8 90 36 00         [24] 1273 	mov	dptr,#0x3600
+      0001CB 75 F0 6E         [24] 1274 	mov	b,#0x6e
+      0001CE 74 01            [12] 1275 	mov	a,#0x01
+      0001D0 12 00 DD         [24] 1276 	lcall	_Timer0_Delay
+                           0000F6  1277 	Smain$uart_log$23 ==.
+                                   1278 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:243: }
+                           0000F6  1279 	Smain$uart_log$24 ==.
+                           0000F6  1280 	XG$uart_log$0$0 ==.
+      0001D3 22               [24] 1281 	ret
+                           0000F7  1282 	Smain$uart_log$25 ==.
+                                   1283 ;------------------------------------------------------------
+                                   1284 ;Allocation info for local variables in function 'uart_logn'
+                                   1285 ;------------------------------------------------------------
+                                   1286 ;sloc0                     Allocated with name '_uart_logn_sloc0_1_0'
+                                   1287 ;n                         Allocated with name '_uart_logn_n_65536_150'
+                                   1288 ;e                         Allocated with name '_uart_logn_e_65537_153'
+                                   1289 ;res                       Allocated with name '_uart_logn_res_131074_155'
+                                   1290 ;------------------------------------------------------------
+                           0000F7  1291 	Smain$uart_logn$26 ==.
+                                   1292 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:245: void uart_logn(uint32_t n)
+                                   1293 ;	-----------------------------------------
+                                   1294 ;	 function uart_logn
+                                   1295 ;	-----------------------------------------
+      0001D4                       1296 _uart_logn:
+                           0000F7  1297 	Smain$uart_logn$27 ==.
+      0001D4 AF 82            [24] 1298 	mov	r7,dpl
+      0001D6 AE 83            [24] 1299 	mov	r6,dph
+      0001D8 AD F0            [24] 1300 	mov	r5,b
+      0001DA FC               [12] 1301 	mov	r4,a
+      0001DB 90 00 0A         [24] 1302 	mov	dptr,#_uart_logn_n_65536_150
+      0001DE EF               [12] 1303 	mov	a,r7
+      0001DF F0               [24] 1304 	movx	@dptr,a
+      0001E0 EE               [12] 1305 	mov	a,r6
+      0001E1 A3               [24] 1306 	inc	dptr
+      0001E2 F0               [24] 1307 	movx	@dptr,a
+      0001E3 ED               [12] 1308 	mov	a,r5
+      0001E4 A3               [24] 1309 	inc	dptr
+      0001E5 F0               [24] 1310 	movx	@dptr,a
+      0001E6 EC               [12] 1311 	mov	a,r4
+      0001E7 A3               [24] 1312 	inc	dptr
+      0001E8 F0               [24] 1313 	movx	@dptr,a
+                           00010C  1314 	Smain$uart_logn$28 ==.
+                                   1315 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:247: if( n == 0 ) {
+      0001E9 90 00 0A         [24] 1316 	mov	dptr,#_uart_logn_n_65536_150
+      0001EC E0               [24] 1317 	movx	a,@dptr
+      0001ED FC               [12] 1318 	mov	r4,a
+      0001EE A3               [24] 1319 	inc	dptr
+      0001EF E0               [24] 1320 	movx	a,@dptr
+      0001F0 FD               [12] 1321 	mov	r5,a
+      0001F1 A3               [24] 1322 	inc	dptr
+      0001F2 E0               [24] 1323 	movx	a,@dptr
+      0001F3 FE               [12] 1324 	mov	r6,a
+      0001F4 A3               [24] 1325 	inc	dptr
+      0001F5 E0               [24] 1326 	movx	a,@dptr
+      0001F6 FF               [12] 1327 	mov	r7,a
+      0001F7 90 00 0A         [24] 1328 	mov	dptr,#_uart_logn_n_65536_150
+      0001FA E0               [24] 1329 	movx	a,@dptr
+      0001FB F5 F0            [12] 1330 	mov	b,a
+      0001FD A3               [24] 1331 	inc	dptr
+      0001FE E0               [24] 1332 	movx	a,@dptr
+      0001FF 42 F0            [12] 1333 	orl	b,a
+      000201 A3               [24] 1334 	inc	dptr
+      000202 E0               [24] 1335 	movx	a,@dptr
+      000203 42 F0            [12] 1336 	orl	b,a
+      000205 A3               [24] 1337 	inc	dptr
+      000206 E0               [24] 1338 	movx	a,@dptr
+      000207 45 F0            [12] 1339 	orl	a,b
+      000209 70 09            [24] 1340 	jnz	00102$
+                           00012E  1341 	Smain$uart_logn$29 ==.
+                           00012E  1342 	Smain$uart_logn$30 ==.
+                                   1343 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:248: uart_log('0');
+      00020B 75 82 30         [24] 1344 	mov	dpl,#0x30
+      00020E 12 01 A5         [24] 1345 	lcall	_uart_log
+                           000134  1346 	Smain$uart_logn$31 ==.
+                                   1347 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:249: return;
+      000211 02 03 4B         [24] 1348 	ljmp	00109$
+                           000137  1349 	Smain$uart_logn$32 ==.
+      000214                       1350 00102$:
+                           000137  1351 	Smain$uart_logn$33 ==.
+                           000137  1352 	Smain$uart_logn$34 ==.
+                                   1353 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:252: uint32_t e = 10;
+      000214 90 00 0E         [24] 1354 	mov	dptr,#_uart_logn_e_65537_153
+      000217 74 0A            [12] 1355 	mov	a,#0x0a
+      000219 F0               [24] 1356 	movx	@dptr,a
+      00021A E4               [12] 1357 	clr	a
+      00021B A3               [24] 1358 	inc	dptr
+      00021C F0               [24] 1359 	movx	@dptr,a
+      00021D A3               [24] 1360 	inc	dptr
+      00021E F0               [24] 1361 	movx	@dptr,a
+      00021F A3               [24] 1362 	inc	dptr
+      000220 F0               [24] 1363 	movx	@dptr,a
+                           000144  1364 	Smain$uart_logn$35 ==.
+                           000144  1365 	Smain$uart_logn$36 ==.
+                                   1366 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:254: while( e <= n ) e *= 10;
+      000221                       1367 00103$:
+      000221 90 00 0E         [24] 1368 	mov	dptr,#_uart_logn_e_65537_153
+      000224 E0               [24] 1369 	movx	a,@dptr
+      000225 F8               [12] 1370 	mov	r0,a
+      000226 A3               [24] 1371 	inc	dptr
+      000227 E0               [24] 1372 	movx	a,@dptr
+      000228 F9               [12] 1373 	mov	r1,a
+      000229 A3               [24] 1374 	inc	dptr
+      00022A E0               [24] 1375 	movx	a,@dptr
+      00022B FA               [12] 1376 	mov	r2,a
+      00022C A3               [24] 1377 	inc	dptr
+      00022D E0               [24] 1378 	movx	a,@dptr
+      00022E FB               [12] 1379 	mov	r3,a
+      00022F C3               [12] 1380 	clr	c
+      000230 EC               [12] 1381 	mov	a,r4
+      000231 98               [12] 1382 	subb	a,r0
+      000232 ED               [12] 1383 	mov	a,r5
+      000233 99               [12] 1384 	subb	a,r1
+      000234 EE               [12] 1385 	mov	a,r6
+      000235 9A               [12] 1386 	subb	a,r2
+      000236 EF               [12] 1387 	mov	a,r7
+      000237 9B               [12] 1388 	subb	a,r3
+      000238 40 3E            [24] 1389 	jc	00106$
+                           00015D  1390 	Smain$uart_logn$37 ==.
+      00023A 90 00 5F         [24] 1391 	mov	dptr,#__mullong_PARM_2
+      00023D E8               [12] 1392 	mov	a,r0
+      00023E F0               [24] 1393 	movx	@dptr,a
+      00023F E9               [12] 1394 	mov	a,r1
+      000240 A3               [24] 1395 	inc	dptr
+      000241 F0               [24] 1396 	movx	@dptr,a
+      000242 EA               [12] 1397 	mov	a,r2
+      000243 A3               [24] 1398 	inc	dptr
+      000244 F0               [24] 1399 	movx	@dptr,a
+      000245 EB               [12] 1400 	mov	a,r3
+      000246 A3               [24] 1401 	inc	dptr
+      000247 F0               [24] 1402 	movx	@dptr,a
+      000248 90 00 0A         [24] 1403 	mov	dptr,#(0x0a&0x00ff)
+      00024B E4               [12] 1404 	clr	a
+      00024C F5 F0            [12] 1405 	mov	b,a
+      00024E C0 07            [24] 1406 	push	ar7
+      000250 C0 06            [24] 1407 	push	ar6
+      000252 C0 05            [24] 1408 	push	ar5
+      000254 C0 04            [24] 1409 	push	ar4
+      000256 12 1C 55         [24] 1410 	lcall	__mullong
+      000259 A8 82            [24] 1411 	mov	r0,dpl
+      00025B A9 83            [24] 1412 	mov	r1,dph
+      00025D AA F0            [24] 1413 	mov	r2,b
+      00025F FB               [12] 1414 	mov	r3,a
+      000260 D0 04            [24] 1415 	pop	ar4
+      000262 D0 05            [24] 1416 	pop	ar5
+      000264 D0 06            [24] 1417 	pop	ar6
+      000266 D0 07            [24] 1418 	pop	ar7
+      000268 90 00 0E         [24] 1419 	mov	dptr,#_uart_logn_e_65537_153
+      00026B E8               [12] 1420 	mov	a,r0
+      00026C F0               [24] 1421 	movx	@dptr,a
+      00026D E9               [12] 1422 	mov	a,r1
+      00026E A3               [24] 1423 	inc	dptr
+      00026F F0               [24] 1424 	movx	@dptr,a
+      000270 EA               [12] 1425 	mov	a,r2
+      000271 A3               [24] 1426 	inc	dptr
+      000272 F0               [24] 1427 	movx	@dptr,a
+      000273 EB               [12] 1428 	mov	a,r3
+      000274 A3               [24] 1429 	inc	dptr
+      000275 F0               [24] 1430 	movx	@dptr,a
+                           000199  1431 	Smain$uart_logn$38 ==.
+                                   1432 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:256: while( e > 1 ) {
+      000276 80 A9            [24] 1433 	sjmp	00103$
+      000278                       1434 00106$:
+      000278 90 00 0E         [24] 1435 	mov	dptr,#_uart_logn_e_65537_153
+      00027B E0               [24] 1436 	movx	a,@dptr
+      00027C FC               [12] 1437 	mov	r4,a
+      00027D A3               [24] 1438 	inc	dptr
+      00027E E0               [24] 1439 	movx	a,@dptr
+      00027F FD               [12] 1440 	mov	r5,a
+      000280 A3               [24] 1441 	inc	dptr
+      000281 E0               [24] 1442 	movx	a,@dptr
+      000282 FE               [12] 1443 	mov	r6,a
+      000283 A3               [24] 1444 	inc	dptr
+      000284 E0               [24] 1445 	movx	a,@dptr
+      000285 FF               [12] 1446 	mov	r7,a
+      000286 C3               [12] 1447 	clr	c
+      000287 74 01            [12] 1448 	mov	a,#0x01
+      000289 9C               [12] 1449 	subb	a,r4
+      00028A E4               [12] 1450 	clr	a
+      00028B 9D               [12] 1451 	subb	a,r5
+      00028C E4               [12] 1452 	clr	a
+      00028D 9E               [12] 1453 	subb	a,r6
+      00028E E4               [12] 1454 	clr	a
+      00028F 9F               [12] 1455 	subb	a,r7
+      000290 40 03            [24] 1456 	jc	00133$
+      000292 02 03 4B         [24] 1457 	ljmp	00109$
+      000295                       1458 00133$:
+                           0001B8  1459 	Smain$uart_logn$39 ==.
+                                   1460 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:257: e /= 10;
+      000295 90 00 52         [24] 1461 	mov	dptr,#__divulong_PARM_2
+      000298 74 0A            [12] 1462 	mov	a,#0x0a
+      00029A F0               [24] 1463 	movx	@dptr,a
+      00029B E4               [12] 1464 	clr	a
+      00029C A3               [24] 1465 	inc	dptr
+      00029D F0               [24] 1466 	movx	@dptr,a
+      00029E A3               [24] 1467 	inc	dptr
+      00029F F0               [24] 1468 	movx	@dptr,a
+      0002A0 A3               [24] 1469 	inc	dptr
+      0002A1 F0               [24] 1470 	movx	@dptr,a
+      0002A2 8C 82            [24] 1471 	mov	dpl,r4
+      0002A4 8D 83            [24] 1472 	mov	dph,r5
+      0002A6 8E F0            [24] 1473 	mov	b,r6
+      0002A8 EF               [12] 1474 	mov	a,r7
+      0002A9 12 1B 61         [24] 1475 	lcall	__divulong
+      0002AC AC 82            [24] 1476 	mov	r4,dpl
+      0002AE AD 83            [24] 1477 	mov	r5,dph
+      0002B0 AE F0            [24] 1478 	mov	r6,b
+      0002B2 FF               [12] 1479 	mov	r7,a
+                           0001D6  1480 	Smain$uart_logn$40 ==.
+      0002B3 90 00 0E         [24] 1481 	mov	dptr,#_uart_logn_e_65537_153
+      0002B6 EC               [12] 1482 	mov	a,r4
+      0002B7 F0               [24] 1483 	movx	@dptr,a
+      0002B8 ED               [12] 1484 	mov	a,r5
+      0002B9 A3               [24] 1485 	inc	dptr
+      0002BA F0               [24] 1486 	movx	@dptr,a
+      0002BB EE               [12] 1487 	mov	a,r6
+      0002BC A3               [24] 1488 	inc	dptr
+      0002BD F0               [24] 1489 	movx	@dptr,a
+      0002BE EF               [12] 1490 	mov	a,r7
+      0002BF A3               [24] 1491 	inc	dptr
+      0002C0 F0               [24] 1492 	movx	@dptr,a
+                           0001E4  1493 	Smain$uart_logn$41 ==.
+                           0001E4  1494 	Smain$uart_logn$42 ==.
+                                   1495 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:258: uint32_t res = n / e;
+      0002C1 90 00 0E         [24] 1496 	mov	dptr,#_uart_logn_e_65537_153
+      0002C4 E0               [24] 1497 	movx	a,@dptr
+      0002C5 FC               [12] 1498 	mov	r4,a
+      0002C6 A3               [24] 1499 	inc	dptr
+      0002C7 E0               [24] 1500 	movx	a,@dptr
+      0002C8 FD               [12] 1501 	mov	r5,a
+      0002C9 A3               [24] 1502 	inc	dptr
+      0002CA E0               [24] 1503 	movx	a,@dptr
+      0002CB FE               [12] 1504 	mov	r6,a
+      0002CC A3               [24] 1505 	inc	dptr
+      0002CD E0               [24] 1506 	movx	a,@dptr
+      0002CE FF               [12] 1507 	mov	r7,a
+      0002CF 90 00 0A         [24] 1508 	mov	dptr,#_uart_logn_n_65536_150
+      0002D2 E0               [24] 1509 	movx	a,@dptr
+      0002D3 F5 22            [12] 1510 	mov	_uart_logn_sloc0_1_0,a
+      0002D5 A3               [24] 1511 	inc	dptr
+      0002D6 E0               [24] 1512 	movx	a,@dptr
+      0002D7 F5 23            [12] 1513 	mov	(_uart_logn_sloc0_1_0 + 1),a
+      0002D9 A3               [24] 1514 	inc	dptr
+      0002DA E0               [24] 1515 	movx	a,@dptr
+      0002DB F5 24            [12] 1516 	mov	(_uart_logn_sloc0_1_0 + 2),a
+      0002DD A3               [24] 1517 	inc	dptr
+      0002DE E0               [24] 1518 	movx	a,@dptr
+      0002DF F5 25            [12] 1519 	mov	(_uart_logn_sloc0_1_0 + 3),a
+                           000204  1520 	Smain$uart_logn$43 ==.
+      0002E1 90 00 52         [24] 1521 	mov	dptr,#__divulong_PARM_2
+      0002E4 EC               [12] 1522 	mov	a,r4
+      0002E5 F0               [24] 1523 	movx	@dptr,a
+      0002E6 ED               [12] 1524 	mov	a,r5
+      0002E7 A3               [24] 1525 	inc	dptr
+      0002E8 F0               [24] 1526 	movx	@dptr,a
+      0002E9 EE               [12] 1527 	mov	a,r6
+      0002EA A3               [24] 1528 	inc	dptr
+      0002EB F0               [24] 1529 	movx	@dptr,a
+      0002EC EF               [12] 1530 	mov	a,r7
+      0002ED A3               [24] 1531 	inc	dptr
+      0002EE F0               [24] 1532 	movx	@dptr,a
+                           000212  1533 	Smain$uart_logn$44 ==.
+                                   1534 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:259: uart_log(res + '0');
+      0002EF 85 22 82         [24] 1535 	mov	dpl,_uart_logn_sloc0_1_0
+      0002F2 85 23 83         [24] 1536 	mov	dph,(_uart_logn_sloc0_1_0 + 1)
+      0002F5 85 24 F0         [24] 1537 	mov	b,(_uart_logn_sloc0_1_0 + 2)
+      0002F8 E5 25            [12] 1538 	mov	a,(_uart_logn_sloc0_1_0 + 3)
+      0002FA C0 07            [24] 1539 	push	ar7
+      0002FC C0 06            [24] 1540 	push	ar6
+      0002FE C0 05            [24] 1541 	push	ar5
+      000300 C0 04            [24] 1542 	push	ar4
+      000302 12 1B 61         [24] 1543 	lcall	__divulong
+      000305 A8 82            [24] 1544 	mov	r0,dpl
+      000307 74 30            [12] 1545 	mov	a,#0x30
+      000309 28               [12] 1546 	add	a,r0
+      00030A F5 82            [12] 1547 	mov	dpl,a
+      00030C 12 01 A5         [24] 1548 	lcall	_uart_log
+      00030F D0 04            [24] 1549 	pop	ar4
+      000311 D0 05            [24] 1550 	pop	ar5
+      000313 D0 06            [24] 1551 	pop	ar6
+      000315 D0 07            [24] 1552 	pop	ar7
+                           00023A  1553 	Smain$uart_logn$45 ==.
+                                   1554 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:260: n = n % e;
+      000317 90 00 49         [24] 1555 	mov	dptr,#__modulong_PARM_2
+      00031A EC               [12] 1556 	mov	a,r4
+      00031B F0               [24] 1557 	movx	@dptr,a
+      00031C ED               [12] 1558 	mov	a,r5
+      00031D A3               [24] 1559 	inc	dptr
+      00031E F0               [24] 1560 	movx	@dptr,a
+      00031F EE               [12] 1561 	mov	a,r6
+      000320 A3               [24] 1562 	inc	dptr
+      000321 F0               [24] 1563 	movx	@dptr,a
+      000322 EF               [12] 1564 	mov	a,r7
+      000323 A3               [24] 1565 	inc	dptr
+      000324 F0               [24] 1566 	movx	@dptr,a
+      000325 85 22 82         [24] 1567 	mov	dpl,_uart_logn_sloc0_1_0
+      000328 85 23 83         [24] 1568 	mov	dph,(_uart_logn_sloc0_1_0 + 1)
+      00032B 85 24 F0         [24] 1569 	mov	b,(_uart_logn_sloc0_1_0 + 2)
+      00032E E5 25            [12] 1570 	mov	a,(_uart_logn_sloc0_1_0 + 3)
+      000330 12 1A 21         [24] 1571 	lcall	__modulong
+      000333 AC 82            [24] 1572 	mov	r4,dpl
+      000335 AD 83            [24] 1573 	mov	r5,dph
+      000337 AE F0            [24] 1574 	mov	r6,b
+      000339 FF               [12] 1575 	mov	r7,a
+      00033A 90 00 0A         [24] 1576 	mov	dptr,#_uart_logn_n_65536_150
+      00033D EC               [12] 1577 	mov	a,r4
+      00033E F0               [24] 1578 	movx	@dptr,a
+      00033F ED               [12] 1579 	mov	a,r5
+      000340 A3               [24] 1580 	inc	dptr
+      000341 F0               [24] 1581 	movx	@dptr,a
+      000342 EE               [12] 1582 	mov	a,r6
+      000343 A3               [24] 1583 	inc	dptr
+      000344 F0               [24] 1584 	movx	@dptr,a
+      000345 EF               [12] 1585 	mov	a,r7
+      000346 A3               [24] 1586 	inc	dptr
+      000347 F0               [24] 1587 	movx	@dptr,a
+      000348 02 02 78         [24] 1588 	ljmp	00106$
+      00034B                       1589 00109$:
+                           00026E  1590 	Smain$uart_logn$46 ==.
+                                   1591 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:262: }
+                           00026E  1592 	Smain$uart_logn$47 ==.
+                           00026E  1593 	XG$uart_logn$0$0 ==.
+      00034B 22               [24] 1594 	ret
+                           00026F  1595 	Smain$uart_logn$48 ==.
+                                   1596 ;------------------------------------------------------------
+                                   1597 ;Allocation info for local variables in function 'log_init'
+                                   1598 ;------------------------------------------------------------
+                           00026F  1599 	Smain$log_init$49 ==.
+                                   1600 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:266: void log_init(void)
+                                   1601 ;	-----------------------------------------
+                                   1602 ;	 function log_init
+                                   1603 ;	-----------------------------------------
+      00034C                       1604 _log_init:
+                           00026F  1605 	Smain$log_init$50 ==.
+                           00026F  1606 	Smain$log_init$51 ==.
+                                   1607 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:268: P16_QUASI_MODE;
+      00034C 53 B3 BF         [24] 1608 	anl	_P1M1,#0xbf
+      00034F 53 B4 BF         [24] 1609 	anl	_P1M2,#0xbf
+                           000275  1610 	Smain$log_init$52 ==.
+                                   1611 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:269: if( !is_uart_mode ) {
+      000352 90 00 6D         [24] 1612 	mov	dptr,#_is_uart_mode
+      000355 E0               [24] 1613 	movx	a,@dptr
+      000356 70 20            [24] 1614 	jnz	00103$
+                           00027B  1615 	Smain$log_init$53 ==.
+                           00027B  1616 	Smain$log_init$54 ==.
+                                   1617 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:270: UART_Open(24000000,UART1_Timer3,9600);
+      000358 90 00 3C         [24] 1618 	mov	dptr,#_UART_Open_PARM_2
+      00035B 74 02            [12] 1619 	mov	a,#0x02
+      00035D F0               [24] 1620 	movx	@dptr,a
+      00035E 90 00 3D         [24] 1621 	mov	dptr,#_UART_Open_PARM_3
+      000361 74 80            [12] 1622 	mov	a,#0x80
+      000363 F0               [24] 1623 	movx	@dptr,a
+      000364 74 25            [12] 1624 	mov	a,#0x25
+      000366 A3               [24] 1625 	inc	dptr
+      000367 F0               [24] 1626 	movx	@dptr,a
+      000368 E4               [12] 1627 	clr	a
+      000369 A3               [24] 1628 	inc	dptr
+      00036A F0               [24] 1629 	movx	@dptr,a
+      00036B A3               [24] 1630 	inc	dptr
+      00036C F0               [24] 1631 	movx	@dptr,a
+      00036D 90 36 00         [24] 1632 	mov	dptr,#0x3600
+      000370 75 F0 6E         [24] 1633 	mov	b,#0x6e
+      000373 74 01            [12] 1634 	mov	a,#0x01
+      000375 12 17 A1         [24] 1635 	lcall	_UART_Open
+                           00029B  1636 	Smain$log_init$55 ==.
+      000378                       1637 00103$:
+                           00029B  1638 	Smain$log_init$56 ==.
+                                   1639 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:272: }
+                           00029B  1640 	Smain$log_init$57 ==.
+                           00029B  1641 	XG$log_init$0$0 ==.
+      000378 22               [24] 1642 	ret
+                           00029C  1643 	Smain$log_init$58 ==.
+                                   1644 ;------------------------------------------------------------
+                                   1645 ;Allocation info for local variables in function 'SerialPort1_ISR'
+                                   1646 ;------------------------------------------------------------
+                           00029C  1647 	Smain$SerialPort1_ISR$59 ==.
+                                   1648 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:292: void SerialPort1_ISR(void) __interrupt (15)
+                                   1649 ;	-----------------------------------------
+                                   1650 ;	 function SerialPort1_ISR
+                                   1651 ;	-----------------------------------------
+      000379                       1652 _SerialPort1_ISR:
+      000379 C0 21            [24] 1653 	push	bits
+      00037B C0 E0            [24] 1654 	push	acc
+      00037D C0 F0            [24] 1655 	push	b
+      00037F C0 82            [24] 1656 	push	dpl
+      000381 C0 83            [24] 1657 	push	dph
+      000383 C0 07            [24] 1658 	push	(0+7)
+      000385 C0 06            [24] 1659 	push	(0+6)
+      000387 C0 05            [24] 1660 	push	(0+5)
+      000389 C0 04            [24] 1661 	push	(0+4)
+      00038B C0 03            [24] 1662 	push	(0+3)
+      00038D C0 02            [24] 1663 	push	(0+2)
+      00038F C0 01            [24] 1664 	push	(0+1)
+      000391 C0 00            [24] 1665 	push	(0+0)
+      000393 C0 D0            [24] 1666 	push	psw
+      000395 75 D0 00         [24] 1667 	mov	psw,#0x00
+                           0002BB  1668 	Smain$SerialPort1_ISR$60 ==.
+                           0002BB  1669 	Smain$SerialPort1_ISR$61 ==.
+                                   1670 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:294: PUSH_SFRS;
+      000398 C0 91            [24] 1671 	PUSH	0x91;
+                           0002BD  1672 	Smain$SerialPort1_ISR$62 ==.
+                                   1673 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:296: if (RI_1)
+      00039A 30 F8 37         [24] 1674 	jnb	_RI_1,00102$
+                           0002C0  1675 	Smain$SerialPort1_ISR$63 ==.
+                           0002C0  1676 	Smain$SerialPort1_ISR$64 ==.
+                                   1677 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:298: uart1_rx_buffer[uart1_next_idx] = SBUF_1;
+      00039D 90 00 8C         [24] 1678 	mov	dptr,#_uart1_next_idx
+      0003A0 E0               [24] 1679 	movx	a,@dptr
+      0003A1 24 12            [12] 1680 	add	a,#_uart1_rx_buffer
+      0003A3 F5 82            [12] 1681 	mov	dpl,a
+      0003A5 E4               [12] 1682 	clr	a
+      0003A6 34 00            [12] 1683 	addc	a,#(_uart1_rx_buffer >> 8)
+      0003A8 F5 83            [12] 1684 	mov	dph,a
+      0003AA E5 9A            [12] 1685 	mov	a,_SBUF_1
+      0003AC F0               [24] 1686 	movx	@dptr,a
+                           0002D0  1687 	Smain$SerialPort1_ISR$65 ==.
+                                   1688 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:299: uart1_next_idx = (uart1_next_idx + 1) % UART_BUFFER_LENGTH;
+      0003AD 90 00 8C         [24] 1689 	mov	dptr,#_uart1_next_idx
+      0003B0 E0               [24] 1690 	movx	a,@dptr
+      0003B1 FF               [12] 1691 	mov	r7,a
+      0003B2 7E 00            [12] 1692 	mov	r6,#0x00
+      0003B4 0F               [12] 1693 	inc	r7
+      0003B5 BF 00 01         [24] 1694 	cjne	r7,#0x00,00116$
+      0003B8 0E               [12] 1695 	inc	r6
+      0003B9                       1696 00116$:
+                           0002DC  1697 	Smain$SerialPort1_ISR$66 ==.
+      0003B9 90 00 63         [24] 1698 	mov	dptr,#__modsint_PARM_2
+      0003BC 74 10            [12] 1699 	mov	a,#0x10
+      0003BE F0               [24] 1700 	movx	@dptr,a
+      0003BF E4               [12] 1701 	clr	a
+      0003C0 A3               [24] 1702 	inc	dptr
+      0003C1 F0               [24] 1703 	movx	@dptr,a
+      0003C2 8F 82            [24] 1704 	mov	dpl,r7
+      0003C4 8E 83            [24] 1705 	mov	dph,r6
+      0003C6 12 1C C1         [24] 1706 	lcall	__modsint
+      0003C9 AE 82            [24] 1707 	mov	r6,dpl
+      0003CB AF 83            [24] 1708 	mov	r7,dph
+      0003CD 90 00 8C         [24] 1709 	mov	dptr,#_uart1_next_idx
+      0003D0 EE               [12] 1710 	mov	a,r6
+      0003D1 F0               [24] 1711 	movx	@dptr,a
+                           0002F5  1712 	Smain$SerialPort1_ISR$67 ==.
+                                   1713 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:300: clr_SCON_1_RI_1;                             /* clear reception flag for next reception */
+                                   1714 ;	assignBit
+      0003D2 C2 F8            [12] 1715 	clr	_RI_1
+      0003D4                       1716 00102$:
+                           0002F7  1717 	Smain$SerialPort1_ISR$68 ==.
+                                   1718 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:303: if (TI_1 )
+                           0002F7  1719 	Smain$SerialPort1_ISR$69 ==.
+                           0002F7  1720 	Smain$SerialPort1_ISR$70 ==.
+                                   1721 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:305: clr_SCON_1_TI_1;                             // if emission occur
+                                   1722 ;	assignBit
+      0003D4 10 F9 02         [24] 1723 	jbc	_TI_1,00117$
+      0003D7 80 00            [24] 1724 	sjmp	00104$
+      0003D9                       1725 00117$:
+                           0002FC  1726 	Smain$SerialPort1_ISR$71 ==.
+      0003D9                       1727 00104$:
+                           0002FC  1728 	Smain$SerialPort1_ISR$72 ==.
+                                   1729 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:309: POP_SFRS;
+      0003D9 D0 91            [24] 1730 	POP	0x91;
+                           0002FE  1731 	Smain$SerialPort1_ISR$73 ==.
+                                   1732 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:310: }
+      0003DB D0 D0            [24] 1733 	pop	psw
+      0003DD D0 00            [24] 1734 	pop	(0+0)
+      0003DF D0 01            [24] 1735 	pop	(0+1)
+      0003E1 D0 02            [24] 1736 	pop	(0+2)
+      0003E3 D0 03            [24] 1737 	pop	(0+3)
+      0003E5 D0 04            [24] 1738 	pop	(0+4)
+      0003E7 D0 05            [24] 1739 	pop	(0+5)
+      0003E9 D0 06            [24] 1740 	pop	(0+6)
+      0003EB D0 07            [24] 1741 	pop	(0+7)
+      0003ED D0 83            [24] 1742 	pop	dph
+      0003EF D0 82            [24] 1743 	pop	dpl
+      0003F1 D0 F0            [24] 1744 	pop	b
+      0003F3 D0 E0            [24] 1745 	pop	acc
+      0003F5 D0 21            [24] 1746 	pop	bits
+                           00031A  1747 	Smain$SerialPort1_ISR$74 ==.
+                           00031A  1748 	XG$SerialPort1_ISR$0$0 ==.
+      0003F7 32               [24] 1749 	reti
+                           00031B  1750 	Smain$SerialPort1_ISR$75 ==.
+                                   1751 ;------------------------------------------------------------
+                                   1752 ;Allocation info for local variables in function 'uart_interrupt_init'
+                                   1753 ;------------------------------------------------------------
+                           00031B  1754 	Smain$uart_interrupt_init$76 ==.
+                                   1755 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:314: void uart_interrupt_init(void)
+                                   1756 ;	-----------------------------------------
+                                   1757 ;	 function uart_interrupt_init
+                                   1758 ;	-----------------------------------------
+      0003F8                       1759 _uart_interrupt_init:
+                           00031B  1760 	Smain$uart_interrupt_init$77 ==.
+                           00031B  1761 	Smain$uart_interrupt_init$78 ==.
+                                   1762 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:316: UART_Open(24000000,UART1_Timer3,9600);
+      0003F8 90 00 3C         [24] 1763 	mov	dptr,#_UART_Open_PARM_2
+      0003FB 74 02            [12] 1764 	mov	a,#0x02
+      0003FD F0               [24] 1765 	movx	@dptr,a
+      0003FE 90 00 3D         [24] 1766 	mov	dptr,#_UART_Open_PARM_3
+      000401 74 80            [12] 1767 	mov	a,#0x80
+      000403 F0               [24] 1768 	movx	@dptr,a
+      000404 74 25            [12] 1769 	mov	a,#0x25
+      000406 A3               [24] 1770 	inc	dptr
+      000407 F0               [24] 1771 	movx	@dptr,a
+      000408 E4               [12] 1772 	clr	a
+      000409 A3               [24] 1773 	inc	dptr
+      00040A F0               [24] 1774 	movx	@dptr,a
+      00040B A3               [24] 1775 	inc	dptr
+      00040C F0               [24] 1776 	movx	@dptr,a
+      00040D 90 36 00         [24] 1777 	mov	dptr,#0x3600
+      000410 75 F0 6E         [24] 1778 	mov	b,#0x6e
+      000413 74 01            [12] 1779 	mov	a,#0x01
+      000415 12 17 A1         [24] 1780 	lcall	_UART_Open
+                           00033B  1781 	Smain$uart_interrupt_init$79 ==.
+                                   1782 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:318: ENABLE_UART1_INTERRUPT;
+      000418 43 9C 01         [24] 1783 	orl	_EIE1,#0x01
+                           00033E  1784 	Smain$uart_interrupt_init$80 ==.
+                                   1785 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:319: }
+                           00033E  1786 	Smain$uart_interrupt_init$81 ==.
+                           00033E  1787 	XG$uart_interrupt_init$0$0 ==.
+      00041B 22               [24] 1788 	ret
+                           00033F  1789 	Smain$uart_interrupt_init$82 ==.
+                                   1790 ;------------------------------------------------------------
+                                   1791 ;Allocation info for local variables in function 'PinInterrupt_ISR'
+                                   1792 ;------------------------------------------------------------
+                           00033F  1793 	Smain$PinInterrupt_ISR$83 ==.
+                                   1794 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:332: void PinInterrupt_ISR(void) __interrupt (7)
+                                   1795 ;	-----------------------------------------
+                                   1796 ;	 function PinInterrupt_ISR
+                                   1797 ;	-----------------------------------------
+      00041C                       1798 _PinInterrupt_ISR:
+      00041C C0 E0            [24] 1799 	push	acc
+      00041E C0 F0            [24] 1800 	push	b
+      000420 C0 82            [24] 1801 	push	dpl
+      000422 C0 83            [24] 1802 	push	dph
+                           000347  1803 	Smain$PinInterrupt_ISR$84 ==.
+                           000347  1804 	Smain$PinInterrupt_ISR$85 ==.
+                                   1805 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:334: PUSH_SFRS;
+      000424 C0 91            [24] 1806 	PUSH	0x91;
+                           000349  1807 	Smain$PinInterrupt_ISR$86 ==.
+                                   1808 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:336: if( !button_pressed ) {
+      000426 90 00 8F         [24] 1809 	mov	dptr,#_button_pressed
+      000429 E0               [24] 1810 	movx	a,@dptr
+      00042A F5 F0            [12] 1811 	mov	b,a
+      00042C A3               [24] 1812 	inc	dptr
+      00042D E0               [24] 1813 	movx	a,@dptr
+      00042E 42 F0            [12] 1814 	orl	b,a
+      000430 A3               [24] 1815 	inc	dptr
+      000431 E0               [24] 1816 	movx	a,@dptr
+      000432 42 F0            [12] 1817 	orl	b,a
+      000434 A3               [24] 1818 	inc	dptr
+      000435 E0               [24] 1819 	movx	a,@dptr
+      000436 45 F0            [12] 1820 	orl	a,b
+      000438 70 0D            [24] 1821 	jnz	00102$
+                           00035D  1822 	Smain$PinInterrupt_ISR$87 ==.
+                           00035D  1823 	Smain$PinInterrupt_ISR$88 ==.
+                                   1824 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:337: button_pressed = 1;
+      00043A 90 00 8F         [24] 1825 	mov	dptr,#_button_pressed
+      00043D 74 01            [12] 1826 	mov	a,#0x01
+      00043F F0               [24] 1827 	movx	@dptr,a
+      000440 E4               [12] 1828 	clr	a
+      000441 A3               [24] 1829 	inc	dptr
+      000442 F0               [24] 1830 	movx	@dptr,a
+      000443 A3               [24] 1831 	inc	dptr
+      000444 F0               [24] 1832 	movx	@dptr,a
+      000445 A3               [24] 1833 	inc	dptr
+      000446 F0               [24] 1834 	movx	@dptr,a
+                           00036A  1835 	Smain$PinInterrupt_ISR$89 ==.
+      000447                       1836 00102$:
+                           00036A  1837 	Smain$PinInterrupt_ISR$90 ==.
+                                   1838 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:340: PIF &= CLR_BUTTON_PIN;
+      000447 53 EC FB         [24] 1839 	anl	_PIF,#0xfb
+                           00036D  1840 	Smain$PinInterrupt_ISR$91 ==.
+                                   1841 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:342: POP_SFRS;
+      00044A D0 91            [24] 1842 	POP	0x91;
+                           00036F  1843 	Smain$PinInterrupt_ISR$92 ==.
+                                   1844 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:343: }
+      00044C D0 83            [24] 1845 	pop	dph
+      00044E D0 82            [24] 1846 	pop	dpl
+      000450 D0 F0            [24] 1847 	pop	b
+      000452 D0 E0            [24] 1848 	pop	acc
+                           000377  1849 	Smain$PinInterrupt_ISR$93 ==.
+                           000377  1850 	XG$PinInterrupt_ISR$0$0 ==.
+      000454 32               [24] 1851 	reti
+                                   1852 ;	eliminated unneeded mov psw,# (no regs used in bank)
+                                   1853 ;	eliminated unneeded push/pop not_psw
+                           000378  1854 	Smain$PinInterrupt_ISR$94 ==.
+                                   1855 ;------------------------------------------------------------
+                                   1856 ;Allocation info for local variables in function 'button_interrupt_init'
+                                   1857 ;------------------------------------------------------------
+                           000378  1858 	Smain$button_interrupt_init$95 ==.
+                                   1859 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:347: void button_interrupt_init(void)
+                                   1860 ;	-----------------------------------------
+                                   1861 ;	 function button_interrupt_init
+                                   1862 ;	-----------------------------------------
+      000455                       1863 _button_interrupt_init:
+                           000378  1864 	Smain$button_interrupt_init$96 ==.
+                           000378  1865 	Smain$button_interrupt_init$97 ==.
+                                   1866 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:350: BUTTON_INPUT_MODE;
+      000455 43 B1 04         [24] 1867 	orl	_P0M1,#0x04
+      000458 53 B2 FB         [24] 1868 	anl	_P0M2,#0xfb
+                           00037E  1869 	Smain$button_interrupt_init$98 ==.
+                                   1870 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:352: BUTTON_PIN = 1;
+                                   1871 ;	assignBit
+      00045B D2 82            [12] 1872 	setb	_P02
+                           000380  1873 	Smain$button_interrupt_init$99 ==.
+                                   1874 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:354: BUTTON_INITIALIZE_EDGE_TRIGGER;
+      00045D 75 E9 00         [24] 1875 	mov	_PICON,#0x00
+      000460 43 E9 10         [24] 1876 	orl	_PICON,#0x10
+      000463 43 EA 04         [24] 1877 	orl	_PINEN,#0x04
+      000466 43 EB 04         [24] 1878 	orl	_PIPEN,#0x04
+                           00038C  1879 	Smain$button_interrupt_init$100 ==.
+                                   1880 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:355: ENABLE_PIN_INTERRUPT;
+      000469 43 9B 02         [24] 1881 	orl	_EIE,#0x02
+                           00038F  1882 	Smain$button_interrupt_init$101 ==.
+                                   1883 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:356: }
+                           00038F  1884 	Smain$button_interrupt_init$102 ==.
+                           00038F  1885 	XG$button_interrupt_init$0$0 ==.
+      00046C 22               [24] 1886 	ret
+                           000390  1887 	Smain$button_interrupt_init$103 ==.
+                                   1888 ;------------------------------------------------------------
+                                   1889 ;Allocation info for local variables in function 'enable_ntc'
+                                   1890 ;------------------------------------------------------------
+                           000390  1891 	Smain$enable_ntc$104 ==.
+                                   1892 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:358: void enable_ntc( void )
+                                   1893 ;	-----------------------------------------
+                                   1894 ;	 function enable_ntc
+                                   1895 ;	-----------------------------------------
+      00046D                       1896 _enable_ntc:
+                           000390  1897 	Smain$enable_ntc$105 ==.
+                           000390  1898 	Smain$enable_ntc$106 ==.
+                                   1899 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:365: }
+                           000390  1900 	Smain$enable_ntc$107 ==.
+                           000390  1901 	XG$enable_ntc$0$0 ==.
+      00046D 22               [24] 1902 	ret
+                           000391  1903 	Smain$enable_ntc$108 ==.
+                                   1904 ;------------------------------------------------------------
+                                   1905 ;Allocation info for local variables in function 'disable_ntc'
+                                   1906 ;------------------------------------------------------------
+                           000391  1907 	Smain$disable_ntc$109 ==.
+                                   1908 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:367: void disable_ntc( void )
+                                   1909 ;	-----------------------------------------
+                                   1910 ;	 function disable_ntc
+                                   1911 ;	-----------------------------------------
+      00046E                       1912 _disable_ntc:
+                           000391  1913 	Smain$disable_ntc$110 ==.
+                           000391  1914 	Smain$disable_ntc$111 ==.
+                                   1915 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:374: }
+                           000391  1916 	Smain$disable_ntc$112 ==.
+                           000391  1917 	XG$disable_ntc$0$0 ==.
+      00046E 22               [24] 1918 	ret
+                           000392  1919 	Smain$disable_ntc$113 ==.
+                                   1920 ;------------------------------------------------------------
+                                   1921 ;Allocation info for local variables in function 'init_sample'
+                                   1922 ;------------------------------------------------------------
+                                   1923 ;i                         Allocated with name '_init_sample_i_131072_178'
+                                   1924 ;------------------------------------------------------------
+                           000392  1925 	Smain$init_sample$114 ==.
+                                   1926 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:376: void init_sample( void )
+                                   1927 ;	-----------------------------------------
+                                   1928 ;	 function init_sample
+                                   1929 ;	-----------------------------------------
+      00046F                       1930 _init_sample:
+                           000392  1931 	Smain$init_sample$115 ==.
+                           000392  1932 	Smain$init_sample$116 ==.
+                                   1933 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:378: sample_count = 0;
+      00046F 90 00 77         [24] 1934 	mov	dptr,#_sample_count
+      000472 E4               [12] 1935 	clr	a
+      000473 F0               [24] 1936 	movx	@dptr,a
+                           000397  1937 	Smain$init_sample$117 ==.
+                                   1938 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:379: acc_temp = 0;
+      000474 90 00 80         [24] 1939 	mov	dptr,#_acc_temp
+      000477 F0               [24] 1940 	movx	@dptr,a
+      000478 A3               [24] 1941 	inc	dptr
+      000479 F0               [24] 1942 	movx	@dptr,a
+      00047A A3               [24] 1943 	inc	dptr
+      00047B F0               [24] 1944 	movx	@dptr,a
+      00047C A3               [24] 1945 	inc	dptr
+      00047D F0               [24] 1946 	movx	@dptr,a
+                           0003A1  1947 	Smain$init_sample$118 ==.
+                           0003A1  1948 	Smain$init_sample$119 ==.
+                                   1949 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:381: for( int i = 0; i < NUM_LEDS; i++ ) {
+                           0003A1  1950 	Smain$init_sample$120 ==.
+      00047E 7E 00            [12] 1951 	mov	r6,#0x00
+      000480 7F 00            [12] 1952 	mov	r7,#0x00
+                           0003A5  1953 	Smain$init_sample$121 ==.
+      000482                       1954 00103$:
+      000482 C3               [12] 1955 	clr	c
+      000483 EE               [12] 1956 	mov	a,r6
+      000484 94 02            [12] 1957 	subb	a,#0x02
+      000486 EF               [12] 1958 	mov	a,r7
+      000487 64 80            [12] 1959 	xrl	a,#0x80
+      000489 94 80            [12] 1960 	subb	a,#0x80
+      00048B 50 25            [24] 1961 	jnc	00101$
+                           0003B0  1962 	Smain$init_sample$122 ==.
+                                   1963 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:382: acc_amp[i] = 0;
+      00048D EE               [12] 1964 	mov	a,r6
+      00048E 2E               [12] 1965 	add	a,r6
+      00048F FC               [12] 1966 	mov	r4,a
+      000490 EF               [12] 1967 	mov	a,r7
+      000491 33               [12] 1968 	rlc	a
+      000492 FD               [12] 1969 	mov	r5,a
+      000493 EC               [12] 1970 	mov	a,r4
+      000494 2C               [12] 1971 	add	a,r4
+      000495 FC               [12] 1972 	mov	r4,a
+      000496 ED               [12] 1973 	mov	a,r5
+      000497 33               [12] 1974 	rlc	a
+      000498 FD               [12] 1975 	mov	r5,a
+      000499 EC               [12] 1976 	mov	a,r4
+      00049A 24 78            [12] 1977 	add	a,#_acc_amp
+      00049C F5 82            [12] 1978 	mov	dpl,a
+      00049E ED               [12] 1979 	mov	a,r5
+      00049F 34 00            [12] 1980 	addc	a,#(_acc_amp >> 8)
+      0004A1 F5 83            [12] 1981 	mov	dph,a
+      0004A3 E4               [12] 1982 	clr	a
+      0004A4 F0               [24] 1983 	movx	@dptr,a
+      0004A5 A3               [24] 1984 	inc	dptr
+      0004A6 F0               [24] 1985 	movx	@dptr,a
+      0004A7 A3               [24] 1986 	inc	dptr
+      0004A8 F0               [24] 1987 	movx	@dptr,a
+      0004A9 A3               [24] 1988 	inc	dptr
+      0004AA F0               [24] 1989 	movx	@dptr,a
+                           0003CE  1990 	Smain$init_sample$123 ==.
+                           0003CE  1991 	Smain$init_sample$124 ==.
+                                   1992 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:381: for( int i = 0; i < NUM_LEDS; i++ ) {
+      0004AB 0E               [12] 1993 	inc	r6
+      0004AC BE 00 D3         [24] 1994 	cjne	r6,#0x00,00103$
+      0004AF 0F               [12] 1995 	inc	r7
+      0004B0 80 D0            [24] 1996 	sjmp	00103$
+      0004B2                       1997 00101$:
+                           0003D5  1998 	Smain$init_sample$125 ==.
+                           0003D5  1999 	Smain$init_sample$126 ==.
+                                   2000 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:385: flashing_on = true;
+      0004B2 90 00 6E         [24] 2001 	mov	dptr,#_flashing_on
+      0004B5 74 01            [12] 2002 	mov	a,#0x01
+      0004B7 F0               [24] 2003 	movx	@dptr,a
+                           0003DB  2004 	Smain$init_sample$127 ==.
+                                   2005 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:386: }
+                           0003DB  2006 	Smain$init_sample$128 ==.
+                           0003DB  2007 	XG$init_sample$0$0 ==.
+      0004B8 22               [24] 2008 	ret
+                           0003DC  2009 	Smain$init_sample$129 ==.
+                                   2010 ;------------------------------------------------------------
+                                   2011 ;Allocation info for local variables in function 'init_peripherals_but_button_n_uart'
+                                   2012 ;------------------------------------------------------------
+                           0003DC  2013 	Smain$init_peripherals_but_button_n_uart$130 ==.
+                                   2014 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:390: void init_peripherals_but_button_n_uart(void)
+                                   2015 ;	-----------------------------------------
+                                   2016 ;	 function init_peripherals_but_button_n_uart
+                                   2017 ;	-----------------------------------------
+      0004B9                       2018 _init_peripherals_but_button_n_uart:
+                           0003DC  2019 	Smain$init_peripherals_but_button_n_uart$131 ==.
+                           0003DC  2020 	Smain$init_peripherals_but_button_n_uart$132 ==.
+                                   2021 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:392: ENABLE_GLOBAL_INTERRUPT;
+                                   2022 ;	assignBit
+      0004B9 D2 AF            [12] 2023 	setb	_EA
+                           0003DE  2024 	Smain$init_peripherals_but_button_n_uart$133 ==.
+                                   2025 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:395: ADCCON1 |= 0X30;  // ADC clock src = Fsys / 8
+      0004BB 43 E1 30         [24] 2026 	orl	_ADCCON1,#0x30
+                           0003E1  2027 	Smain$init_peripherals_but_button_n_uart$134 ==.
+                                   2028 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:396: ADCCON2 |= 0x0E;  // ADC sample time = 32 (max)
+      0004BE 43 E2 0E         [24] 2029 	orl	_ADCCON2,#0x0e
+                           0003E4  2030 	Smain$init_peripherals_but_button_n_uart$135 ==.
+                                   2031 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:398: NTC_INPUT_MODE; // check point
+      0004C1 43 B1 40         [24] 2032 	orl	_P0M1,#0x40
+      0004C4 53 B2 BF         [24] 2033 	anl	_P0M2,#0xbf
+                           0003EA  2034 	Smain$init_peripherals_but_button_n_uart$136 ==.
+                                   2035 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:402: clr_CKCON_PWMCKS; // PWM in FSYS freq.
+      0004C7 53 8E BF         [24] 2036 	anl	_CKCON,#0xbf
+                           0003ED  2037 	Smain$init_peripherals_but_button_n_uart$137 ==.
+                                   2038 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:403: PWM0_CLOCK_DIV_1; // PWM div = 1
+      0004CA 53 DF F8         [24] 2039 	anl	_PWMCON1,#0xf8
+      0004CD 85 DF DF         [24] 2040 	mov	_PWMCON1,_PWMCON1
+                           0003F3  2041 	Smain$init_peripherals_but_button_n_uart$138 ==.
+                                   2042 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:405: ENABLE_PWM0_CH4_P01_OUTPUT; // LED2
+      0004D0 43 DE 10         [24] 2043 	orl	_PIOCON0,#0x10
+                           0003F6  2044 	Smain$init_peripherals_but_button_n_uart$139 ==.
+                                   2045 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:406: P01_PUSHPULL_MODE;
+      0004D3 53 B1 FD         [24] 2046 	anl	_P0M1,#0xfd
+      0004D6 43 B2 02         [24] 2047 	orl	_P0M2,#0x02
+                           0003FC  2048 	Smain$init_peripherals_but_button_n_uart$140 ==.
+                                   2049 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:408: ENABLE_PWM0_CH2_P05_OUTPUT; // LED1/3
+                                   2050 ;	assignBit
+      0004D9 A2 AF            [12] 2051 	mov	c,_EA
+      0004DB 92 00            [24] 2052 	mov	_BIT_TMP,c
+                                   2053 ;	assignBit
+      0004DD C2 AF            [12] 2054 	clr	_EA
+      0004DF 75 C7 AA         [24] 2055 	mov	_TA,#0xaa
+      0004E2 75 C7 55         [24] 2056 	mov	_TA,#0x55
+      0004E5 75 91 01         [24] 2057 	mov	_SFRS,#0x01
+                                   2058 ;	assignBit
+      0004E8 A2 00            [12] 2059 	mov	c,_BIT_TMP
+      0004EA 92 AF            [24] 2060 	mov	_EA,c
+      0004EC 43 C6 04         [24] 2061 	orl	_PIOCON1,#0x04
+                                   2062 ;	assignBit
+      0004EF A2 AF            [12] 2063 	mov	c,_EA
+      0004F1 92 00            [24] 2064 	mov	_BIT_TMP,c
+                                   2065 ;	assignBit
+      0004F3 C2 AF            [12] 2066 	clr	_EA
+      0004F5 75 C7 AA         [24] 2067 	mov	_TA,#0xaa
+      0004F8 75 C7 55         [24] 2068 	mov	_TA,#0x55
+      0004FB 75 91 00         [24] 2069 	mov	_SFRS,#0x00
+                                   2070 ;	assignBit
+      0004FE A2 00            [12] 2071 	mov	c,_BIT_TMP
+      000500 92 AF            [24] 2072 	mov	_EA,c
+                           000425  2073 	Smain$init_peripherals_but_button_n_uart$141 ==.
+                                   2074 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:409: P05_PUSHPULL_MODE;
+      000502 53 B1 DF         [24] 2075 	anl	_P0M1,#0xdf
+      000505 43 B2 20         [24] 2076 	orl	_P0M2,#0x20
+                           00042B  2077 	Smain$init_peripherals_but_button_n_uart$142 ==.
+                                   2078 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:411: clr_PWMCON0_PWMRUN;
+                                   2079 ;	assignBit
+      000508 C2 DF            [12] 2080 	clr	_PWMRUN
+                           00042D  2081 	Smain$init_peripherals_but_button_n_uart$143 ==.
+                                   2082 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:412: set_SFRS_SFRPAGE;
+                                   2083 ;	assignBit
+      00050A A2 AF            [12] 2084 	mov	c,_EA
+      00050C 92 00            [24] 2085 	mov	_BIT_TMP,c
+                                   2086 ;	assignBit
+      00050E C2 AF            [12] 2087 	clr	_EA
+      000510 75 C7 AA         [24] 2088 	mov	_TA,#0xaa
+      000513 75 C7 55         [24] 2089 	mov	_TA,#0x55
+      000516 75 91 01         [24] 2090 	mov	_SFRS,#0x01
+                                   2091 ;	assignBit
+      000519 A2 00            [12] 2092 	mov	c,_BIT_TMP
+      00051B 92 AF            [24] 2093 	mov	_EA,c
+                           000440  2094 	Smain$init_peripherals_but_button_n_uart$144 ==.
+                                   2095 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:414: PWMPH = 0;
+      00051D 75 D1 00         [24] 2096 	mov	_PWMPH,#0x00
+                           000443  2097 	Smain$init_peripherals_but_button_n_uart$145 ==.
+                                   2098 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:415: PWMPL = MAX_PWM; // 255 bit PWM
+      000520 75 D9 FF         [24] 2099 	mov	_PWMPL,#0xff
+                           000446  2100 	Smain$init_peripherals_but_button_n_uart$146 ==.
+                                   2101 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:417: PWM2L = 0;
+      000523 75 DC 00         [24] 2102 	mov	_PWM2L,#0x00
+                           000449  2103 	Smain$init_peripherals_but_button_n_uart$147 ==.
+                                   2104 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:418: PWM2H = 0;
+      000526 75 D4 00         [24] 2105 	mov	_PWM2H,#0x00
+                           00044C  2106 	Smain$init_peripherals_but_button_n_uart$148 ==.
+                                   2107 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:419: PWM4L = 0;
+      000529 75 CC 00         [24] 2108 	mov	_PWM4L,#0x00
+                           00044F  2109 	Smain$init_peripherals_but_button_n_uart$149 ==.
+                                   2110 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:420: PWM4H = 0;
+      00052C 75 C4 00         [24] 2111 	mov	_PWM4H,#0x00
+                           000452  2112 	Smain$init_peripherals_but_button_n_uart$150 ==.
+                                   2113 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:422: clr_SFRS_SFRPAGE;
+                                   2114 ;	assignBit
+      00052F A2 AF            [12] 2115 	mov	c,_EA
+      000531 92 00            [24] 2116 	mov	_BIT_TMP,c
+                                   2117 ;	assignBit
+      000533 C2 AF            [12] 2118 	clr	_EA
+      000535 75 C7 AA         [24] 2119 	mov	_TA,#0xaa
+      000538 75 C7 55         [24] 2120 	mov	_TA,#0x55
+      00053B 75 91 00         [24] 2121 	mov	_SFRS,#0x00
+                                   2122 ;	assignBit
+      00053E A2 00            [12] 2123 	mov	c,_BIT_TMP
+      000540 92 AF            [24] 2124 	mov	_EA,c
+                           000465  2125 	Smain$init_peripherals_but_button_n_uart$151 ==.
+                                   2126 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:423: set_PWMCON0_PWMRUN;
+                                   2127 ;	assignBit
+      000542 D2 DF            [12] 2128 	setb	_PWMRUN
+                           000467  2129 	Smain$init_peripherals_but_button_n_uart$152 ==.
+                                   2130 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:425: light_control_mode[0] = MODE_STABLE;
+      000544 90 00 75         [24] 2131 	mov	dptr,#_light_control_mode
+      000547 E4               [12] 2132 	clr	a
+      000548 F0               [24] 2133 	movx	@dptr,a
+                           00046C  2134 	Smain$init_peripherals_but_button_n_uart$153 ==.
+                                   2135 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:426: light_control_mode[1] = MODE_STABLE;
+      000549 90 00 76         [24] 2136 	mov	dptr,#(_light_control_mode + 0x0001)
+      00054C F0               [24] 2137 	movx	@dptr,a
+                           000470  2138 	Smain$init_peripherals_but_button_n_uart$154 ==.
+                                   2139 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:428: enable_ntc();
+      00054D 12 04 6D         [24] 2140 	lcall	_enable_ntc
+                           000473  2141 	Smain$init_peripherals_but_button_n_uart$155 ==.
+                                   2142 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:430: init_sample();
+      000550 12 04 6F         [24] 2143 	lcall	_init_sample
+                           000476  2144 	Smain$init_peripherals_but_button_n_uart$156 ==.
+                                   2145 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:431: flashing_count = 0;
+      000553 90 00 6F         [24] 2146 	mov	dptr,#_flashing_count
+      000556 E4               [12] 2147 	clr	a
+      000557 F0               [24] 2148 	movx	@dptr,a
+      000558 A3               [24] 2149 	inc	dptr
+      000559 F0               [24] 2150 	movx	@dptr,a
+                           00047D  2151 	Smain$init_peripherals_but_button_n_uart$157 ==.
+                                   2152 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:432: }
+                           00047D  2153 	Smain$init_peripherals_but_button_n_uart$158 ==.
+                           00047D  2154 	XG$init_peripherals_but_button_n_uart$0$0 ==.
+      00055A 22               [24] 2155 	ret
+                           00047E  2156 	Smain$init_peripherals_but_button_n_uart$159 ==.
+                                   2157 ;------------------------------------------------------------
+                                   2158 ;Allocation info for local variables in function 'sample_amps'
+                                   2159 ;------------------------------------------------------------
+                           00047E  2160 	Smain$sample_amps$160 ==.
+                                   2161 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:434: void sample_amps( void )
+                                   2162 ;	-----------------------------------------
+                                   2163 ;	 function sample_amps
+                                   2164 ;	-----------------------------------------
+      00055B                       2165 _sample_amps:
+                           00047E  2166 	Smain$sample_amps$161 ==.
+                           00047E  2167 	Smain$sample_amps$162 ==.
+                                   2168 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:437: ENABLE_ADC_LED1;
+                                   2169 ;	assignBit
+      00055B A2 AF            [12] 2170 	mov	c,_EA
+      00055D 92 00            [24] 2171 	mov	_BIT_TMP,c
+                                   2172 ;	assignBit
+      00055F C2 AF            [12] 2173 	clr	_EA
+      000561 75 C7 AA         [24] 2174 	mov	_TA,#0xaa
+      000564 75 C7 55         [24] 2175 	mov	_TA,#0x55
+      000567 75 91 00         [24] 2176 	mov	_SFRS,#0x00
+                                   2177 ;	assignBit
+      00056A A2 00            [12] 2178 	mov	c,_BIT_TMP
+      00056C 92 AF            [24] 2179 	mov	_EA,c
+      00056E 53 E1 FE         [24] 2180 	anl	_ADCCON1,#0xfe
+      000571 53 E8 F0         [24] 2181 	anl	_ADCCON0,#0xf0
+      000574 43 E8 06         [24] 2182 	orl	_ADCCON0,#0x06
+      000577 43 B1 08         [24] 2183 	orl	_P0M1,#0x08
+      00057A 53 B2 F7         [24] 2184 	anl	_P0M2,#0xf7
+      00057D 75 F6 00         [24] 2185 	mov	_AINDIDS,#0x00
+      000580 43 F6 40         [24] 2186 	orl	_AINDIDS,#0x40
+                                   2187 ;	assignBit
+      000583 A2 AF            [12] 2188 	mov	c,_EA
+      000585 92 00            [24] 2189 	mov	_BIT_TMP,c
+                                   2190 ;	assignBit
+      000587 C2 AF            [12] 2191 	clr	_EA
+      000589 75 C7 AA         [24] 2192 	mov	_TA,#0xaa
+      00058C 75 C7 55         [24] 2193 	mov	_TA,#0x55
+      00058F 75 91 00         [24] 2194 	mov	_SFRS,#0x00
+                                   2195 ;	assignBit
+      000592 A2 00            [12] 2196 	mov	c,_BIT_TMP
+      000594 92 AF            [24] 2197 	mov	_EA,c
+      000596 43 E1 01         [24] 2198 	orl	_ADCCON1,#0x01
+                           0004BC  2199 	Smain$sample_amps$163 ==.
+                                   2200 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:439: clr_ADCCON0_ADCF;
+                                   2201 ;	assignBit
+      000599 A2 AF            [12] 2202 	mov	c,_EA
+      00059B 92 00            [24] 2203 	mov	_BIT_TMP,c
+                                   2204 ;	assignBit
+      00059D C2 AF            [12] 2205 	clr	_EA
+      00059F 75 C7 AA         [24] 2206 	mov	_TA,#0xaa
+      0005A2 75 C7 55         [24] 2207 	mov	_TA,#0x55
+      0005A5 75 91 00         [24] 2208 	mov	_SFRS,#0x00
+                                   2209 ;	assignBit
+      0005A8 A2 00            [12] 2210 	mov	c,_BIT_TMP
+      0005AA 92 AF            [24] 2211 	mov	_EA,c
+                                   2212 ;	assignBit
+      0005AC C2 EF            [12] 2213 	clr	_ADCF
+                           0004D1  2214 	Smain$sample_amps$164 ==.
+                                   2215 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:440: set_ADCCON0_ADCS;
+                                   2216 ;	assignBit
+      0005AE A2 AF            [12] 2217 	mov	c,_EA
+      0005B0 92 00            [24] 2218 	mov	_BIT_TMP,c
+                                   2219 ;	assignBit
+      0005B2 C2 AF            [12] 2220 	clr	_EA
+      0005B4 75 C7 AA         [24] 2221 	mov	_TA,#0xaa
+      0005B7 75 C7 55         [24] 2222 	mov	_TA,#0x55
+      0005BA 75 91 00         [24] 2223 	mov	_SFRS,#0x00
+                                   2224 ;	assignBit
+      0005BD A2 00            [12] 2225 	mov	c,_BIT_TMP
+      0005BF 92 AF            [24] 2226 	mov	_EA,c
+                                   2227 ;	assignBit
+      0005C1 D2 EE            [12] 2228 	setb	_ADCS
+                           0004E6  2229 	Smain$sample_amps$165 ==.
+                                   2230 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:442: while( ADCF == 0 );
+      0005C3                       2231 00101$:
+      0005C3 30 EF FD         [24] 2232 	jnb	_ADCF,00101$
+                           0004E9  2233 	Smain$sample_amps$166 ==.
+                                   2234 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:443: cur_amp[LED1_IDX] = (((uint16_t)ADCRH) << 4 ) | (ADCRL & 0xF);
+      0005C6 AE C3            [24] 2235 	mov	r6,_ADCRH
+      0005C8 E4               [12] 2236 	clr	a
+      0005C9 C4               [12] 2237 	swap	a
+      0005CA 54 F0            [12] 2238 	anl	a,#0xf0
+      0005CC CE               [12] 2239 	xch	a,r6
+      0005CD C4               [12] 2240 	swap	a
+      0005CE CE               [12] 2241 	xch	a,r6
+      0005CF 6E               [12] 2242 	xrl	a,r6
+      0005D0 CE               [12] 2243 	xch	a,r6
+      0005D1 54 F0            [12] 2244 	anl	a,#0xf0
+      0005D3 CE               [12] 2245 	xch	a,r6
+      0005D4 6E               [12] 2246 	xrl	a,r6
+      0005D5 FF               [12] 2247 	mov	r7,a
+      0005D6 AC C2            [24] 2248 	mov	r4,_ADCRL
+      0005D8 53 04 0F         [24] 2249 	anl	ar4,#0x0f
+      0005DB 7D 00            [12] 2250 	mov	r5,#0x00
+      0005DD EE               [12] 2251 	mov	a,r6
+      0005DE 42 04            [12] 2252 	orl	ar4,a
+      0005E0 EF               [12] 2253 	mov	a,r7
+      0005E1 42 05            [12] 2254 	orl	ar5,a
+      0005E3 90 00 84         [24] 2255 	mov	dptr,#_cur_amp
+      0005E6 EC               [12] 2256 	mov	a,r4
+      0005E7 F0               [24] 2257 	movx	@dptr,a
+      0005E8 ED               [12] 2258 	mov	a,r5
+      0005E9 A3               [24] 2259 	inc	dptr
+      0005EA F0               [24] 2260 	movx	@dptr,a
+                           00050E  2261 	Smain$sample_amps$167 ==.
+                                   2262 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:445: DISABLE_ADC;
+                                   2263 ;	assignBit
+      0005EB A2 AF            [12] 2264 	mov	c,_EA
+      0005ED 92 00            [24] 2265 	mov	_BIT_TMP,c
+                                   2266 ;	assignBit
+      0005EF C2 AF            [12] 2267 	clr	_EA
+      0005F1 75 C7 AA         [24] 2268 	mov	_TA,#0xaa
+      0005F4 75 C7 55         [24] 2269 	mov	_TA,#0x55
+      0005F7 75 91 00         [24] 2270 	mov	_SFRS,#0x00
+                                   2271 ;	assignBit
+      0005FA A2 00            [12] 2272 	mov	c,_BIT_TMP
+      0005FC 92 AF            [24] 2273 	mov	_EA,c
+      0005FE 53 E1 FE         [24] 2274 	anl	_ADCCON1,#0xfe
+                           000524  2275 	Smain$sample_amps$168 ==.
+                                   2276 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:448: ENABLE_ADC_LED2;
+                                   2277 ;	assignBit
+      000601 A2 AF            [12] 2278 	mov	c,_EA
+      000603 92 00            [24] 2279 	mov	_BIT_TMP,c
+                                   2280 ;	assignBit
+      000605 C2 AF            [12] 2281 	clr	_EA
+      000607 75 C7 AA         [24] 2282 	mov	_TA,#0xaa
+      00060A 75 C7 55         [24] 2283 	mov	_TA,#0x55
+      00060D 75 91 00         [24] 2284 	mov	_SFRS,#0x00
+                                   2285 ;	assignBit
+      000610 A2 00            [12] 2286 	mov	c,_BIT_TMP
+      000612 92 AF            [24] 2287 	mov	_EA,c
+      000614 53 E1 FE         [24] 2288 	anl	_ADCCON1,#0xfe
+      000617 53 E8 F0         [24] 2289 	anl	_ADCCON0,#0xf0
+      00061A 43 E8 05         [24] 2290 	orl	_ADCCON0,#0x05
+      00061D 43 B1 10         [24] 2291 	orl	_P0M1,#0x10
+      000620 53 B2 EF         [24] 2292 	anl	_P0M2,#0xef
+      000623 75 F6 00         [24] 2293 	mov	_AINDIDS,#0x00
+      000626 43 F6 20         [24] 2294 	orl	_AINDIDS,#0x20
+                                   2295 ;	assignBit
+      000629 A2 AF            [12] 2296 	mov	c,_EA
+      00062B 92 00            [24] 2297 	mov	_BIT_TMP,c
+                                   2298 ;	assignBit
+      00062D C2 AF            [12] 2299 	clr	_EA
+      00062F 75 C7 AA         [24] 2300 	mov	_TA,#0xaa
+      000632 75 C7 55         [24] 2301 	mov	_TA,#0x55
+      000635 75 91 00         [24] 2302 	mov	_SFRS,#0x00
+                                   2303 ;	assignBit
+      000638 A2 00            [12] 2304 	mov	c,_BIT_TMP
+      00063A 92 AF            [24] 2305 	mov	_EA,c
+      00063C 43 E1 01         [24] 2306 	orl	_ADCCON1,#0x01
+                           000562  2307 	Smain$sample_amps$169 ==.
+                                   2308 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:450: clr_ADCCON0_ADCF;
+                                   2309 ;	assignBit
+      00063F A2 AF            [12] 2310 	mov	c,_EA
+      000641 92 00            [24] 2311 	mov	_BIT_TMP,c
+                                   2312 ;	assignBit
+      000643 C2 AF            [12] 2313 	clr	_EA
+      000645 75 C7 AA         [24] 2314 	mov	_TA,#0xaa
+      000648 75 C7 55         [24] 2315 	mov	_TA,#0x55
+      00064B 75 91 00         [24] 2316 	mov	_SFRS,#0x00
+                                   2317 ;	assignBit
+      00064E A2 00            [12] 2318 	mov	c,_BIT_TMP
+      000650 92 AF            [24] 2319 	mov	_EA,c
+                                   2320 ;	assignBit
+      000652 C2 EF            [12] 2321 	clr	_ADCF
+                           000577  2322 	Smain$sample_amps$170 ==.
+                                   2323 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:451: set_ADCCON0_ADCS;
+                                   2324 ;	assignBit
+      000654 A2 AF            [12] 2325 	mov	c,_EA
+      000656 92 00            [24] 2326 	mov	_BIT_TMP,c
+                                   2327 ;	assignBit
+      000658 C2 AF            [12] 2328 	clr	_EA
+      00065A 75 C7 AA         [24] 2329 	mov	_TA,#0xaa
+      00065D 75 C7 55         [24] 2330 	mov	_TA,#0x55
+      000660 75 91 00         [24] 2331 	mov	_SFRS,#0x00
+                                   2332 ;	assignBit
+      000663 A2 00            [12] 2333 	mov	c,_BIT_TMP
+      000665 92 AF            [24] 2334 	mov	_EA,c
+                                   2335 ;	assignBit
+      000667 D2 EE            [12] 2336 	setb	_ADCS
+                           00058C  2337 	Smain$sample_amps$171 ==.
+                                   2338 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:453: while( ADCF == 0 );
+      000669                       2339 00104$:
+      000669 30 EF FD         [24] 2340 	jnb	_ADCF,00104$
+                           00058F  2341 	Smain$sample_amps$172 ==.
+                                   2342 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:454: cur_amp[LED2_IDX] = (((uint16_t)ADCRH) << 4 ) | (ADCRL & 0xF);
+      00066C AE C3            [24] 2343 	mov	r6,_ADCRH
+      00066E E4               [12] 2344 	clr	a
+      00066F C4               [12] 2345 	swap	a
+      000670 54 F0            [12] 2346 	anl	a,#0xf0
+      000672 CE               [12] 2347 	xch	a,r6
+      000673 C4               [12] 2348 	swap	a
+      000674 CE               [12] 2349 	xch	a,r6
+      000675 6E               [12] 2350 	xrl	a,r6
+      000676 CE               [12] 2351 	xch	a,r6
+      000677 54 F0            [12] 2352 	anl	a,#0xf0
+      000679 CE               [12] 2353 	xch	a,r6
+      00067A 6E               [12] 2354 	xrl	a,r6
+      00067B FF               [12] 2355 	mov	r7,a
+      00067C AC C2            [24] 2356 	mov	r4,_ADCRL
+      00067E 53 04 0F         [24] 2357 	anl	ar4,#0x0f
+      000681 7D 00            [12] 2358 	mov	r5,#0x00
+      000683 EE               [12] 2359 	mov	a,r6
+      000684 42 04            [12] 2360 	orl	ar4,a
+      000686 EF               [12] 2361 	mov	a,r7
+      000687 42 05            [12] 2362 	orl	ar5,a
+      000689 90 00 86         [24] 2363 	mov	dptr,#(_cur_amp + 0x0002)
+      00068C EC               [12] 2364 	mov	a,r4
+      00068D F0               [24] 2365 	movx	@dptr,a
+      00068E ED               [12] 2366 	mov	a,r5
+      00068F A3               [24] 2367 	inc	dptr
+      000690 F0               [24] 2368 	movx	@dptr,a
+                           0005B4  2369 	Smain$sample_amps$173 ==.
+                                   2370 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:456: DISABLE_ADC;
+                                   2371 ;	assignBit
+      000691 A2 AF            [12] 2372 	mov	c,_EA
+      000693 92 00            [24] 2373 	mov	_BIT_TMP,c
+                                   2374 ;	assignBit
+      000695 C2 AF            [12] 2375 	clr	_EA
+      000697 75 C7 AA         [24] 2376 	mov	_TA,#0xaa
+      00069A 75 C7 55         [24] 2377 	mov	_TA,#0x55
+      00069D 75 91 00         [24] 2378 	mov	_SFRS,#0x00
+                                   2379 ;	assignBit
+      0006A0 A2 00            [12] 2380 	mov	c,_BIT_TMP
+      0006A2 92 AF            [24] 2381 	mov	_EA,c
+      0006A4 53 E1 FE         [24] 2382 	anl	_ADCCON1,#0xfe
+                           0005CA  2383 	Smain$sample_amps$174 ==.
+                                   2384 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:457: }
+                           0005CA  2385 	Smain$sample_amps$175 ==.
+                           0005CA  2386 	XG$sample_amps$0$0 ==.
+      0006A7 22               [24] 2387 	ret
+                           0005CB  2388 	Smain$sample_amps$176 ==.
+                                   2389 ;------------------------------------------------------------
+                                   2390 ;Allocation info for local variables in function 'sample_temperature'
+                                   2391 ;------------------------------------------------------------
+                           0005CB  2392 	Smain$sample_temperature$177 ==.
+                                   2393 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:459: void sample_temperature( void )
+                                   2394 ;	-----------------------------------------
+                                   2395 ;	 function sample_temperature
+                                   2396 ;	-----------------------------------------
+      0006A8                       2397 _sample_temperature:
+                           0005CB  2398 	Smain$sample_temperature$178 ==.
+                           0005CB  2399 	Smain$sample_temperature$179 ==.
+                                   2400 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:462: ENABLE_ADC_NTC;
+                                   2401 ;	assignBit
+      0006A8 A2 AF            [12] 2402 	mov	c,_EA
+      0006AA 92 00            [24] 2403 	mov	_BIT_TMP,c
+                                   2404 ;	assignBit
+      0006AC C2 AF            [12] 2405 	clr	_EA
+      0006AE 75 C7 AA         [24] 2406 	mov	_TA,#0xaa
+      0006B1 75 C7 55         [24] 2407 	mov	_TA,#0x55
+      0006B4 75 91 00         [24] 2408 	mov	_SFRS,#0x00
+                                   2409 ;	assignBit
+      0006B7 A2 00            [12] 2410 	mov	c,_BIT_TMP
+      0006B9 92 AF            [24] 2411 	mov	_EA,c
+      0006BB 53 E1 FE         [24] 2412 	anl	_ADCCON1,#0xfe
+      0006BE 53 E8 F0         [24] 2413 	anl	_ADCCON0,#0xf0
+      0006C1 43 E8 03         [24] 2414 	orl	_ADCCON0,#0x03
+      0006C4 43 B1 40         [24] 2415 	orl	_P0M1,#0x40
+      0006C7 53 B2 BF         [24] 2416 	anl	_P0M2,#0xbf
+      0006CA 75 F6 00         [24] 2417 	mov	_AINDIDS,#0x00
+      0006CD 43 F6 08         [24] 2418 	orl	_AINDIDS,#0x08
+                                   2419 ;	assignBit
+      0006D0 A2 AF            [12] 2420 	mov	c,_EA
+      0006D2 92 00            [24] 2421 	mov	_BIT_TMP,c
+                                   2422 ;	assignBit
+      0006D4 C2 AF            [12] 2423 	clr	_EA
+      0006D6 75 C7 AA         [24] 2424 	mov	_TA,#0xaa
+      0006D9 75 C7 55         [24] 2425 	mov	_TA,#0x55
+      0006DC 75 91 00         [24] 2426 	mov	_SFRS,#0x00
+                                   2427 ;	assignBit
+      0006DF A2 00            [12] 2428 	mov	c,_BIT_TMP
+      0006E1 92 AF            [24] 2429 	mov	_EA,c
+      0006E3 43 E1 01         [24] 2430 	orl	_ADCCON1,#0x01
+                           000609  2431 	Smain$sample_temperature$180 ==.
+                                   2432 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:464: clr_ADCCON0_ADCF;
+                                   2433 ;	assignBit
+      0006E6 A2 AF            [12] 2434 	mov	c,_EA
+      0006E8 92 00            [24] 2435 	mov	_BIT_TMP,c
+                                   2436 ;	assignBit
+      0006EA C2 AF            [12] 2437 	clr	_EA
+      0006EC 75 C7 AA         [24] 2438 	mov	_TA,#0xaa
+      0006EF 75 C7 55         [24] 2439 	mov	_TA,#0x55
+      0006F2 75 91 00         [24] 2440 	mov	_SFRS,#0x00
+                                   2441 ;	assignBit
+      0006F5 A2 00            [12] 2442 	mov	c,_BIT_TMP
+      0006F7 92 AF            [24] 2443 	mov	_EA,c
+                                   2444 ;	assignBit
+      0006F9 C2 EF            [12] 2445 	clr	_ADCF
+                           00061E  2446 	Smain$sample_temperature$181 ==.
+                                   2447 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:465: set_ADCCON0_ADCS;
+                                   2448 ;	assignBit
+      0006FB A2 AF            [12] 2449 	mov	c,_EA
+      0006FD 92 00            [24] 2450 	mov	_BIT_TMP,c
+                                   2451 ;	assignBit
+      0006FF C2 AF            [12] 2452 	clr	_EA
+      000701 75 C7 AA         [24] 2453 	mov	_TA,#0xaa
+      000704 75 C7 55         [24] 2454 	mov	_TA,#0x55
+      000707 75 91 00         [24] 2455 	mov	_SFRS,#0x00
+                                   2456 ;	assignBit
+      00070A A2 00            [12] 2457 	mov	c,_BIT_TMP
+      00070C 92 AF            [24] 2458 	mov	_EA,c
+                                   2459 ;	assignBit
+      00070E D2 EE            [12] 2460 	setb	_ADCS
+                           000633  2461 	Smain$sample_temperature$182 ==.
+                                   2462 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:467: while( ADCF == 0 );
+      000710                       2463 00101$:
+      000710 30 EF FD         [24] 2464 	jnb	_ADCF,00101$
+                           000636  2465 	Smain$sample_temperature$183 ==.
+                                   2466 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:468: acc_temp += (((uint16_t)ADCRH) << 4 ) | (ADCRL & 0xF);
+      000713 AE C3            [24] 2467 	mov	r6,_ADCRH
+      000715 E4               [12] 2468 	clr	a
+      000716 C4               [12] 2469 	swap	a
+      000717 54 F0            [12] 2470 	anl	a,#0xf0
+      000719 CE               [12] 2471 	xch	a,r6
+      00071A C4               [12] 2472 	swap	a
+      00071B CE               [12] 2473 	xch	a,r6
+      00071C 6E               [12] 2474 	xrl	a,r6
+      00071D CE               [12] 2475 	xch	a,r6
+      00071E 54 F0            [12] 2476 	anl	a,#0xf0
+      000720 CE               [12] 2477 	xch	a,r6
+      000721 6E               [12] 2478 	xrl	a,r6
+      000722 FF               [12] 2479 	mov	r7,a
+      000723 AC C2            [24] 2480 	mov	r4,_ADCRL
+      000725 53 04 0F         [24] 2481 	anl	ar4,#0x0f
+      000728 7D 00            [12] 2482 	mov	r5,#0x00
+      00072A EE               [12] 2483 	mov	a,r6
+      00072B 42 04            [12] 2484 	orl	ar4,a
+      00072D EF               [12] 2485 	mov	a,r7
+      00072E 42 05            [12] 2486 	orl	ar5,a
+      000730 90 00 80         [24] 2487 	mov	dptr,#_acc_temp
+      000733 E0               [24] 2488 	movx	a,@dptr
+      000734 FA               [12] 2489 	mov	r2,a
+      000735 A3               [24] 2490 	inc	dptr
+      000736 E0               [24] 2491 	movx	a,@dptr
+      000737 FB               [12] 2492 	mov	r3,a
+      000738 A3               [24] 2493 	inc	dptr
+      000739 E0               [24] 2494 	movx	a,@dptr
+      00073A FE               [12] 2495 	mov	r6,a
+      00073B A3               [24] 2496 	inc	dptr
+      00073C E0               [24] 2497 	movx	a,@dptr
+      00073D FF               [12] 2498 	mov	r7,a
+      00073E 8C 00            [24] 2499 	mov	ar0,r4
+      000740 8D 01            [24] 2500 	mov	ar1,r5
+      000742 7C 00            [12] 2501 	mov	r4,#0x00
+      000744 7D 00            [12] 2502 	mov	r5,#0x00
+      000746 90 00 80         [24] 2503 	mov	dptr,#_acc_temp
+      000749 E8               [12] 2504 	mov	a,r0
+      00074A 2A               [12] 2505 	add	a,r2
+      00074B F0               [24] 2506 	movx	@dptr,a
+      00074C E9               [12] 2507 	mov	a,r1
+      00074D 3B               [12] 2508 	addc	a,r3
+      00074E A3               [24] 2509 	inc	dptr
+      00074F F0               [24] 2510 	movx	@dptr,a
+      000750 EC               [12] 2511 	mov	a,r4
+      000751 3E               [12] 2512 	addc	a,r6
+      000752 A3               [24] 2513 	inc	dptr
+      000753 F0               [24] 2514 	movx	@dptr,a
+      000754 ED               [12] 2515 	mov	a,r5
+      000755 3F               [12] 2516 	addc	a,r7
+      000756 A3               [24] 2517 	inc	dptr
+      000757 F0               [24] 2518 	movx	@dptr,a
+                           00067B  2519 	Smain$sample_temperature$184 ==.
+                                   2520 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:470: DISABLE_ADC;
+                                   2521 ;	assignBit
+      000758 A2 AF            [12] 2522 	mov	c,_EA
+      00075A 92 00            [24] 2523 	mov	_BIT_TMP,c
+                                   2524 ;	assignBit
+      00075C C2 AF            [12] 2525 	clr	_EA
+      00075E 75 C7 AA         [24] 2526 	mov	_TA,#0xaa
+      000761 75 C7 55         [24] 2527 	mov	_TA,#0x55
+      000764 75 91 00         [24] 2528 	mov	_SFRS,#0x00
+                                   2529 ;	assignBit
+      000767 A2 00            [12] 2530 	mov	c,_BIT_TMP
+      000769 92 AF            [24] 2531 	mov	_EA,c
+      00076B 53 E1 FE         [24] 2532 	anl	_ADCCON1,#0xfe
+                           000691  2533 	Smain$sample_temperature$185 ==.
+                                   2534 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:472: }
+                           000691  2535 	Smain$sample_temperature$186 ==.
+                           000691  2536 	XG$sample_temperature$0$0 ==.
+      00076E 22               [24] 2537 	ret
+                           000692  2538 	Smain$sample_temperature$187 ==.
+                                   2539 ;------------------------------------------------------------
+                                   2540 ;Allocation info for local variables in function 'has_high_beam'
+                                   2541 ;------------------------------------------------------------
+                                   2542 ;mode                      Allocated with name '_has_high_beam_mode_65536_186'
+                                   2543 ;------------------------------------------------------------
+                           000692  2544 	Smain$has_high_beam$188 ==.
+                                   2545 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:474: int8_t has_high_beam( int8_t mode )
+                                   2546 ;	-----------------------------------------
+                                   2547 ;	 function has_high_beam
+                                   2548 ;	-----------------------------------------
+      00076F                       2549 _has_high_beam:
+                           000692  2550 	Smain$has_high_beam$189 ==.
+      00076F E5 82            [12] 2551 	mov	a,dpl
+      000771 90 00 22         [24] 2552 	mov	dptr,#_has_high_beam_mode_65536_186
+      000774 F0               [24] 2553 	movx	@dptr,a
+                           000698  2554 	Smain$has_high_beam$190 ==.
+                                   2555 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:476: return (max_amp[mode][0] > 0);
+      000775 E0               [24] 2556 	movx	a,@dptr
+      000776 FF               [12] 2557 	mov	r7,a
+      000777 C2 D5            [12] 2558 	clr	F0
+      000779 75 F0 02         [24] 2559 	mov	b,#0x02
+      00077C EF               [12] 2560 	mov	a,r7
+      00077D 30 E7 04         [24] 2561 	jnb	acc.7,00109$
+      000780 B2 D5            [12] 2562 	cpl	F0
+      000782 F4               [12] 2563 	cpl	a
+      000783 04               [12] 2564 	inc	a
+      000784                       2565 00109$:
+      000784 A4               [48] 2566 	mul	ab
+      000785 30 D5 0A         [24] 2567 	jnb	F0,00110$
+      000788 F4               [12] 2568 	cpl	a
+      000789 24 01            [12] 2569 	add	a,#0x01
+      00078B C5 F0            [12] 2570 	xch	a,b
+      00078D F4               [12] 2571 	cpl	a
+      00078E 34 00            [12] 2572 	addc	a,#0x00
+      000790 C5 F0            [12] 2573 	xch	a,b
+      000792                       2574 00110$:
+      000792 24 D9            [12] 2575 	add	a,#_max_amp
+      000794 FE               [12] 2576 	mov	r6,a
+      000795 74 1D            [12] 2577 	mov	a,#(_max_amp >> 8)
+      000797 35 F0            [12] 2578 	addc	a,b
+      000799 FF               [12] 2579 	mov	r7,a
+      00079A 8E 82            [24] 2580 	mov	dpl,r6
+      00079C 8F 83            [24] 2581 	mov	dph,r7
+      00079E E4               [12] 2582 	clr	a
+      00079F 93               [24] 2583 	movc	a,@a+dptr
+      0007A0 60 06            [24] 2584 	jz	00103$
+      0007A2 7E 01            [12] 2585 	mov	r6,#0x01
+      0007A4 7F 00            [12] 2586 	mov	r7,#0x00
+      0007A6 80 04            [24] 2587 	sjmp	00104$
+      0007A8                       2588 00103$:
+      0007A8 7E 00            [12] 2589 	mov	r6,#0x00
+      0007AA 7F 00            [12] 2590 	mov	r7,#0x00
+      0007AC                       2591 00104$:
+      0007AC 8E 82            [24] 2592 	mov	dpl,r6
+                           0006D1  2593 	Smain$has_high_beam$191 ==.
+                                   2594 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:477: }
+                           0006D1  2595 	Smain$has_high_beam$192 ==.
+                           0006D1  2596 	XG$has_high_beam$0$0 ==.
+      0007AE 22               [24] 2597 	ret
+                           0006D2  2598 	Smain$has_high_beam$193 ==.
+                                   2599 ;------------------------------------------------------------
+                                   2600 ;Allocation info for local variables in function 'avg_amp'
+                                   2601 ;------------------------------------------------------------
+                                   2602 ;idx                       Allocated with name '_avg_amp_idx_65536_188'
+                                   2603 ;------------------------------------------------------------
+                           0006D2  2604 	Smain$avg_amp$194 ==.
+                                   2605 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:479: uint16_t avg_amp( uint8_t idx ) {
+                                   2606 ;	-----------------------------------------
+                                   2607 ;	 function avg_amp
+                                   2608 ;	-----------------------------------------
+      0007AF                       2609 _avg_amp:
+                           0006D2  2610 	Smain$avg_amp$195 ==.
+      0007AF E5 82            [12] 2611 	mov	a,dpl
+      0007B1 90 00 23         [24] 2612 	mov	dptr,#_avg_amp_idx_65536_188
+      0007B4 F0               [24] 2613 	movx	@dptr,a
+                           0006D8  2614 	Smain$avg_amp$196 ==.
+                                   2615 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:480: if( sample_count > 0 ) {
+      0007B5 90 00 77         [24] 2616 	mov	dptr,#_sample_count
+      0007B8 E0               [24] 2617 	movx	a,@dptr
+      0007B9 FF               [12] 2618 	mov	r7,a
+      0007BA E0               [24] 2619 	movx	a,@dptr
+      0007BB 60 3C            [24] 2620 	jz	00102$
+                           0006E0  2621 	Smain$avg_amp$197 ==.
+                           0006E0  2622 	Smain$avg_amp$198 ==.
+                                   2623 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:481: return acc_amp[idx] / sample_count;
+      0007BD 90 00 23         [24] 2624 	mov	dptr,#_avg_amp_idx_65536_188
+      0007C0 E0               [24] 2625 	movx	a,@dptr
+      0007C1 75 F0 04         [24] 2626 	mov	b,#0x04
+      0007C4 A4               [48] 2627 	mul	ab
+      0007C5 24 78            [12] 2628 	add	a,#_acc_amp
+      0007C7 F5 82            [12] 2629 	mov	dpl,a
+      0007C9 74 00            [12] 2630 	mov	a,#(_acc_amp >> 8)
+      0007CB 35 F0            [12] 2631 	addc	a,b
+      0007CD F5 83            [12] 2632 	mov	dph,a
+      0007CF E0               [24] 2633 	movx	a,@dptr
+      0007D0 FB               [12] 2634 	mov	r3,a
+      0007D1 A3               [24] 2635 	inc	dptr
+      0007D2 E0               [24] 2636 	movx	a,@dptr
+      0007D3 FC               [12] 2637 	mov	r4,a
+      0007D4 A3               [24] 2638 	inc	dptr
+      0007D5 E0               [24] 2639 	movx	a,@dptr
+      0007D6 FD               [12] 2640 	mov	r5,a
+      0007D7 A3               [24] 2641 	inc	dptr
+      0007D8 E0               [24] 2642 	movx	a,@dptr
+      0007D9 FE               [12] 2643 	mov	r6,a
+      0007DA 90 00 52         [24] 2644 	mov	dptr,#__divulong_PARM_2
+      0007DD EF               [12] 2645 	mov	a,r7
+      0007DE F0               [24] 2646 	movx	@dptr,a
+      0007DF E4               [12] 2647 	clr	a
+      0007E0 A3               [24] 2648 	inc	dptr
+      0007E1 F0               [24] 2649 	movx	@dptr,a
+      0007E2 A3               [24] 2650 	inc	dptr
+      0007E3 F0               [24] 2651 	movx	@dptr,a
+      0007E4 A3               [24] 2652 	inc	dptr
+      0007E5 F0               [24] 2653 	movx	@dptr,a
+                           000709  2654 	Smain$avg_amp$199 ==.
+      0007E6 8B 82            [24] 2655 	mov	dpl,r3
+      0007E8 8C 83            [24] 2656 	mov	dph,r4
+      0007EA 8D F0            [24] 2657 	mov	b,r5
+      0007EC EE               [12] 2658 	mov	a,r6
+      0007ED 12 1B 61         [24] 2659 	lcall	__divulong
+      0007F0 AC 82            [24] 2660 	mov	r4,dpl
+      0007F2 AD 83            [24] 2661 	mov	r5,dph
+      0007F4 AE F0            [24] 2662 	mov	r6,b
+      0007F6 FF               [12] 2663 	mov	r7,a
+      0007F7 80 1A            [24] 2664 	sjmp	00104$
+      0007F9                       2665 00102$:
+                           00071C  2666 	Smain$avg_amp$200 ==.
+                           00071C  2667 	Smain$avg_amp$201 ==.
+                                   2668 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:483: return cur_amp[idx];
+      0007F9 90 00 23         [24] 2669 	mov	dptr,#_avg_amp_idx_65536_188
+      0007FC E0               [24] 2670 	movx	a,@dptr
+      0007FD 75 F0 02         [24] 2671 	mov	b,#0x02
+      000800 A4               [48] 2672 	mul	ab
+      000801 24 84            [12] 2673 	add	a,#_cur_amp
+      000803 F5 82            [12] 2674 	mov	dpl,a
+      000805 74 00            [12] 2675 	mov	a,#(_cur_amp >> 8)
+      000807 35 F0            [12] 2676 	addc	a,b
+      000809 F5 83            [12] 2677 	mov	dph,a
+      00080B E0               [24] 2678 	movx	a,@dptr
+      00080C FE               [12] 2679 	mov	r6,a
+      00080D A3               [24] 2680 	inc	dptr
+      00080E E0               [24] 2681 	movx	a,@dptr
+                           000732  2682 	Smain$avg_amp$202 ==.
+                           000732  2683 	Smain$avg_amp$203 ==.
+                                   2684 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:485: }
+                           000732  2685 	Smain$avg_amp$204 ==.
+                           000732  2686 	XG$avg_amp$0$0 ==.
+      00080F 8E 82            [24] 2687 	mov	dpl,r6
+      000811 F5 83            [12] 2688 	mov	dph,a
+      000813                       2689 00104$:
+      000813 22               [24] 2690 	ret
+                           000737  2691 	Smain$avg_amp$205 ==.
+                                   2692 ;------------------------------------------------------------
+                                   2693 ;Allocation info for local variables in function 'target_amp'
+                                   2694 ;------------------------------------------------------------
+                                   2695 ;idx                       Allocated with name '_target_amp_PARM_2'
+                                   2696 ;mode                      Allocated with name '_target_amp_mode_65536_192'
+                                   2697 ;m                         Allocated with name '_target_amp_m_196608_196'
+                                   2698 ;a                         Allocated with name '_target_amp_a_196608_196'
+                                   2699 ;------------------------------------------------------------
+                           000737  2700 	Smain$target_amp$206 ==.
+                                   2701 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:487: uint8_t target_amp( uint8_t mode, uint8_t idx ) {
+                                   2702 ;	-----------------------------------------
+                                   2703 ;	 function target_amp
+                                   2704 ;	-----------------------------------------
+      000814                       2705 _target_amp:
+                           000737  2706 	Smain$target_amp$207 ==.
+      000814 E5 82            [12] 2707 	mov	a,dpl
+      000816 90 00 25         [24] 2708 	mov	dptr,#_target_amp_mode_65536_192
+      000819 F0               [24] 2709 	movx	@dptr,a
+                           00073D  2710 	Smain$target_amp$208 ==.
+                                   2711 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:488: if( temp_controlling[mode] && cur_temp > MAX_TEMP ) {
+      00081A E0               [24] 2712 	movx	a,@dptr
+      00081B FF               [12] 2713 	mov	r7,a
+      00081C 24 F9            [12] 2714 	add	a,#_temp_controlling
+      00081E FD               [12] 2715 	mov	r5,a
+      00081F E4               [12] 2716 	clr	a
+      000820 34 1D            [12] 2717 	addc	a,#(_temp_controlling >> 8)
+      000822 FE               [12] 2718 	mov	r6,a
+      000823 8D 82            [24] 2719 	mov	dpl,r5
+      000825 8E 83            [24] 2720 	mov	dph,r6
+      000827 E4               [12] 2721 	clr	a
+      000828 93               [24] 2722 	movc	a,@a+dptr
+      000829 70 03            [24] 2723 	jnz	00122$
+      00082B 02 09 10         [24] 2724 	ljmp	00105$
+      00082E                       2725 00122$:
+      00082E 90 00 88         [24] 2726 	mov	dptr,#_cur_temp
+      000831 E0               [24] 2727 	movx	a,@dptr
+      000832 FD               [12] 2728 	mov	r5,a
+      000833 A3               [24] 2729 	inc	dptr
+      000834 E0               [24] 2730 	movx	a,@dptr
+      000835 FE               [12] 2731 	mov	r6,a
+      000836 8D 03            [24] 2732 	mov	ar3,r5
+      000838 8E 04            [24] 2733 	mov	ar4,r6
+      00083A C3               [12] 2734 	clr	c
+      00083B 74 80            [12] 2735 	mov	a,#0x80
+      00083D 9B               [12] 2736 	subb	a,r3
+      00083E 74 0C            [12] 2737 	mov	a,#0x0c
+      000840 9C               [12] 2738 	subb	a,r4
+      000841 40 03            [24] 2739 	jc	00123$
+      000843 02 09 10         [24] 2740 	ljmp	00105$
+      000846                       2741 00123$:
+                           000769  2742 	Smain$target_amp$209 ==.
+                           000769  2743 	Smain$target_amp$210 ==.
+                                   2744 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:489: if( cur_temp > ABS_MAX_TEMP ) {
+      000846 C3               [12] 2745 	clr	c
+      000847 74 16            [12] 2746 	mov	a,#0x16
+      000849 9B               [12] 2747 	subb	a,r3
+      00084A 74 0D            [12] 2748 	mov	a,#0x0d
+      00084C 9C               [12] 2749 	subb	a,r4
+      00084D 50 23            [24] 2750 	jnc	00102$
+                           000772  2751 	Smain$target_amp$211 ==.
+                           000772  2752 	Smain$target_amp$212 ==.
+                                   2753 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:490: return max_amp[mode][idx] >> 1;
+      00084F EF               [12] 2754 	mov	a,r7
+      000850 75 F0 02         [24] 2755 	mov	b,#0x02
+      000853 A4               [48] 2756 	mul	ab
+      000854 24 D9            [12] 2757 	add	a,#_max_amp
+      000856 FB               [12] 2758 	mov	r3,a
+      000857 74 1D            [12] 2759 	mov	a,#(_max_amp >> 8)
+      000859 35 F0            [12] 2760 	addc	a,b
+      00085B FC               [12] 2761 	mov	r4,a
+      00085C 90 00 24         [24] 2762 	mov	dptr,#_target_amp_PARM_2
+      00085F E0               [24] 2763 	movx	a,@dptr
+      000860 FA               [12] 2764 	mov	r2,a
+      000861 2B               [12] 2765 	add	a,r3
+      000862 F5 82            [12] 2766 	mov	dpl,a
+      000864 E4               [12] 2767 	clr	a
+      000865 3C               [12] 2768 	addc	a,r4
+      000866 F5 83            [12] 2769 	mov	dph,a
+      000868 E4               [12] 2770 	clr	a
+      000869 93               [24] 2771 	movc	a,@a+dptr
+      00086A C3               [12] 2772 	clr	c
+      00086B 13               [12] 2773 	rrc	a
+      00086C FC               [12] 2774 	mov	r4,a
+      00086D F5 82            [12] 2775 	mov	dpl,a
+      00086F 02 09 30         [24] 2776 	ljmp	00108$
+                           000795  2777 	Smain$target_amp$213 ==.
+      000872                       2778 00102$:
+                           000795  2779 	Smain$target_amp$214 ==.
+                           000795  2780 	Smain$target_amp$215 ==.
+                                   2781 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:492: uint32_t m = max_amp[mode][idx];
+      000872 EF               [12] 2782 	mov	a,r7
+      000873 75 F0 02         [24] 2783 	mov	b,#0x02
+      000876 A4               [48] 2784 	mul	ab
+      000877 24 D9            [12] 2785 	add	a,#_max_amp
+      000879 FC               [12] 2786 	mov	r4,a
+      00087A 74 1D            [12] 2787 	mov	a,#(_max_amp >> 8)
+      00087C 35 F0            [12] 2788 	addc	a,b
+      00087E FF               [12] 2789 	mov	r7,a
+      00087F 90 00 24         [24] 2790 	mov	dptr,#_target_amp_PARM_2
+      000882 E0               [24] 2791 	movx	a,@dptr
+      000883 2C               [12] 2792 	add	a,r4
+      000884 F5 82            [12] 2793 	mov	dpl,a
+      000886 E4               [12] 2794 	clr	a
+      000887 3F               [12] 2795 	addc	a,r7
+      000888 F5 83            [12] 2796 	mov	dph,a
+      00088A E4               [12] 2797 	clr	a
+      00088B 93               [24] 2798 	movc	a,@a+dptr
+      00088C FF               [12] 2799 	mov	r7,a
+                           0007B0  2800 	Smain$target_amp$216 ==.
+                                   2801 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:493: uint32_t a = m * (ABS_MAX_TEMP - cur_temp) / (ABS_MAX_TEMP - MAX_TEMP);
+      00088D E4               [12] 2802 	clr	a
+      00088E FC               [12] 2803 	mov	r4,a
+      00088F FB               [12] 2804 	mov	r3,a
+      000890 FA               [12] 2805 	mov	r2,a
+      000891 74 16            [12] 2806 	mov	a,#0x16
+      000893 C3               [12] 2807 	clr	c
+      000894 9D               [12] 2808 	subb	a,r5
+      000895 FD               [12] 2809 	mov	r5,a
+      000896 74 0D            [12] 2810 	mov	a,#0x0d
+      000898 9E               [12] 2811 	subb	a,r6
+      000899 FE               [12] 2812 	mov	r6,a
+      00089A 90 00 5F         [24] 2813 	mov	dptr,#__mullong_PARM_2
+      00089D ED               [12] 2814 	mov	a,r5
+      00089E F0               [24] 2815 	movx	@dptr,a
+      00089F EE               [12] 2816 	mov	a,r6
+      0008A0 A3               [24] 2817 	inc	dptr
+      0008A1 F0               [24] 2818 	movx	@dptr,a
+      0008A2 E4               [12] 2819 	clr	a
+      0008A3 A3               [24] 2820 	inc	dptr
+      0008A4 F0               [24] 2821 	movx	@dptr,a
+      0008A5 A3               [24] 2822 	inc	dptr
+      0008A6 F0               [24] 2823 	movx	@dptr,a
+                           0007CA  2824 	Smain$target_amp$217 ==.
+      0008A7 8F 82            [24] 2825 	mov	dpl,r7
+      0008A9 8C 83            [24] 2826 	mov	dph,r4
+      0008AB 8B F0            [24] 2827 	mov	b,r3
+      0008AD EA               [12] 2828 	mov	a,r2
+      0008AE C0 07            [24] 2829 	push	ar7
+      0008B0 C0 04            [24] 2830 	push	ar4
+      0008B2 C0 03            [24] 2831 	push	ar3
+      0008B4 C0 02            [24] 2832 	push	ar2
+      0008B6 12 1C 55         [24] 2833 	lcall	__mullong
+      0008B9 A8 82            [24] 2834 	mov	r0,dpl
+      0008BB A9 83            [24] 2835 	mov	r1,dph
+      0008BD AD F0            [24] 2836 	mov	r5,b
+      0008BF FE               [12] 2837 	mov	r6,a
+      0008C0 90 00 52         [24] 2838 	mov	dptr,#__divulong_PARM_2
+      0008C3 74 96            [12] 2839 	mov	a,#0x96
+      0008C5 F0               [24] 2840 	movx	@dptr,a
+      0008C6 E4               [12] 2841 	clr	a
+      0008C7 A3               [24] 2842 	inc	dptr
+      0008C8 F0               [24] 2843 	movx	@dptr,a
+      0008C9 A3               [24] 2844 	inc	dptr
+      0008CA F0               [24] 2845 	movx	@dptr,a
+      0008CB A3               [24] 2846 	inc	dptr
+      0008CC F0               [24] 2847 	movx	@dptr,a
+                           0007F0  2848 	Smain$target_amp$218 ==.
+                                   2849 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:494: return (m >> 1) + (a >> 2) + (a >> 4);
+      0008CD 88 82            [24] 2850 	mov	dpl,r0
+      0008CF 89 83            [24] 2851 	mov	dph,r1
+      0008D1 8D F0            [24] 2852 	mov	b,r5
+      0008D3 EE               [12] 2853 	mov	a,r6
+      0008D4 12 1B 61         [24] 2854 	lcall	__divulong
+      0008D7 A8 82            [24] 2855 	mov	r0,dpl
+      0008D9 A9 83            [24] 2856 	mov	r1,dph
+      0008DB D0 02            [24] 2857 	pop	ar2
+      0008DD D0 03            [24] 2858 	pop	ar3
+      0008DF D0 04            [24] 2859 	pop	ar4
+      0008E1 D0 07            [24] 2860 	pop	ar7
+      0008E3 EC               [12] 2861 	mov	a,r4
+      0008E4 C3               [12] 2862 	clr	c
+      0008E5 13               [12] 2863 	rrc	a
+      0008E6 CF               [12] 2864 	xch	a,r7
+      0008E7 13               [12] 2865 	rrc	a
+      0008E8 CF               [12] 2866 	xch	a,r7
+      0008E9 FC               [12] 2867 	mov	r4,a
+      0008EA 88 05            [24] 2868 	mov	ar5,r0
+      0008EC E9               [12] 2869 	mov	a,r1
+      0008ED C3               [12] 2870 	clr	c
+      0008EE 13               [12] 2871 	rrc	a
+      0008EF CD               [12] 2872 	xch	a,r5
+      0008F0 13               [12] 2873 	rrc	a
+      0008F1 CD               [12] 2874 	xch	a,r5
+      0008F2 C3               [12] 2875 	clr	c
+      0008F3 13               [12] 2876 	rrc	a
+      0008F4 CD               [12] 2877 	xch	a,r5
+      0008F5 13               [12] 2878 	rrc	a
+      0008F6 CD               [12] 2879 	xch	a,r5
+      0008F7 FE               [12] 2880 	mov	r6,a
+      0008F8 ED               [12] 2881 	mov	a,r5
+      0008F9 2F               [12] 2882 	add	a,r7
+      0008FA FF               [12] 2883 	mov	r7,a
+      0008FB E9               [12] 2884 	mov	a,r1
+      0008FC C4               [12] 2885 	swap	a
+      0008FD C8               [12] 2886 	xch	a,r0
+      0008FE C4               [12] 2887 	swap	a
+      0008FF 54 0F            [12] 2888 	anl	a,#0x0f
+      000901 68               [12] 2889 	xrl	a,r0
+      000902 C8               [12] 2890 	xch	a,r0
+      000903 54 0F            [12] 2891 	anl	a,#0x0f
+      000905 C8               [12] 2892 	xch	a,r0
+      000906 68               [12] 2893 	xrl	a,r0
+      000907 C8               [12] 2894 	xch	a,r0
+      000908 F9               [12] 2895 	mov	r1,a
+      000909 E8               [12] 2896 	mov	a,r0
+      00090A 2F               [12] 2897 	add	a,r7
+      00090B FF               [12] 2898 	mov	r7,a
+      00090C F5 82            [12] 2899 	mov	dpl,a
+      00090E 80 20            [24] 2900 	sjmp	00108$
+      000910                       2901 00105$:
+                           000833  2902 	Smain$target_amp$219 ==.
+                           000833  2903 	Smain$target_amp$220 ==.
+                                   2904 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:497: return max_amp[mode][idx];
+      000910 90 00 25         [24] 2905 	mov	dptr,#_target_amp_mode_65536_192
+      000913 E0               [24] 2906 	movx	a,@dptr
+      000914 75 F0 02         [24] 2907 	mov	b,#0x02
+      000917 A4               [48] 2908 	mul	ab
+      000918 24 D9            [12] 2909 	add	a,#_max_amp
+      00091A FE               [12] 2910 	mov	r6,a
+      00091B 74 1D            [12] 2911 	mov	a,#(_max_amp >> 8)
+      00091D 35 F0            [12] 2912 	addc	a,b
+      00091F FF               [12] 2913 	mov	r7,a
+      000920 90 00 24         [24] 2914 	mov	dptr,#_target_amp_PARM_2
+      000923 E0               [24] 2915 	movx	a,@dptr
+      000924 FD               [12] 2916 	mov	r5,a
+      000925 2E               [12] 2917 	add	a,r6
+      000926 F5 82            [12] 2918 	mov	dpl,a
+      000928 E4               [12] 2919 	clr	a
+      000929 3F               [12] 2920 	addc	a,r7
+      00092A F5 83            [12] 2921 	mov	dph,a
+      00092C E4               [12] 2922 	clr	a
+      00092D 93               [24] 2923 	movc	a,@a+dptr
+                           000851  2924 	Smain$target_amp$221 ==.
+                           000851  2925 	Smain$target_amp$222 ==.
+                                   2926 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:499: }
+                           000851  2927 	Smain$target_amp$223 ==.
+                           000851  2928 	XG$target_amp$0$0 ==.
+      00092E F5 82            [12] 2929 	mov	dpl,a
+      000930                       2930 00108$:
+      000930 22               [24] 2931 	ret
+                           000854  2932 	Smain$target_amp$224 ==.
+                                   2933 ;------------------------------------------------------------
+                                   2934 ;Allocation info for local variables in function 'changeMode'
+                                   2935 ;------------------------------------------------------------
+                                   2936 ;new_mode                  Allocated with name '_changeMode_new_mode_65536_198'
+                                   2937 ;i                         Allocated with name '_changeMode_i_131072_200'
+                                   2938 ;target                    Allocated with name '_changeMode_target_196608_201'
+                                   2939 ;i                         Allocated with name '_changeMode_i_131072_205'
+                                   2940 ;i                         Allocated with name '_changeMode_i_196608_208'
+                                   2941 ;------------------------------------------------------------
+                           000854  2942 	Smain$changeMode$225 ==.
+                                   2943 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:512: void changeMode(uint8_t new_mode)
+                                   2944 ;	-----------------------------------------
+                                   2945 ;	 function changeMode
+                                   2946 ;	-----------------------------------------
+      000931                       2947 _changeMode:
+                           000854  2948 	Smain$changeMode$226 ==.
+      000931 E5 82            [12] 2949 	mov	a,dpl
+      000933 90 00 26         [24] 2950 	mov	dptr,#_changeMode_new_mode_65536_198
+      000936 F0               [24] 2951 	movx	@dptr,a
+                           00085A  2952 	Smain$changeMode$227 ==.
+                                   2953 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:514: if( new_mode == light_mode ) return;
+      000937 E0               [24] 2954 	movx	a,@dptr
+      000938 FF               [12] 2955 	mov	r7,a
+      000939 90 00 6C         [24] 2956 	mov	dptr,#_light_mode
+      00093C E0               [24] 2957 	movx	a,@dptr
+      00093D FE               [12] 2958 	mov	r6,a
+      00093E EF               [12] 2959 	mov	a,r7
+      00093F B5 06 03         [24] 2960 	cjne	a,ar6,00102$
+      000942 02 0A E8         [24] 2961 	ljmp	00134$
+      000945                       2962 00102$:
+                           000868  2963 	Smain$changeMode$228 ==.
+                                   2964 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:515: if( new_mode > LIGHT_MODE_MAX ) return;
+      000945 EF               [12] 2965 	mov	a,r7
+      000946 24 F6            [12] 2966 	add	a,#0xff - 0x09
+      000948 50 03            [24] 2967 	jnc	00104$
+      00094A 02 0A E8         [24] 2968 	ljmp	00134$
+      00094D                       2969 00104$:
+                           000870  2970 	Smain$changeMode$229 ==.
+                                   2971 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:516: if( next_mode[new_mode] == 0 ) return;
+      00094D EF               [12] 2972 	mov	a,r7
+      00094E 24 03            [12] 2973 	add	a,#_next_mode
+      000950 FD               [12] 2974 	mov	r5,a
+      000951 E4               [12] 2975 	clr	a
+      000952 34 1E            [12] 2976 	addc	a,#(_next_mode >> 8)
+      000954 FE               [12] 2977 	mov	r6,a
+      000955 8D 82            [24] 2978 	mov	dpl,r5
+      000957 8E 83            [24] 2979 	mov	dph,r6
+      000959 E4               [12] 2980 	clr	a
+      00095A 93               [24] 2981 	movc	a,@a+dptr
+      00095B 70 03            [24] 2982 	jnz	00144$
+      00095D 02 0A E8         [24] 2983 	ljmp	00134$
+                           000883  2984 	Smain$changeMode$230 ==.
+                                   2985 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:518: for( int i = 0; i < NUM_LEDS; i++ ) {
+      000960                       2986 00144$:
+                           000883  2987 	Smain$changeMode$231 ==.
+                           000883  2988 	Smain$changeMode$232 ==.
+                           000883  2989 	Smain$changeMode$233 ==.
+                           000883  2990 	Smain$changeMode$233 ==.
+                           000883  2991 	Smain$changeMode$234 ==.
+                           000883  2992 	Smain$changeMode$234 ==.
+                           000883  2993 	Smain$changeMode$235 ==.
+      000960 7D 00            [12] 2994 	mov	r5,#0x00
+      000962 7E 00            [12] 2995 	mov	r6,#0x00
+                           000887  2996 	Smain$changeMode$236 ==.
+      000964                       2997 00126$:
+      000964 C3               [12] 2998 	clr	c
+      000965 ED               [12] 2999 	mov	a,r5
+      000966 94 02            [12] 3000 	subb	a,#0x02
+      000968 EE               [12] 3001 	mov	a,r6
+      000969 64 80            [12] 3002 	xrl	a,#0x80
+      00096B 94 80            [12] 3003 	subb	a,#0x80
+      00096D 40 03            [24] 3004 	jc	00211$
+      00096F 02 0A 2A         [24] 3005 	ljmp	00116$
+      000972                       3006 00211$:
+                           000895  3007 	Smain$changeMode$237 ==.
+                                   3008 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:519: int16_t target = target_amp(new_mode, i);
+      000972 90 00 24         [24] 3009 	mov	dptr,#_target_amp_PARM_2
+      000975 ED               [12] 3010 	mov	a,r5
+      000976 F0               [24] 3011 	movx	@dptr,a
+      000977 8F 82            [24] 3012 	mov	dpl,r7
+      000979 C0 07            [24] 3013 	push	ar7
+      00097B C0 06            [24] 3014 	push	ar6
+      00097D C0 05            [24] 3015 	push	ar5
+      00097F 12 08 14         [24] 3016 	lcall	_target_amp
+      000982 AC 82            [24] 3017 	mov	r4,dpl
+      000984 D0 05            [24] 3018 	pop	ar5
+      000986 D0 06            [24] 3019 	pop	ar6
+      000988 D0 07            [24] 3020 	pop	ar7
+      00098A 8C 02            [24] 3021 	mov	ar2,r4
+      00098C 7B 00            [12] 3022 	mov	r3,#0x00
+                           0008B1  3023 	Smain$changeMode$238 ==.
+                                   3024 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:520: if( target == 0 && pwm[i] > 0 ) { // 켜져있는 상태에서 끄고자할 때
+      00098E EC               [12] 3025 	mov	a,r4
+      00098F 70 27            [24] 3026 	jnz	00113$
+      000991 ED               [12] 3027 	mov	a,r5
+      000992 2D               [12] 3028 	add	a,r5
+      000993 F9               [12] 3029 	mov	r1,a
+      000994 EE               [12] 3030 	mov	a,r6
+      000995 33               [12] 3031 	rlc	a
+      000996 FC               [12] 3032 	mov	r4,a
+      000997 E9               [12] 3033 	mov	a,r1
+      000998 24 71            [12] 3034 	add	a,#_pwm
+      00099A F5 82            [12] 3035 	mov	dpl,a
+      00099C EC               [12] 3036 	mov	a,r4
+      00099D 34 00            [12] 3037 	addc	a,#(_pwm >> 8)
+      00099F F5 83            [12] 3038 	mov	dph,a
+      0009A1 E0               [24] 3039 	movx	a,@dptr
+      0009A2 F9               [12] 3040 	mov	r1,a
+      0009A3 A3               [24] 3041 	inc	dptr
+      0009A4 E0               [24] 3042 	movx	a,@dptr
+      0009A5 FC               [12] 3043 	mov	r4,a
+      0009A6 49               [12] 3044 	orl	a,r1
+      0009A7 60 0F            [24] 3045 	jz	00113$
+                           0008CC  3046 	Smain$changeMode$239 ==.
+                                   3047 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:521: light_control_mode[i] = MODE_CHANGING_OFF;
+      0009A9 ED               [12] 3048 	mov	a,r5
+      0009AA 24 75            [12] 3049 	add	a,#_light_control_mode
+      0009AC F5 82            [12] 3050 	mov	dpl,a
+      0009AE EE               [12] 3051 	mov	a,r6
+      0009AF 34 00            [12] 3052 	addc	a,#(_light_control_mode >> 8)
+      0009B1 F5 83            [12] 3053 	mov	dph,a
+      0009B3 74 01            [12] 3054 	mov	a,#0x01
+      0009B5 F0               [24] 3055 	movx	@dptr,a
+      0009B6 80 6A            [24] 3056 	sjmp	00127$
+      0009B8                       3057 00113$:
+                           0008DB  3058 	Smain$changeMode$240 ==.
+                                   3059 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:522: } else if( target > avg_amp(i) ) {
+      0009B8 8D 04            [24] 3060 	mov	ar4,r5
+      0009BA 8C 82            [24] 3061 	mov	dpl,r4
+      0009BC C0 07            [24] 3062 	push	ar7
+      0009BE C0 06            [24] 3063 	push	ar6
+      0009C0 C0 05            [24] 3064 	push	ar5
+      0009C2 C0 04            [24] 3065 	push	ar4
+      0009C4 C0 03            [24] 3066 	push	ar3
+      0009C6 C0 02            [24] 3067 	push	ar2
+      0009C8 12 07 AF         [24] 3068 	lcall	_avg_amp
+      0009CB A8 82            [24] 3069 	mov	r0,dpl
+      0009CD A9 83            [24] 3070 	mov	r1,dph
+      0009CF D0 02            [24] 3071 	pop	ar2
+      0009D1 D0 03            [24] 3072 	pop	ar3
+      0009D3 D0 04            [24] 3073 	pop	ar4
+      0009D5 D0 05            [24] 3074 	pop	ar5
+      0009D7 D0 06            [24] 3075 	pop	ar6
+      0009D9 D0 07            [24] 3076 	pop	ar7
+      0009DB C3               [12] 3077 	clr	c
+      0009DC E8               [12] 3078 	mov	a,r0
+      0009DD 9A               [12] 3079 	subb	a,r2
+      0009DE E9               [12] 3080 	mov	a,r1
+      0009DF 9B               [12] 3081 	subb	a,r3
+      0009E0 50 0F            [24] 3082 	jnc	00110$
+                           000905  3083 	Smain$changeMode$241 ==.
+                                   3084 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:523: light_control_mode[i] = MODE_CHANGING_UP;
+      0009E2 ED               [12] 3085 	mov	a,r5
+      0009E3 24 75            [12] 3086 	add	a,#_light_control_mode
+      0009E5 F5 82            [12] 3087 	mov	dpl,a
+      0009E7 EE               [12] 3088 	mov	a,r6
+      0009E8 34 00            [12] 3089 	addc	a,#(_light_control_mode >> 8)
+      0009EA F5 83            [12] 3090 	mov	dph,a
+      0009EC 74 02            [12] 3091 	mov	a,#0x02
+      0009EE F0               [24] 3092 	movx	@dptr,a
+      0009EF 80 31            [24] 3093 	sjmp	00127$
+      0009F1                       3094 00110$:
+                           000914  3095 	Smain$changeMode$242 ==.
+                                   3096 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:524: } else if( target < avg_amp(i) ) {
+      0009F1 8C 82            [24] 3097 	mov	dpl,r4
+      0009F3 C0 07            [24] 3098 	push	ar7
+      0009F5 C0 06            [24] 3099 	push	ar6
+      0009F7 C0 05            [24] 3100 	push	ar5
+      0009F9 C0 03            [24] 3101 	push	ar3
+      0009FB C0 02            [24] 3102 	push	ar2
+      0009FD 12 07 AF         [24] 3103 	lcall	_avg_amp
+      000A00 A9 82            [24] 3104 	mov	r1,dpl
+      000A02 AC 83            [24] 3105 	mov	r4,dph
+      000A04 D0 02            [24] 3106 	pop	ar2
+      000A06 D0 03            [24] 3107 	pop	ar3
+      000A08 D0 05            [24] 3108 	pop	ar5
+      000A0A D0 06            [24] 3109 	pop	ar6
+      000A0C D0 07            [24] 3110 	pop	ar7
+      000A0E C3               [12] 3111 	clr	c
+      000A0F EA               [12] 3112 	mov	a,r2
+      000A10 99               [12] 3113 	subb	a,r1
+      000A11 EB               [12] 3114 	mov	a,r3
+      000A12 9C               [12] 3115 	subb	a,r4
+      000A13 50 0D            [24] 3116 	jnc	00127$
+                           000938  3117 	Smain$changeMode$243 ==.
+                                   3118 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:525: light_control_mode[i] = MODE_CHANGING_DOWN;
+      000A15 ED               [12] 3119 	mov	a,r5
+      000A16 24 75            [12] 3120 	add	a,#_light_control_mode
+      000A18 F5 82            [12] 3121 	mov	dpl,a
+      000A1A EE               [12] 3122 	mov	a,r6
+      000A1B 34 00            [12] 3123 	addc	a,#(_light_control_mode >> 8)
+      000A1D F5 83            [12] 3124 	mov	dph,a
+      000A1F 74 03            [12] 3125 	mov	a,#0x03
+      000A21 F0               [24] 3126 	movx	@dptr,a
+      000A22                       3127 00127$:
+                           000945  3128 	Smain$changeMode$244 ==.
+                           000945  3129 	Smain$changeMode$245 ==.
+                                   3130 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:518: for( int i = 0; i < NUM_LEDS; i++ ) {
+      000A22 0D               [12] 3131 	inc	r5
+      000A23 BD 00 01         [24] 3132 	cjne	r5,#0x00,00216$
+      000A26 0E               [12] 3133 	inc	r6
+      000A27                       3134 00216$:
+      000A27 02 09 64         [24] 3135 	ljmp	00126$
+      000A2A                       3136 00116$:
+                           00094D  3137 	Smain$changeMode$246 ==.
+                           00094D  3138 	Smain$changeMode$247 ==.
+                                   3139 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:531: init_sample();
+      000A2A 12 04 6F         [24] 3140 	lcall	_init_sample
+                           000950  3141 	Smain$changeMode$248 ==.
+                           000950  3142 	Smain$changeMode$249 ==.
+                                   3143 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:532: for( int i = 0; i < NUM_LEDS; i++ ) {
+                           000950  3144 	Smain$changeMode$250 ==.
+      000A2D 7E 00            [12] 3145 	mov	r6,#0x00
+      000A2F 7F 00            [12] 3146 	mov	r7,#0x00
+                           000954  3147 	Smain$changeMode$251 ==.
+      000A31                       3148 00129$:
+      000A31 C3               [12] 3149 	clr	c
+      000A32 EE               [12] 3150 	mov	a,r6
+      000A33 94 02            [12] 3151 	subb	a,#0x02
+      000A35 EF               [12] 3152 	mov	a,r7
+      000A36 64 80            [12] 3153 	xrl	a,#0x80
+      000A38 94 80            [12] 3154 	subb	a,#0x80
+      000A3A 50 13            [24] 3155 	jnc	00117$
+                           00095F  3156 	Smain$changeMode$252 ==.
+                                   3157 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:533: good_amp_count[i] = 0;
+      000A3C EE               [12] 3158 	mov	a,r6
+      000A3D 24 8A            [12] 3159 	add	a,#_good_amp_count
+      000A3F F5 82            [12] 3160 	mov	dpl,a
+      000A41 EF               [12] 3161 	mov	a,r7
+      000A42 34 00            [12] 3162 	addc	a,#(_good_amp_count >> 8)
+      000A44 F5 83            [12] 3163 	mov	dph,a
+      000A46 E4               [12] 3164 	clr	a
+      000A47 F0               [24] 3165 	movx	@dptr,a
+                           00096B  3166 	Smain$changeMode$253 ==.
+                           00096B  3167 	Smain$changeMode$254 ==.
+                                   3168 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:532: for( int i = 0; i < NUM_LEDS; i++ ) {
+      000A48 0E               [12] 3169 	inc	r6
+      000A49 BE 00 E5         [24] 3170 	cjne	r6,#0x00,00129$
+      000A4C 0F               [12] 3171 	inc	r7
+      000A4D 80 E2            [24] 3172 	sjmp	00129$
+      000A4F                       3173 00117$:
+                           000972  3174 	Smain$changeMode$255 ==.
+                           000972  3175 	Smain$changeMode$256 ==.
+                                   3176 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:536: if( light_mode != LIGHT_OFF && new_mode != LIGHT_OFF ) {
+      000A4F 90 00 6C         [24] 3177 	mov	dptr,#_light_mode
+      000A52 E0               [24] 3178 	movx	a,@dptr
+      000A53 60 70            [24] 3179 	jz	00123$
+      000A55 90 00 26         [24] 3180 	mov	dptr,#_changeMode_new_mode_65536_198
+      000A58 E0               [24] 3181 	movx	a,@dptr
+      000A59 FF               [12] 3182 	mov	r7,a
+      000A5A E0               [24] 3183 	movx	a,@dptr
+      000A5B 60 68            [24] 3184 	jz	00123$
+                           000980  3185 	Smain$changeMode$257 ==.
+                           000980  3186 	Smain$changeMode$258 ==.
+                                   3187 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:537: for( int i = 0; i < NUM_LEDS; i++ ) {
+                           000980  3188 	Smain$changeMode$259 ==.
+                           000980  3189 	Smain$changeMode$259 ==.
+      000A5D EF               [12] 3190 	mov	a,r7
+      000A5E 75 F0 02         [24] 3191 	mov	b,#0x02
+      000A61 A4               [48] 3192 	mul	ab
+      000A62 FE               [12] 3193 	mov	r6,a
+      000A63 AF F0            [24] 3194 	mov	r7,b
+                           000988  3195 	Smain$changeMode$260 ==.
+      000A65 7C 00            [12] 3196 	mov	r4,#0x00
+      000A67 7D 00            [12] 3197 	mov	r5,#0x00
+                           00098C  3198 	Smain$changeMode$261 ==.
+      000A69                       3199 00132$:
+      000A69 C3               [12] 3200 	clr	c
+      000A6A EC               [12] 3201 	mov	a,r4
+      000A6B 94 02            [12] 3202 	subb	a,#0x02
+      000A6D ED               [12] 3203 	mov	a,r5
+      000A6E 64 80            [12] 3204 	xrl	a,#0x80
+      000A70 94 80            [12] 3205 	subb	a,#0x80
+      000A72 50 51            [24] 3206 	jnc	00123$
+                           000997  3207 	Smain$changeMode$262 ==.
+                                   3208 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:538: if( max_amp[light_mode][i] == 0 && max_amp[new_mode][i] > 0 ) {
+      000A74 90 00 6C         [24] 3209 	mov	dptr,#_light_mode
+      000A77 E0               [24] 3210 	movx	a,@dptr
+      000A78 75 F0 02         [24] 3211 	mov	b,#0x02
+      000A7B A4               [48] 3212 	mul	ab
+      000A7C 24 D9            [12] 3213 	add	a,#_max_amp
+      000A7E FA               [12] 3214 	mov	r2,a
+      000A7F 74 1D            [12] 3215 	mov	a,#(_max_amp >> 8)
+      000A81 35 F0            [12] 3216 	addc	a,b
+      000A83 FB               [12] 3217 	mov	r3,a
+      000A84 EC               [12] 3218 	mov	a,r4
+      000A85 2A               [12] 3219 	add	a,r2
+      000A86 FA               [12] 3220 	mov	r2,a
+      000A87 ED               [12] 3221 	mov	a,r5
+      000A88 3B               [12] 3222 	addc	a,r3
+      000A89 FB               [12] 3223 	mov	r3,a
+      000A8A 8A 82            [24] 3224 	mov	dpl,r2
+      000A8C 8B 83            [24] 3225 	mov	dph,r3
+      000A8E E4               [12] 3226 	clr	a
+      000A8F 93               [24] 3227 	movc	a,@a+dptr
+      000A90 70 2C            [24] 3228 	jnz	00133$
+      000A92 EE               [12] 3229 	mov	a,r6
+      000A93 24 D9            [12] 3230 	add	a,#_max_amp
+      000A95 FA               [12] 3231 	mov	r2,a
+      000A96 EF               [12] 3232 	mov	a,r7
+      000A97 34 1D            [12] 3233 	addc	a,#(_max_amp >> 8)
+      000A99 FB               [12] 3234 	mov	r3,a
+      000A9A EC               [12] 3235 	mov	a,r4
+      000A9B 2A               [12] 3236 	add	a,r2
+      000A9C FA               [12] 3237 	mov	r2,a
+      000A9D ED               [12] 3238 	mov	a,r5
+      000A9E 3B               [12] 3239 	addc	a,r3
+      000A9F FB               [12] 3240 	mov	r3,a
+      000AA0 8A 82            [24] 3241 	mov	dpl,r2
+      000AA2 8B 83            [24] 3242 	mov	dph,r3
+      000AA4 E4               [12] 3243 	clr	a
+      000AA5 93               [24] 3244 	movc	a,@a+dptr
+      000AA6 60 16            [24] 3245 	jz	00133$
+                           0009CB  3246 	Smain$changeMode$263 ==.
+                                   3247 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:539: pwm[i] = MIN_PWM_ON;
+      000AA8 EC               [12] 3248 	mov	a,r4
+      000AA9 2C               [12] 3249 	add	a,r4
+      000AAA FA               [12] 3250 	mov	r2,a
+      000AAB ED               [12] 3251 	mov	a,r5
+      000AAC 33               [12] 3252 	rlc	a
+      000AAD FB               [12] 3253 	mov	r3,a
+      000AAE EA               [12] 3254 	mov	a,r2
+      000AAF 24 71            [12] 3255 	add	a,#_pwm
+      000AB1 F5 82            [12] 3256 	mov	dpl,a
+      000AB3 EB               [12] 3257 	mov	a,r3
+      000AB4 34 00            [12] 3258 	addc	a,#(_pwm >> 8)
+      000AB6 F5 83            [12] 3259 	mov	dph,a
+      000AB8 74 3C            [12] 3260 	mov	a,#0x3c
+      000ABA F0               [24] 3261 	movx	@dptr,a
+      000ABB E4               [12] 3262 	clr	a
+      000ABC A3               [24] 3263 	inc	dptr
+      000ABD F0               [24] 3264 	movx	@dptr,a
+      000ABE                       3265 00133$:
+                           0009E1  3266 	Smain$changeMode$264 ==.
+                           0009E1  3267 	Smain$changeMode$265 ==.
+                                   3268 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:537: for( int i = 0; i < NUM_LEDS; i++ ) {
+      000ABE 0C               [12] 3269 	inc	r4
+                           0009E2  3270 	Smain$changeMode$266 ==.
+      000ABF BC 00 A7         [24] 3271 	cjne	r4,#0x00,00132$
+      000AC2 0D               [12] 3272 	inc	r5
+      000AC3 80 A4            [24] 3273 	sjmp	00132$
+      000AC5                       3274 00123$:
+                           0009E8  3275 	Smain$changeMode$267 ==.
+                                   3276 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:543: light_mode = new_mode;
+      000AC5 90 00 26         [24] 3277 	mov	dptr,#_changeMode_new_mode_65536_198
+      000AC8 E0               [24] 3278 	movx	a,@dptr
+      000AC9 90 00 6C         [24] 3279 	mov	dptr,#_light_mode
+      000ACC F0               [24] 3280 	movx	@dptr,a
+                           0009F0  3281 	Smain$changeMode$268 ==.
+                                   3282 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:545: LS_LOG('C');
+      000ACD 75 82 43         [24] 3283 	mov	dpl,#0x43
+      000AD0 12 01 A5         [24] 3284 	lcall	_uart_log
+                           0009F6  3285 	Smain$changeMode$269 ==.
+                                   3286 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:546: LS_LOGN(light_mode);
+      000AD3 90 00 6C         [24] 3287 	mov	dptr,#_light_mode
+      000AD6 E0               [24] 3288 	movx	a,@dptr
+      000AD7 FF               [12] 3289 	mov	r7,a
+      000AD8 7E 00            [12] 3290 	mov	r6,#0x00
+      000ADA 7D 00            [12] 3291 	mov	r5,#0x00
+      000ADC 7C 00            [12] 3292 	mov	r4,#0x00
+      000ADE 8F 82            [24] 3293 	mov	dpl,r7
+      000AE0 8E 83            [24] 3294 	mov	dph,r6
+      000AE2 8D F0            [24] 3295 	mov	b,r5
+      000AE4 EC               [12] 3296 	mov	a,r4
+      000AE5 12 01 D4         [24] 3297 	lcall	_uart_logn
+      000AE8                       3298 00134$:
+                           000A0B  3299 	Smain$changeMode$270 ==.
+                                   3300 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:547: }
+                           000A0B  3301 	Smain$changeMode$271 ==.
+                           000A0B  3302 	XG$changeMode$0$0 ==.
+      000AE8 22               [24] 3303 	ret
+                           000A0C  3304 	Smain$changeMode$272 ==.
+                                   3305 ;------------------------------------------------------------
+                                   3306 ;Allocation info for local variables in function 'toNextMode'
+                                   3307 ;------------------------------------------------------------
+                           000A0C  3308 	Smain$toNextMode$273 ==.
+                                   3309 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:552: void toNextMode(void)
+                                   3310 ;	-----------------------------------------
+                                   3311 ;	 function toNextMode
+                                   3312 ;	-----------------------------------------
+      000AE9                       3313 _toNextMode:
+                           000A0C  3314 	Smain$toNextMode$274 ==.
+                           000A0C  3315 	Smain$toNextMode$275 ==.
+                                   3316 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:554: changeMode(next_mode[light_mode]);
+      000AE9 90 00 6C         [24] 3317 	mov	dptr,#_light_mode
+      000AEC E0               [24] 3318 	movx	a,@dptr
+      000AED 90 1E 03         [24] 3319 	mov	dptr,#_next_mode
+      000AF0 93               [24] 3320 	movc	a,@a+dptr
+      000AF1 F5 82            [12] 3321 	mov	dpl,a
+      000AF3 12 09 31         [24] 3322 	lcall	_changeMode
+                           000A19  3323 	Smain$toNextMode$276 ==.
+                                   3324 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:555: }
+                           000A19  3325 	Smain$toNextMode$277 ==.
+                           000A19  3326 	XG$toNextMode$0$0 ==.
+      000AF6 22               [24] 3327 	ret
+                           000A1A  3328 	Smain$toNextMode$278 ==.
+                                   3329 ;------------------------------------------------------------
+                                   3330 ;Allocation info for local variables in function 'process_uart'
+                                   3331 ;------------------------------------------------------------
+                                   3332 ;ch                        Allocated with name '_process_uart_ch_131072_216'
+                                   3333 ;------------------------------------------------------------
+                           000A1A  3334 	Smain$process_uart$279 ==.
+                                   3335 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:558: bool process_uart(void)
+                                   3336 ;	-----------------------------------------
+                                   3337 ;	 function process_uart
+                                   3338 ;	-----------------------------------------
+      000AF7                       3339 _process_uart:
+                           000A1A  3340 	Smain$process_uart$280 ==.
+                           000A1A  3341 	Smain$process_uart$281 ==.
+                                   3342 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:560: if( uart_flag > 0) {
+      000AF7 90 00 8E         [24] 3343 	mov	dptr,#_uart_flag
+      000AFA E0               [24] 3344 	movx	a,@dptr
+      000AFB FF               [12] 3345 	mov	r7,a
+      000AFC C3               [12] 3346 	clr	c
+      000AFD 74 80            [12] 3347 	mov	a,#(0x00 ^ 0x80)
+      000AFF 8F F0            [24] 3348 	mov	b,r7
+      000B01 63 F0 80         [24] 3349 	xrl	b,#0x80
+      000B04 95 F0            [12] 3350 	subb	a,b
+      000B06 50 0C            [24] 3351 	jnc	00146$
+                           000A2B  3352 	Smain$process_uart$282 ==.
+                           000A2B  3353 	Smain$process_uart$283 ==.
+                                   3354 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:561: uart_flag = -1;
+      000B08 90 00 8E         [24] 3355 	mov	dptr,#_uart_flag
+      000B0B 74 FF            [12] 3356 	mov	a,#0xff
+      000B0D F0               [24] 3357 	movx	@dptr,a
+                           000A31  3358 	Smain$process_uart$284 ==.
+                                   3359 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:562: LS_LOG('!');
+      000B0E 75 82 21         [24] 3360 	mov	dpl,#0x21
+      000B11 12 01 A5         [24] 3361 	lcall	_uart_log
+                           000A37  3362 	Smain$process_uart$285 ==.
+                           000A37  3363 	Smain$process_uart$286 ==.
+                                   3364 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:564: while( uart1_next_idx != uart1_read_idx ) {
+      000B14                       3365 00146$:
+                           000A37  3366 	Smain$process_uart$287 ==.
+                           000A37  3367 	Smain$process_uart$288 ==.
+                           000A37  3368 	Smain$process_uart$289 ==.
+      000B14                       3369 00126$:
+      000B14 90 00 8C         [24] 3370 	mov	dptr,#_uart1_next_idx
+      000B17 E0               [24] 3371 	movx	a,@dptr
+      000B18 FF               [12] 3372 	mov	r7,a
+      000B19 90 00 8D         [24] 3373 	mov	dptr,#_uart1_read_idx
+      000B1C E0               [24] 3374 	movx	a,@dptr
+      000B1D FE               [12] 3375 	mov	r6,a
+      000B1E EF               [12] 3376 	mov	a,r7
+      000B1F B5 06 03         [24] 3377 	cjne	a,ar6,00216$
+      000B22 02 0C 5C         [24] 3378 	ljmp	00128$
+      000B25                       3379 00216$:
+                           000A48  3380 	Smain$process_uart$290 ==.
+                                   3381 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:565: uint8_t ch = uart1_rx_buffer[uart1_read_idx];
+      000B25 EE               [12] 3382 	mov	a,r6
+      000B26 24 12            [12] 3383 	add	a,#_uart1_rx_buffer
+      000B28 F5 82            [12] 3384 	mov	dpl,a
+      000B2A E4               [12] 3385 	clr	a
+      000B2B 34 00            [12] 3386 	addc	a,#(_uart1_rx_buffer >> 8)
+      000B2D F5 83            [12] 3387 	mov	dph,a
+      000B2F E0               [24] 3388 	movx	a,@dptr
+      000B30 90 00 27         [24] 3389 	mov	dptr,#_process_uart_ch_131072_216
+      000B33 F0               [24] 3390 	movx	@dptr,a
+                           000A57  3391 	Smain$process_uart$291 ==.
+                                   3392 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:566: uart1_read_idx = (uart1_read_idx + 1) % UART_BUFFER_LENGTH;
+      000B34 7F 00            [12] 3393 	mov	r7,#0x00
+      000B36 0E               [12] 3394 	inc	r6
+      000B37 BE 00 01         [24] 3395 	cjne	r6,#0x00,00217$
+      000B3A 0F               [12] 3396 	inc	r7
+      000B3B                       3397 00217$:
+      000B3B 90 00 63         [24] 3398 	mov	dptr,#__modsint_PARM_2
+      000B3E 74 10            [12] 3399 	mov	a,#0x10
+      000B40 F0               [24] 3400 	movx	@dptr,a
+      000B41 E4               [12] 3401 	clr	a
+      000B42 A3               [24] 3402 	inc	dptr
+      000B43 F0               [24] 3403 	movx	@dptr,a
+      000B44 8E 82            [24] 3404 	mov	dpl,r6
+      000B46 8F 83            [24] 3405 	mov	dph,r7
+      000B48 12 1C C1         [24] 3406 	lcall	__modsint
+      000B4B AE 82            [24] 3407 	mov	r6,dpl
+      000B4D 90 00 8D         [24] 3408 	mov	dptr,#_uart1_read_idx
+      000B50 EE               [12] 3409 	mov	a,r6
+      000B51 F0               [24] 3410 	movx	@dptr,a
+                           000A75  3411 	Smain$process_uart$292 ==.
+                                   3412 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:567: uart_counter = 0;
+      000B52 90 00 97         [24] 3413 	mov	dptr,#_uart_counter
+      000B55 E4               [12] 3414 	clr	a
+      000B56 F0               [24] 3415 	movx	@dptr,a
+      000B57 A3               [24] 3416 	inc	dptr
+      000B58 F0               [24] 3417 	movx	@dptr,a
+      000B59 A3               [24] 3418 	inc	dptr
+      000B5A F0               [24] 3419 	movx	@dptr,a
+      000B5B A3               [24] 3420 	inc	dptr
+      000B5C F0               [24] 3421 	movx	@dptr,a
+                           000A80  3422 	Smain$process_uart$293 ==.
+                                   3423 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:569: LS_LOG(ch);
+      000B5D 90 00 27         [24] 3424 	mov	dptr,#_process_uart_ch_131072_216
+      000B60 E0               [24] 3425 	movx	a,@dptr
+      000B61 FF               [12] 3426 	mov	r7,a
+      000B62 F5 82            [12] 3427 	mov	dpl,a
+      000B64 C0 07            [24] 3428 	push	ar7
+      000B66 12 01 A5         [24] 3429 	lcall	_uart_log
+      000B69 D0 07            [24] 3430 	pop	ar7
+                           000A8E  3431 	Smain$process_uart$294 ==.
+                                   3432 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:570: switch( ch ) {
+      000B6B BF 0A 02         [24] 3433 	cjne	r7,#0x0a,00218$
+      000B6E 80 46            [24] 3434 	sjmp	00103$
+      000B70                       3435 00218$:
+      000B70 BF 30 03         [24] 3436 	cjne	r7,#0x30,00219$
+      000B73 02 0B EF         [24] 3437 	ljmp	00108$
+      000B76                       3438 00219$:
+      000B76 BF 31 03         [24] 3439 	cjne	r7,#0x31,00220$
+      000B79 02 0C 1F         [24] 3440 	ljmp	00119$
+      000B7C                       3441 00220$:
+      000B7C BF 32 03         [24] 3442 	cjne	r7,#0x32,00221$
+      000B7F 02 0C 1F         [24] 3443 	ljmp	00119$
+      000B82                       3444 00221$:
+      000B82 BF 33 03         [24] 3445 	cjne	r7,#0x33,00222$
+      000B85 02 0C 1F         [24] 3446 	ljmp	00119$
+      000B88                       3447 00222$:
+      000B88 BF 34 03         [24] 3448 	cjne	r7,#0x34,00223$
+      000B8B 02 0C 1F         [24] 3449 	ljmp	00119$
+      000B8E                       3450 00223$:
+      000B8E BF 35 03         [24] 3451 	cjne	r7,#0x35,00224$
+      000B91 02 0C 1F         [24] 3452 	ljmp	00119$
+      000B94                       3453 00224$:
+      000B94 BF 36 03         [24] 3454 	cjne	r7,#0x36,00225$
+      000B97 02 0C 1F         [24] 3455 	ljmp	00119$
+      000B9A                       3456 00225$:
+      000B9A BF 39 02         [24] 3457 	cjne	r7,#0x39,00226$
+      000B9D 80 6A            [24] 3458 	sjmp	00111$
+      000B9F                       3459 00226$:
+      000B9F BF 61 02         [24] 3460 	cjne	r7,#0x61,00227$
+      000BA2 80 25            [24] 3461 	sjmp	00104$
+      000BA4                       3462 00227$:
+      000BA4 BF 69 02         [24] 3463 	cjne	r7,#0x69,00228$
+      000BA7 80 29            [24] 3464 	sjmp	00105$
+      000BA9                       3465 00228$:
+      000BA9 BF 73 02         [24] 3466 	cjne	r7,#0x73,00229$
+      000BAC 80 2D            [24] 3467 	sjmp	00106$
+      000BAE                       3468 00229$:
+      000BAE BF 75 02         [24] 3469 	cjne	r7,#0x75,00230$
+      000BB1 80 31            [24] 3470 	sjmp	00107$
+      000BB3                       3471 00230$:
+      000BB3 02 0B 14         [24] 3472 	ljmp	00126$
+                           000AD9  3473 	Smain$process_uart$295 ==.
+                                   3474 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:571: case '\n':
+      000BB6                       3475 00103$:
+                           000AD9  3476 	Smain$process_uart$296 ==.
+                                   3477 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:572: uart_rx_state = UART_INIT;
+      000BB6 90 00 9B         [24] 3478 	mov	dptr,#_uart_rx_state
+      000BB9 E4               [12] 3479 	clr	a
+      000BBA F0               [24] 3480 	movx	@dptr,a
+                           000ADE  3481 	Smain$process_uart$297 ==.
+                                   3482 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:573: LS_LOG('a' + light_mode);
+      000BBB 90 00 6C         [24] 3483 	mov	dptr,#_light_mode
+      000BBE E0               [24] 3484 	movx	a,@dptr
+      000BBF 24 61            [12] 3485 	add	a,#0x61
+      000BC1 F5 82            [12] 3486 	mov	dpl,a
+      000BC3 12 01 A5         [24] 3487 	lcall	_uart_log
+                           000AE9  3488 	Smain$process_uart$298 ==.
+                                   3489 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:574: break;
+      000BC6 02 0B 14         [24] 3490 	ljmp	00126$
+                           000AEC  3491 	Smain$process_uart$299 ==.
+                                   3492 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:575: case 'a':
+      000BC9                       3493 00104$:
+                           000AEC  3494 	Smain$process_uart$300 ==.
+                                   3495 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:576: uart_rx_state = UART_POWER;
+      000BC9 90 00 9B         [24] 3496 	mov	dptr,#_uart_rx_state
+      000BCC 74 01            [12] 3497 	mov	a,#0x01
+      000BCE F0               [24] 3498 	movx	@dptr,a
+                           000AF2  3499 	Smain$process_uart$301 ==.
+                                   3500 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:577: break;
+      000BCF 02 0B 14         [24] 3501 	ljmp	00126$
+                           000AF5  3502 	Smain$process_uart$302 ==.
+                                   3503 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:578: case 'i':
+      000BD2                       3504 00105$:
+                           000AF5  3505 	Smain$process_uart$303 ==.
+                                   3506 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:579: uart_rx_state = UART_INTL;
+      000BD2 90 00 9B         [24] 3507 	mov	dptr,#_uart_rx_state
+      000BD5 74 03            [12] 3508 	mov	a,#0x03
+      000BD7 F0               [24] 3509 	movx	@dptr,a
+                           000AFB  3510 	Smain$process_uart$304 ==.
+                                   3511 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:580: break;
+      000BD8 02 0B 14         [24] 3512 	ljmp	00126$
+                           000AFE  3513 	Smain$process_uart$305 ==.
+                                   3514 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:581: case 's':
+      000BDB                       3515 00106$:
+                           000AFE  3516 	Smain$process_uart$306 ==.
+                                   3517 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:582: uart_rx_state = UART_GERMAN;
+      000BDB 90 00 9B         [24] 3518 	mov	dptr,#_uart_rx_state
+      000BDE 74 02            [12] 3519 	mov	a,#0x02
+      000BE0 F0               [24] 3520 	movx	@dptr,a
+                           000B04  3521 	Smain$process_uart$307 ==.
+                                   3522 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:583: break;
+      000BE1 02 0B 14         [24] 3523 	ljmp	00126$
+                           000B07  3524 	Smain$process_uart$308 ==.
+                                   3525 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:584: case 'u':
+      000BE4                       3526 00107$:
+                           000B07  3527 	Smain$process_uart$309 ==.
+                                   3528 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:585: is_uart_mode = true;
+      000BE4 90 00 6D         [24] 3529 	mov	dptr,#_is_uart_mode
+      000BE7 74 01            [12] 3530 	mov	a,#0x01
+      000BE9 F0               [24] 3531 	movx	@dptr,a
+                           000B0D  3532 	Smain$process_uart$310 ==.
+                                   3533 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:586: return true;
+      000BEA 75 82 01         [24] 3534 	mov	dpl,#0x01
+                           000B10  3535 	Smain$process_uart$311 ==.
+                                   3536 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:587: case '0':
+      000BED 80 70            [24] 3537 	sjmp	00129$
+      000BEF                       3538 00108$:
+                           000B12  3539 	Smain$process_uart$312 ==.
+                                   3540 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:588: if( uart_rx_state == UART_POWER )
+      000BEF 90 00 9B         [24] 3541 	mov	dptr,#_uart_rx_state
+      000BF2 E0               [24] 3542 	movx	a,@dptr
+      000BF3 FF               [12] 3543 	mov	r7,a
+      000BF4 BF 01 02         [24] 3544 	cjne	r7,#0x01,00231$
+      000BF7 80 03            [24] 3545 	sjmp	00232$
+      000BF9                       3546 00231$:
+      000BF9 02 0B 14         [24] 3547 	ljmp	00126$
+      000BFC                       3548 00232$:
+                           000B1F  3549 	Smain$process_uart$313 ==.
+                                   3550 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:589: changeMode(next_mode[LIGHT_OFF]);
+      000BFC 90 1E 03         [24] 3551 	mov	dptr,#_next_mode
+      000BFF E4               [12] 3552 	clr	a
+      000C00 93               [24] 3553 	movc	a,@a+dptr
+      000C01 F5 82            [12] 3554 	mov	dpl,a
+      000C03 12 09 31         [24] 3555 	lcall	_changeMode
+                           000B29  3556 	Smain$process_uart$314 ==.
+                                   3557 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:590: break;
+      000C06 02 0B 14         [24] 3558 	ljmp	00126$
+                           000B2C  3559 	Smain$process_uart$315 ==.
+                                   3560 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:591: case '9':
+      000C09                       3561 00111$:
+                           000B2C  3562 	Smain$process_uart$316 ==.
+                                   3563 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:592: if( uart_rx_state == UART_POWER )
+      000C09 90 00 9B         [24] 3564 	mov	dptr,#_uart_rx_state
+      000C0C E0               [24] 3565 	movx	a,@dptr
+      000C0D FF               [12] 3566 	mov	r7,a
+      000C0E BF 01 02         [24] 3567 	cjne	r7,#0x01,00233$
+      000C11 80 03            [24] 3568 	sjmp	00234$
+      000C13                       3569 00233$:
+      000C13 02 0B 14         [24] 3570 	ljmp	00126$
+      000C16                       3571 00234$:
+                           000B39  3572 	Smain$process_uart$317 ==.
+                                   3573 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:593: changeMode(LIGHT_OFF);
+      000C16 75 82 00         [24] 3574 	mov	dpl,#0x00
+      000C19 12 09 31         [24] 3575 	lcall	_changeMode
+                           000B3F  3576 	Smain$process_uart$318 ==.
+                                   3577 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:594: break;
+      000C1C 02 0B 14         [24] 3578 	ljmp	00126$
+                           000B42  3579 	Smain$process_uart$319 ==.
+                                   3580 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:600: case '6':
+      000C1F                       3581 00119$:
+                           000B42  3582 	Smain$process_uart$320 ==.
+                                   3583 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:601: lamp_state = UART_INIT;
+      000C1F 90 00 9C         [24] 3584 	mov	dptr,#_lamp_state
+      000C22 E4               [12] 3585 	clr	a
+      000C23 F0               [24] 3586 	movx	@dptr,a
+                           000B47  3587 	Smain$process_uart$321 ==.
+                                   3588 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:602: switch( uart_rx_state ) {
+      000C24 90 00 9B         [24] 3589 	mov	dptr,#_uart_rx_state
+      000C27 E0               [24] 3590 	movx	a,@dptr
+      000C28 FF               [12] 3591 	mov	r7,a
+      000C29 BF 02 02         [24] 3592 	cjne	r7,#0x02,00235$
+      000C2C 80 16            [24] 3593 	sjmp	00121$
+      000C2E                       3594 00235$:
+      000C2E BF 03 02         [24] 3595 	cjne	r7,#0x03,00236$
+      000C31 80 03            [24] 3596 	sjmp	00237$
+      000C33                       3597 00236$:
+      000C33 02 0B 14         [24] 3598 	ljmp	00126$
+      000C36                       3599 00237$:
+                           000B59  3600 	Smain$process_uart$322 ==.
+                           000B59  3601 	Smain$process_uart$323 ==.
+                                   3602 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:604: changeMode(ch - '0');
+      000C36 90 00 27         [24] 3603 	mov	dptr,#_process_uart_ch_131072_216
+      000C39 E0               [24] 3604 	movx	a,@dptr
+      000C3A 24 D0            [12] 3605 	add	a,#0xd0
+      000C3C F5 82            [12] 3606 	mov	dpl,a
+      000C3E 12 09 31         [24] 3607 	lcall	_changeMode
+                           000B64  3608 	Smain$process_uart$324 ==.
+                                   3609 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:605: break;
+      000C41 02 0B 14         [24] 3610 	ljmp	00126$
+                           000B67  3611 	Smain$process_uart$325 ==.
+                                   3612 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:606: case UART_GERMAN:
+      000C44                       3613 00121$:
+                           000B67  3614 	Smain$process_uart$326 ==.
+                                   3615 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:607: if(ch < '4') {
+      000C44 90 00 27         [24] 3616 	mov	dptr,#_process_uart_ch_131072_216
+      000C47 E0               [24] 3617 	movx	a,@dptr
+      000C48 FF               [12] 3618 	mov	r7,a
+      000C49 BF 34 00         [24] 3619 	cjne	r7,#0x34,00238$
+      000C4C                       3620 00238$:
+      000C4C 40 03            [24] 3621 	jc	00239$
+      000C4E 02 0B 14         [24] 3622 	ljmp	00126$
+      000C51                       3623 00239$:
+                           000B74  3624 	Smain$process_uart$327 ==.
+                           000B74  3625 	Smain$process_uart$328 ==.
+                                   3626 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:608: changeMode(ch - '0' + 6);
+      000C51 74 D6            [12] 3627 	mov	a,#0xd6
+      000C53 2F               [12] 3628 	add	a,r7
+      000C54 F5 82            [12] 3629 	mov	dpl,a
+      000C56 12 09 31         [24] 3630 	lcall	_changeMode
+                           000B7C  3631 	Smain$process_uart$329 ==.
+                           000B7C  3632 	Smain$process_uart$330 ==.
+                                   3633 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:612: }
+      000C59 02 0B 14         [24] 3634 	ljmp	00126$
+      000C5C                       3635 00128$:
+                           000B7F  3636 	Smain$process_uart$331 ==.
+                                   3637 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:615: return false;
+      000C5C 75 82 00         [24] 3638 	mov	dpl,#0x00
+      000C5F                       3639 00129$:
+                           000B82  3640 	Smain$process_uart$332 ==.
+                                   3641 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:616: }
+                           000B82  3642 	Smain$process_uart$333 ==.
+                           000B82  3643 	XG$process_uart$0$0 ==.
+      000C5F 22               [24] 3644 	ret
+                           000B83  3645 	Smain$process_uart$334 ==.
+                                   3646 ;------------------------------------------------------------
+                                   3647 ;Allocation info for local variables in function 'process_button'
+                                   3648 ;------------------------------------------------------------
+                           000B83  3649 	Smain$process_button$335 ==.
+                                   3650 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:618: void process_button(void)
+                                   3651 ;	-----------------------------------------
+                                   3652 ;	 function process_button
+                                   3653 ;	-----------------------------------------
+      000C60                       3654 _process_button:
+                           000B83  3655 	Smain$process_button$336 ==.
+                           000B83  3656 	Smain$process_button$337 ==.
+                                   3657 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:620: if( BUTTON_PIN == 0 ) {
+      000C60 20 82 68         [24] 3658 	jb	_P02,00116$
+                           000B86  3659 	Smain$process_button$338 ==.
+                           000B86  3660 	Smain$process_button$339 ==.
+                                   3661 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:621: LS_LOG('B');
+      000C63 75 82 42         [24] 3662 	mov	dpl,#0x42
+      000C66 12 01 A5         [24] 3663 	lcall	_uart_log
+                           000B8C  3664 	Smain$process_button$340 ==.
+                                   3665 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:622: button_pressed ++;
+      000C69 90 00 8F         [24] 3666 	mov	dptr,#_button_pressed
+      000C6C E0               [24] 3667 	movx	a,@dptr
+      000C6D 24 01            [12] 3668 	add	a,#0x01
+      000C6F F0               [24] 3669 	movx	@dptr,a
+      000C70 A3               [24] 3670 	inc	dptr
+      000C71 E0               [24] 3671 	movx	a,@dptr
+      000C72 34 00            [12] 3672 	addc	a,#0x00
+      000C74 F0               [24] 3673 	movx	@dptr,a
+      000C75 A3               [24] 3674 	inc	dptr
+      000C76 E0               [24] 3675 	movx	a,@dptr
+      000C77 34 00            [12] 3676 	addc	a,#0x00
+      000C79 F0               [24] 3677 	movx	@dptr,a
+      000C7A A3               [24] 3678 	inc	dptr
+      000C7B E0               [24] 3679 	movx	a,@dptr
+      000C7C 34 00            [12] 3680 	addc	a,#0x00
+      000C7E F0               [24] 3681 	movx	@dptr,a
+                           000BA2  3682 	Smain$process_button$341 ==.
+                                   3683 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:623: button_unpressed = 0;
+      000C7F 90 00 93         [24] 3684 	mov	dptr,#_button_unpressed
+      000C82 E4               [12] 3685 	clr	a
+      000C83 F0               [24] 3686 	movx	@dptr,a
+      000C84 A3               [24] 3687 	inc	dptr
+      000C85 F0               [24] 3688 	movx	@dptr,a
+      000C86 A3               [24] 3689 	inc	dptr
+      000C87 F0               [24] 3690 	movx	@dptr,a
+      000C88 A3               [24] 3691 	inc	dptr
+      000C89 F0               [24] 3692 	movx	@dptr,a
+                           000BAD  3693 	Smain$process_button$342 ==.
+                                   3694 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:625: if( button_pressed == LONG_PRESS ) { // 길게 눌려졌다면
+      000C8A 90 00 8F         [24] 3695 	mov	dptr,#_button_pressed
+      000C8D E0               [24] 3696 	movx	a,@dptr
+      000C8E FC               [12] 3697 	mov	r4,a
+      000C8F A3               [24] 3698 	inc	dptr
+      000C90 E0               [24] 3699 	movx	a,@dptr
+      000C91 FD               [12] 3700 	mov	r5,a
+      000C92 A3               [24] 3701 	inc	dptr
+      000C93 E0               [24] 3702 	movx	a,@dptr
+      000C94 FE               [12] 3703 	mov	r6,a
+      000C95 A3               [24] 3704 	inc	dptr
+      000C96 E0               [24] 3705 	movx	a,@dptr
+      000C97 FF               [12] 3706 	mov	r7,a
+      000C98 BC 90 0B         [24] 3707 	cjne	r4,#0x90,00149$
+      000C9B BD 01 08         [24] 3708 	cjne	r5,#0x01,00149$
+      000C9E BE 00 05         [24] 3709 	cjne	r6,#0x00,00149$
+      000CA1 BF 00 02         [24] 3710 	cjne	r7,#0x00,00149$
+      000CA4 80 03            [24] 3711 	sjmp	00150$
+      000CA6                       3712 00149$:
+      000CA6 02 0D 8C         [24] 3713 	ljmp	00118$
+      000CA9                       3714 00150$:
+                           000BCC  3715 	Smain$process_button$343 ==.
+                           000BCC  3716 	Smain$process_button$344 ==.
+                                   3717 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:626: LS_LOG('l');
+      000CA9 75 82 6C         [24] 3718 	mov	dpl,#0x6c
+      000CAC 12 01 A5         [24] 3719 	lcall	_uart_log
+                           000BD2  3720 	Smain$process_button$345 ==.
+                                   3721 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:627: if( light_mode != LIGHT_OFF ) { // 전원 버튼의 역할을 한다.
+      000CAF 90 00 6C         [24] 3722 	mov	dptr,#_light_mode
+      000CB2 E0               [24] 3723 	movx	a,@dptr
+      000CB3 60 09            [24] 3724 	jz	00102$
+                           000BD8  3725 	Smain$process_button$346 ==.
+                           000BD8  3726 	Smain$process_button$347 ==.
+                                   3727 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:628: changeMode(LIGHT_OFF);
+      000CB5 75 82 00         [24] 3728 	mov	dpl,#0x00
+      000CB8 12 09 31         [24] 3729 	lcall	_changeMode
+                           000BDE  3730 	Smain$process_button$348 ==.
+      000CBB 02 0D 8C         [24] 3731 	ljmp	00118$
+      000CBE                       3732 00102$:
+                           000BE1  3733 	Smain$process_button$349 ==.
+                           000BE1  3734 	Smain$process_button$350 ==.
+                                   3735 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:630: changeMode(next_mode[LIGHT_OFF]);
+      000CBE 90 1E 03         [24] 3736 	mov	dptr,#_next_mode
+      000CC1 E4               [12] 3737 	clr	a
+      000CC2 93               [24] 3738 	movc	a,@a+dptr
+      000CC3 F5 82            [12] 3739 	mov	dpl,a
+      000CC5 12 09 31         [24] 3740 	lcall	_changeMode
+                           000BEB  3741 	Smain$process_button$351 ==.
+      000CC8 02 0D 8C         [24] 3742 	ljmp	00118$
+      000CCB                       3743 00116$:
+                           000BEE  3744 	Smain$process_button$352 ==.
+                                   3745 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:633: } else if( button_pressed ) {
+      000CCB 90 00 8F         [24] 3746 	mov	dptr,#_button_pressed
+      000CCE E0               [24] 3747 	movx	a,@dptr
+      000CCF F5 F0            [12] 3748 	mov	b,a
+      000CD1 A3               [24] 3749 	inc	dptr
+      000CD2 E0               [24] 3750 	movx	a,@dptr
+      000CD3 42 F0            [12] 3751 	orl	b,a
+      000CD5 A3               [24] 3752 	inc	dptr
+      000CD6 E0               [24] 3753 	movx	a,@dptr
+      000CD7 42 F0            [12] 3754 	orl	b,a
+      000CD9 A3               [24] 3755 	inc	dptr
+      000CDA E0               [24] 3756 	movx	a,@dptr
+      000CDB 45 F0            [12] 3757 	orl	a,b
+      000CDD 70 03            [24] 3758 	jnz	00152$
+      000CDF 02 0D 8C         [24] 3759 	ljmp	00118$
+      000CE2                       3760 00152$:
+                           000C05  3761 	Smain$process_button$353 ==.
+                           000C05  3762 	Smain$process_button$354 ==.
+                                   3763 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:634: LS_LOG('U');
+      000CE2 75 82 55         [24] 3764 	mov	dpl,#0x55
+      000CE5 12 01 A5         [24] 3765 	lcall	_uart_log
+                           000C0B  3766 	Smain$process_button$355 ==.
+                                   3767 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:635: button_unpressed ++;
+      000CE8 90 00 93         [24] 3768 	mov	dptr,#_button_unpressed
+      000CEB E0               [24] 3769 	movx	a,@dptr
+      000CEC 24 01            [12] 3770 	add	a,#0x01
+      000CEE F0               [24] 3771 	movx	@dptr,a
+      000CEF A3               [24] 3772 	inc	dptr
+      000CF0 E0               [24] 3773 	movx	a,@dptr
+      000CF1 34 00            [12] 3774 	addc	a,#0x00
+      000CF3 F0               [24] 3775 	movx	@dptr,a
+      000CF4 A3               [24] 3776 	inc	dptr
+      000CF5 E0               [24] 3777 	movx	a,@dptr
+      000CF6 34 00            [12] 3778 	addc	a,#0x00
+      000CF8 F0               [24] 3779 	movx	@dptr,a
+      000CF9 A3               [24] 3780 	inc	dptr
+      000CFA E0               [24] 3781 	movx	a,@dptr
+      000CFB 34 00            [12] 3782 	addc	a,#0x00
+      000CFD F0               [24] 3783 	movx	@dptr,a
+                           000C21  3784 	Smain$process_button$356 ==.
+                                   3785 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:636: if( button_unpressed > 1 ) { // 두번이상 안눌려졌다고 판단했는데
+      000CFE 90 00 93         [24] 3786 	mov	dptr,#_button_unpressed
+      000D01 E0               [24] 3787 	movx	a,@dptr
+      000D02 FC               [12] 3788 	mov	r4,a
+      000D03 A3               [24] 3789 	inc	dptr
+      000D04 E0               [24] 3790 	movx	a,@dptr
+      000D05 FD               [12] 3791 	mov	r5,a
+      000D06 A3               [24] 3792 	inc	dptr
+      000D07 E0               [24] 3793 	movx	a,@dptr
+      000D08 FE               [12] 3794 	mov	r6,a
+      000D09 A3               [24] 3795 	inc	dptr
+      000D0A E0               [24] 3796 	movx	a,@dptr
+      000D0B FF               [12] 3797 	mov	r7,a
+      000D0C C3               [12] 3798 	clr	c
+      000D0D 74 01            [12] 3799 	mov	a,#0x01
+      000D0F 9C               [12] 3800 	subb	a,r4
+      000D10 E4               [12] 3801 	clr	a
+      000D11 9D               [12] 3802 	subb	a,r5
+      000D12 E4               [12] 3803 	clr	a
+      000D13 9E               [12] 3804 	subb	a,r6
+      000D14 E4               [12] 3805 	clr	a
+      000D15 9F               [12] 3806 	subb	a,r7
+      000D16 50 74            [24] 3807 	jnc	00118$
+                           000C3B  3808 	Smain$process_button$357 ==.
+                           000C3B  3809 	Smain$process_button$358 ==.
+                                   3810 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:637: if( button_pressed < LONG_PRESS ) { // 짧게 눌렀던 상태라면 다음상태로
+      000D18 90 00 8F         [24] 3811 	mov	dptr,#_button_pressed
+      000D1B E0               [24] 3812 	movx	a,@dptr
+      000D1C FC               [12] 3813 	mov	r4,a
+      000D1D A3               [24] 3814 	inc	dptr
+      000D1E E0               [24] 3815 	movx	a,@dptr
+      000D1F FD               [12] 3816 	mov	r5,a
+      000D20 A3               [24] 3817 	inc	dptr
+      000D21 E0               [24] 3818 	movx	a,@dptr
+      000D22 FE               [12] 3819 	mov	r6,a
+      000D23 A3               [24] 3820 	inc	dptr
+      000D24 E0               [24] 3821 	movx	a,@dptr
+      000D25 FF               [12] 3822 	mov	r7,a
+      000D26 C3               [12] 3823 	clr	c
+      000D27 EC               [12] 3824 	mov	a,r4
+      000D28 94 90            [12] 3825 	subb	a,#0x90
+      000D2A ED               [12] 3826 	mov	a,r5
+      000D2B 94 01            [12] 3827 	subb	a,#0x01
+      000D2D EE               [12] 3828 	mov	a,r6
+      000D2E 94 00            [12] 3829 	subb	a,#0x00
+      000D30 EF               [12] 3830 	mov	a,r7
+      000D31 94 00            [12] 3831 	subb	a,#0x00
+      000D33 50 26            [24] 3832 	jnc	00109$
+                           000C58  3833 	Smain$process_button$359 ==.
+                           000C58  3834 	Smain$process_button$360 ==.
+                                   3835 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:638: if( light_mode > 0 ) {
+      000D35 90 00 6C         [24] 3836 	mov	dptr,#_light_mode
+      000D38 E0               [24] 3837 	movx	a,@dptr
+      000D39 60 3C            [24] 3838 	jz	00110$
+                           000C5E  3839 	Smain$process_button$361 ==.
+                           000C5E  3840 	Smain$process_button$362 ==.
+                                   3841 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:639: LS_LOG('N');
+      000D3B 75 82 4E         [24] 3842 	mov	dpl,#0x4e
+      000D3E 12 01 A5         [24] 3843 	lcall	_uart_log
+                           000C64  3844 	Smain$process_button$363 ==.
+                                   3845 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:640: LS_LOGN(light_mode);
+      000D41 90 00 6C         [24] 3846 	mov	dptr,#_light_mode
+      000D44 E0               [24] 3847 	movx	a,@dptr
+      000D45 FF               [12] 3848 	mov	r7,a
+      000D46 7E 00            [12] 3849 	mov	r6,#0x00
+      000D48 7D 00            [12] 3850 	mov	r5,#0x00
+      000D4A 7C 00            [12] 3851 	mov	r4,#0x00
+      000D4C 8F 82            [24] 3852 	mov	dpl,r7
+      000D4E 8E 83            [24] 3853 	mov	dph,r6
+      000D50 8D F0            [24] 3854 	mov	b,r5
+      000D52 EC               [12] 3855 	mov	a,r4
+      000D53 12 01 D4         [24] 3856 	lcall	_uart_logn
+                           000C79  3857 	Smain$process_button$364 ==.
+                                   3858 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:641: toNextMode();
+      000D56 12 0A E9         [24] 3859 	lcall	_toNextMode
+                           000C7C  3860 	Smain$process_button$365 ==.
+      000D59 80 1C            [24] 3861 	sjmp	00110$
+      000D5B                       3862 00109$:
+                           000C7E  3863 	Smain$process_button$366 ==.
+                           000C7E  3864 	Smain$process_button$367 ==.
+                                   3865 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:644: LS_LOG('M');
+      000D5B 75 82 4D         [24] 3866 	mov	dpl,#0x4d
+      000D5E 12 01 A5         [24] 3867 	lcall	_uart_log
+                           000C84  3868 	Smain$process_button$368 ==.
+                                   3869 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:645: LS_LOGN(button_pressed);
+      000D61 90 00 8F         [24] 3870 	mov	dptr,#_button_pressed
+      000D64 E0               [24] 3871 	movx	a,@dptr
+      000D65 FC               [12] 3872 	mov	r4,a
+      000D66 A3               [24] 3873 	inc	dptr
+      000D67 E0               [24] 3874 	movx	a,@dptr
+      000D68 FD               [12] 3875 	mov	r5,a
+      000D69 A3               [24] 3876 	inc	dptr
+      000D6A E0               [24] 3877 	movx	a,@dptr
+      000D6B FE               [12] 3878 	mov	r6,a
+      000D6C A3               [24] 3879 	inc	dptr
+      000D6D E0               [24] 3880 	movx	a,@dptr
+      000D6E 8C 82            [24] 3881 	mov	dpl,r4
+      000D70 8D 83            [24] 3882 	mov	dph,r5
+      000D72 8E F0            [24] 3883 	mov	b,r6
+      000D74 12 01 D4         [24] 3884 	lcall	_uart_logn
+                           000C9A  3885 	Smain$process_button$369 ==.
+      000D77                       3886 00110$:
+                           000C9A  3887 	Smain$process_button$370 ==.
+                                   3888 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:647: button_pressed = button_unpressed = 0;
+      000D77 90 00 93         [24] 3889 	mov	dptr,#_button_unpressed
+      000D7A E4               [12] 3890 	clr	a
+      000D7B F0               [24] 3891 	movx	@dptr,a
+      000D7C A3               [24] 3892 	inc	dptr
+      000D7D F0               [24] 3893 	movx	@dptr,a
+      000D7E A3               [24] 3894 	inc	dptr
+      000D7F F0               [24] 3895 	movx	@dptr,a
+      000D80 A3               [24] 3896 	inc	dptr
+      000D81 F0               [24] 3897 	movx	@dptr,a
+      000D82 90 00 8F         [24] 3898 	mov	dptr,#_button_pressed
+      000D85 F0               [24] 3899 	movx	@dptr,a
+      000D86 A3               [24] 3900 	inc	dptr
+      000D87 F0               [24] 3901 	movx	@dptr,a
+      000D88 A3               [24] 3902 	inc	dptr
+      000D89 F0               [24] 3903 	movx	@dptr,a
+      000D8A A3               [24] 3904 	inc	dptr
+      000D8B F0               [24] 3905 	movx	@dptr,a
+                           000CAF  3906 	Smain$process_button$371 ==.
+      000D8C                       3907 00118$:
+                           000CAF  3908 	Smain$process_button$372 ==.
+                                   3909 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:650: }
+                           000CAF  3910 	Smain$process_button$373 ==.
+                           000CAF  3911 	XG$process_button$0$0 ==.
+      000D8C 22               [24] 3912 	ret
+                           000CB0  3913 	Smain$process_button$374 ==.
+                                   3914 ;------------------------------------------------------------
+                                   3915 ;Allocation info for local variables in function 'stop_leds'
+                                   3916 ;------------------------------------------------------------
+                           000CB0  3917 	Smain$stop_leds$375 ==.
+                                   3918 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:653: void stop_leds(void)
+                                   3919 ;	-----------------------------------------
+                                   3920 ;	 function stop_leds
+                                   3921 ;	-----------------------------------------
+      000D8D                       3922 _stop_leds:
+                           000CB0  3923 	Smain$stop_leds$376 ==.
+                           000CB0  3924 	Smain$stop_leds$377 ==.
+                                   3925 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:656: clr_PWMCON0_PWMRUN;
+                                   3926 ;	assignBit
+      000D8D C2 DF            [12] 3927 	clr	_PWMRUN
+                           000CB2  3928 	Smain$stop_leds$378 ==.
+                                   3929 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:657: set_SFRS_SFRPAGE;
+                                   3930 ;	assignBit
+      000D8F A2 AF            [12] 3931 	mov	c,_EA
+      000D91 92 00            [24] 3932 	mov	_BIT_TMP,c
+                                   3933 ;	assignBit
+      000D93 C2 AF            [12] 3934 	clr	_EA
+      000D95 75 C7 AA         [24] 3935 	mov	_TA,#0xaa
+      000D98 75 C7 55         [24] 3936 	mov	_TA,#0x55
+      000D9B 75 91 01         [24] 3937 	mov	_SFRS,#0x01
+                                   3938 ;	assignBit
+      000D9E A2 00            [12] 3939 	mov	c,_BIT_TMP
+      000DA0 92 AF            [24] 3940 	mov	_EA,c
+                           000CC5  3941 	Smain$stop_leds$379 ==.
+                                   3942 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:659: PWM2L = 0;
+      000DA2 75 DC 00         [24] 3943 	mov	_PWM2L,#0x00
+                           000CC8  3944 	Smain$stop_leds$380 ==.
+                                   3945 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:660: PWM2H = 0;
+      000DA5 75 D4 00         [24] 3946 	mov	_PWM2H,#0x00
+                           000CCB  3947 	Smain$stop_leds$381 ==.
+                                   3948 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:661: PWM4L = 0;
+      000DA8 75 CC 00         [24] 3949 	mov	_PWM4L,#0x00
+                           000CCE  3950 	Smain$stop_leds$382 ==.
+                                   3951 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:662: PWM4H = 0;
+      000DAB 75 C4 00         [24] 3952 	mov	_PWM4H,#0x00
+                           000CD1  3953 	Smain$stop_leds$383 ==.
+                                   3954 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:664: clr_SFRS_SFRPAGE;
+                                   3955 ;	assignBit
+      000DAE A2 AF            [12] 3956 	mov	c,_EA
+      000DB0 92 00            [24] 3957 	mov	_BIT_TMP,c
+                                   3958 ;	assignBit
+      000DB2 C2 AF            [12] 3959 	clr	_EA
+      000DB4 75 C7 AA         [24] 3960 	mov	_TA,#0xaa
+      000DB7 75 C7 55         [24] 3961 	mov	_TA,#0x55
+      000DBA 75 91 00         [24] 3962 	mov	_SFRS,#0x00
+                                   3963 ;	assignBit
+      000DBD A2 00            [12] 3964 	mov	c,_BIT_TMP
+      000DBF 92 AF            [24] 3965 	mov	_EA,c
+                           000CE4  3966 	Smain$stop_leds$384 ==.
+                                   3967 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:665: set_PWMCON0_PWMRUN;
+                                   3968 ;	assignBit
+      000DC1 D2 DF            [12] 3969 	setb	_PWMRUN
+                           000CE6  3970 	Smain$stop_leds$385 ==.
+                                   3971 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:666: }
+                           000CE6  3972 	Smain$stop_leds$386 ==.
+                           000CE6  3973 	XG$stop_leds$0$0 ==.
+      000DC3 22               [24] 3974 	ret
+                           000CE7  3975 	Smain$stop_leds$387 ==.
+                                   3976 ;------------------------------------------------------------
+                                   3977 ;Allocation info for local variables in function 'activate_leds'
+                                   3978 ;------------------------------------------------------------
+                           000CE7  3979 	Smain$activate_leds$388 ==.
+                                   3980 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:668: void activate_leds(void)
+                                   3981 ;	-----------------------------------------
+                                   3982 ;	 function activate_leds
+                                   3983 ;	-----------------------------------------
+      000DC4                       3984 _activate_leds:
+                           000CE7  3985 	Smain$activate_leds$389 ==.
+                           000CE7  3986 	Smain$activate_leds$390 ==.
+                                   3987 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:670: clr_PWMCON0_PWMRUN;
+                                   3988 ;	assignBit
+      000DC4 C2 DF            [12] 3989 	clr	_PWMRUN
+                           000CE9  3990 	Smain$activate_leds$391 ==.
+                                   3991 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:671: set_SFRS_SFRPAGE;
+                                   3992 ;	assignBit
+      000DC6 A2 AF            [12] 3993 	mov	c,_EA
+      000DC8 92 00            [24] 3994 	mov	_BIT_TMP,c
+                                   3995 ;	assignBit
+      000DCA C2 AF            [12] 3996 	clr	_EA
+      000DCC 75 C7 AA         [24] 3997 	mov	_TA,#0xaa
+      000DCF 75 C7 55         [24] 3998 	mov	_TA,#0x55
+      000DD2 75 91 01         [24] 3999 	mov	_SFRS,#0x01
+                                   4000 ;	assignBit
+      000DD5 A2 00            [12] 4001 	mov	c,_BIT_TMP
+      000DD7 92 AF            [24] 4002 	mov	_EA,c
+                           000CFC  4003 	Smain$activate_leds$392 ==.
+                                   4004 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:673: PWM2L = pwm[0];
+      000DD9 90 00 71         [24] 4005 	mov	dptr,#_pwm
+      000DDC E0               [24] 4006 	movx	a,@dptr
+      000DDD F5 DC            [12] 4007 	mov	_PWM2L,a
+                           000D02  4008 	Smain$activate_leds$393 ==.
+                                   4009 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:674: PWM4L = pwm[1];
+      000DDF 90 00 73         [24] 4010 	mov	dptr,#(_pwm + 0x0002)
+      000DE2 E0               [24] 4011 	movx	a,@dptr
+      000DE3 F5 CC            [12] 4012 	mov	_PWM4L,a
+                           000D08  4013 	Smain$activate_leds$394 ==.
+                                   4014 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:676: clr_SFRS_SFRPAGE;
+                                   4015 ;	assignBit
+      000DE5 A2 AF            [12] 4016 	mov	c,_EA
+      000DE7 92 00            [24] 4017 	mov	_BIT_TMP,c
+                                   4018 ;	assignBit
+      000DE9 C2 AF            [12] 4019 	clr	_EA
+      000DEB 75 C7 AA         [24] 4020 	mov	_TA,#0xaa
+      000DEE 75 C7 55         [24] 4021 	mov	_TA,#0x55
+      000DF1 75 91 00         [24] 4022 	mov	_SFRS,#0x00
+                                   4023 ;	assignBit
+      000DF4 A2 00            [12] 4024 	mov	c,_BIT_TMP
+      000DF6 92 AF            [24] 4025 	mov	_EA,c
+                           000D1B  4026 	Smain$activate_leds$395 ==.
+                                   4027 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:677: set_PWMCON0_PWMRUN;
+                                   4028 ;	assignBit
+      000DF8 D2 DF            [12] 4029 	setb	_PWMRUN
+                           000D1D  4030 	Smain$activate_leds$396 ==.
+                                   4031 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:678: }
+                           000D1D  4032 	Smain$activate_leds$397 ==.
+                           000D1D  4033 	XG$activate_leds$0$0 ==.
+      000DFA 22               [24] 4034 	ret
+                           000D1E  4035 	Smain$activate_leds$398 ==.
+                                   4036 ;------------------------------------------------------------
+                                   4037 ;Allocation info for local variables in function 'mode_changing_control'
+                                   4038 ;------------------------------------------------------------
+                                   4039 ;light_changing            Allocated with name '_mode_changing_control_light_changing_65536_236'
+                                   4040 ;i                         Allocated with name '_mode_changing_control_i_131072_237'
+                                   4041 ;------------------------------------------------------------
+                           000D1E  4042 	Smain$mode_changing_control$399 ==.
+                                   4043 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:685: bool mode_changing_control( void )
+                                   4044 ;	-----------------------------------------
+                                   4045 ;	 function mode_changing_control
+                                   4046 ;	-----------------------------------------
+      000DFB                       4047 _mode_changing_control:
+                           000D1E  4048 	Smain$mode_changing_control$400 ==.
+                           000D1E  4049 	Smain$mode_changing_control$401 ==.
+                                   4050 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:687: bool light_changing = false;
+      000DFB 90 00 28         [24] 4051 	mov	dptr,#_mode_changing_control_light_changing_65536_236
+      000DFE E4               [12] 4052 	clr	a
+      000DFF F0               [24] 4053 	movx	@dptr,a
+                           000D23  4054 	Smain$mode_changing_control$402 ==.
+                           000D23  4055 	Smain$mode_changing_control$403 ==.
+                                   4056 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:689: for( int i = 0; i < NUM_LEDS; i++ ) {
+                           000D23  4057 	Smain$mode_changing_control$404 ==.
+                           000D23  4058 	Smain$mode_changing_control$405 ==.
+                           000D23  4059 	Smain$mode_changing_control$406 ==.
+                           000D23  4060 	Smain$mode_changing_control$407 ==.
+                           000D23  4061 	Smain$mode_changing_control$407 ==.
+                           000D23  4062 	Smain$mode_changing_control$408 ==.
+                           000D23  4063 	Smain$mode_changing_control$409 ==.
+                           000D23  4064 	Smain$mode_changing_control$409 ==.
+                           000D23  4065 	Smain$mode_changing_control$410 ==.
+      000E00 7E 00            [12] 4066 	mov	r6,#0x00
+      000E02 7F 00            [12] 4067 	mov	r7,#0x00
+                           000D27  4068 	Smain$mode_changing_control$411 ==.
+      000E04                       4069 00132$:
+      000E04 C3               [12] 4070 	clr	c
+      000E05 EE               [12] 4071 	mov	a,r6
+      000E06 94 02            [12] 4072 	subb	a,#0x02
+      000E08 EF               [12] 4073 	mov	a,r7
+      000E09 64 80            [12] 4074 	xrl	a,#0x80
+      000E0B 94 80            [12] 4075 	subb	a,#0x80
+      000E0D 40 03            [24] 4076 	jc	00193$
+      000E0F 02 10 11         [24] 4077 	ljmp	00130$
+      000E12                       4078 00193$:
+                           000D35  4079 	Smain$mode_changing_control$412 ==.
+                                   4080 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:690: switch( light_control_mode[i] ) {
+      000E12 EE               [12] 4081 	mov	a,r6
+      000E13 24 75            [12] 4082 	add	a,#_light_control_mode
+      000E15 FC               [12] 4083 	mov	r4,a
+      000E16 EF               [12] 4084 	mov	a,r7
+      000E17 34 00            [12] 4085 	addc	a,#(_light_control_mode >> 8)
+      000E19 FD               [12] 4086 	mov	r5,a
+      000E1A 8C 82            [24] 4087 	mov	dpl,r4
+      000E1C 8D 83            [24] 4088 	mov	dph,r5
+      000E1E E0               [24] 4089 	movx	a,@dptr
+      000E1F FB               [12] 4090 	mov	r3,a
+      000E20 BB 01 02         [24] 4091 	cjne	r3,#0x01,00194$
+      000E23 80 0E            [24] 4092 	sjmp	00101$
+      000E25                       4093 00194$:
+      000E25 BB 02 02         [24] 4094 	cjne	r3,#0x02,00195$
+      000E28 80 63            [24] 4095 	sjmp	00108$
+      000E2A                       4096 00195$:
+      000E2A BB 03 03         [24] 4097 	cjne	r3,#0x03,00196$
+      000E2D 02 0F 49         [24] 4098 	ljmp	00117$
+      000E30                       4099 00196$:
+      000E30 02 10 09         [24] 4100 	ljmp	00133$
+                           000D56  4101 	Smain$mode_changing_control$413 ==.
+                                   4102 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:691: case MODE_CHANGING_OFF:
+      000E33                       4103 00101$:
+                           000D56  4104 	Smain$mode_changing_control$414 ==.
+                                   4105 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:692: if( pwm[i] > 0) {
+      000E33 EE               [12] 4106 	mov	a,r6
+      000E34 2E               [12] 4107 	add	a,r6
+      000E35 FA               [12] 4108 	mov	r2,a
+      000E36 EF               [12] 4109 	mov	a,r7
+      000E37 33               [12] 4110 	rlc	a
+      000E38 FB               [12] 4111 	mov	r3,a
+      000E39 EA               [12] 4112 	mov	a,r2
+      000E3A 24 71            [12] 4113 	add	a,#_pwm
+      000E3C FA               [12] 4114 	mov	r2,a
+      000E3D EB               [12] 4115 	mov	a,r3
+      000E3E 34 00            [12] 4116 	addc	a,#(_pwm >> 8)
+      000E40 FB               [12] 4117 	mov	r3,a
+      000E41 8A 82            [24] 4118 	mov	dpl,r2
+      000E43 8B 83            [24] 4119 	mov	dph,r3
+      000E45 E0               [24] 4120 	movx	a,@dptr
+      000E46 F8               [12] 4121 	mov	r0,a
+      000E47 A3               [24] 4122 	inc	dptr
+      000E48 E0               [24] 4123 	movx	a,@dptr
+      000E49 F9               [12] 4124 	mov	r1,a
+      000E4A 48               [12] 4125 	orl	a,r0
+      000E4B 60 22            [24] 4126 	jz	00106$
+                           000D70  4127 	Smain$mode_changing_control$415 ==.
+                           000D70  4128 	Smain$mode_changing_control$416 ==.
+                                   4129 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:693: light_changing = true;
+      000E4D C0 06            [24] 4130 	push	ar6
+      000E4F C0 07            [24] 4131 	push	ar7
+                           000D74  4132 	Smain$mode_changing_control$417 ==.
+      000E51 90 00 28         [24] 4133 	mov	dptr,#_mode_changing_control_light_changing_65536_236
+      000E54 74 01            [12] 4134 	mov	a,#0x01
+      000E56 F0               [24] 4135 	movx	@dptr,a
+                           000D7A  4136 	Smain$mode_changing_control$418 ==.
+                                   4137 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:694: pwm[i] --;
+      000E57 E8               [12] 4138 	mov	a,r0
+      000E58 24 FF            [12] 4139 	add	a,#0xff
+      000E5A FE               [12] 4140 	mov	r6,a
+      000E5B E9               [12] 4141 	mov	a,r1
+      000E5C 34 FF            [12] 4142 	addc	a,#0xff
+      000E5E FF               [12] 4143 	mov	r7,a
+      000E5F 8A 82            [24] 4144 	mov	dpl,r2
+      000E61 8B 83            [24] 4145 	mov	dph,r3
+      000E63 EE               [12] 4146 	mov	a,r6
+      000E64 F0               [24] 4147 	movx	@dptr,a
+      000E65 EF               [12] 4148 	mov	a,r7
+      000E66 A3               [24] 4149 	inc	dptr
+      000E67 F0               [24] 4150 	movx	@dptr,a
+                           000D8B  4151 	Smain$mode_changing_control$419 ==.
+      000E68 D0 07            [24] 4152 	pop	ar7
+      000E6A D0 06            [24] 4153 	pop	ar6
+      000E6C 02 10 09         [24] 4154 	ljmp	00133$
+      000E6F                       4155 00106$:
+                           000D92  4156 	Smain$mode_changing_control$420 ==.
+                                   4157 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:695: } else if( pwm[i] == 0 ){ // pwm은 unsigned이므로 0보다 작을수는 없음
+      000E6F E8               [12] 4158 	mov	a,r0
+      000E70 49               [12] 4159 	orl	a,r1
+      000E71 70 09            [24] 4160 	jnz	00103$
+                           000D96  4161 	Smain$mode_changing_control$421 ==.
+                           000D96  4162 	Smain$mode_changing_control$422 ==.
+                                   4163 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:696: light_control_mode[i] = MODE_STABLE;
+      000E73 8C 82            [24] 4164 	mov	dpl,r4
+      000E75 8D 83            [24] 4165 	mov	dph,r5
+      000E77 E4               [12] 4166 	clr	a
+      000E78 F0               [24] 4167 	movx	@dptr,a
+                           000D9C  4168 	Smain$mode_changing_control$423 ==.
+      000E79 02 10 09         [24] 4169 	ljmp	00133$
+      000E7C                       4170 00103$:
+                           000D9F  4171 	Smain$mode_changing_control$424 ==.
+                           000D9F  4172 	Smain$mode_changing_control$425 ==.
+                                   4173 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:698: light_changing = true;
+      000E7C 90 00 28         [24] 4174 	mov	dptr,#_mode_changing_control_light_changing_65536_236
+      000E7F 74 01            [12] 4175 	mov	a,#0x01
+      000E81 F0               [24] 4176 	movx	@dptr,a
+                           000DA5  4177 	Smain$mode_changing_control$426 ==.
+                                   4178 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:699: pwm[i] = 0;
+      000E82 8A 82            [24] 4179 	mov	dpl,r2
+      000E84 8B 83            [24] 4180 	mov	dph,r3
+      000E86 E4               [12] 4181 	clr	a
+      000E87 F0               [24] 4182 	movx	@dptr,a
+      000E88 A3               [24] 4183 	inc	dptr
+      000E89 F0               [24] 4184 	movx	@dptr,a
+                           000DAD  4185 	Smain$mode_changing_control$427 ==.
+                           000DAD  4186 	Smain$mode_changing_control$428 ==.
+                                   4187 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:701: break;
+      000E8A 02 10 09         [24] 4188 	ljmp	00133$
+                           000DB0  4189 	Smain$mode_changing_control$429 ==.
+                                   4190 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:702: case MODE_CHANGING_UP:
+      000E8D                       4191 00108$:
+                           000DB0  4192 	Smain$mode_changing_control$430 ==.
+                           000DB0  4193 	Smain$mode_changing_control$431 ==.
+                                   4194 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:703: if( cur_amp[i] < max_amp[light_mode][i] ) {
+      000E8D C0 04            [24] 4195 	push	ar4
+      000E8F C0 05            [24] 4196 	push	ar5
+      000E91 EE               [12] 4197 	mov	a,r6
+      000E92 2E               [12] 4198 	add	a,r6
+      000E93 FA               [12] 4199 	mov	r2,a
+      000E94 EF               [12] 4200 	mov	a,r7
+      000E95 33               [12] 4201 	rlc	a
+      000E96 FB               [12] 4202 	mov	r3,a
+      000E97 EA               [12] 4203 	mov	a,r2
+      000E98 24 84            [12] 4204 	add	a,#_cur_amp
+      000E9A F5 82            [12] 4205 	mov	dpl,a
+      000E9C EB               [12] 4206 	mov	a,r3
+      000E9D 34 00            [12] 4207 	addc	a,#(_cur_amp >> 8)
+      000E9F F5 83            [12] 4208 	mov	dph,a
+      000EA1 E0               [24] 4209 	movx	a,@dptr
+      000EA2 F8               [12] 4210 	mov	r0,a
+      000EA3 A3               [24] 4211 	inc	dptr
+      000EA4 E0               [24] 4212 	movx	a,@dptr
+      000EA5 F9               [12] 4213 	mov	r1,a
+      000EA6 90 00 6C         [24] 4214 	mov	dptr,#_light_mode
+      000EA9 E0               [24] 4215 	movx	a,@dptr
+      000EAA 75 F0 02         [24] 4216 	mov	b,#0x02
+      000EAD A4               [48] 4217 	mul	ab
+      000EAE 24 D9            [12] 4218 	add	a,#_max_amp
+      000EB0 FC               [12] 4219 	mov	r4,a
+      000EB1 74 1D            [12] 4220 	mov	a,#(_max_amp >> 8)
+      000EB3 35 F0            [12] 4221 	addc	a,b
+      000EB5 FD               [12] 4222 	mov	r5,a
+      000EB6 EE               [12] 4223 	mov	a,r6
+      000EB7 2C               [12] 4224 	add	a,r4
+      000EB8 F5 82            [12] 4225 	mov	dpl,a
+      000EBA EF               [12] 4226 	mov	a,r7
+      000EBB 3D               [12] 4227 	addc	a,r5
+      000EBC F5 83            [12] 4228 	mov	dph,a
+      000EBE E4               [12] 4229 	clr	a
+      000EBF 93               [24] 4230 	movc	a,@a+dptr
+      000EC0 FD               [12] 4231 	mov	r5,a
+      000EC1 7C 00            [12] 4232 	mov	r4,#0x00
+      000EC3 C3               [12] 4233 	clr	c
+      000EC4 E8               [12] 4234 	mov	a,r0
+      000EC5 9D               [12] 4235 	subb	a,r5
+      000EC6 E9               [12] 4236 	mov	a,r1
+      000EC7 9C               [12] 4237 	subb	a,r4
+      000EC8 D0 05            [24] 4238 	pop	ar5
+      000ECA D0 04            [24] 4239 	pop	ar4
+      000ECC 50 55            [24] 4240 	jnc	00115$
+                           000DF1  4241 	Smain$mode_changing_control$432 ==.
+                                   4242 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:704: good_amp_count[i] = 0;
+      000ECE EE               [12] 4243 	mov	a,r6
+      000ECF 24 8A            [12] 4244 	add	a,#_good_amp_count
+      000ED1 F5 82            [12] 4245 	mov	dpl,a
+      000ED3 EF               [12] 4246 	mov	a,r7
+      000ED4 34 00            [12] 4247 	addc	a,#(_good_amp_count >> 8)
+      000ED6 F5 83            [12] 4248 	mov	dph,a
+      000ED8 E4               [12] 4249 	clr	a
+      000ED9 F0               [24] 4250 	movx	@dptr,a
+                           000DFD  4251 	Smain$mode_changing_control$433 ==.
+                                   4252 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:705: light_changing = true;
+      000EDA 90 00 28         [24] 4253 	mov	dptr,#_mode_changing_control_light_changing_65536_236
+      000EDD 04               [12] 4254 	inc	a
+      000EDE F0               [24] 4255 	movx	@dptr,a
+                           000E02  4256 	Smain$mode_changing_control$434 ==.
+                                   4257 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:706: if( pwm[i] < 190 ) {
+      000EDF EA               [12] 4258 	mov	a,r2
+      000EE0 24 71            [12] 4259 	add	a,#_pwm
+      000EE2 FA               [12] 4260 	mov	r2,a
+      000EE3 EB               [12] 4261 	mov	a,r3
+      000EE4 34 00            [12] 4262 	addc	a,#(_pwm >> 8)
+      000EE6 FB               [12] 4263 	mov	r3,a
+      000EE7 8A 82            [24] 4264 	mov	dpl,r2
+      000EE9 8B 83            [24] 4265 	mov	dph,r3
+      000EEB E0               [24] 4266 	movx	a,@dptr
+      000EEC F8               [12] 4267 	mov	r0,a
+      000EED A3               [24] 4268 	inc	dptr
+      000EEE E0               [24] 4269 	movx	a,@dptr
+      000EEF F9               [12] 4270 	mov	r1,a
+      000EF0 C0 06            [24] 4271 	push	ar6
+      000EF2 C0 07            [24] 4272 	push	ar7
+      000EF4 88 06            [24] 4273 	mov	ar6,r0
+      000EF6 89 07            [24] 4274 	mov	ar7,r1
+      000EF8 C3               [12] 4275 	clr	c
+      000EF9 EE               [12] 4276 	mov	a,r6
+      000EFA 94 BE            [12] 4277 	subb	a,#0xbe
+      000EFC EF               [12] 4278 	mov	a,r7
+      000EFD 94 00            [12] 4279 	subb	a,#0x00
+      000EFF D0 07            [24] 4280 	pop	ar7
+      000F01 D0 06            [24] 4281 	pop	ar6
+      000F03 50 11            [24] 4282 	jnc	00110$
+                           000E28  4283 	Smain$mode_changing_control$435 ==.
+                           000E28  4284 	Smain$mode_changing_control$436 ==.
+                                   4285 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:707: pwm[i] ++;
+      000F05 08               [12] 4286 	inc	r0
+      000F06 B8 00 01         [24] 4287 	cjne	r0,#0x00,00201$
+      000F09 09               [12] 4288 	inc	r1
+      000F0A                       4289 00201$:
+      000F0A 8A 82            [24] 4290 	mov	dpl,r2
+      000F0C 8B 83            [24] 4291 	mov	dph,r3
+      000F0E E8               [12] 4292 	mov	a,r0
+      000F0F F0               [24] 4293 	movx	@dptr,a
+      000F10 E9               [12] 4294 	mov	a,r1
+      000F11 A3               [24] 4295 	inc	dptr
+      000F12 F0               [24] 4296 	movx	@dptr,a
+                           000E36  4297 	Smain$mode_changing_control$437 ==.
+      000F13 02 10 09         [24] 4298 	ljmp	00133$
+      000F16                       4299 00110$:
+                           000E39  4300 	Smain$mode_changing_control$438 ==.
+                           000E39  4301 	Smain$mode_changing_control$439 ==.
+                                   4302 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:709: pwm[i] = 190;
+      000F16 8A 82            [24] 4303 	mov	dpl,r2
+      000F18 8B 83            [24] 4304 	mov	dph,r3
+      000F1A 74 BE            [12] 4305 	mov	a,#0xbe
+      000F1C F0               [24] 4306 	movx	@dptr,a
+      000F1D E4               [12] 4307 	clr	a
+      000F1E A3               [24] 4308 	inc	dptr
+      000F1F F0               [24] 4309 	movx	@dptr,a
+                           000E43  4310 	Smain$mode_changing_control$440 ==.
+      000F20 02 10 09         [24] 4311 	ljmp	00133$
+      000F23                       4312 00115$:
+                           000E46  4313 	Smain$mode_changing_control$441 ==.
+                                   4314 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:712: good_amp_count[i]++;
+      000F23 EE               [12] 4315 	mov	a,r6
+      000F24 24 8A            [12] 4316 	add	a,#_good_amp_count
+      000F26 FA               [12] 4317 	mov	r2,a
+      000F27 EF               [12] 4318 	mov	a,r7
+      000F28 34 00            [12] 4319 	addc	a,#(_good_amp_count >> 8)
+      000F2A FB               [12] 4320 	mov	r3,a
+      000F2B 8A 82            [24] 4321 	mov	dpl,r2
+      000F2D 8B 83            [24] 4322 	mov	dph,r3
+      000F2F E0               [24] 4323 	movx	a,@dptr
+      000F30 F9               [12] 4324 	mov	r1,a
+      000F31 09               [12] 4325 	inc	r1
+      000F32 8A 82            [24] 4326 	mov	dpl,r2
+      000F34 8B 83            [24] 4327 	mov	dph,r3
+      000F36 E9               [12] 4328 	mov	a,r1
+      000F37 F0               [24] 4329 	movx	@dptr,a
+                           000E5B  4330 	Smain$mode_changing_control$442 ==.
+                                   4331 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:713: if( good_amp_count[i] > 3 ) {
+      000F38 E9               [12] 4332 	mov	a,r1
+      000F39 24 FC            [12] 4333 	add	a,#0xff - 0x03
+      000F3B 40 03            [24] 4334 	jc	00202$
+      000F3D 02 10 09         [24] 4335 	ljmp	00133$
+      000F40                       4336 00202$:
+                           000E63  4337 	Smain$mode_changing_control$443 ==.
+                           000E63  4338 	Smain$mode_changing_control$444 ==.
+                                   4339 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:714: light_control_mode[i] = MODE_STABLE;
+      000F40 8C 82            [24] 4340 	mov	dpl,r4
+      000F42 8D 83            [24] 4341 	mov	dph,r5
+      000F44 E4               [12] 4342 	clr	a
+      000F45 F0               [24] 4343 	movx	@dptr,a
+                           000E69  4344 	Smain$mode_changing_control$445 ==.
+                           000E69  4345 	Smain$mode_changing_control$446 ==.
+                                   4346 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:717: break;
+      000F46 02 10 09         [24] 4347 	ljmp	00133$
+                           000E6C  4348 	Smain$mode_changing_control$447 ==.
+                                   4349 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:718: case MODE_CHANGING_DOWN:
+      000F49                       4350 00117$:
+                           000E6C  4351 	Smain$mode_changing_control$448 ==.
+                           000E6C  4352 	Smain$mode_changing_control$449 ==.
+                                   4353 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:719: if( cur_amp[i] > max_amp[light_mode][i] ) {
+      000F49 C0 04            [24] 4354 	push	ar4
+      000F4B C0 05            [24] 4355 	push	ar5
+      000F4D EE               [12] 4356 	mov	a,r6
+      000F4E 2E               [12] 4357 	add	a,r6
+      000F4F FA               [12] 4358 	mov	r2,a
+      000F50 EF               [12] 4359 	mov	a,r7
+      000F51 33               [12] 4360 	rlc	a
+      000F52 FB               [12] 4361 	mov	r3,a
+      000F53 EA               [12] 4362 	mov	a,r2
+      000F54 24 84            [12] 4363 	add	a,#_cur_amp
+      000F56 F5 82            [12] 4364 	mov	dpl,a
+      000F58 EB               [12] 4365 	mov	a,r3
+      000F59 34 00            [12] 4366 	addc	a,#(_cur_amp >> 8)
+      000F5B F5 83            [12] 4367 	mov	dph,a
+      000F5D E0               [24] 4368 	movx	a,@dptr
+      000F5E F8               [12] 4369 	mov	r0,a
+      000F5F A3               [24] 4370 	inc	dptr
+      000F60 E0               [24] 4371 	movx	a,@dptr
+      000F61 F9               [12] 4372 	mov	r1,a
+      000F62 90 00 6C         [24] 4373 	mov	dptr,#_light_mode
+      000F65 E0               [24] 4374 	movx	a,@dptr
+      000F66 75 F0 02         [24] 4375 	mov	b,#0x02
+      000F69 A4               [48] 4376 	mul	ab
+      000F6A 24 D9            [12] 4377 	add	a,#_max_amp
+      000F6C FC               [12] 4378 	mov	r4,a
+      000F6D 74 1D            [12] 4379 	mov	a,#(_max_amp >> 8)
+      000F6F 35 F0            [12] 4380 	addc	a,b
+      000F71 FD               [12] 4381 	mov	r5,a
+      000F72 EE               [12] 4382 	mov	a,r6
+      000F73 2C               [12] 4383 	add	a,r4
+      000F74 F5 82            [12] 4384 	mov	dpl,a
+      000F76 EF               [12] 4385 	mov	a,r7
+      000F77 3D               [12] 4386 	addc	a,r5
+      000F78 F5 83            [12] 4387 	mov	dph,a
+      000F7A E4               [12] 4388 	clr	a
+      000F7B 93               [24] 4389 	movc	a,@a+dptr
+      000F7C FD               [12] 4390 	mov	r5,a
+      000F7D 7C 00            [12] 4391 	mov	r4,#0x00
+      000F7F C3               [12] 4392 	clr	c
+      000F80 ED               [12] 4393 	mov	a,r5
+      000F81 98               [12] 4394 	subb	a,r0
+      000F82 EC               [12] 4395 	mov	a,r4
+      000F83 99               [12] 4396 	subb	a,r1
+      000F84 D0 05            [24] 4397 	pop	ar5
+      000F86 D0 04            [24] 4398 	pop	ar4
+      000F88 50 5F            [24] 4399 	jnc	00127$
+                           000EAD  4400 	Smain$mode_changing_control$450 ==.
+                                   4401 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:720: good_amp_count[i] = 0;
+      000F8A EE               [12] 4402 	mov	a,r6
+      000F8B 24 8A            [12] 4403 	add	a,#_good_amp_count
+      000F8D F5 82            [12] 4404 	mov	dpl,a
+      000F8F EF               [12] 4405 	mov	a,r7
+      000F90 34 00            [12] 4406 	addc	a,#(_good_amp_count >> 8)
+      000F92 F5 83            [12] 4407 	mov	dph,a
+      000F94 E4               [12] 4408 	clr	a
+      000F95 F0               [24] 4409 	movx	@dptr,a
+                           000EB9  4410 	Smain$mode_changing_control$451 ==.
+                                   4411 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:721: light_changing = true;
+      000F96 90 00 28         [24] 4412 	mov	dptr,#_mode_changing_control_light_changing_65536_236
+      000F99 04               [12] 4413 	inc	a
+      000F9A F0               [24] 4414 	movx	@dptr,a
+                           000EBE  4415 	Smain$mode_changing_control$452 ==.
+                                   4416 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:722: if( pwm[i] <= 0) {
+      000F9B EA               [12] 4417 	mov	a,r2
+      000F9C 24 71            [12] 4418 	add	a,#_pwm
+      000F9E FA               [12] 4419 	mov	r2,a
+      000F9F EB               [12] 4420 	mov	a,r3
+      000FA0 34 00            [12] 4421 	addc	a,#(_pwm >> 8)
+      000FA2 FB               [12] 4422 	mov	r3,a
+      000FA3 8A 82            [24] 4423 	mov	dpl,r2
+      000FA5 8B 83            [24] 4424 	mov	dph,r3
+      000FA7 E0               [24] 4425 	movx	a,@dptr
+      000FA8 F8               [12] 4426 	mov	r0,a
+      000FA9 A3               [24] 4427 	inc	dptr
+      000FAA E0               [24] 4428 	movx	a,@dptr
+      000FAB F9               [12] 4429 	mov	r1,a
+      000FAC 48               [12] 4430 	orl	a,r0
+      000FAD 70 0A            [24] 4431 	jnz	00122$
+                           000ED2  4432 	Smain$mode_changing_control$453 ==.
+                           000ED2  4433 	Smain$mode_changing_control$454 ==.
+                                   4434 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:723: pwm[i] = 0;
+      000FAF 8A 82            [24] 4435 	mov	dpl,r2
+      000FB1 8B 83            [24] 4436 	mov	dph,r3
+      000FB3 E4               [12] 4437 	clr	a
+      000FB4 F0               [24] 4438 	movx	@dptr,a
+      000FB5 A3               [24] 4439 	inc	dptr
+      000FB6 F0               [24] 4440 	movx	@dptr,a
+                           000EDA  4441 	Smain$mode_changing_control$455 ==.
+      000FB7 80 50            [24] 4442 	sjmp	00133$
+      000FB9                       4443 00122$:
+                           000EDC  4444 	Smain$mode_changing_control$456 ==.
+                           000EDC  4445 	Smain$mode_changing_control$457 ==.
+                                   4446 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:724: } else if( pwm[i] > 190 ) {
+      000FB9 C0 02            [24] 4447 	push	ar2
+      000FBB C0 03            [24] 4448 	push	ar3
+      000FBD 88 02            [24] 4449 	mov	ar2,r0
+      000FBF 89 03            [24] 4450 	mov	ar3,r1
+      000FC1 C3               [12] 4451 	clr	c
+      000FC2 74 BE            [12] 4452 	mov	a,#0xbe
+      000FC4 9A               [12] 4453 	subb	a,r2
+      000FC5 E4               [12] 4454 	clr	a
+      000FC6 9B               [12] 4455 	subb	a,r3
+      000FC7 D0 03            [24] 4456 	pop	ar3
+      000FC9 D0 02            [24] 4457 	pop	ar2
+      000FCB 50 0C            [24] 4458 	jnc	00119$
+                           000EF0  4459 	Smain$mode_changing_control$458 ==.
+                           000EF0  4460 	Smain$mode_changing_control$459 ==.
+                                   4461 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:725: pwm[i] = 190;
+      000FCD 8A 82            [24] 4462 	mov	dpl,r2
+      000FCF 8B 83            [24] 4463 	mov	dph,r3
+      000FD1 74 BE            [12] 4464 	mov	a,#0xbe
+      000FD3 F0               [24] 4465 	movx	@dptr,a
+      000FD4 E4               [12] 4466 	clr	a
+      000FD5 A3               [24] 4467 	inc	dptr
+      000FD6 F0               [24] 4468 	movx	@dptr,a
+                           000EFA  4469 	Smain$mode_changing_control$460 ==.
+      000FD7 80 30            [24] 4470 	sjmp	00133$
+      000FD9                       4471 00119$:
+                           000EFC  4472 	Smain$mode_changing_control$461 ==.
+                           000EFC  4473 	Smain$mode_changing_control$462 ==.
+                                   4474 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:727: pwm[i] --;
+      000FD9 18               [12] 4475 	dec	r0
+      000FDA B8 FF 01         [24] 4476 	cjne	r0,#0xff,00206$
+      000FDD 19               [12] 4477 	dec	r1
+      000FDE                       4478 00206$:
+      000FDE 8A 82            [24] 4479 	mov	dpl,r2
+      000FE0 8B 83            [24] 4480 	mov	dph,r3
+      000FE2 E8               [12] 4481 	mov	a,r0
+      000FE3 F0               [24] 4482 	movx	@dptr,a
+      000FE4 E9               [12] 4483 	mov	a,r1
+      000FE5 A3               [24] 4484 	inc	dptr
+      000FE6 F0               [24] 4485 	movx	@dptr,a
+                           000F0A  4486 	Smain$mode_changing_control$463 ==.
+      000FE7 80 20            [24] 4487 	sjmp	00133$
+      000FE9                       4488 00127$:
+                           000F0C  4489 	Smain$mode_changing_control$464 ==.
+                                   4490 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:730: good_amp_count[i]++;
+      000FE9 EE               [12] 4491 	mov	a,r6
+      000FEA 24 8A            [12] 4492 	add	a,#_good_amp_count
+      000FEC FA               [12] 4493 	mov	r2,a
+      000FED EF               [12] 4494 	mov	a,r7
+      000FEE 34 00            [12] 4495 	addc	a,#(_good_amp_count >> 8)
+      000FF0 FB               [12] 4496 	mov	r3,a
+      000FF1 8A 82            [24] 4497 	mov	dpl,r2
+      000FF3 8B 83            [24] 4498 	mov	dph,r3
+      000FF5 E0               [24] 4499 	movx	a,@dptr
+      000FF6 F9               [12] 4500 	mov	r1,a
+      000FF7 09               [12] 4501 	inc	r1
+      000FF8 8A 82            [24] 4502 	mov	dpl,r2
+      000FFA 8B 83            [24] 4503 	mov	dph,r3
+      000FFC E9               [12] 4504 	mov	a,r1
+      000FFD F0               [24] 4505 	movx	@dptr,a
+                           000F21  4506 	Smain$mode_changing_control$465 ==.
+                                   4507 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:731: if( good_amp_count[i] > 3 ) {
+      000FFE E9               [12] 4508 	mov	a,r1
+      000FFF 24 FC            [12] 4509 	add	a,#0xff - 0x03
+      001001 50 06            [24] 4510 	jnc	00133$
+                           000F26  4511 	Smain$mode_changing_control$466 ==.
+                           000F26  4512 	Smain$mode_changing_control$467 ==.
+                                   4513 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:732: light_control_mode[i] = MODE_STABLE;
+      001003 8C 82            [24] 4514 	mov	dpl,r4
+      001005 8D 83            [24] 4515 	mov	dph,r5
+      001007 E4               [12] 4516 	clr	a
+      001008 F0               [24] 4517 	movx	@dptr,a
+                           000F2C  4518 	Smain$mode_changing_control$468 ==.
+                           000F2C  4519 	Smain$mode_changing_control$469 ==.
+                                   4520 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:736: }
+      001009                       4521 00133$:
+                           000F2C  4522 	Smain$mode_changing_control$470 ==.
+                           000F2C  4523 	Smain$mode_changing_control$471 ==.
+                                   4524 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:689: for( int i = 0; i < NUM_LEDS; i++ ) {
+      001009 0E               [12] 4525 	inc	r6
+      00100A BE 00 01         [24] 4526 	cjne	r6,#0x00,00208$
+      00100D 0F               [12] 4527 	inc	r7
+      00100E                       4528 00208$:
+      00100E 02 0E 04         [24] 4529 	ljmp	00132$
+      001011                       4530 00130$:
+                           000F34  4531 	Smain$mode_changing_control$472 ==.
+                           000F34  4532 	Smain$mode_changing_control$473 ==.
+                                   4533 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:738: return light_changing;
+      001011 90 00 28         [24] 4534 	mov	dptr,#_mode_changing_control_light_changing_65536_236
+      001014 E0               [24] 4535 	movx	a,@dptr
+                           000F38  4536 	Smain$mode_changing_control$474 ==.
+                                   4537 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:739: }
+                           000F38  4538 	Smain$mode_changing_control$475 ==.
+                           000F38  4539 	XG$mode_changing_control$0$0 ==.
+      001015 F5 82            [12] 4540 	mov	dpl,a
+      001017 22               [24] 4541 	ret
+                           000F3B  4542 	Smain$mode_changing_control$476 ==.
+                                   4543 ;------------------------------------------------------------
+                                   4544 ;Allocation info for local variables in function 'is_stable'
+                                   4545 ;------------------------------------------------------------
+                                   4546 ;i                         Allocated with name '_is_stable_i_131072_256'
+                                   4547 ;------------------------------------------------------------
+                           000F3B  4548 	Smain$is_stable$477 ==.
+                                   4549 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:741: bool is_stable( void ) {
+                                   4550 ;	-----------------------------------------
+                                   4551 ;	 function is_stable
+                                   4552 ;	-----------------------------------------
+      001018                       4553 _is_stable:
+                           000F3B  4554 	Smain$is_stable$478 ==.
+                           000F3B  4555 	Smain$is_stable$479 ==.
+                           000F3B  4556 	Smain$is_stable$480 ==.
+                                   4557 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:742: for( int i = 0; i < NUM_LEDS; i++ ) {
+                           000F3B  4558 	Smain$is_stable$481 ==.
+      001018 7E 00            [12] 4559 	mov	r6,#0x00
+      00101A 7F 00            [12] 4560 	mov	r7,#0x00
+                           000F3F  4561 	Smain$is_stable$482 ==.
+      00101C                       4562 00105$:
+      00101C C3               [12] 4563 	clr	c
+      00101D EE               [12] 4564 	mov	a,r6
+      00101E 94 02            [12] 4565 	subb	a,#0x02
+      001020 EF               [12] 4566 	mov	a,r7
+      001021 64 80            [12] 4567 	xrl	a,#0x80
+      001023 94 80            [12] 4568 	subb	a,#0x80
+      001025 50 1B            [24] 4569 	jnc	00103$
+                           000F4A  4570 	Smain$is_stable$483 ==.
+                                   4571 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:743: if( light_control_mode[i] != MODE_STABLE ) return false;
+      001027 EE               [12] 4572 	mov	a,r6
+      001028 24 75            [12] 4573 	add	a,#_light_control_mode
+      00102A FC               [12] 4574 	mov	r4,a
+      00102B EF               [12] 4575 	mov	a,r7
+      00102C 34 00            [12] 4576 	addc	a,#(_light_control_mode >> 8)
+      00102E FD               [12] 4577 	mov	r5,a
+      00102F 8C 82            [24] 4578 	mov	dpl,r4
+      001031 8D 83            [24] 4579 	mov	dph,r5
+      001033 E0               [24] 4580 	movx	a,@dptr
+      001034 60 05            [24] 4581 	jz	00106$
+      001036 75 82 00         [24] 4582 	mov	dpl,#0x00
+      001039 80 0A            [24] 4583 	sjmp	00107$
+      00103B                       4584 00106$:
+                           000F5E  4585 	Smain$is_stable$484 ==.
+                           000F5E  4586 	Smain$is_stable$485 ==.
+                                   4587 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:742: for( int i = 0; i < NUM_LEDS; i++ ) {
+      00103B 0E               [12] 4588 	inc	r6
+      00103C BE 00 DD         [24] 4589 	cjne	r6,#0x00,00105$
+      00103F 0F               [12] 4590 	inc	r7
+      001040 80 DA            [24] 4591 	sjmp	00105$
+      001042                       4592 00103$:
+                           000F65  4593 	Smain$is_stable$486 ==.
+                           000F65  4594 	Smain$is_stable$487 ==.
+                                   4595 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:746: return true;
+      001042 75 82 01         [24] 4596 	mov	dpl,#0x01
+      001045                       4597 00107$:
+                           000F68  4598 	Smain$is_stable$488 ==.
+                                   4599 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:747: }
+                           000F68  4600 	Smain$is_stable$489 ==.
+                           000F68  4601 	XG$is_stable$0$0 ==.
+      001045 22               [24] 4602 	ret
+                           000F69  4603 	Smain$is_stable$490 ==.
+                                   4604 ;------------------------------------------------------------
+                                   4605 ;Allocation info for local variables in function 'mode_stable_control'
+                                   4606 ;------------------------------------------------------------
+                                   4607 ;light_changing            Allocated with name '_mode_stable_control_light_changing_65536_259'
+                                   4608 ;i                         Allocated with name '_mode_stable_control_i_131072_260'
+                                   4609 ;t_amp                     Allocated with name '_mode_stable_control_t_amp_196608_261'
+                                   4610 ;amp                       Allocated with name '_mode_stable_control_amp_196609_262'
+                                   4611 ;------------------------------------------------------------
+                           000F69  4612 	Smain$mode_stable_control$491 ==.
+                                   4613 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:749: bool mode_stable_control( void )
+                                   4614 ;	-----------------------------------------
+                                   4615 ;	 function mode_stable_control
+                                   4616 ;	-----------------------------------------
+      001046                       4617 _mode_stable_control:
+                           000F69  4618 	Smain$mode_stable_control$492 ==.
+                           000F69  4619 	Smain$mode_stable_control$493 ==.
+                                   4620 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:751: bool light_changing = false;
+      001046 90 00 29         [24] 4621 	mov	dptr,#_mode_stable_control_light_changing_65536_259
+      001049 E4               [12] 4622 	clr	a
+      00104A F0               [24] 4623 	movx	@dptr,a
+                           000F6E  4624 	Smain$mode_stable_control$494 ==.
+                                   4625 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:753: cur_temp = acc_temp / sample_count;
+      00104B 90 00 77         [24] 4626 	mov	dptr,#_sample_count
+      00104E E0               [24] 4627 	movx	a,@dptr
+      00104F FF               [12] 4628 	mov	r7,a
+      001050 90 00 80         [24] 4629 	mov	dptr,#_acc_temp
+      001053 E0               [24] 4630 	movx	a,@dptr
+      001054 FB               [12] 4631 	mov	r3,a
+      001055 A3               [24] 4632 	inc	dptr
+      001056 E0               [24] 4633 	movx	a,@dptr
+      001057 FC               [12] 4634 	mov	r4,a
+      001058 A3               [24] 4635 	inc	dptr
+      001059 E0               [24] 4636 	movx	a,@dptr
+      00105A FD               [12] 4637 	mov	r5,a
+      00105B A3               [24] 4638 	inc	dptr
+      00105C E0               [24] 4639 	movx	a,@dptr
+      00105D FE               [12] 4640 	mov	r6,a
+      00105E 90 00 52         [24] 4641 	mov	dptr,#__divulong_PARM_2
+      001061 EF               [12] 4642 	mov	a,r7
+      001062 F0               [24] 4643 	movx	@dptr,a
+      001063 E4               [12] 4644 	clr	a
+      001064 A3               [24] 4645 	inc	dptr
+      001065 F0               [24] 4646 	movx	@dptr,a
+      001066 A3               [24] 4647 	inc	dptr
+      001067 F0               [24] 4648 	movx	@dptr,a
+      001068 A3               [24] 4649 	inc	dptr
+      001069 F0               [24] 4650 	movx	@dptr,a
+      00106A 8B 82            [24] 4651 	mov	dpl,r3
+      00106C 8C 83            [24] 4652 	mov	dph,r4
+      00106E 8D F0            [24] 4653 	mov	b,r5
+      001070 EE               [12] 4654 	mov	a,r6
+      001071 12 1B 61         [24] 4655 	lcall	__divulong
+      001074 AC 82            [24] 4656 	mov	r4,dpl
+      001076 AD 83            [24] 4657 	mov	r5,dph
+      001078 90 00 88         [24] 4658 	mov	dptr,#_cur_temp
+      00107B EC               [12] 4659 	mov	a,r4
+      00107C F0               [24] 4660 	movx	@dptr,a
+      00107D ED               [12] 4661 	mov	a,r5
+      00107E A3               [24] 4662 	inc	dptr
+      00107F F0               [24] 4663 	movx	@dptr,a
+                           000FA3  4664 	Smain$mode_stable_control$495 ==.
+                           000FA3  4665 	Smain$mode_stable_control$496 ==.
+                                   4666 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:755: for( int i = 0; i < NUM_LEDS; i++ ) {
+                           000FA3  4667 	Smain$mode_stable_control$497 ==.
+                           000FA3  4668 	Smain$mode_stable_control$497 ==.
+                           000FA3  4669 	Smain$mode_stable_control$498 ==.
+      001080 7E 00            [12] 4670 	mov	r6,#0x00
+      001082 7F 00            [12] 4671 	mov	r7,#0x00
+                           000FA7  4672 	Smain$mode_stable_control$499 ==.
+      001084                       4673 00111$:
+      001084 C3               [12] 4674 	clr	c
+      001085 EE               [12] 4675 	mov	a,r6
+      001086 94 02            [12] 4676 	subb	a,#0x02
+      001088 EF               [12] 4677 	mov	a,r7
+      001089 64 80            [12] 4678 	xrl	a,#0x80
+      00108B 94 80            [12] 4679 	subb	a,#0x80
+      00108D 40 03            [24] 4680 	jc	00135$
+      00108F 02 11 62         [24] 4681 	ljmp	00109$
+      001092                       4682 00135$:
+                           000FB5  4683 	Smain$mode_stable_control$500 ==.
+                           000FB5  4684 	Smain$mode_stable_control$501 ==.
+                                   4685 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:756: int16_t t_amp = target_amp(light_mode, i);
+      001092 90 00 6C         [24] 4686 	mov	dptr,#_light_mode
+      001095 E0               [24] 4687 	movx	a,@dptr
+      001096 FD               [12] 4688 	mov	r5,a
+      001097 8E 04            [24] 4689 	mov	ar4,r6
+      001099 90 00 24         [24] 4690 	mov	dptr,#_target_amp_PARM_2
+      00109C EC               [12] 4691 	mov	a,r4
+      00109D F0               [24] 4692 	movx	@dptr,a
+      00109E 8D 82            [24] 4693 	mov	dpl,r5
+      0010A0 C0 07            [24] 4694 	push	ar7
+      0010A2 C0 06            [24] 4695 	push	ar6
+      0010A4 C0 04            [24] 4696 	push	ar4
+      0010A6 12 08 14         [24] 4697 	lcall	_target_amp
+      0010A9 AD 82            [24] 4698 	mov	r5,dpl
+      0010AB D0 04            [24] 4699 	pop	ar4
+      0010AD D0 06            [24] 4700 	pop	ar6
+      0010AF D0 07            [24] 4701 	pop	ar7
+      0010B1 7B 00            [12] 4702 	mov	r3,#0x00
+                           000FD6  4703 	Smain$mode_stable_control$502 ==.
+                                   4704 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:757: if( t_amp <= 0 ) continue;
+      0010B3 C3               [12] 4705 	clr	c
+      0010B4 E4               [12] 4706 	clr	a
+      0010B5 9D               [12] 4707 	subb	a,r5
+      0010B6 74 80            [12] 4708 	mov	a,#(0x00 ^ 0x80)
+      0010B8 8B F0            [24] 4709 	mov	b,r3
+      0010BA 63 F0 80         [24] 4710 	xrl	b,#0x80
+      0010BD 95 F0            [12] 4711 	subb	a,b
+      0010BF 40 03            [24] 4712 	jc	00136$
+      0010C1 02 11 5A         [24] 4713 	ljmp	00108$
+      0010C4                       4714 00136$:
+                           000FE7  4715 	Smain$mode_stable_control$503 ==.
+                           000FE7  4716 	Smain$mode_stable_control$504 ==.
+                                   4717 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:759: uint16_t amp = avg_amp(i);
+      0010C4 8C 82            [24] 4718 	mov	dpl,r4
+      0010C6 C0 07            [24] 4719 	push	ar7
+      0010C8 C0 06            [24] 4720 	push	ar6
+      0010CA C0 05            [24] 4721 	push	ar5
+      0010CC C0 03            [24] 4722 	push	ar3
+      0010CE 12 07 AF         [24] 4723 	lcall	_avg_amp
+      0010D1 AA 82            [24] 4724 	mov	r2,dpl
+      0010D3 AC 83            [24] 4725 	mov	r4,dph
+      0010D5 D0 03            [24] 4726 	pop	ar3
+      0010D7 D0 05            [24] 4727 	pop	ar5
+      0010D9 D0 06            [24] 4728 	pop	ar6
+      0010DB D0 07            [24] 4729 	pop	ar7
+                           001000  4730 	Smain$mode_stable_control$505 ==.
+                                   4731 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:760: if( amp < t_amp - AMP_MARGIN ) {
+      0010DD ED               [12] 4732 	mov	a,r5
+      0010DE 24 FE            [12] 4733 	add	a,#0xfe
+      0010E0 F8               [12] 4734 	mov	r0,a
+      0010E1 EB               [12] 4735 	mov	a,r3
+      0010E2 34 FF            [12] 4736 	addc	a,#0xff
+      0010E4 F9               [12] 4737 	mov	r1,a
+      0010E5 C3               [12] 4738 	clr	c
+      0010E6 EA               [12] 4739 	mov	a,r2
+      0010E7 98               [12] 4740 	subb	a,r0
+      0010E8 EC               [12] 4741 	mov	a,r4
+      0010E9 99               [12] 4742 	subb	a,r1
+      0010EA 50 35            [24] 4743 	jnc	00106$
+                           00100F  4744 	Smain$mode_stable_control$506 ==.
+                                   4745 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:761: pwm[i] ++;
+      0010EC EE               [12] 4746 	mov	a,r6
+      0010ED 2E               [12] 4747 	add	a,r6
+      0010EE F8               [12] 4748 	mov	r0,a
+      0010EF EF               [12] 4749 	mov	a,r7
+      0010F0 33               [12] 4750 	rlc	a
+      0010F1 F9               [12] 4751 	mov	r1,a
+      0010F2 E8               [12] 4752 	mov	a,r0
+      0010F3 24 71            [12] 4753 	add	a,#_pwm
+      0010F5 F8               [12] 4754 	mov	r0,a
+      0010F6 E9               [12] 4755 	mov	a,r1
+      0010F7 34 00            [12] 4756 	addc	a,#(_pwm >> 8)
+      0010F9 F9               [12] 4757 	mov	r1,a
+                           00101D  4758 	Smain$mode_stable_control$507 ==.
+      0010FA C0 06            [24] 4759 	push	ar6
+      0010FC C0 07            [24] 4760 	push	ar7
+      0010FE 88 82            [24] 4761 	mov	dpl,r0
+      001100 89 83            [24] 4762 	mov	dph,r1
+      001102 E0               [24] 4763 	movx	a,@dptr
+      001103 FE               [12] 4764 	mov	r6,a
+      001104 A3               [24] 4765 	inc	dptr
+      001105 E0               [24] 4766 	movx	a,@dptr
+      001106 FF               [12] 4767 	mov	r7,a
+      001107 0E               [12] 4768 	inc	r6
+      001108 BE 00 01         [24] 4769 	cjne	r6,#0x00,00138$
+      00110B 0F               [12] 4770 	inc	r7
+      00110C                       4771 00138$:
+      00110C 88 82            [24] 4772 	mov	dpl,r0
+      00110E 89 83            [24] 4773 	mov	dph,r1
+      001110 EE               [12] 4774 	mov	a,r6
+      001111 F0               [24] 4775 	movx	@dptr,a
+      001112 EF               [12] 4776 	mov	a,r7
+      001113 A3               [24] 4777 	inc	dptr
+      001114 F0               [24] 4778 	movx	@dptr,a
+                           001038  4779 	Smain$mode_stable_control$508 ==.
+                                   4780 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:762: light_changing = true;
+      001115 90 00 29         [24] 4781 	mov	dptr,#_mode_stable_control_light_changing_65536_259
+      001118 74 01            [12] 4782 	mov	a,#0x01
+      00111A F0               [24] 4783 	movx	@dptr,a
+      00111B D0 07            [24] 4784 	pop	ar7
+      00111D D0 06            [24] 4785 	pop	ar6
+      00111F 80 39            [24] 4786 	sjmp	00108$
+      001121                       4787 00106$:
+                           001044  4788 	Smain$mode_stable_control$509 ==.
+                                   4789 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:763: } else if( amp > t_amp + AMP_MARGIN ) {
+      001121 74 02            [12] 4790 	mov	a,#0x02
+      001123 2D               [12] 4791 	add	a,r5
+      001124 FD               [12] 4792 	mov	r5,a
+      001125 E4               [12] 4793 	clr	a
+      001126 3B               [12] 4794 	addc	a,r3
+      001127 FB               [12] 4795 	mov	r3,a
+      001128 C3               [12] 4796 	clr	c
+      001129 ED               [12] 4797 	mov	a,r5
+      00112A 9A               [12] 4798 	subb	a,r2
+      00112B EB               [12] 4799 	mov	a,r3
+      00112C 9C               [12] 4800 	subb	a,r4
+      00112D 50 2B            [24] 4801 	jnc	00108$
+                           001052  4802 	Smain$mode_stable_control$510 ==.
+                                   4803 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:764: pwm[i] --;
+      00112F EE               [12] 4804 	mov	a,r6
+      001130 2E               [12] 4805 	add	a,r6
+      001131 FC               [12] 4806 	mov	r4,a
+      001132 EF               [12] 4807 	mov	a,r7
+      001133 33               [12] 4808 	rlc	a
+      001134 FD               [12] 4809 	mov	r5,a
+      001135 EC               [12] 4810 	mov	a,r4
+      001136 24 71            [12] 4811 	add	a,#_pwm
+      001138 FC               [12] 4812 	mov	r4,a
+      001139 ED               [12] 4813 	mov	a,r5
+      00113A 34 00            [12] 4814 	addc	a,#(_pwm >> 8)
+      00113C FD               [12] 4815 	mov	r5,a
+      00113D 8C 82            [24] 4816 	mov	dpl,r4
+      00113F 8D 83            [24] 4817 	mov	dph,r5
+      001141 E0               [24] 4818 	movx	a,@dptr
+      001142 FA               [12] 4819 	mov	r2,a
+      001143 A3               [24] 4820 	inc	dptr
+      001144 E0               [24] 4821 	movx	a,@dptr
+      001145 FB               [12] 4822 	mov	r3,a
+      001146 1A               [12] 4823 	dec	r2
+      001147 BA FF 01         [24] 4824 	cjne	r2,#0xff,00140$
+      00114A 1B               [12] 4825 	dec	r3
+      00114B                       4826 00140$:
+      00114B 8C 82            [24] 4827 	mov	dpl,r4
+      00114D 8D 83            [24] 4828 	mov	dph,r5
+      00114F EA               [12] 4829 	mov	a,r2
+      001150 F0               [24] 4830 	movx	@dptr,a
+      001151 EB               [12] 4831 	mov	a,r3
+      001152 A3               [24] 4832 	inc	dptr
+      001153 F0               [24] 4833 	movx	@dptr,a
+                           001077  4834 	Smain$mode_stable_control$511 ==.
+                                   4835 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:765: light_changing = true;
+      001154 90 00 29         [24] 4836 	mov	dptr,#_mode_stable_control_light_changing_65536_259
+      001157 74 01            [12] 4837 	mov	a,#0x01
+      001159 F0               [24] 4838 	movx	@dptr,a
+      00115A                       4839 00108$:
+                           00107D  4840 	Smain$mode_stable_control$512 ==.
+                                   4841 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:755: for( int i = 0; i < NUM_LEDS; i++ ) {
+      00115A 0E               [12] 4842 	inc	r6
+      00115B BE 00 01         [24] 4843 	cjne	r6,#0x00,00141$
+      00115E 0F               [12] 4844 	inc	r7
+      00115F                       4845 00141$:
+      00115F 02 10 84         [24] 4846 	ljmp	00111$
+      001162                       4847 00109$:
+                           001085  4848 	Smain$mode_stable_control$513 ==.
+                                   4849 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:768: return light_changing;
+      001162 90 00 29         [24] 4850 	mov	dptr,#_mode_stable_control_light_changing_65536_259
+      001165 E0               [24] 4851 	movx	a,@dptr
+                           001089  4852 	Smain$mode_stable_control$514 ==.
+                                   4853 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:769: }
+                           001089  4854 	Smain$mode_stable_control$515 ==.
+                           001089  4855 	XG$mode_stable_control$0$0 ==.
+      001166 F5 82            [12] 4856 	mov	dpl,a
+      001168 22               [24] 4857 	ret
+                           00108C  4858 	Smain$mode_stable_control$516 ==.
+                                   4859 ;------------------------------------------------------------
+                                   4860 ;Allocation info for local variables in function 'control_loop'
+                                   4861 ;------------------------------------------------------------
+                                   4862 ;sloc0                     Allocated with name '_control_loop_sloc0_1_0'
+                                   4863 ;light_changing            Allocated with name '_control_loop_light_changing_65536_266'
+                                   4864 ;i                         Allocated with name '_control_loop_i_196608_268'
+                                   4865 ;------------------------------------------------------------
+                           00108C  4866 	Smain$control_loop$517 ==.
+                                   4867 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:771: void control_loop( void )
+                                   4868 ;	-----------------------------------------
+                                   4869 ;	 function control_loop
+                                   4870 ;	-----------------------------------------
+      001169                       4871 _control_loop:
+                           00108C  4872 	Smain$control_loop$518 ==.
+                           00108C  4873 	Smain$control_loop$519 ==.
+                                   4874 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:775: sample_amps();
+      001169 12 05 5B         [24] 4875 	lcall	_sample_amps
+                           00108F  4876 	Smain$control_loop$520 ==.
+                                   4877 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:777: light_changing = mode_changing_control();
+      00116C 12 0D FB         [24] 4878 	lcall	_mode_changing_control
+      00116F E5 82            [12] 4879 	mov	a,dpl
+      001171 90 00 2A         [24] 4880 	mov	dptr,#_control_loop_light_changing_65536_266
+      001174 F0               [24] 4881 	movx	@dptr,a
+                           001098  4882 	Smain$control_loop$521 ==.
+                                   4883 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:779: if( is_stable() ) {
+      001175 12 10 18         [24] 4884 	lcall	_is_stable
+      001178 E5 82            [12] 4885 	mov	a,dpl
+      00117A 70 03            [24] 4886 	jnz	00159$
+      00117C 02 12 50         [24] 4887 	ljmp	00114$
+      00117F                       4888 00159$:
+                           0010A2  4889 	Smain$control_loop$522 ==.
+                           0010A2  4890 	Smain$control_loop$523 ==.
+                                   4891 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:780: sample_count++;
+      00117F 90 00 77         [24] 4892 	mov	dptr,#_sample_count
+      001182 E0               [24] 4893 	movx	a,@dptr
+      001183 24 01            [12] 4894 	add	a,#0x01
+      001185 F0               [24] 4895 	movx	@dptr,a
+                           0010A9  4896 	Smain$control_loop$524 ==.
+                           0010A9  4897 	Smain$control_loop$525 ==.
+                                   4898 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:782: for( int i = 0; i < NUM_LEDS; i++ )
+                           0010A9  4899 	Smain$control_loop$526 ==.
+      001186 7E 00            [12] 4900 	mov	r6,#0x00
+      001188 7F 00            [12] 4901 	mov	r7,#0x00
+      00118A                       4902 00118$:
+      00118A C3               [12] 4903 	clr	c
+      00118B EE               [12] 4904 	mov	a,r6
+      00118C 94 02            [12] 4905 	subb	a,#0x02
+      00118E EF               [12] 4906 	mov	a,r7
+      00118F 64 80            [12] 4907 	xrl	a,#0x80
+      001191 94 80            [12] 4908 	subb	a,#0x80
+      001193 50 69            [24] 4909 	jnc	00101$
+                           0010B8  4910 	Smain$control_loop$527 ==.
+                                   4911 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:783: acc_amp[i] += cur_amp[i];
+      001195 EE               [12] 4912 	mov	a,r6
+      001196 2E               [12] 4913 	add	a,r6
+      001197 FC               [12] 4914 	mov	r4,a
+      001198 EF               [12] 4915 	mov	a,r7
+      001199 33               [12] 4916 	rlc	a
+      00119A FD               [12] 4917 	mov	r5,a
+      00119B EC               [12] 4918 	mov	a,r4
+      00119C 2C               [12] 4919 	add	a,r4
+      00119D FC               [12] 4920 	mov	r4,a
+      00119E ED               [12] 4921 	mov	a,r5
+      00119F 33               [12] 4922 	rlc	a
+      0011A0 FD               [12] 4923 	mov	r5,a
+      0011A1 EC               [12] 4924 	mov	a,r4
+      0011A2 24 78            [12] 4925 	add	a,#_acc_amp
+      0011A4 FC               [12] 4926 	mov	r4,a
+      0011A5 ED               [12] 4927 	mov	a,r5
+      0011A6 34 00            [12] 4928 	addc	a,#(_acc_amp >> 8)
+      0011A8 FD               [12] 4929 	mov	r5,a
+      0011A9 8C 82            [24] 4930 	mov	dpl,r4
+      0011AB 8D 83            [24] 4931 	mov	dph,r5
+      0011AD E0               [24] 4932 	movx	a,@dptr
+      0011AE F5 26            [12] 4933 	mov	_control_loop_sloc0_1_0,a
+      0011B0 A3               [24] 4934 	inc	dptr
+      0011B1 E0               [24] 4935 	movx	a,@dptr
+      0011B2 F5 27            [12] 4936 	mov	(_control_loop_sloc0_1_0 + 1),a
+      0011B4 A3               [24] 4937 	inc	dptr
+      0011B5 E0               [24] 4938 	movx	a,@dptr
+      0011B6 F5 28            [12] 4939 	mov	(_control_loop_sloc0_1_0 + 2),a
+      0011B8 A3               [24] 4940 	inc	dptr
+      0011B9 E0               [24] 4941 	movx	a,@dptr
+      0011BA F5 29            [12] 4942 	mov	(_control_loop_sloc0_1_0 + 3),a
+      0011BC EE               [12] 4943 	mov	a,r6
+      0011BD 2E               [12] 4944 	add	a,r6
+      0011BE FA               [12] 4945 	mov	r2,a
+      0011BF EF               [12] 4946 	mov	a,r7
+      0011C0 33               [12] 4947 	rlc	a
+      0011C1 FB               [12] 4948 	mov	r3,a
+      0011C2 EA               [12] 4949 	mov	a,r2
+      0011C3 24 84            [12] 4950 	add	a,#_cur_amp
+      0011C5 F5 82            [12] 4951 	mov	dpl,a
+      0011C7 EB               [12] 4952 	mov	a,r3
+      0011C8 34 00            [12] 4953 	addc	a,#(_cur_amp >> 8)
+      0011CA F5 83            [12] 4954 	mov	dph,a
+      0011CC E0               [24] 4955 	movx	a,@dptr
+      0011CD FA               [12] 4956 	mov	r2,a
+      0011CE A3               [24] 4957 	inc	dptr
+      0011CF E0               [24] 4958 	movx	a,@dptr
+      0011D0 FB               [12] 4959 	mov	r3,a
+      0011D1 8A 00            [24] 4960 	mov	ar0,r2
+      0011D3 8B 01            [24] 4961 	mov	ar1,r3
+      0011D5 E4               [12] 4962 	clr	a
+      0011D6 FA               [12] 4963 	mov	r2,a
+      0011D7 FB               [12] 4964 	mov	r3,a
+      0011D8 E8               [12] 4965 	mov	a,r0
+      0011D9 25 26            [12] 4966 	add	a,_control_loop_sloc0_1_0
+      0011DB F8               [12] 4967 	mov	r0,a
+      0011DC E9               [12] 4968 	mov	a,r1
+      0011DD 35 27            [12] 4969 	addc	a,(_control_loop_sloc0_1_0 + 1)
+      0011DF F9               [12] 4970 	mov	r1,a
+      0011E0 EA               [12] 4971 	mov	a,r2
+      0011E1 35 28            [12] 4972 	addc	a,(_control_loop_sloc0_1_0 + 2)
+      0011E3 FA               [12] 4973 	mov	r2,a
+      0011E4 EB               [12] 4974 	mov	a,r3
+      0011E5 35 29            [12] 4975 	addc	a,(_control_loop_sloc0_1_0 + 3)
+      0011E7 FB               [12] 4976 	mov	r3,a
+      0011E8 8C 82            [24] 4977 	mov	dpl,r4
+      0011EA 8D 83            [24] 4978 	mov	dph,r5
+      0011EC E8               [12] 4979 	mov	a,r0
+      0011ED F0               [24] 4980 	movx	@dptr,a
+      0011EE E9               [12] 4981 	mov	a,r1
+      0011EF A3               [24] 4982 	inc	dptr
+      0011F0 F0               [24] 4983 	movx	@dptr,a
+      0011F1 EA               [12] 4984 	mov	a,r2
+      0011F2 A3               [24] 4985 	inc	dptr
+      0011F3 F0               [24] 4986 	movx	@dptr,a
+      0011F4 EB               [12] 4987 	mov	a,r3
+      0011F5 A3               [24] 4988 	inc	dptr
+      0011F6 F0               [24] 4989 	movx	@dptr,a
+                           00111A  4990 	Smain$control_loop$528 ==.
+                                   4991 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:782: for( int i = 0; i < NUM_LEDS; i++ )
+      0011F7 0E               [12] 4992 	inc	r6
+      0011F8 BE 00 8F         [24] 4993 	cjne	r6,#0x00,00118$
+      0011FB 0F               [12] 4994 	inc	r7
+      0011FC 80 8C            [24] 4995 	sjmp	00118$
+      0011FE                       4996 00101$:
+                           001121  4997 	Smain$control_loop$529 ==.
+                                   4998 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:785: sample_temperature();
+      0011FE 12 06 A8         [24] 4999 	lcall	_sample_temperature
+                           001124  5000 	Smain$control_loop$530 ==.
+                                   5001 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:787: if( flashing[light_mode] ) {
+      001201 90 00 6C         [24] 5002 	mov	dptr,#_light_mode
+      001204 E0               [24] 5003 	movx	a,@dptr
+      001205 24 EF            [12] 5004 	add	a,#_flashing
+      001207 FF               [12] 5005 	mov	r7,a
+      001208 E4               [12] 5006 	clr	a
+      001209 34 1D            [12] 5007 	addc	a,#(_flashing >> 8)
+      00120B FE               [12] 5008 	mov	r6,a
+      00120C 8F 82            [24] 5009 	mov	dpl,r7
+      00120E 8E 83            [24] 5010 	mov	dph,r6
+      001210 E4               [12] 5011 	clr	a
+      001211 93               [24] 5012 	movc	a,@a+dptr
+      001212 60 13            [24] 5013 	jz	00108$
+                           001137  5014 	Smain$control_loop$531 ==.
+                           001137  5015 	Smain$control_loop$532 ==.
+                                   5016 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:788: if( sample_count == 1 ) {
+      001214 90 00 77         [24] 5017 	mov	dptr,#_sample_count
+      001217 E0               [24] 5018 	movx	a,@dptr
+      001218 FF               [12] 5019 	mov	r7,a
+      001219 BF 01 05         [24] 5020 	cjne	r7,#0x01,00105$
+                           00113F  5021 	Smain$control_loop$533 ==.
+                           00113F  5022 	Smain$control_loop$534 ==.
+                                   5023 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:789: stop_leds();
+      00121C 12 0D 8D         [24] 5024 	lcall	_stop_leds
+                           001142  5025 	Smain$control_loop$535 ==.
+      00121F 80 06            [24] 5026 	sjmp	00108$
+      001221                       5027 00105$:
+                           001144  5028 	Smain$control_loop$536 ==.
+                                   5029 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:790: } else if( sample_count == FLASHING_ON_COUNT ) {
+      001221 BF 87 03         [24] 5030 	cjne	r7,#0x87,00108$
+                           001147  5031 	Smain$control_loop$537 ==.
+                           001147  5032 	Smain$control_loop$538 ==.
+                                   5033 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:791: activate_leds();
+      001224 12 0D C4         [24] 5034 	lcall	_activate_leds
+                           00114A  5035 	Smain$control_loop$539 ==.
+      001227                       5036 00108$:
+                           00114A  5037 	Smain$control_loop$540 ==.
+                                   5038 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:795: if( sample_count >= MAX_SAMPLE_COUNT ) {
+      001227 90 00 77         [24] 5039 	mov	dptr,#_sample_count
+      00122A E0               [24] 5040 	movx	a,@dptr
+      00122B FF               [12] 5041 	mov	r7,a
+      00122C BF 96 00         [24] 5042 	cjne	r7,#0x96,00167$
+      00122F                       5043 00167$:
+      00122F 40 1F            [24] 5044 	jc	00114$
+                           001154  5045 	Smain$control_loop$541 ==.
+                           001154  5046 	Smain$control_loop$542 ==.
+                                   5047 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:796: if( !flashing[light_mode] ) {
+      001231 90 00 6C         [24] 5048 	mov	dptr,#_light_mode
+      001234 E0               [24] 5049 	movx	a,@dptr
+      001235 24 EF            [12] 5050 	add	a,#_flashing
+      001237 FF               [12] 5051 	mov	r7,a
+      001238 E4               [12] 5052 	clr	a
+      001239 34 1D            [12] 5053 	addc	a,#(_flashing >> 8)
+      00123B FE               [12] 5054 	mov	r6,a
+      00123C 8F 82            [24] 5055 	mov	dpl,r7
+      00123E 8E 83            [24] 5056 	mov	dph,r6
+      001240 E4               [12] 5057 	clr	a
+      001241 93               [24] 5058 	movc	a,@a+dptr
+      001242 70 09            [24] 5059 	jnz	00110$
+                           001167  5060 	Smain$control_loop$543 ==.
+                           001167  5061 	Smain$control_loop$544 ==.
+                                   5062 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:797: light_changing = mode_stable_control();
+      001244 12 10 46         [24] 5063 	lcall	_mode_stable_control
+      001247 E5 82            [12] 5064 	mov	a,dpl
+      001249 90 00 2A         [24] 5065 	mov	dptr,#_control_loop_light_changing_65536_266
+      00124C F0               [24] 5066 	movx	@dptr,a
+                           001170  5067 	Smain$control_loop$545 ==.
+      00124D                       5068 00110$:
+                           001170  5069 	Smain$control_loop$546 ==.
+                                   5070 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:799: init_sample();
+      00124D 12 04 6F         [24] 5071 	lcall	_init_sample
+                           001173  5072 	Smain$control_loop$547 ==.
+      001250                       5073 00114$:
+                           001173  5074 	Smain$control_loop$548 ==.
+                                   5075 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:803: if( light_changing ) {
+      001250 90 00 2A         [24] 5076 	mov	dptr,#_control_loop_light_changing_65536_266
+      001253 E0               [24] 5077 	movx	a,@dptr
+      001254 60 03            [24] 5078 	jz	00120$
+                           001179  5079 	Smain$control_loop$549 ==.
+                           001179  5080 	Smain$control_loop$550 ==.
+                                   5081 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:804: activate_leds();
+      001256 12 0D C4         [24] 5082 	lcall	_activate_leds
+                           00117C  5083 	Smain$control_loop$551 ==.
+      001259                       5084 00120$:
+                           00117C  5085 	Smain$control_loop$552 ==.
+                                   5086 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:807: }
+                           00117C  5087 	Smain$control_loop$553 ==.
+                           00117C  5088 	XG$control_loop$0$0 ==.
+      001259 22               [24] 5089 	ret
+                           00117D  5090 	Smain$control_loop$554 ==.
+                                   5091 ;------------------------------------------------------------
+                                   5092 ;Allocation info for local variables in function 'wdt_init'
+                                   5093 ;------------------------------------------------------------
+                           00117D  5094 	Smain$wdt_init$555 ==.
+                                   5095 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:810: void wdt_init(void)
+                                   5096 ;	-----------------------------------------
+                                   5097 ;	 function wdt_init
+                                   5098 ;	-----------------------------------------
+      00125A                       5099 _wdt_init:
+                           00117D  5100 	Smain$wdt_init$556 ==.
+                           00117D  5101 	Smain$wdt_init$557 ==.
+                                   5102 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:812: SFRS=0;
+      00125A 75 91 00         [24] 5103 	mov	_SFRS,#0x00
+                           001180  5104 	Smain$wdt_init$558 ==.
+                                   5105 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:813: BIT_TMP=EA;
+                                   5106 ;	assignBit
+      00125D A2 AF            [12] 5107 	mov	c,_EA
+      00125F 92 00            [24] 5108 	mov	_BIT_TMP,c
+                           001184  5109 	Smain$wdt_init$559 ==.
+                                   5110 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:814: EA=0;
+                                   5111 ;	assignBit
+      001261 C2 AF            [12] 5112 	clr	_EA
+                           001186  5113 	Smain$wdt_init$560 ==.
+                                   5114 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:816: TA=0xAA;
+      001263 75 C7 AA         [24] 5115 	mov	_TA,#0xaa
+                           001189  5116 	Smain$wdt_init$561 ==.
+                                   5117 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:817: TA=0x55;
+      001266 75 C7 55         [24] 5118 	mov	_TA,#0x55
+                           00118C  5119 	Smain$wdt_init$562 ==.
+                                   5120 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:818: WDCON&=0xF8;
+      001269 53 AA F8         [24] 5121 	anl	_WDCON,#0xf8
+                           00118F  5122 	Smain$wdt_init$563 ==.
+                                   5123 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:820: TA=0xAA;
+      00126C 75 C7 AA         [24] 5124 	mov	_TA,#0xaa
+                           001192  5125 	Smain$wdt_init$564 ==.
+                                   5126 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:821: TA=0x55;
+      00126F 75 C7 55         [24] 5127 	mov	_TA,#0x55
+                           001195  5128 	Smain$wdt_init$565 ==.
+                                   5129 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:822: WDCON|=0x07;
+      001272 43 AA 07         [24] 5130 	orl	_WDCON,#0x07
+                           001198  5131 	Smain$wdt_init$566 ==.
+                                   5132 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:824: EA = BIT_TMP;
+                                   5133 ;	assignBit
+      001275 A2 00            [12] 5134 	mov	c,_BIT_TMP
+      001277 92 AF            [24] 5135 	mov	_EA,c
+                           00119C  5136 	Smain$wdt_init$567 ==.
+                                   5137 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:825: set_WDCON_WIDPD;
+                                   5138 ;	assignBit
+      001279 A2 AF            [12] 5139 	mov	c,_EA
+      00127B 92 00            [24] 5140 	mov	_BIT_TMP,c
+                                   5141 ;	assignBit
+      00127D C2 AF            [12] 5142 	clr	_EA
+      00127F 75 C7 AA         [24] 5143 	mov	_TA,#0xaa
+      001282 75 C7 55         [24] 5144 	mov	_TA,#0x55
+      001285 43 AA 10         [24] 5145 	orl	_WDCON,#0x10
+                                   5146 ;	assignBit
+      001288 A2 00            [12] 5147 	mov	c,_BIT_TMP
+      00128A 92 AF            [24] 5148 	mov	_EA,c
+                           0011AF  5149 	Smain$wdt_init$568 ==.
+                                   5150 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:826: set_WDCON_WDTR;
+                                   5151 ;	assignBit
+      00128C A2 AF            [12] 5152 	mov	c,_EA
+      00128E 92 00            [24] 5153 	mov	_BIT_TMP,c
+                                   5154 ;	assignBit
+      001290 C2 AF            [12] 5155 	clr	_EA
+      001292 75 C7 AA         [24] 5156 	mov	_TA,#0xaa
+      001295 75 C7 55         [24] 5157 	mov	_TA,#0x55
+      001298 43 AA 80         [24] 5158 	orl	_WDCON,#0x80
+                                   5159 ;	assignBit
+      00129B A2 00            [12] 5160 	mov	c,_BIT_TMP
+      00129D 92 AF            [24] 5161 	mov	_EA,c
+                           0011C2  5162 	Smain$wdt_init$569 ==.
+                                   5163 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:829: set_EIE_EWDT;
+      00129F 43 9B 10         [24] 5164 	orl	_EIE,#0x10
+                           0011C5  5165 	Smain$wdt_init$570 ==.
+                                   5166 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:830: }
+                           0011C5  5167 	Smain$wdt_init$571 ==.
+                           0011C5  5168 	XG$wdt_init$0$0 ==.
+      0012A2 22               [24] 5169 	ret
+                           0011C6  5170 	Smain$wdt_init$572 ==.
+                                   5171 ;------------------------------------------------------------
+                                   5172 ;Allocation info for local variables in function 'wdt_clear'
+                                   5173 ;------------------------------------------------------------
+                           0011C6  5174 	Smain$wdt_clear$573 ==.
+                                   5175 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:833: void wdt_clear(void)
+                                   5176 ;	-----------------------------------------
+                                   5177 ;	 function wdt_clear
+                                   5178 ;	-----------------------------------------
+      0012A3                       5179 _wdt_clear:
+                           0011C6  5180 	Smain$wdt_clear$574 ==.
+                           0011C6  5181 	Smain$wdt_clear$575 ==.
+                                   5182 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:836: BIT_TMP=EA;
+                                   5183 ;	assignBit
+      0012A3 A2 AF            [12] 5184 	mov	c,_EA
+      0012A5 92 00            [24] 5185 	mov	_BIT_TMP,c
+                           0011CA  5186 	Smain$wdt_clear$576 ==.
+                                   5187 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:837: EA=0;
+                                   5188 ;	assignBit
+      0012A7 C2 AF            [12] 5189 	clr	_EA
+                           0011CC  5190 	Smain$wdt_clear$577 ==.
+                                   5191 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:839: TA=0xAA;
+      0012A9 75 C7 AA         [24] 5192 	mov	_TA,#0xaa
+                           0011CF  5193 	Smain$wdt_clear$578 ==.
+                                   5194 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:840: TA=0x55;
+      0012AC 75 C7 55         [24] 5195 	mov	_TA,#0x55
+                           0011D2  5196 	Smain$wdt_clear$579 ==.
+                                   5197 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:842: WDCON|=0x40;
+      0012AF 43 AA 40         [24] 5198 	orl	_WDCON,#0x40
+                           0011D5  5199 	Smain$wdt_clear$580 ==.
+                                   5200 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:843: EA=BIT_TMP;
+                                   5201 ;	assignBit
+      0012B2 A2 00            [12] 5202 	mov	c,_BIT_TMP
+      0012B4 92 AF            [24] 5203 	mov	_EA,c
+                           0011D9  5204 	Smain$wdt_clear$581 ==.
+                                   5205 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:845: while(WDCON&SET_BIT6);              /* Check for the WDT counter cleared */
+      0012B6                       5206 00101$:
+      0012B6 E5 AA            [12] 5207 	mov	a,_WDCON
+      0012B8 20 E6 FB         [24] 5208 	jb	acc.6,00101$
+                           0011DE  5209 	Smain$wdt_clear$582 ==.
+                                   5210 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:846: }
+                           0011DE  5211 	Smain$wdt_clear$583 ==.
+                           0011DE  5212 	XG$wdt_clear$0$0 ==.
+      0012BB 22               [24] 5213 	ret
+                           0011DF  5214 	Smain$wdt_clear$584 ==.
+                                   5215 ;------------------------------------------------------------
+                                   5216 ;Allocation info for local variables in function 'main'
+                                   5217 ;------------------------------------------------------------
+                           0011DF  5218 	Smain$main$585 ==.
+                                   5219 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:850: void main (void)
+                                   5220 ;	-----------------------------------------
+                                   5221 ;	 function main
+                                   5222 ;	-----------------------------------------
+      0012BC                       5223 _main:
+                           0011DF  5224 	Smain$main$586 ==.
+                           0011DF  5225 	Smain$main$587 ==.
+                                   5226 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:853: MODIFY_HIRC(HIRC_24);
+      0012BC 75 82 06         [24] 5227 	mov	dpl,#0x06
+      0012BF 12 15 15         [24] 5228 	lcall	_MODIFY_HIRC
+                           0011E5  5229 	Smain$main$588 ==.
+                                   5230 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:857: log_init();
+      0012C2 12 03 4C         [24] 5231 	lcall	_log_init
+                           0011E8  5232 	Smain$main$589 ==.
+                                   5233 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:859: init_peripherals_but_button_n_uart();
+      0012C5 12 04 B9         [24] 5234 	lcall	_init_peripherals_but_button_n_uart
+                           0011EB  5235 	Smain$main$590 ==.
+                                   5236 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:860: uart_interrupt_init();
+      0012C8 12 03 F8         [24] 5237 	lcall	_uart_interrupt_init
+                           0011EE  5238 	Smain$main$591 ==.
+                                   5239 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:866: for( uart_counter = 0; uart_counter < MAX_UART_INIT_COUNTER; uart_counter++ ) {
+      0012CB 90 00 97         [24] 5240 	mov	dptr,#_uart_counter
+      0012CE E4               [12] 5241 	clr	a
+      0012CF F0               [24] 5242 	movx	@dptr,a
+      0012D0 A3               [24] 5243 	inc	dptr
+      0012D1 F0               [24] 5244 	movx	@dptr,a
+      0012D2 A3               [24] 5245 	inc	dptr
+      0012D3 F0               [24] 5246 	movx	@dptr,a
+      0012D4 A3               [24] 5247 	inc	dptr
+      0012D5 F0               [24] 5248 	movx	@dptr,a
+      0012D6                       5249 00132$:
+                           0011F9  5250 	Smain$main$592 ==.
+                           0011F9  5251 	Smain$main$593 ==.
+                                   5252 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:867: if( process_uart() ) break;
+      0012D6 12 0A F7         [24] 5253 	lcall	_process_uart
+      0012D9 E5 82            [12] 5254 	mov	a,dpl
+      0012DB 70 51            [24] 5255 	jnz	00103$
+                           001200  5256 	Smain$main$594 ==.
+                                   5257 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:868: Timer0_Delay(24000000, 1, PERIOD_UNIT);
+      0012DD 90 00 01         [24] 5258 	mov	dptr,#_Timer0_Delay_PARM_2
+      0012E0 74 01            [12] 5259 	mov	a,#0x01
+      0012E2 F0               [24] 5260 	movx	@dptr,a
+      0012E3 E4               [12] 5261 	clr	a
+      0012E4 A3               [24] 5262 	inc	dptr
+      0012E5 F0               [24] 5263 	movx	@dptr,a
+      0012E6 90 00 03         [24] 5264 	mov	dptr,#_Timer0_Delay_PARM_3
+      0012E9 74 E8            [12] 5265 	mov	a,#0xe8
+      0012EB F0               [24] 5266 	movx	@dptr,a
+      0012EC 74 03            [12] 5267 	mov	a,#0x03
+      0012EE A3               [24] 5268 	inc	dptr
+      0012EF F0               [24] 5269 	movx	@dptr,a
+      0012F0 90 36 00         [24] 5270 	mov	dptr,#0x3600
+      0012F3 75 F0 6E         [24] 5271 	mov	b,#0x6e
+      0012F6 74 01            [12] 5272 	mov	a,#0x01
+      0012F8 12 00 DD         [24] 5273 	lcall	_Timer0_Delay
+                           00121E  5274 	Smain$main$595 ==.
+                           00121E  5275 	Smain$main$596 ==.
+                                   5276 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:866: for( uart_counter = 0; uart_counter < MAX_UART_INIT_COUNTER; uart_counter++ ) {
+      0012FB 90 00 97         [24] 5277 	mov	dptr,#_uart_counter
+      0012FE E0               [24] 5278 	movx	a,@dptr
+      0012FF 24 01            [12] 5279 	add	a,#0x01
+      001301 F0               [24] 5280 	movx	@dptr,a
+      001302 A3               [24] 5281 	inc	dptr
+      001303 E0               [24] 5282 	movx	a,@dptr
+      001304 34 00            [12] 5283 	addc	a,#0x00
+      001306 F0               [24] 5284 	movx	@dptr,a
+      001307 A3               [24] 5285 	inc	dptr
+      001308 E0               [24] 5286 	movx	a,@dptr
+      001309 34 00            [12] 5287 	addc	a,#0x00
+      00130B F0               [24] 5288 	movx	@dptr,a
+      00130C A3               [24] 5289 	inc	dptr
+      00130D E0               [24] 5290 	movx	a,@dptr
+      00130E 34 00            [12] 5291 	addc	a,#0x00
+      001310 F0               [24] 5292 	movx	@dptr,a
+      001311 90 00 97         [24] 5293 	mov	dptr,#_uart_counter
+      001314 E0               [24] 5294 	movx	a,@dptr
+      001315 FC               [12] 5295 	mov	r4,a
+      001316 A3               [24] 5296 	inc	dptr
+      001317 E0               [24] 5297 	movx	a,@dptr
+      001318 FD               [12] 5298 	mov	r5,a
+      001319 A3               [24] 5299 	inc	dptr
+      00131A E0               [24] 5300 	movx	a,@dptr
+      00131B FE               [12] 5301 	mov	r6,a
+      00131C A3               [24] 5302 	inc	dptr
+      00131D E0               [24] 5303 	movx	a,@dptr
+      00131E FF               [12] 5304 	mov	r7,a
+      00131F C3               [12] 5305 	clr	c
+      001320 EC               [12] 5306 	mov	a,r4
+      001321 94 F4            [12] 5307 	subb	a,#0xf4
+      001323 ED               [12] 5308 	mov	a,r5
+      001324 94 01            [12] 5309 	subb	a,#0x01
+      001326 EE               [12] 5310 	mov	a,r6
+      001327 94 00            [12] 5311 	subb	a,#0x00
+      001329 EF               [12] 5312 	mov	a,r7
+      00132A 94 00            [12] 5313 	subb	a,#0x00
+      00132C 40 A8            [24] 5314 	jc	00132$
+      00132E                       5315 00103$:
+                           001251  5316 	Smain$main$597 ==.
+                                   5317 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:871: LS_LOG(':');
+      00132E 75 82 3A         [24] 5318 	mov	dpl,#0x3a
+      001331 12 01 A5         [24] 5319 	lcall	_uart_log
+                           001257  5320 	Smain$main$598 ==.
+                                   5321 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:873: if( !is_uart_mode ) {
+      001334 90 00 6D         [24] 5322 	mov	dptr,#_is_uart_mode
+      001337 E0               [24] 5323 	movx	a,@dptr
+      001338 70 03            [24] 5324 	jnz	00105$
+                           00125D  5325 	Smain$main$599 ==.
+                           00125D  5326 	Smain$main$600 ==.
+                                   5327 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:874: button_interrupt_init();
+      00133A 12 04 55         [24] 5328 	lcall	_button_interrupt_init
+                           001260  5329 	Smain$main$601 ==.
+      00133D                       5330 00105$:
+                           001260  5331 	Smain$main$602 ==.
+                                   5332 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:877: LS_LOG('w'); /* wdt test */
+      00133D 75 82 77         [24] 5333 	mov	dpl,#0x77
+      001340 12 01 A5         [24] 5334 	lcall	_uart_log
+                           001266  5335 	Smain$main$603 ==.
+                                   5336 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:878: wdt_init();
+      001343 12 12 5A         [24] 5337 	lcall	_wdt_init
+                           001269  5338 	Smain$main$604 ==.
+                                   5339 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:880: while(1)
+      001346                       5340 00130$:
+                           001269  5341 	Smain$main$605 ==.
+                           001269  5342 	Smain$main$606 ==.
+                                   5343 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:884: if( log_counter % 200 == 0 ) {
+      001346 90 00 9D         [24] 5344 	mov	dptr,#_log_counter
+      001349 E0               [24] 5345 	movx	a,@dptr
+      00134A FC               [12] 5346 	mov	r4,a
+      00134B A3               [24] 5347 	inc	dptr
+      00134C E0               [24] 5348 	movx	a,@dptr
+      00134D FD               [12] 5349 	mov	r5,a
+      00134E A3               [24] 5350 	inc	dptr
+      00134F E0               [24] 5351 	movx	a,@dptr
+      001350 FE               [12] 5352 	mov	r6,a
+      001351 A3               [24] 5353 	inc	dptr
+      001352 E0               [24] 5354 	movx	a,@dptr
+      001353 FF               [12] 5355 	mov	r7,a
+                           001277  5356 	Smain$main$607 ==.
+      001354 90 00 49         [24] 5357 	mov	dptr,#__modulong_PARM_2
+      001357 74 C8            [12] 5358 	mov	a,#0xc8
+      001359 F0               [24] 5359 	movx	@dptr,a
+      00135A E4               [12] 5360 	clr	a
+      00135B A3               [24] 5361 	inc	dptr
+      00135C F0               [24] 5362 	movx	@dptr,a
+      00135D A3               [24] 5363 	inc	dptr
+      00135E F0               [24] 5364 	movx	@dptr,a
+      00135F A3               [24] 5365 	inc	dptr
+      001360 F0               [24] 5366 	movx	@dptr,a
+      001361 8C 82            [24] 5367 	mov	dpl,r4
+      001363 8D 83            [24] 5368 	mov	dph,r5
+      001365 8E F0            [24] 5369 	mov	b,r6
+      001367 EF               [12] 5370 	mov	a,r7
+      001368 12 1A 21         [24] 5371 	lcall	__modulong
+      00136B AC 82            [24] 5372 	mov	r4,dpl
+      00136D AD 83            [24] 5373 	mov	r5,dph
+      00136F AE F0            [24] 5374 	mov	r6,b
+      001371 FF               [12] 5375 	mov	r7,a
+      001372 EC               [12] 5376 	mov	a,r4
+      001373 4D               [12] 5377 	orl	a,r5
+      001374 4E               [12] 5378 	orl	a,r6
+      001375 4F               [12] 5379 	orl	a,r7
+      001376 70 06            [24] 5380 	jnz	00107$
+                           00129B  5381 	Smain$main$608 ==.
+                           00129B  5382 	Smain$main$609 ==.
+                                   5383 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:885: LS_LOG('T');
+      001378 75 82 54         [24] 5384 	mov	dpl,#0x54
+      00137B 12 01 A5         [24] 5385 	lcall	_uart_log
+                           0012A1  5386 	Smain$main$610 ==.
+      00137E                       5387 00107$:
+                           0012A1  5388 	Smain$main$611 ==.
+                                   5389 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:887: log_counter++;
+      00137E 90 00 9D         [24] 5390 	mov	dptr,#_log_counter
+      001381 E0               [24] 5391 	movx	a,@dptr
+      001382 24 01            [12] 5392 	add	a,#0x01
+      001384 F0               [24] 5393 	movx	@dptr,a
+      001385 A3               [24] 5394 	inc	dptr
+      001386 E0               [24] 5395 	movx	a,@dptr
+      001387 34 00            [12] 5396 	addc	a,#0x00
+      001389 F0               [24] 5397 	movx	@dptr,a
+      00138A A3               [24] 5398 	inc	dptr
+      00138B E0               [24] 5399 	movx	a,@dptr
+      00138C 34 00            [12] 5400 	addc	a,#0x00
+      00138E F0               [24] 5401 	movx	@dptr,a
+      00138F A3               [24] 5402 	inc	dptr
+      001390 E0               [24] 5403 	movx	a,@dptr
+      001391 34 00            [12] 5404 	addc	a,#0x00
+      001393 F0               [24] 5405 	movx	@dptr,a
+                           0012B7  5406 	Smain$main$612 ==.
+                                   5407 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:889: if( is_uart_mode ) {
+      001394 90 00 6D         [24] 5408 	mov	dptr,#_is_uart_mode
+      001397 E0               [24] 5409 	movx	a,@dptr
+      001398 60 21            [24] 5410 	jz	00111$
+                           0012BD  5411 	Smain$main$613 ==.
+                           0012BD  5412 	Smain$main$614 ==.
+                                   5413 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:890: if( light_mode == LIGHT_OFF ) {
+      00139A 90 00 6C         [24] 5414 	mov	dptr,#_light_mode
+      00139D E0               [24] 5415 	movx	a,@dptr
+      00139E 70 16            [24] 5416 	jnz	00109$
+                           0012C3  5417 	Smain$main$615 ==.
+                           0012C3  5418 	Smain$main$616 ==.
+                                   5419 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:891: uart_counter ++;
+      0013A0 90 00 97         [24] 5420 	mov	dptr,#_uart_counter
+      0013A3 E0               [24] 5421 	movx	a,@dptr
+      0013A4 24 01            [12] 5422 	add	a,#0x01
+      0013A6 F0               [24] 5423 	movx	@dptr,a
+      0013A7 A3               [24] 5424 	inc	dptr
+      0013A8 E0               [24] 5425 	movx	a,@dptr
+      0013A9 34 00            [12] 5426 	addc	a,#0x00
+      0013AB F0               [24] 5427 	movx	@dptr,a
+      0013AC A3               [24] 5428 	inc	dptr
+      0013AD E0               [24] 5429 	movx	a,@dptr
+      0013AE 34 00            [12] 5430 	addc	a,#0x00
+      0013B0 F0               [24] 5431 	movx	@dptr,a
+      0013B1 A3               [24] 5432 	inc	dptr
+      0013B2 E0               [24] 5433 	movx	a,@dptr
+      0013B3 34 00            [12] 5434 	addc	a,#0x00
+      0013B5 F0               [24] 5435 	movx	@dptr,a
+                           0012D9  5436 	Smain$main$617 ==.
+      0013B6                       5437 00109$:
+                           0012D9  5438 	Smain$main$618 ==.
+                                   5439 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:893: process_uart();
+      0013B6 12 0A F7         [24] 5440 	lcall	_process_uart
+                           0012DC  5441 	Smain$main$619 ==.
+      0013B9 80 03            [24] 5442 	sjmp	00112$
+      0013BB                       5443 00111$:
+                           0012DE  5444 	Smain$main$620 ==.
+                           0012DE  5445 	Smain$main$621 ==.
+                                   5446 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:896: process_button();
+      0013BB 12 0C 60         [24] 5447 	lcall	_process_button
+                           0012E1  5448 	Smain$main$622 ==.
+      0013BE                       5449 00112$:
+                           0012E1  5450 	Smain$main$623 ==.
+                                   5451 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:900: if( light_mode == LIGHT_OFF ) {
+      0013BE 90 00 6C         [24] 5452 	mov	dptr,#_light_mode
+      0013C1 E0               [24] 5453 	movx	a,@dptr
+      0013C2 FF               [12] 5454 	mov	r7,a
+      0013C3 E0               [24] 5455 	movx	a,@dptr
+      0013C4 70 6F            [24] 5456 	jnz	00124$
+                           0012E9  5457 	Smain$main$624 ==.
+                           0012E9  5458 	Smain$main$625 ==.
+                                   5459 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:901: wdt_flag = true; /* wdt test */
+      0013C6 90 00 A1         [24] 5460 	mov	dptr,#_wdt_flag
+      0013C9 74 01            [12] 5461 	mov	a,#0x01
+      0013CB F0               [24] 5462 	movx	@dptr,a
+                           0012EF  5463 	Smain$main$626 ==.
+                                   5464 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:902: if( (is_uart_mode && uart_counter > MAX_UART_COUNTER) || (!is_uart_mode && button_pressed < 1) ) {
+      0013CC 90 00 6D         [24] 5465 	mov	dptr,#_is_uart_mode
+      0013CF E0               [24] 5466 	movx	a,@dptr
+      0013D0 60 1B            [24] 5467 	jz	00120$
+      0013D2 90 00 97         [24] 5468 	mov	dptr,#_uart_counter
+      0013D5 E0               [24] 5469 	movx	a,@dptr
+      0013D6 FB               [12] 5470 	mov	r3,a
+      0013D7 A3               [24] 5471 	inc	dptr
+      0013D8 E0               [24] 5472 	movx	a,@dptr
+      0013D9 FC               [12] 5473 	mov	r4,a
+      0013DA A3               [24] 5474 	inc	dptr
+      0013DB E0               [24] 5475 	movx	a,@dptr
+      0013DC FD               [12] 5476 	mov	r5,a
+      0013DD A3               [24] 5477 	inc	dptr
+      0013DE E0               [24] 5478 	movx	a,@dptr
+      0013DF FE               [12] 5479 	mov	r6,a
+      0013E0 C3               [12] 5480 	clr	c
+      0013E1 74 88            [12] 5481 	mov	a,#0x88
+      0013E3 9B               [12] 5482 	subb	a,r3
+      0013E4 74 13            [12] 5483 	mov	a,#0x13
+      0013E6 9C               [12] 5484 	subb	a,r4
+      0013E7 E4               [12] 5485 	clr	a
+      0013E8 9D               [12] 5486 	subb	a,r5
+      0013E9 E4               [12] 5487 	clr	a
+      0013EA 9E               [12] 5488 	subb	a,r6
+      0013EB 40 23            [24] 5489 	jc	00116$
+      0013ED                       5490 00120$:
+      0013ED 90 00 6D         [24] 5491 	mov	dptr,#_is_uart_mode
+      0013F0 E0               [24] 5492 	movx	a,@dptr
+      0013F1 70 4A            [24] 5493 	jnz	00125$
+      0013F3 90 00 8F         [24] 5494 	mov	dptr,#_button_pressed
+      0013F6 E0               [24] 5495 	movx	a,@dptr
+      0013F7 FB               [12] 5496 	mov	r3,a
+      0013F8 A3               [24] 5497 	inc	dptr
+      0013F9 E0               [24] 5498 	movx	a,@dptr
+      0013FA FC               [12] 5499 	mov	r4,a
+      0013FB A3               [24] 5500 	inc	dptr
+      0013FC E0               [24] 5501 	movx	a,@dptr
+      0013FD FD               [12] 5502 	mov	r5,a
+      0013FE A3               [24] 5503 	inc	dptr
+      0013FF E0               [24] 5504 	movx	a,@dptr
+      001400 FE               [12] 5505 	mov	r6,a
+      001401 C3               [12] 5506 	clr	c
+      001402 EB               [12] 5507 	mov	a,r3
+      001403 94 01            [12] 5508 	subb	a,#0x01
+      001405 EC               [12] 5509 	mov	a,r4
+      001406 94 00            [12] 5510 	subb	a,#0x00
+      001408 ED               [12] 5511 	mov	a,r5
+      001409 94 00            [12] 5512 	subb	a,#0x00
+      00140B EE               [12] 5513 	mov	a,r6
+      00140C 94 00            [12] 5514 	subb	a,#0x00
+      00140E 50 2D            [24] 5515 	jnc	00125$
+      001410                       5516 00116$:
+                           001333  5517 	Smain$main$627 ==.
+                           001333  5518 	Smain$main$628 ==.
+                                   5519 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:903: stop_leds();
+      001410 12 0D 8D         [24] 5520 	lcall	_stop_leds
+                           001336  5521 	Smain$main$629 ==.
+                                   5522 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:904: disable_ntc();
+      001413 12 04 6E         [24] 5523 	lcall	_disable_ntc
+                           001339  5524 	Smain$main$630 ==.
+                                   5525 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:906: clr_SCON_1_TI_1;
+                                   5526 ;	assignBit
+      001416 C2 F9            [12] 5527 	clr	_TI_1
+                           00133B  5528 	Smain$main$631 ==.
+                                   5529 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:907: clr_SCON_1_RI_1;
+                                   5530 ;	assignBit
+      001418 C2 F8            [12] 5531 	clr	_RI_1
+                           00133D  5532 	Smain$main$632 ==.
+                                   5533 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:908: set_PCON_IDLE;
+      00141A 43 87 01         [24] 5534 	orl	_PCON,#0x01
+                           001340  5535 	Smain$main$633 ==.
+                                   5536 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:909: CALL_NOP;
+      00141D 00               [12] 5537 	nop;
+                           001341  5538 	Smain$main$634 ==.
+                                   5539 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:910: CALL_NOP;
+      00141E 00               [12] 5540 	nop;
+                           001342  5541 	Smain$main$635 ==.
+                                   5542 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:911: clr_PCON_IDLE;
+      00141F 53 87 FE         [24] 5543 	anl	_PCON,#0xfe
+                           001345  5544 	Smain$main$636 ==.
+                                   5545 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:913: init_peripherals_but_button_n_uart();
+      001422 12 04 B9         [24] 5546 	lcall	_init_peripherals_but_button_n_uart
+                           001348  5547 	Smain$main$637 ==.
+                                   5548 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:914: if( is_uart_mode ) {
+      001425 90 00 6D         [24] 5549 	mov	dptr,#_is_uart_mode
+      001428 E0               [24] 5550 	movx	a,@dptr
+      001429 60 05            [24] 5551 	jz	00114$
+                           00134E  5552 	Smain$main$638 ==.
+                           00134E  5553 	Smain$main$639 ==.
+                                   5554 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:915: uart_interrupt_init();
+      00142B 12 03 F8         [24] 5555 	lcall	_uart_interrupt_init
+                           001351  5556 	Smain$main$640 ==.
+      00142E 80 0D            [24] 5557 	sjmp	00125$
+      001430                       5558 00114$:
+                           001353  5559 	Smain$main$641 ==.
+                           001353  5560 	Smain$main$642 ==.
+                                   5561 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:917: button_interrupt_init();
+      001430 12 04 55         [24] 5562 	lcall	_button_interrupt_init
+                           001356  5563 	Smain$main$643 ==.
+      001433 80 08            [24] 5564 	sjmp	00125$
+      001435                       5565 00124$:
+                           001358  5566 	Smain$main$644 ==.
+                                   5567 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:921: else if ( light_mode != LIGHT_OFF ) { /* wdt test */
+      001435 EF               [12] 5568 	mov	a,r7
+      001436 60 05            [24] 5569 	jz	00125$
+                           00135B  5570 	Smain$main$645 ==.
+                           00135B  5571 	Smain$main$646 ==.
+                                   5572 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:922: wdt_flag = false;
+      001438 90 00 A1         [24] 5573 	mov	dptr,#_wdt_flag
+      00143B E4               [12] 5574 	clr	a
+      00143C F0               [24] 5575 	movx	@dptr,a
+                           001360  5576 	Smain$main$647 ==.
+      00143D                       5577 00125$:
+                           001360  5578 	Smain$main$648 ==.
+                                   5579 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:925: control_loop();
+      00143D 12 11 69         [24] 5580 	lcall	_control_loop
+                           001363  5581 	Smain$main$649 ==.
+                                   5582 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:927: Timer0_Delay(24000000, 1, PERIOD_UNIT);
+      001440 90 00 01         [24] 5583 	mov	dptr,#_Timer0_Delay_PARM_2
+      001443 74 01            [12] 5584 	mov	a,#0x01
+      001445 F0               [24] 5585 	movx	@dptr,a
+      001446 E4               [12] 5586 	clr	a
+      001447 A3               [24] 5587 	inc	dptr
+      001448 F0               [24] 5588 	movx	@dptr,a
+      001449 90 00 03         [24] 5589 	mov	dptr,#_Timer0_Delay_PARM_3
+      00144C 74 E8            [12] 5590 	mov	a,#0xe8
+      00144E F0               [24] 5591 	movx	@dptr,a
+      00144F 74 03            [12] 5592 	mov	a,#0x03
+      001451 A3               [24] 5593 	inc	dptr
+      001452 F0               [24] 5594 	movx	@dptr,a
+      001453 90 36 00         [24] 5595 	mov	dptr,#0x3600
+      001456 75 F0 6E         [24] 5596 	mov	b,#0x6e
+      001459 74 01            [12] 5597 	mov	a,#0x01
+      00145B 12 00 DD         [24] 5598 	lcall	_Timer0_Delay
+                           001381  5599 	Smain$main$650 ==.
+                                   5600 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:930: if (wdt_flag == false) {
+      00145E 90 00 A1         [24] 5601 	mov	dptr,#_wdt_flag
+      001461 E0               [24] 5602 	movx	a,@dptr
+      001462 70 08            [24] 5603 	jnz	00127$
+                           001387  5604 	Smain$main$651 ==.
+                           001387  5605 	Smain$main$652 ==.
+                                   5606 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:931: LS_LOG('I');
+      001464 75 82 49         [24] 5607 	mov	dpl,#0x49
+      001467 12 01 A5         [24] 5608 	lcall	_uart_log
+                           00138D  5609 	Smain$main$653 ==.
+      00146A 80 06            [24] 5610 	sjmp	00128$
+      00146C                       5611 00127$:
+                           00138F  5612 	Smain$main$654 ==.
+                                   5613 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:938: else LS_LOG('W');
+      00146C 75 82 57         [24] 5614 	mov	dpl,#0x57
+      00146F 12 01 A5         [24] 5615 	lcall	_uart_log
+      001472                       5616 00128$:
+                           001395  5617 	Smain$main$655 ==.
+                                   5618 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:941: wdt_clear();
+      001472 12 12 A3         [24] 5619 	lcall	_wdt_clear
+                           001398  5620 	Smain$main$656 ==.
+      001475 02 13 46         [24] 5621 	ljmp	00130$
+                           00139B  5622 	Smain$main$657 ==.
+                                   5623 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:943: }
+                           00139B  5624 	Smain$main$658 ==.
+                           00139B  5625 	XG$main$0$0 ==.
+      001478 22               [24] 5626 	ret
+                           00139C  5627 	Smain$main$659 ==.
+                                   5628 	.area CSEG    (CODE)
+                                   5629 	.area CONST   (CODE)
+                           000000  5630 G$max_amp$0_0$0 == .
+      001DD9                       5631 _max_amp:
+      001DD9 00                    5632 	.db #0x00	; 0
+      001DDA 00                    5633 	.db #0x00	; 0
+      001DDB 00                    5634 	.db #0x00	; 0
+      001DDC 87                    5635 	.db #0x87	; 135
+      001DDD 36                    5636 	.db #0x36	; 54	'6'
+      001DDE 5A                    5637 	.db #0x5a	; 90	'Z'
+      001DDF 5A                    5638 	.db #0x5a	; 90	'Z'
+      001DE0 00                    5639 	.db #0x00	; 0
+      001DE1 36                    5640 	.db #0x36	; 54	'6'
+      001DE2 00                    5641 	.db #0x00	; 0
+      001DE3 00                    5642 	.db #0x00	; 0
+      001DE4 00                    5643 	.db #0x00	; 0
+      001DE5 00                    5644 	.db #0x00	; 0
+      001DE6 2D                    5645 	.db #0x2d	; 45
+      001DE7 00                    5646 	.db #0x00	; 0
+      001DE8 87                    5647 	.db #0x87	; 135
+      001DE9 00                    5648 	.db #0x00	; 0
+      001DEA 2D                    5649 	.db #0x2d	; 45
+      001DEB 2D                    5650 	.db #0x2d	; 45
+      001DEC 00                    5651 	.db #0x00	; 0
+                           000014  5652 G$min_amp$0_0$0 == .
+      001DED                       5653 _min_amp:
+      001DED 2D                    5654 	.db #0x2d	; 45
+      001DEE 2D                    5655 	.db #0x2d	; 45
+                           000016  5656 G$flashing$0_0$0 == .
+      001DEF                       5657 _flashing:
+      001DEF 00                    5658 	.db #0x00	; 0
+      001DF0 00                    5659 	.db #0x00	; 0
+      001DF1 00                    5660 	.db #0x00	; 0
+      001DF2 01                    5661 	.db #0x01	; 1
+      001DF3 01                    5662 	.db #0x01	; 1
+      001DF4 00                    5663 	.db #0x00	; 0
+      001DF5 01                    5664 	.db #0x01	; 1
+      001DF6 00                    5665 	.db #0x00	; 0
+      001DF7 00                    5666 	.db #0x00	; 0
+      001DF8 00                    5667 	.db #0x00	; 0
+                           000020  5668 G$temp_controlling$0_0$0 == .
+      001DF9                       5669 _temp_controlling:
+      001DF9 00                    5670 	.db #0x00	; 0
+      001DFA 01                    5671 	.db #0x01	; 1
+      001DFB 01                    5672 	.db #0x01	; 1
+      001DFC 00                    5673 	.db #0x00	; 0
+      001DFD 00                    5674 	.db #0x00	; 0
+      001DFE 00                    5675 	.db #0x00	; 0
+      001DFF 00                    5676 	.db #0x00	; 0
+      001E00 01                    5677 	.db #0x01	; 1
+      001E01 00                    5678 	.db #0x00	; 0
+      001E02 01                    5679 	.db #0x01	; 1
+                           00002A  5680 G$next_mode$0_0$0 == .
+      001E03                       5681 _next_mode:
+      001E03 01                    5682 	.db #0x01	; 1
+      001E04 08                    5683 	.db #0x08	; 8
+      001E05 01                    5684 	.db #0x01	; 1
+      001E06 01                    5685 	.db #0x01	; 1
+      001E07 01                    5686 	.db #0x01	; 1
+      001E08 00                    5687 	.db #0x00	; 0
+      001E09 09                    5688 	.db #0x09	; 9
+      001E0A 01                    5689 	.db #0x01	; 1
+      001E0B 06                    5690 	.db #0x06	; 6
+      001E0C 02                    5691 	.db #0x02	; 2
+                                   5692 	.area XINIT   (CODE)
+                           000000  5693 Fmain$__xinit_light_mode$0_0$0 == .
+      001E0D                       5694 __xinit__light_mode:
+      001E0D 00                    5695 	.db #0x00	; 0
+                           000001  5696 Fmain$__xinit_is_uart_mode$0_0$0 == .
+      001E0E                       5697 __xinit__is_uart_mode:
+      001E0E 00                    5698 	.db #0x00	;  0
+                           000002  5699 Fmain$__xinit_flashing_on$0_0$0 == .
+      001E0F                       5700 __xinit__flashing_on:
+      001E0F 01                    5701 	.db #0x01	;  1
+                           000003  5702 Fmain$__xinit_flashing_count$0_0$0 == .
+      001E10                       5703 __xinit__flashing_count:
+      001E10 00 00                 5704 	.byte #0x00, #0x00	; 0
+                           000005  5705 Fmain$__xinit_pwm$0_0$0 == .
+      001E12                       5706 __xinit__pwm:
+      001E12 00 00                 5707 	.byte #0x00, #0x00	; 0
+      001E14 00 00                 5708 	.byte #0x00, #0x00	; 0
+                           000009  5709 Fmain$__xinit_light_control_mode$0_0$0 == .
+      001E16                       5710 __xinit__light_control_mode:
+      001E16 00                    5711 	.db #0x00	;  0
+      001E17 00                    5712 	.db #0x00	;  0
+                           00000B  5713 Fmain$__xinit_sample_count$0_0$0 == .
+      001E18                       5714 __xinit__sample_count:
+      001E18 00                    5715 	.db #0x00	; 0
+                           00000C  5716 Fmain$__xinit_acc_amp$0_0$0 == .
+      001E19                       5717 __xinit__acc_amp:
+      001E19 00 00 00 00           5718 	.byte #0x00, #0x00, #0x00, #0x00	; 0
+      001E1D 00 00 00 00           5719 	.byte #0x00, #0x00, #0x00, #0x00	; 0
+                           000014  5720 Fmain$__xinit_acc_temp$0_0$0 == .
+      001E21                       5721 __xinit__acc_temp:
+      001E21 00 00 00 00           5722 	.byte #0x00, #0x00, #0x00, #0x00	; 0
+                           000018  5723 Fmain$__xinit_cur_amp$0_0$0 == .
+      001E25                       5724 __xinit__cur_amp:
+      001E25 00 00                 5725 	.byte #0x00, #0x00	; 0
+      001E27 00 00                 5726 	.byte #0x00, #0x00	; 0
+                           00001C  5727 Fmain$__xinit_cur_temp$0_0$0 == .
+      001E29                       5728 __xinit__cur_temp:
+      001E29 00 00                 5729 	.byte #0x00, #0x00	; 0
+                           00001E  5730 Fmain$__xinit_good_amp_count$0_0$0 == .
+      001E2B                       5731 __xinit__good_amp_count:
+      001E2B 00                    5732 	.db #0x00	; 0
+      001E2C 00                    5733 	.db #0x00	; 0
+                           000020  5734 Fmain$__xinit_uart1_next_idx$0_0$0 == .
+      001E2D                       5735 __xinit__uart1_next_idx:
+      001E2D 00                    5736 	.db #0x00	; 0
+                           000021  5737 Fmain$__xinit_uart1_read_idx$0_0$0 == .
+      001E2E                       5738 __xinit__uart1_read_idx:
+      001E2E 00                    5739 	.db #0x00	; 0
+                           000022  5740 Fmain$__xinit_uart_flag$0_0$0 == .
+      001E2F                       5741 __xinit__uart_flag:
+      001E2F 00                    5742 	.db #0x00	;  0
+                           000023  5743 Fmain$__xinit_button_pressed$0_0$0 == .
+      001E30                       5744 __xinit__button_pressed:
+      001E30 00 00 00 00           5745 	.byte #0x00, #0x00, #0x00, #0x00	; 0
+                           000027  5746 Fmain$__xinit_button_unpressed$0_0$0 == .
+      001E34                       5747 __xinit__button_unpressed:
+      001E34 00 00 00 00           5748 	.byte #0x00, #0x00, #0x00, #0x00	; 0
+                           00002B  5749 Fmain$__xinit_uart_counter$0_0$0 == .
+      001E38                       5750 __xinit__uart_counter:
+      001E38 00 00 00 00           5751 	.byte #0x00, #0x00, #0x00, #0x00	; 0
+                           00002F  5752 Fmain$__xinit_uart_rx_state$0_0$0 == .
+      001E3C                       5753 __xinit__uart_rx_state:
+      001E3C 00                    5754 	.db #0x00	; 0
+                           000030  5755 Fmain$__xinit_lamp_state$0_0$0 == .
+      001E3D                       5756 __xinit__lamp_state:
+      001E3D 00                    5757 	.db #0x00	; 0
+                           000031  5758 Fmain$__xinit_log_counter$0_0$0 == .
+      001E3E                       5759 __xinit__log_counter:
+      001E3E 00 00 00 00           5760 	.byte #0x00, #0x00, #0x00, #0x00	; 0
+                           000035  5761 Fmain$__xinit_wdt_flag$0_0$0 == .
+      001E42                       5762 __xinit__wdt_flag:
+      001E42 00                    5763 	.db #0x00	;  0
+                                   5764 	.area INITIALIZER
+                                   5765 	.area CABS    (ABS,CODE)
+                                   5766 
+                                   5767 	.area .debug_line (NOLOAD)
+      000000 00 00 0B 98           5768 	.dw	0,Ldebug_line_end-Ldebug_line_start
+      000004                       5769 Ldebug_line_start:
+      000004 00 02                 5770 	.dw	2
+      000006 00 00 00 B2           5771 	.dw	0,Ldebug_line_stmt-6-Ldebug_line_start
+      00000A 01                    5772 	.db	1
+      00000B 01                    5773 	.db	1
+      00000C FB                    5774 	.db	-5
+      00000D 0F                    5775 	.db	15
+      00000E 0A                    5776 	.db	10
+      00000F 00                    5777 	.db	0
+      000010 01                    5778 	.db	1
+      000011 01                    5779 	.db	1
+      000012 01                    5780 	.db	1
+      000013 01                    5781 	.db	1
+      000014 00                    5782 	.db	0
+      000015 00                    5783 	.db	0
+      000016 00                    5784 	.db	0
+      000017 01                    5785 	.db	1
+      000018 2F 2E 2E 2F 69 6E 63  5786 	.ascii "/../include/mcs51"
+             6C 75 64 65 2F 6D 63
+             73 35 31
+      000029 00                    5787 	.db	0
+      00002A 2F 2E 2E 2F 69 6E 63  5788 	.ascii "/../include"
+             6C 75 64 65
+      000035 00                    5789 	.db	0
+      000036 00                    5790 	.db	0
+      000037 43 3A 2F 55 73 65 72  5791 	.ascii "C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c"
+             73 2F 47 6F 6F 73 6D
+             6F 73 2F 44 6F 77 6E
+             6C 6F 61 64 73 2F 4D
+             53 35 31 5F 42 53 50
+             2D 6D 61 73 74 65 72
+             2F 4D 53 35 31 5F 42
+             53 50 2D 6D 61 73 74
+             65 72 2F 4D 53 35 31
+             46 42 39 41 45 5F 4D
+             53 35 31 58 42 39 41
+             45 5F 4D 53 35 31 58
+             42 39 42 45 2F 53 61
+             6D 70 6C 65 43 6F 64
+             65 2F 54 65 6D 70 6C
+             61 74 65 2F 50 72 6F
+             6A 65 63 74 5F 74 65
+             6D 70 2F 6D 61 69 6E
+             2E 63
+      0000B7 00                    5792 	.db	0
+      0000B8 00                    5793 	.uleb128	0
+      0000B9 00                    5794 	.uleb128	0
+      0000BA 00                    5795 	.uleb128	0
+      0000BB 00                    5796 	.db	0
+      0000BC                       5797 Ldebug_line_stmt:
+      0000BC 00                    5798 	.db	0
+      0000BD 05                    5799 	.uleb128	5
+      0000BE 02                    5800 	.db	2
+      0000BF 00 00 00 DD           5801 	.dw	0,(Smain$Timer0_Delay$0)
+      0000C3 03                    5802 	.db	3
+      0000C4 D6 01                 5803 	.sleb128	214
+      0000C6 01                    5804 	.db	1
+      0000C7 09                    5805 	.db	9
+      0000C8 00 15                 5806 	.dw	Smain$Timer0_Delay$2-Smain$Timer0_Delay$0
+      0000CA 03                    5807 	.db	3
+      0000CB 04                    5808 	.sleb128	4
+      0000CC 01                    5809 	.db	1
+      0000CD 09                    5810 	.db	9
+      0000CE 00 03                 5811 	.dw	Smain$Timer0_Delay$3-Smain$Timer0_Delay$2
+      0000D0 03                    5812 	.db	3
+      0000D1 01                    5813 	.sleb128	1
+      0000D2 01                    5814 	.db	1
+      0000D3 09                    5815 	.db	9
+      0000D4 00 06                 5816 	.dw	Smain$Timer0_Delay$4-Smain$Timer0_Delay$3
+      0000D6 03                    5817 	.db	3
+      0000D7 01                    5818 	.sleb128	1
+      0000D8 01                    5819 	.db	1
+      0000D9 09                    5820 	.db	9
+      0000DA 00 7B                 5821 	.dw	Smain$Timer0_Delay$5-Smain$Timer0_Delay$4
+      0000DC 03                    5822 	.db	3
+      0000DD 01                    5823 	.sleb128	1
+      0000DE 01                    5824 	.db	1
+      0000DF 09                    5825 	.db	9
+      0000E0 00 0E                 5826 	.dw	Smain$Timer0_Delay$6-Smain$Timer0_Delay$5
+      0000E2 03                    5827 	.db	3
+      0000E3 02                    5828 	.sleb128	2
+      0000E4 01                    5829 	.db	1
+      0000E5 09                    5830 	.db	9
+      0000E6 00 0C                 5831 	.dw	Smain$Timer0_Delay$8-Smain$Timer0_Delay$6
+      0000E8 03                    5832 	.db	3
+      0000E9 02                    5833 	.sleb128	2
+      0000EA 01                    5834 	.db	1
+      0000EB 09                    5835 	.db	9
+      0000EC 00 02                 5836 	.dw	Smain$Timer0_Delay$9-Smain$Timer0_Delay$8
+      0000EE 03                    5837 	.db	3
+      0000EF 01                    5838 	.sleb128	1
+      0000F0 01                    5839 	.db	1
+      0000F1 09                    5840 	.db	9
+      0000F2 00 02                 5841 	.dw	Smain$Timer0_Delay$10-Smain$Timer0_Delay$9
+      0000F4 03                    5842 	.db	3
+      0000F5 01                    5843 	.sleb128	1
+      0000F6 01                    5844 	.db	1
+      0000F7 09                    5845 	.db	9
+      0000F8 00 02                 5846 	.dw	Smain$Timer0_Delay$11-Smain$Timer0_Delay$10
+      0000FA 03                    5847 	.db	3
+      0000FB 01                    5848 	.sleb128	1
+      0000FC 01                    5849 	.db	1
+      0000FD 09                    5850 	.db	9
+      0000FE 00 00                 5851 	.dw	Smain$Timer0_Delay$12-Smain$Timer0_Delay$11
+      000100 03                    5852 	.db	3
+      000101 01                    5853 	.sleb128	1
+      000102 01                    5854 	.db	1
+      000103 09                    5855 	.db	9
+      000104 00 05                 5856 	.dw	Smain$Timer0_Delay$13-Smain$Timer0_Delay$12
+      000106 03                    5857 	.db	3
+      000107 01                    5858 	.sleb128	1
+      000108 01                    5859 	.db	1
+      000109 09                    5860 	.db	9
+      00010A 00 02                 5861 	.dw	Smain$Timer0_Delay$14-Smain$Timer0_Delay$13
+      00010C 03                    5862 	.db	3
+      00010D 01                    5863 	.sleb128	1
+      00010E 01                    5864 	.db	1
+      00010F 09                    5865 	.db	9
+      000110 00 07                 5866 	.dw	Smain$Timer0_Delay$16-Smain$Timer0_Delay$14
+      000112 03                    5867 	.db	3
+      000113 03                    5868 	.sleb128	3
+      000114 01                    5869 	.db	1
+      000115 09                    5870 	.db	9
+      000116 00 01                 5871 	.dw	1+Smain$Timer0_Delay$17-Smain$Timer0_Delay$16
+      000118 00                    5872 	.db	0
+      000119 01                    5873 	.uleb128	1
+      00011A 01                    5874 	.db	1
+      00011B 00                    5875 	.db	0
+      00011C 05                    5876 	.uleb128	5
+      00011D 02                    5877 	.db	2
+      00011E 00 00 01 A5           5878 	.dw	0,(Smain$uart_log$19)
+      000122 03                    5879 	.db	3
+      000123 ED 01                 5880 	.sleb128	237
+      000125 01                    5881 	.db	1
+      000126 09                    5882 	.db	9
+      000127 00 06                 5883 	.dw	Smain$uart_log$21-Smain$uart_log$19
+      000129 03                    5884 	.db	3
+      00012A 02                    5885 	.sleb128	2
+      00012B 01                    5886 	.db	1
+      00012C 09                    5887 	.db	9
+      00012D 00 0B                 5888 	.dw	Smain$uart_log$22-Smain$uart_log$21
+      00012F 03                    5889 	.db	3
+      000130 01                    5890 	.sleb128	1
+      000131 01                    5891 	.db	1
+      000132 09                    5892 	.db	9
+      000133 00 1D                 5893 	.dw	Smain$uart_log$23-Smain$uart_log$22
+      000135 03                    5894 	.db	3
+      000136 02                    5895 	.sleb128	2
+      000137 01                    5896 	.db	1
+      000138 09                    5897 	.db	9
+      000139 00 01                 5898 	.dw	1+Smain$uart_log$24-Smain$uart_log$23
+      00013B 00                    5899 	.db	0
+      00013C 01                    5900 	.uleb128	1
+      00013D 01                    5901 	.db	1
+      00013E 00                    5902 	.db	0
+      00013F 05                    5903 	.uleb128	5
+      000140 02                    5904 	.db	2
+      000141 00 00 01 D4           5905 	.dw	0,(Smain$uart_logn$26)
+      000145 03                    5906 	.db	3
+      000146 F4 01                 5907 	.sleb128	244
+      000148 01                    5908 	.db	1
+      000149 09                    5909 	.db	9
+      00014A 00 15                 5910 	.dw	Smain$uart_logn$28-Smain$uart_logn$26
+      00014C 03                    5911 	.db	3
+      00014D 02                    5912 	.sleb128	2
+      00014E 01                    5913 	.db	1
+      00014F 09                    5914 	.db	9
+      000150 00 22                 5915 	.dw	Smain$uart_logn$30-Smain$uart_logn$28
+      000152 03                    5916 	.db	3
+      000153 01                    5917 	.sleb128	1
+      000154 01                    5918 	.db	1
+      000155 09                    5919 	.db	9
+      000156 00 06                 5920 	.dw	Smain$uart_logn$31-Smain$uart_logn$30
+      000158 03                    5921 	.db	3
+      000159 01                    5922 	.sleb128	1
+      00015A 01                    5923 	.db	1
+      00015B 09                    5924 	.db	9
+      00015C 00 03                 5925 	.dw	Smain$uart_logn$34-Smain$uart_logn$31
+      00015E 03                    5926 	.db	3
+      00015F 03                    5927 	.sleb128	3
+      000160 01                    5928 	.db	1
+      000161 09                    5929 	.db	9
+      000162 00 0D                 5930 	.dw	Smain$uart_logn$36-Smain$uart_logn$34
+      000164 03                    5931 	.db	3
+      000165 02                    5932 	.sleb128	2
+      000166 01                    5933 	.db	1
+      000167 09                    5934 	.db	9
+      000168 00 55                 5935 	.dw	Smain$uart_logn$38-Smain$uart_logn$36
+      00016A 03                    5936 	.db	3
+      00016B 02                    5937 	.sleb128	2
+      00016C 01                    5938 	.db	1
+      00016D 09                    5939 	.db	9
+      00016E 00 1F                 5940 	.dw	Smain$uart_logn$39-Smain$uart_logn$38
+      000170 03                    5941 	.db	3
+      000171 01                    5942 	.sleb128	1
+      000172 01                    5943 	.db	1
+      000173 09                    5944 	.db	9
+      000174 00 2C                 5945 	.dw	Smain$uart_logn$42-Smain$uart_logn$39
+      000176 03                    5946 	.db	3
+      000177 01                    5947 	.sleb128	1
+      000178 01                    5948 	.db	1
+      000179 09                    5949 	.db	9
+      00017A 00 2E                 5950 	.dw	Smain$uart_logn$44-Smain$uart_logn$42
+      00017C 03                    5951 	.db	3
+      00017D 01                    5952 	.sleb128	1
+      00017E 01                    5953 	.db	1
+      00017F 09                    5954 	.db	9
+      000180 00 28                 5955 	.dw	Smain$uart_logn$45-Smain$uart_logn$44
+      000182 03                    5956 	.db	3
+      000183 01                    5957 	.sleb128	1
+      000184 01                    5958 	.db	1
+      000185 09                    5959 	.db	9
+      000186 00 34                 5960 	.dw	Smain$uart_logn$46-Smain$uart_logn$45
+      000188 03                    5961 	.db	3
+      000189 02                    5962 	.sleb128	2
+      00018A 01                    5963 	.db	1
+      00018B 09                    5964 	.db	9
+      00018C 00 01                 5965 	.dw	1+Smain$uart_logn$47-Smain$uart_logn$46
+      00018E 00                    5966 	.db	0
+      00018F 01                    5967 	.uleb128	1
+      000190 01                    5968 	.db	1
+      000191 00                    5969 	.db	0
+      000192 05                    5970 	.uleb128	5
+      000193 02                    5971 	.db	2
+      000194 00 00 03 4C           5972 	.dw	0,(Smain$log_init$49)
+      000198 03                    5973 	.db	3
+      000199 89 02                 5974 	.sleb128	265
+      00019B 01                    5975 	.db	1
+      00019C 09                    5976 	.db	9
+      00019D 00 00                 5977 	.dw	Smain$log_init$51-Smain$log_init$49
+      00019F 03                    5978 	.db	3
+      0001A0 02                    5979 	.sleb128	2
+      0001A1 01                    5980 	.db	1
+      0001A2 09                    5981 	.db	9
+      0001A3 00 06                 5982 	.dw	Smain$log_init$52-Smain$log_init$51
+      0001A5 03                    5983 	.db	3
+      0001A6 01                    5984 	.sleb128	1
+      0001A7 01                    5985 	.db	1
+      0001A8 09                    5986 	.db	9
+      0001A9 00 06                 5987 	.dw	Smain$log_init$54-Smain$log_init$52
+      0001AB 03                    5988 	.db	3
+      0001AC 01                    5989 	.sleb128	1
+      0001AD 01                    5990 	.db	1
+      0001AE 09                    5991 	.db	9
+      0001AF 00 20                 5992 	.dw	Smain$log_init$56-Smain$log_init$54
+      0001B1 03                    5993 	.db	3
+      0001B2 02                    5994 	.sleb128	2
+      0001B3 01                    5995 	.db	1
+      0001B4 09                    5996 	.db	9
+      0001B5 00 01                 5997 	.dw	1+Smain$log_init$57-Smain$log_init$56
+      0001B7 00                    5998 	.db	0
+      0001B8 01                    5999 	.uleb128	1
+      0001B9 01                    6000 	.db	1
+      0001BA 00                    6001 	.db	0
+      0001BB 05                    6002 	.uleb128	5
+      0001BC 02                    6003 	.db	2
+      0001BD 00 00 03 79           6004 	.dw	0,(Smain$SerialPort1_ISR$59)
+      0001C1 03                    6005 	.db	3
+      0001C2 A3 02                 6006 	.sleb128	291
+      0001C4 01                    6007 	.db	1
+      0001C5 09                    6008 	.db	9
+      0001C6 00 1F                 6009 	.dw	Smain$SerialPort1_ISR$61-Smain$SerialPort1_ISR$59
+      0001C8 03                    6010 	.db	3
+      0001C9 02                    6011 	.sleb128	2
+      0001CA 01                    6012 	.db	1
+      0001CB 09                    6013 	.db	9
+      0001CC 00 02                 6014 	.dw	Smain$SerialPort1_ISR$62-Smain$SerialPort1_ISR$61
+      0001CE 03                    6015 	.db	3
+      0001CF 02                    6016 	.sleb128	2
+      0001D0 01                    6017 	.db	1
+      0001D1 09                    6018 	.db	9
+      0001D2 00 03                 6019 	.dw	Smain$SerialPort1_ISR$64-Smain$SerialPort1_ISR$62
+      0001D4 03                    6020 	.db	3
+      0001D5 02                    6021 	.sleb128	2
+      0001D6 01                    6022 	.db	1
+      0001D7 09                    6023 	.db	9
+      0001D8 00 10                 6024 	.dw	Smain$SerialPort1_ISR$65-Smain$SerialPort1_ISR$64
+      0001DA 03                    6025 	.db	3
+      0001DB 01                    6026 	.sleb128	1
+      0001DC 01                    6027 	.db	1
+      0001DD 09                    6028 	.db	9
+      0001DE 00 25                 6029 	.dw	Smain$SerialPort1_ISR$67-Smain$SerialPort1_ISR$65
+      0001E0 03                    6030 	.db	3
+      0001E1 01                    6031 	.sleb128	1
+      0001E2 01                    6032 	.db	1
+      0001E3 09                    6033 	.db	9
+      0001E4 00 02                 6034 	.dw	Smain$SerialPort1_ISR$68-Smain$SerialPort1_ISR$67
+      0001E6 03                    6035 	.db	3
+      0001E7 03                    6036 	.sleb128	3
+      0001E8 01                    6037 	.db	1
+      0001E9 09                    6038 	.db	9
+      0001EA 00 00                 6039 	.dw	Smain$SerialPort1_ISR$70-Smain$SerialPort1_ISR$68
+      0001EC 03                    6040 	.db	3
+      0001ED 02                    6041 	.sleb128	2
+      0001EE 01                    6042 	.db	1
+      0001EF 09                    6043 	.db	9
+      0001F0 00 05                 6044 	.dw	Smain$SerialPort1_ISR$72-Smain$SerialPort1_ISR$70
+      0001F2 03                    6045 	.db	3
+      0001F3 04                    6046 	.sleb128	4
+      0001F4 01                    6047 	.db	1
+      0001F5 09                    6048 	.db	9
+      0001F6 00 02                 6049 	.dw	Smain$SerialPort1_ISR$73-Smain$SerialPort1_ISR$72
+      0001F8 03                    6050 	.db	3
+      0001F9 01                    6051 	.sleb128	1
+      0001FA 01                    6052 	.db	1
+      0001FB 09                    6053 	.db	9
+      0001FC 00 1D                 6054 	.dw	1+Smain$SerialPort1_ISR$74-Smain$SerialPort1_ISR$73
+      0001FE 00                    6055 	.db	0
+      0001FF 01                    6056 	.uleb128	1
+      000200 01                    6057 	.db	1
+      000201 00                    6058 	.db	0
+      000202 05                    6059 	.uleb128	5
+      000203 02                    6060 	.db	2
+      000204 00 00 03 F8           6061 	.dw	0,(Smain$uart_interrupt_init$76)
+      000208 03                    6062 	.db	3
+      000209 B9 02                 6063 	.sleb128	313
+      00020B 01                    6064 	.db	1
+      00020C 09                    6065 	.db	9
+      00020D 00 00                 6066 	.dw	Smain$uart_interrupt_init$78-Smain$uart_interrupt_init$76
+      00020F 03                    6067 	.db	3
+      000210 02                    6068 	.sleb128	2
+      000211 01                    6069 	.db	1
+      000212 09                    6070 	.db	9
+      000213 00 20                 6071 	.dw	Smain$uart_interrupt_init$79-Smain$uart_interrupt_init$78
+      000215 03                    6072 	.db	3
+      000216 02                    6073 	.sleb128	2
+      000217 01                    6074 	.db	1
+      000218 09                    6075 	.db	9
+      000219 00 03                 6076 	.dw	Smain$uart_interrupt_init$80-Smain$uart_interrupt_init$79
+      00021B 03                    6077 	.db	3
+      00021C 01                    6078 	.sleb128	1
+      00021D 01                    6079 	.db	1
+      00021E 09                    6080 	.db	9
+      00021F 00 01                 6081 	.dw	1+Smain$uart_interrupt_init$81-Smain$uart_interrupt_init$80
+      000221 00                    6082 	.db	0
+      000222 01                    6083 	.uleb128	1
+      000223 01                    6084 	.db	1
+      000224 00                    6085 	.db	0
+      000225 05                    6086 	.uleb128	5
+      000226 02                    6087 	.db	2
+      000227 00 00 04 1C           6088 	.dw	0,(Smain$PinInterrupt_ISR$83)
+      00022B 03                    6089 	.db	3
+      00022C CB 02                 6090 	.sleb128	331
+      00022E 01                    6091 	.db	1
+      00022F 09                    6092 	.db	9
+      000230 00 08                 6093 	.dw	Smain$PinInterrupt_ISR$85-Smain$PinInterrupt_ISR$83
+      000232 03                    6094 	.db	3
+      000233 02                    6095 	.sleb128	2
+      000234 01                    6096 	.db	1
+      000235 09                    6097 	.db	9
+      000236 00 02                 6098 	.dw	Smain$PinInterrupt_ISR$86-Smain$PinInterrupt_ISR$85
+      000238 03                    6099 	.db	3
+      000239 02                    6100 	.sleb128	2
+      00023A 01                    6101 	.db	1
+      00023B 09                    6102 	.db	9
+      00023C 00 14                 6103 	.dw	Smain$PinInterrupt_ISR$88-Smain$PinInterrupt_ISR$86
+      00023E 03                    6104 	.db	3
+      00023F 01                    6105 	.sleb128	1
+      000240 01                    6106 	.db	1
+      000241 09                    6107 	.db	9
+      000242 00 0D                 6108 	.dw	Smain$PinInterrupt_ISR$90-Smain$PinInterrupt_ISR$88
+      000244 03                    6109 	.db	3
+      000245 03                    6110 	.sleb128	3
+      000246 01                    6111 	.db	1
+      000247 09                    6112 	.db	9
+      000248 00 03                 6113 	.dw	Smain$PinInterrupt_ISR$91-Smain$PinInterrupt_ISR$90
+      00024A 03                    6114 	.db	3
+      00024B 02                    6115 	.sleb128	2
+      00024C 01                    6116 	.db	1
+      00024D 09                    6117 	.db	9
+      00024E 00 02                 6118 	.dw	Smain$PinInterrupt_ISR$92-Smain$PinInterrupt_ISR$91
+      000250 03                    6119 	.db	3
+      000251 01                    6120 	.sleb128	1
+      000252 01                    6121 	.db	1
+      000253 09                    6122 	.db	9
+      000254 00 09                 6123 	.dw	1+Smain$PinInterrupt_ISR$93-Smain$PinInterrupt_ISR$92
+      000256 00                    6124 	.db	0
+      000257 01                    6125 	.uleb128	1
+      000258 01                    6126 	.db	1
+      000259 00                    6127 	.db	0
+      00025A 05                    6128 	.uleb128	5
+      00025B 02                    6129 	.db	2
+      00025C 00 00 04 55           6130 	.dw	0,(Smain$button_interrupt_init$95)
+      000260 03                    6131 	.db	3
+      000261 DA 02                 6132 	.sleb128	346
+      000263 01                    6133 	.db	1
+      000264 09                    6134 	.db	9
+      000265 00 00                 6135 	.dw	Smain$button_interrupt_init$97-Smain$button_interrupt_init$95
+      000267 03                    6136 	.db	3
+      000268 03                    6137 	.sleb128	3
+      000269 01                    6138 	.db	1
+      00026A 09                    6139 	.db	9
+      00026B 00 06                 6140 	.dw	Smain$button_interrupt_init$98-Smain$button_interrupt_init$97
+      00026D 03                    6141 	.db	3
+      00026E 02                    6142 	.sleb128	2
+      00026F 01                    6143 	.db	1
+      000270 09                    6144 	.db	9
+      000271 00 02                 6145 	.dw	Smain$button_interrupt_init$99-Smain$button_interrupt_init$98
+      000273 03                    6146 	.db	3
+      000274 02                    6147 	.sleb128	2
+      000275 01                    6148 	.db	1
+      000276 09                    6149 	.db	9
+      000277 00 0C                 6150 	.dw	Smain$button_interrupt_init$100-Smain$button_interrupt_init$99
+      000279 03                    6151 	.db	3
+      00027A 01                    6152 	.sleb128	1
+      00027B 01                    6153 	.db	1
+      00027C 09                    6154 	.db	9
+      00027D 00 03                 6155 	.dw	Smain$button_interrupt_init$101-Smain$button_interrupt_init$100
+      00027F 03                    6156 	.db	3
+      000280 01                    6157 	.sleb128	1
+      000281 01                    6158 	.db	1
+      000282 09                    6159 	.db	9
+      000283 00 01                 6160 	.dw	1+Smain$button_interrupt_init$102-Smain$button_interrupt_init$101
+      000285 00                    6161 	.db	0
+      000286 01                    6162 	.uleb128	1
+      000287 01                    6163 	.db	1
+      000288 00                    6164 	.db	0
+      000289 05                    6165 	.uleb128	5
+      00028A 02                    6166 	.db	2
+      00028B 00 00 04 6D           6167 	.dw	0,(Smain$enable_ntc$104)
+      00028F 03                    6168 	.db	3
+      000290 E5 02                 6169 	.sleb128	357
+      000292 01                    6170 	.db	1
+      000293 09                    6171 	.db	9
+      000294 00 00                 6172 	.dw	Smain$enable_ntc$106-Smain$enable_ntc$104
+      000296 03                    6173 	.db	3
+      000297 07                    6174 	.sleb128	7
+      000298 01                    6175 	.db	1
+      000299 09                    6176 	.db	9
+      00029A 00 01                 6177 	.dw	1+Smain$enable_ntc$107-Smain$enable_ntc$106
+      00029C 00                    6178 	.db	0
+      00029D 01                    6179 	.uleb128	1
+      00029E 01                    6180 	.db	1
+      00029F 00                    6181 	.db	0
+      0002A0 05                    6182 	.uleb128	5
+      0002A1 02                    6183 	.db	2
+      0002A2 00 00 04 6E           6184 	.dw	0,(Smain$disable_ntc$109)
+      0002A6 03                    6185 	.db	3
+      0002A7 EE 02                 6186 	.sleb128	366
+      0002A9 01                    6187 	.db	1
+      0002AA 09                    6188 	.db	9
+      0002AB 00 00                 6189 	.dw	Smain$disable_ntc$111-Smain$disable_ntc$109
+      0002AD 03                    6190 	.db	3
+      0002AE 07                    6191 	.sleb128	7
+      0002AF 01                    6192 	.db	1
+      0002B0 09                    6193 	.db	9
+      0002B1 00 01                 6194 	.dw	1+Smain$disable_ntc$112-Smain$disable_ntc$111
+      0002B3 00                    6195 	.db	0
+      0002B4 01                    6196 	.uleb128	1
+      0002B5 01                    6197 	.db	1
+      0002B6 00                    6198 	.db	0
+      0002B7 05                    6199 	.uleb128	5
+      0002B8 02                    6200 	.db	2
+      0002B9 00 00 04 6F           6201 	.dw	0,(Smain$init_sample$114)
+      0002BD 03                    6202 	.db	3
+      0002BE F7 02                 6203 	.sleb128	375
+      0002C0 01                    6204 	.db	1
+      0002C1 09                    6205 	.db	9
+      0002C2 00 00                 6206 	.dw	Smain$init_sample$116-Smain$init_sample$114
+      0002C4 03                    6207 	.db	3
+      0002C5 02                    6208 	.sleb128	2
+      0002C6 01                    6209 	.db	1
+      0002C7 09                    6210 	.db	9
+      0002C8 00 05                 6211 	.dw	Smain$init_sample$117-Smain$init_sample$116
+      0002CA 03                    6212 	.db	3
+      0002CB 01                    6213 	.sleb128	1
+      0002CC 01                    6214 	.db	1
+      0002CD 09                    6215 	.db	9
+      0002CE 00 0A                 6216 	.dw	Smain$init_sample$119-Smain$init_sample$117
+      0002D0 03                    6217 	.db	3
+      0002D1 02                    6218 	.sleb128	2
+      0002D2 01                    6219 	.db	1
+      0002D3 09                    6220 	.db	9
+      0002D4 00 0F                 6221 	.dw	Smain$init_sample$122-Smain$init_sample$119
+      0002D6 03                    6222 	.db	3
+      0002D7 01                    6223 	.sleb128	1
+      0002D8 01                    6224 	.db	1
+      0002D9 09                    6225 	.db	9
+      0002DA 00 1E                 6226 	.dw	Smain$init_sample$124-Smain$init_sample$122
+      0002DC 03                    6227 	.db	3
+      0002DD 7F                    6228 	.sleb128	-1
+      0002DE 01                    6229 	.db	1
+      0002DF 09                    6230 	.db	9
+      0002E0 00 07                 6231 	.dw	Smain$init_sample$126-Smain$init_sample$124
+      0002E2 03                    6232 	.db	3
+      0002E3 04                    6233 	.sleb128	4
+      0002E4 01                    6234 	.db	1
+      0002E5 09                    6235 	.db	9
+      0002E6 00 06                 6236 	.dw	Smain$init_sample$127-Smain$init_sample$126
+      0002E8 03                    6237 	.db	3
+      0002E9 01                    6238 	.sleb128	1
+      0002EA 01                    6239 	.db	1
+      0002EB 09                    6240 	.db	9
+      0002EC 00 01                 6241 	.dw	1+Smain$init_sample$128-Smain$init_sample$127
+      0002EE 00                    6242 	.db	0
+      0002EF 01                    6243 	.uleb128	1
+      0002F0 01                    6244 	.db	1
+      0002F1 00                    6245 	.db	0
+      0002F2 05                    6246 	.uleb128	5
+      0002F3 02                    6247 	.db	2
+      0002F4 00 00 04 B9           6248 	.dw	0,(Smain$init_peripherals_but_button_n_uart$130)
+      0002F8 03                    6249 	.db	3
+      0002F9 85 03                 6250 	.sleb128	389
+      0002FB 01                    6251 	.db	1
+      0002FC 09                    6252 	.db	9
+      0002FD 00 00                 6253 	.dw	Smain$init_peripherals_but_button_n_uart$132-Smain$init_peripherals_but_button_n_uart$130
+      0002FF 03                    6254 	.db	3
+      000300 02                    6255 	.sleb128	2
+      000301 01                    6256 	.db	1
+      000302 09                    6257 	.db	9
+      000303 00 02                 6258 	.dw	Smain$init_peripherals_but_button_n_uart$133-Smain$init_peripherals_but_button_n_uart$132
+      000305 03                    6259 	.db	3
+      000306 03                    6260 	.sleb128	3
+      000307 01                    6261 	.db	1
+      000308 09                    6262 	.db	9
+      000309 00 03                 6263 	.dw	Smain$init_peripherals_but_button_n_uart$134-Smain$init_peripherals_but_button_n_uart$133
+      00030B 03                    6264 	.db	3
+      00030C 01                    6265 	.sleb128	1
+      00030D 01                    6266 	.db	1
+      00030E 09                    6267 	.db	9
+      00030F 00 03                 6268 	.dw	Smain$init_peripherals_but_button_n_uart$135-Smain$init_peripherals_but_button_n_uart$134
+      000311 03                    6269 	.db	3
+      000312 02                    6270 	.sleb128	2
+      000313 01                    6271 	.db	1
+      000314 09                    6272 	.db	9
+      000315 00 06                 6273 	.dw	Smain$init_peripherals_but_button_n_uart$136-Smain$init_peripherals_but_button_n_uart$135
+      000317 03                    6274 	.db	3
+      000318 04                    6275 	.sleb128	4
+      000319 01                    6276 	.db	1
+      00031A 09                    6277 	.db	9
+      00031B 00 03                 6278 	.dw	Smain$init_peripherals_but_button_n_uart$137-Smain$init_peripherals_but_button_n_uart$136
+      00031D 03                    6279 	.db	3
+      00031E 01                    6280 	.sleb128	1
+      00031F 01                    6281 	.db	1
+      000320 09                    6282 	.db	9
+      000321 00 06                 6283 	.dw	Smain$init_peripherals_but_button_n_uart$138-Smain$init_peripherals_but_button_n_uart$137
+      000323 03                    6284 	.db	3
+      000324 02                    6285 	.sleb128	2
+      000325 01                    6286 	.db	1
+      000326 09                    6287 	.db	9
+      000327 00 03                 6288 	.dw	Smain$init_peripherals_but_button_n_uart$139-Smain$init_peripherals_but_button_n_uart$138
+      000329 03                    6289 	.db	3
+      00032A 01                    6290 	.sleb128	1
+      00032B 01                    6291 	.db	1
+      00032C 09                    6292 	.db	9
+      00032D 00 06                 6293 	.dw	Smain$init_peripherals_but_button_n_uart$140-Smain$init_peripherals_but_button_n_uart$139
+      00032F 03                    6294 	.db	3
+      000330 02                    6295 	.sleb128	2
+      000331 01                    6296 	.db	1
+      000332 09                    6297 	.db	9
+      000333 00 29                 6298 	.dw	Smain$init_peripherals_but_button_n_uart$141-Smain$init_peripherals_but_button_n_uart$140
+      000335 03                    6299 	.db	3
+      000336 01                    6300 	.sleb128	1
+      000337 01                    6301 	.db	1
+      000338 09                    6302 	.db	9
+      000339 00 06                 6303 	.dw	Smain$init_peripherals_but_button_n_uart$142-Smain$init_peripherals_but_button_n_uart$141
+      00033B 03                    6304 	.db	3
+      00033C 02                    6305 	.sleb128	2
+      00033D 01                    6306 	.db	1
+      00033E 09                    6307 	.db	9
+      00033F 00 02                 6308 	.dw	Smain$init_peripherals_but_button_n_uart$143-Smain$init_peripherals_but_button_n_uart$142
+      000341 03                    6309 	.db	3
+      000342 01                    6310 	.sleb128	1
+      000343 01                    6311 	.db	1
+      000344 09                    6312 	.db	9
+      000345 00 13                 6313 	.dw	Smain$init_peripherals_but_button_n_uart$144-Smain$init_peripherals_but_button_n_uart$143
+      000347 03                    6314 	.db	3
+      000348 02                    6315 	.sleb128	2
+      000349 01                    6316 	.db	1
+      00034A 09                    6317 	.db	9
+      00034B 00 03                 6318 	.dw	Smain$init_peripherals_but_button_n_uart$145-Smain$init_peripherals_but_button_n_uart$144
+      00034D 03                    6319 	.db	3
+      00034E 01                    6320 	.sleb128	1
+      00034F 01                    6321 	.db	1
+      000350 09                    6322 	.db	9
+      000351 00 03                 6323 	.dw	Smain$init_peripherals_but_button_n_uart$146-Smain$init_peripherals_but_button_n_uart$145
+      000353 03                    6324 	.db	3
+      000354 02                    6325 	.sleb128	2
+      000355 01                    6326 	.db	1
+      000356 09                    6327 	.db	9
+      000357 00 03                 6328 	.dw	Smain$init_peripherals_but_button_n_uart$147-Smain$init_peripherals_but_button_n_uart$146
+      000359 03                    6329 	.db	3
+      00035A 01                    6330 	.sleb128	1
+      00035B 01                    6331 	.db	1
+      00035C 09                    6332 	.db	9
+      00035D 00 03                 6333 	.dw	Smain$init_peripherals_but_button_n_uart$148-Smain$init_peripherals_but_button_n_uart$147
+      00035F 03                    6334 	.db	3
+      000360 01                    6335 	.sleb128	1
+      000361 01                    6336 	.db	1
+      000362 09                    6337 	.db	9
+      000363 00 03                 6338 	.dw	Smain$init_peripherals_but_button_n_uart$149-Smain$init_peripherals_but_button_n_uart$148
+      000365 03                    6339 	.db	3
+      000366 01                    6340 	.sleb128	1
+      000367 01                    6341 	.db	1
+      000368 09                    6342 	.db	9
+      000369 00 03                 6343 	.dw	Smain$init_peripherals_but_button_n_uart$150-Smain$init_peripherals_but_button_n_uart$149
+      00036B 03                    6344 	.db	3
+      00036C 02                    6345 	.sleb128	2
+      00036D 01                    6346 	.db	1
+      00036E 09                    6347 	.db	9
+      00036F 00 13                 6348 	.dw	Smain$init_peripherals_but_button_n_uart$151-Smain$init_peripherals_but_button_n_uart$150
+      000371 03                    6349 	.db	3
+      000372 01                    6350 	.sleb128	1
+      000373 01                    6351 	.db	1
+      000374 09                    6352 	.db	9
+      000375 00 02                 6353 	.dw	Smain$init_peripherals_but_button_n_uart$152-Smain$init_peripherals_but_button_n_uart$151
+      000377 03                    6354 	.db	3
+      000378 02                    6355 	.sleb128	2
+      000379 01                    6356 	.db	1
+      00037A 09                    6357 	.db	9
+      00037B 00 05                 6358 	.dw	Smain$init_peripherals_but_button_n_uart$153-Smain$init_peripherals_but_button_n_uart$152
+      00037D 03                    6359 	.db	3
+      00037E 01                    6360 	.sleb128	1
+      00037F 01                    6361 	.db	1
+      000380 09                    6362 	.db	9
+      000381 00 04                 6363 	.dw	Smain$init_peripherals_but_button_n_uart$154-Smain$init_peripherals_but_button_n_uart$153
+      000383 03                    6364 	.db	3
+      000384 02                    6365 	.sleb128	2
+      000385 01                    6366 	.db	1
+      000386 09                    6367 	.db	9
+      000387 00 03                 6368 	.dw	Smain$init_peripherals_but_button_n_uart$155-Smain$init_peripherals_but_button_n_uart$154
+      000389 03                    6369 	.db	3
+      00038A 02                    6370 	.sleb128	2
+      00038B 01                    6371 	.db	1
+      00038C 09                    6372 	.db	9
+      00038D 00 03                 6373 	.dw	Smain$init_peripherals_but_button_n_uart$156-Smain$init_peripherals_but_button_n_uart$155
+      00038F 03                    6374 	.db	3
+      000390 01                    6375 	.sleb128	1
+      000391 01                    6376 	.db	1
+      000392 09                    6377 	.db	9
+      000393 00 07                 6378 	.dw	Smain$init_peripherals_but_button_n_uart$157-Smain$init_peripherals_but_button_n_uart$156
+      000395 03                    6379 	.db	3
+      000396 01                    6380 	.sleb128	1
+      000397 01                    6381 	.db	1
+      000398 09                    6382 	.db	9
+      000399 00 01                 6383 	.dw	1+Smain$init_peripherals_but_button_n_uart$158-Smain$init_peripherals_but_button_n_uart$157
+      00039B 00                    6384 	.db	0
+      00039C 01                    6385 	.uleb128	1
+      00039D 01                    6386 	.db	1
+      00039E 00                    6387 	.db	0
+      00039F 05                    6388 	.uleb128	5
+      0003A0 02                    6389 	.db	2
+      0003A1 00 00 05 5B           6390 	.dw	0,(Smain$sample_amps$160)
+      0003A5 03                    6391 	.db	3
+      0003A6 B1 03                 6392 	.sleb128	433
+      0003A8 01                    6393 	.db	1
+      0003A9 09                    6394 	.db	9
+      0003AA 00 00                 6395 	.dw	Smain$sample_amps$162-Smain$sample_amps$160
+      0003AC 03                    6396 	.db	3
+      0003AD 03                    6397 	.sleb128	3
+      0003AE 01                    6398 	.db	1
+      0003AF 09                    6399 	.db	9
+      0003B0 00 3E                 6400 	.dw	Smain$sample_amps$163-Smain$sample_amps$162
+      0003B2 03                    6401 	.db	3
+      0003B3 02                    6402 	.sleb128	2
+      0003B4 01                    6403 	.db	1
+      0003B5 09                    6404 	.db	9
+      0003B6 00 15                 6405 	.dw	Smain$sample_amps$164-Smain$sample_amps$163
+      0003B8 03                    6406 	.db	3
+      0003B9 01                    6407 	.sleb128	1
+      0003BA 01                    6408 	.db	1
+      0003BB 09                    6409 	.db	9
+      0003BC 00 15                 6410 	.dw	Smain$sample_amps$165-Smain$sample_amps$164
+      0003BE 03                    6411 	.db	3
+      0003BF 02                    6412 	.sleb128	2
+      0003C0 01                    6413 	.db	1
+      0003C1 09                    6414 	.db	9
+      0003C2 00 03                 6415 	.dw	Smain$sample_amps$166-Smain$sample_amps$165
+      0003C4 03                    6416 	.db	3
+      0003C5 01                    6417 	.sleb128	1
+      0003C6 01                    6418 	.db	1
+      0003C7 09                    6419 	.db	9
+      0003C8 00 25                 6420 	.dw	Smain$sample_amps$167-Smain$sample_amps$166
+      0003CA 03                    6421 	.db	3
+      0003CB 02                    6422 	.sleb128	2
+      0003CC 01                    6423 	.db	1
+      0003CD 09                    6424 	.db	9
+      0003CE 00 16                 6425 	.dw	Smain$sample_amps$168-Smain$sample_amps$167
+      0003D0 03                    6426 	.db	3
+      0003D1 03                    6427 	.sleb128	3
+      0003D2 01                    6428 	.db	1
+      0003D3 09                    6429 	.db	9
+      0003D4 00 3E                 6430 	.dw	Smain$sample_amps$169-Smain$sample_amps$168
+      0003D6 03                    6431 	.db	3
+      0003D7 02                    6432 	.sleb128	2
+      0003D8 01                    6433 	.db	1
+      0003D9 09                    6434 	.db	9
+      0003DA 00 15                 6435 	.dw	Smain$sample_amps$170-Smain$sample_amps$169
+      0003DC 03                    6436 	.db	3
+      0003DD 01                    6437 	.sleb128	1
+      0003DE 01                    6438 	.db	1
+      0003DF 09                    6439 	.db	9
+      0003E0 00 15                 6440 	.dw	Smain$sample_amps$171-Smain$sample_amps$170
+      0003E2 03                    6441 	.db	3
+      0003E3 02                    6442 	.sleb128	2
+      0003E4 01                    6443 	.db	1
+      0003E5 09                    6444 	.db	9
+      0003E6 00 03                 6445 	.dw	Smain$sample_amps$172-Smain$sample_amps$171
+      0003E8 03                    6446 	.db	3
+      0003E9 01                    6447 	.sleb128	1
+      0003EA 01                    6448 	.db	1
+      0003EB 09                    6449 	.db	9
+      0003EC 00 25                 6450 	.dw	Smain$sample_amps$173-Smain$sample_amps$172
+      0003EE 03                    6451 	.db	3
+      0003EF 02                    6452 	.sleb128	2
+      0003F0 01                    6453 	.db	1
+      0003F1 09                    6454 	.db	9
+      0003F2 00 16                 6455 	.dw	Smain$sample_amps$174-Smain$sample_amps$173
+      0003F4 03                    6456 	.db	3
+      0003F5 01                    6457 	.sleb128	1
+      0003F6 01                    6458 	.db	1
+      0003F7 09                    6459 	.db	9
+      0003F8 00 01                 6460 	.dw	1+Smain$sample_amps$175-Smain$sample_amps$174
+      0003FA 00                    6461 	.db	0
+      0003FB 01                    6462 	.uleb128	1
+      0003FC 01                    6463 	.db	1
+      0003FD 00                    6464 	.db	0
+      0003FE 05                    6465 	.uleb128	5
+      0003FF 02                    6466 	.db	2
+      000400 00 00 06 A8           6467 	.dw	0,(Smain$sample_temperature$177)
+      000404 03                    6468 	.db	3
+      000405 CA 03                 6469 	.sleb128	458
+      000407 01                    6470 	.db	1
+      000408 09                    6471 	.db	9
+      000409 00 00                 6472 	.dw	Smain$sample_temperature$179-Smain$sample_temperature$177
+      00040B 03                    6473 	.db	3
+      00040C 03                    6474 	.sleb128	3
+      00040D 01                    6475 	.db	1
+      00040E 09                    6476 	.db	9
+      00040F 00 3E                 6477 	.dw	Smain$sample_temperature$180-Smain$sample_temperature$179
+      000411 03                    6478 	.db	3
+      000412 02                    6479 	.sleb128	2
+      000413 01                    6480 	.db	1
+      000414 09                    6481 	.db	9
+      000415 00 15                 6482 	.dw	Smain$sample_temperature$181-Smain$sample_temperature$180
+      000417 03                    6483 	.db	3
+      000418 01                    6484 	.sleb128	1
+      000419 01                    6485 	.db	1
+      00041A 09                    6486 	.db	9
+      00041B 00 15                 6487 	.dw	Smain$sample_temperature$182-Smain$sample_temperature$181
+      00041D 03                    6488 	.db	3
+      00041E 02                    6489 	.sleb128	2
+      00041F 01                    6490 	.db	1
+      000420 09                    6491 	.db	9
+      000421 00 03                 6492 	.dw	Smain$sample_temperature$183-Smain$sample_temperature$182
+      000423 03                    6493 	.db	3
+      000424 01                    6494 	.sleb128	1
+      000425 01                    6495 	.db	1
+      000426 09                    6496 	.db	9
+      000427 00 45                 6497 	.dw	Smain$sample_temperature$184-Smain$sample_temperature$183
+      000429 03                    6498 	.db	3
+      00042A 02                    6499 	.sleb128	2
+      00042B 01                    6500 	.db	1
+      00042C 09                    6501 	.db	9
+      00042D 00 16                 6502 	.dw	Smain$sample_temperature$185-Smain$sample_temperature$184
+      00042F 03                    6503 	.db	3
+      000430 02                    6504 	.sleb128	2
+      000431 01                    6505 	.db	1
+      000432 09                    6506 	.db	9
+      000433 00 01                 6507 	.dw	1+Smain$sample_temperature$186-Smain$sample_temperature$185
+      000435 00                    6508 	.db	0
+      000436 01                    6509 	.uleb128	1
+      000437 01                    6510 	.db	1
+      000438 00                    6511 	.db	0
+      000439 05                    6512 	.uleb128	5
+      00043A 02                    6513 	.db	2
+      00043B 00 00 07 6F           6514 	.dw	0,(Smain$has_high_beam$188)
+      00043F 03                    6515 	.db	3
+      000440 D9 03                 6516 	.sleb128	473
+      000442 01                    6517 	.db	1
+      000443 09                    6518 	.db	9
+      000444 00 06                 6519 	.dw	Smain$has_high_beam$190-Smain$has_high_beam$188
+      000446 03                    6520 	.db	3
+      000447 02                    6521 	.sleb128	2
+      000448 01                    6522 	.db	1
+      000449 09                    6523 	.db	9
+      00044A 00 39                 6524 	.dw	Smain$has_high_beam$191-Smain$has_high_beam$190
+      00044C 03                    6525 	.db	3
+      00044D 01                    6526 	.sleb128	1
+      00044E 01                    6527 	.db	1
+      00044F 09                    6528 	.db	9
+      000450 00 01                 6529 	.dw	1+Smain$has_high_beam$192-Smain$has_high_beam$191
+      000452 00                    6530 	.db	0
+      000453 01                    6531 	.uleb128	1
+      000454 01                    6532 	.db	1
+      000455 00                    6533 	.db	0
+      000456 05                    6534 	.uleb128	5
+      000457 02                    6535 	.db	2
+      000458 00 00 07 AF           6536 	.dw	0,(Smain$avg_amp$194)
+      00045C 03                    6537 	.db	3
+      00045D DE 03                 6538 	.sleb128	478
+      00045F 01                    6539 	.db	1
+      000460 09                    6540 	.db	9
+      000461 00 06                 6541 	.dw	Smain$avg_amp$196-Smain$avg_amp$194
+      000463 03                    6542 	.db	3
+      000464 01                    6543 	.sleb128	1
+      000465 01                    6544 	.db	1
+      000466 09                    6545 	.db	9
+      000467 00 08                 6546 	.dw	Smain$avg_amp$198-Smain$avg_amp$196
+      000469 03                    6547 	.db	3
+      00046A 01                    6548 	.sleb128	1
+      00046B 01                    6549 	.db	1
+      00046C 09                    6550 	.db	9
+      00046D 00 3C                 6551 	.dw	Smain$avg_amp$201-Smain$avg_amp$198
+      00046F 03                    6552 	.db	3
+      000470 02                    6553 	.sleb128	2
+      000471 01                    6554 	.db	1
+      000472 09                    6555 	.db	9
+      000473 00 16                 6556 	.dw	Smain$avg_amp$203-Smain$avg_amp$201
+      000475 03                    6557 	.db	3
+      000476 02                    6558 	.sleb128	2
+      000477 01                    6559 	.db	1
+      000478 09                    6560 	.db	9
+      000479 00 01                 6561 	.dw	1+Smain$avg_amp$204-Smain$avg_amp$203
+      00047B 00                    6562 	.db	0
+      00047C 01                    6563 	.uleb128	1
+      00047D 01                    6564 	.db	1
+      00047E 00                    6565 	.db	0
+      00047F 05                    6566 	.uleb128	5
+      000480 02                    6567 	.db	2
+      000481 00 00 08 14           6568 	.dw	0,(Smain$target_amp$206)
+      000485 03                    6569 	.db	3
+      000486 E6 03                 6570 	.sleb128	486
+      000488 01                    6571 	.db	1
+      000489 09                    6572 	.db	9
+      00048A 00 06                 6573 	.dw	Smain$target_amp$208-Smain$target_amp$206
+      00048C 03                    6574 	.db	3
+      00048D 01                    6575 	.sleb128	1
+      00048E 01                    6576 	.db	1
+      00048F 09                    6577 	.db	9
+      000490 00 2C                 6578 	.dw	Smain$target_amp$210-Smain$target_amp$208
+      000492 03                    6579 	.db	3
+      000493 01                    6580 	.sleb128	1
+      000494 01                    6581 	.db	1
+      000495 09                    6582 	.db	9
+      000496 00 09                 6583 	.dw	Smain$target_amp$212-Smain$target_amp$210
+      000498 03                    6584 	.db	3
+      000499 01                    6585 	.sleb128	1
+      00049A 01                    6586 	.db	1
+      00049B 09                    6587 	.db	9
+      00049C 00 23                 6588 	.dw	Smain$target_amp$215-Smain$target_amp$212
+      00049E 03                    6589 	.db	3
+      00049F 02                    6590 	.sleb128	2
+      0004A0 01                    6591 	.db	1
+      0004A1 09                    6592 	.db	9
+      0004A2 00 1B                 6593 	.dw	Smain$target_amp$216-Smain$target_amp$215
+      0004A4 03                    6594 	.db	3
+      0004A5 01                    6595 	.sleb128	1
+      0004A6 01                    6596 	.db	1
+      0004A7 09                    6597 	.db	9
+      0004A8 00 40                 6598 	.dw	Smain$target_amp$218-Smain$target_amp$216
+      0004AA 03                    6599 	.db	3
+      0004AB 01                    6600 	.sleb128	1
+      0004AC 01                    6601 	.db	1
+      0004AD 09                    6602 	.db	9
+      0004AE 00 43                 6603 	.dw	Smain$target_amp$220-Smain$target_amp$218
+      0004B0 03                    6604 	.db	3
+      0004B1 03                    6605 	.sleb128	3
+      0004B2 01                    6606 	.db	1
+      0004B3 09                    6607 	.db	9
+      0004B4 00 1E                 6608 	.dw	Smain$target_amp$222-Smain$target_amp$220
+      0004B6 03                    6609 	.db	3
+      0004B7 02                    6610 	.sleb128	2
+      0004B8 01                    6611 	.db	1
+      0004B9 09                    6612 	.db	9
+      0004BA 00 01                 6613 	.dw	1+Smain$target_amp$223-Smain$target_amp$222
+      0004BC 00                    6614 	.db	0
+      0004BD 01                    6615 	.uleb128	1
+      0004BE 01                    6616 	.db	1
+      0004BF 00                    6617 	.db	0
+      0004C0 05                    6618 	.uleb128	5
+      0004C1 02                    6619 	.db	2
+      0004C2 00 00 09 31           6620 	.dw	0,(Smain$changeMode$225)
+      0004C6 03                    6621 	.db	3
+      0004C7 FF 03                 6622 	.sleb128	511
+      0004C9 01                    6623 	.db	1
+      0004CA 09                    6624 	.db	9
+      0004CB 00 06                 6625 	.dw	Smain$changeMode$227-Smain$changeMode$225
+      0004CD 03                    6626 	.db	3
+      0004CE 02                    6627 	.sleb128	2
+      0004CF 01                    6628 	.db	1
+      0004D0 09                    6629 	.db	9
+      0004D1 00 0E                 6630 	.dw	Smain$changeMode$228-Smain$changeMode$227
+      0004D3 03                    6631 	.db	3
+      0004D4 01                    6632 	.sleb128	1
+      0004D5 01                    6633 	.db	1
+      0004D6 09                    6634 	.db	9
+      0004D7 00 08                 6635 	.dw	Smain$changeMode$229-Smain$changeMode$228
+      0004D9 03                    6636 	.db	3
+      0004DA 01                    6637 	.sleb128	1
+      0004DB 01                    6638 	.db	1
+      0004DC 09                    6639 	.db	9
+      0004DD 00 13                 6640 	.dw	Smain$changeMode$230-Smain$changeMode$229
+      0004DF 03                    6641 	.db	3
+      0004E0 02                    6642 	.sleb128	2
+      0004E1 01                    6643 	.db	1
+      0004E2 09                    6644 	.db	9
+      0004E3 00 12                 6645 	.dw	Smain$changeMode$237-Smain$changeMode$230
+      0004E5 03                    6646 	.db	3
+      0004E6 01                    6647 	.sleb128	1
+      0004E7 01                    6648 	.db	1
+      0004E8 09                    6649 	.db	9
+      0004E9 00 1C                 6650 	.dw	Smain$changeMode$238-Smain$changeMode$237
+      0004EB 03                    6651 	.db	3
+      0004EC 01                    6652 	.sleb128	1
+      0004ED 01                    6653 	.db	1
+      0004EE 09                    6654 	.db	9
+      0004EF 00 1B                 6655 	.dw	Smain$changeMode$239-Smain$changeMode$238
+      0004F1 03                    6656 	.db	3
+      0004F2 01                    6657 	.sleb128	1
+      0004F3 01                    6658 	.db	1
+      0004F4 09                    6659 	.db	9
+      0004F5 00 0F                 6660 	.dw	Smain$changeMode$240-Smain$changeMode$239
+      0004F7 03                    6661 	.db	3
+      0004F8 01                    6662 	.sleb128	1
+      0004F9 01                    6663 	.db	1
+      0004FA 09                    6664 	.db	9
+      0004FB 00 2A                 6665 	.dw	Smain$changeMode$241-Smain$changeMode$240
+      0004FD 03                    6666 	.db	3
+      0004FE 01                    6667 	.sleb128	1
+      0004FF 01                    6668 	.db	1
+      000500 09                    6669 	.db	9
+      000501 00 0F                 6670 	.dw	Smain$changeMode$242-Smain$changeMode$241
+      000503 03                    6671 	.db	3
+      000504 01                    6672 	.sleb128	1
+      000505 01                    6673 	.db	1
+      000506 09                    6674 	.db	9
+      000507 00 24                 6675 	.dw	Smain$changeMode$243-Smain$changeMode$242
+      000509 03                    6676 	.db	3
+      00050A 01                    6677 	.sleb128	1
+      00050B 01                    6678 	.db	1
+      00050C 09                    6679 	.db	9
+      00050D 00 0D                 6680 	.dw	Smain$changeMode$245-Smain$changeMode$243
+      00050F 03                    6681 	.db	3
+      000510 79                    6682 	.sleb128	-7
+      000511 01                    6683 	.db	1
+      000512 09                    6684 	.db	9
+      000513 00 08                 6685 	.dw	Smain$changeMode$247-Smain$changeMode$245
+      000515 03                    6686 	.db	3
+      000516 0D                    6687 	.sleb128	13
+      000517 01                    6688 	.db	1
+      000518 09                    6689 	.db	9
+      000519 00 03                 6690 	.dw	Smain$changeMode$249-Smain$changeMode$247
+      00051B 03                    6691 	.db	3
+      00051C 01                    6692 	.sleb128	1
+      00051D 01                    6693 	.db	1
+      00051E 09                    6694 	.db	9
+      00051F 00 0F                 6695 	.dw	Smain$changeMode$252-Smain$changeMode$249
+      000521 03                    6696 	.db	3
+      000522 01                    6697 	.sleb128	1
+      000523 01                    6698 	.db	1
+      000524 09                    6699 	.db	9
+      000525 00 0C                 6700 	.dw	Smain$changeMode$254-Smain$changeMode$252
+      000527 03                    6701 	.db	3
+      000528 7F                    6702 	.sleb128	-1
+      000529 01                    6703 	.db	1
+      00052A 09                    6704 	.db	9
+      00052B 00 07                 6705 	.dw	Smain$changeMode$256-Smain$changeMode$254
+      00052D 03                    6706 	.db	3
+      00052E 04                    6707 	.sleb128	4
+      00052F 01                    6708 	.db	1
+      000530 09                    6709 	.db	9
+      000531 00 0E                 6710 	.dw	Smain$changeMode$258-Smain$changeMode$256
+      000533 03                    6711 	.db	3
+      000534 01                    6712 	.sleb128	1
+      000535 01                    6713 	.db	1
+      000536 09                    6714 	.db	9
+      000537 00 17                 6715 	.dw	Smain$changeMode$262-Smain$changeMode$258
+      000539 03                    6716 	.db	3
+      00053A 01                    6717 	.sleb128	1
+      00053B 01                    6718 	.db	1
+      00053C 09                    6719 	.db	9
+      00053D 00 34                 6720 	.dw	Smain$changeMode$263-Smain$changeMode$262
+      00053F 03                    6721 	.db	3
+      000540 01                    6722 	.sleb128	1
+      000541 01                    6723 	.db	1
+      000542 09                    6724 	.db	9
+      000543 00 16                 6725 	.dw	Smain$changeMode$265-Smain$changeMode$263
+      000545 03                    6726 	.db	3
+      000546 7E                    6727 	.sleb128	-2
+      000547 01                    6728 	.db	1
+      000548 09                    6729 	.db	9
+      000549 00 07                 6730 	.dw	Smain$changeMode$267-Smain$changeMode$265
+      00054B 03                    6731 	.db	3
+      00054C 06                    6732 	.sleb128	6
+      00054D 01                    6733 	.db	1
+      00054E 09                    6734 	.db	9
+      00054F 00 08                 6735 	.dw	Smain$changeMode$268-Smain$changeMode$267
+      000551 03                    6736 	.db	3
+      000552 02                    6737 	.sleb128	2
+      000553 01                    6738 	.db	1
+      000554 09                    6739 	.db	9
+      000555 00 06                 6740 	.dw	Smain$changeMode$269-Smain$changeMode$268
+      000557 03                    6741 	.db	3
+      000558 01                    6742 	.sleb128	1
+      000559 01                    6743 	.db	1
+      00055A 09                    6744 	.db	9
+      00055B 00 15                 6745 	.dw	Smain$changeMode$270-Smain$changeMode$269
+      00055D 03                    6746 	.db	3
+      00055E 01                    6747 	.sleb128	1
+      00055F 01                    6748 	.db	1
+      000560 09                    6749 	.db	9
+      000561 00 01                 6750 	.dw	1+Smain$changeMode$271-Smain$changeMode$270
+      000563 00                    6751 	.db	0
+      000564 01                    6752 	.uleb128	1
+      000565 01                    6753 	.db	1
+      000566 00                    6754 	.db	0
+      000567 05                    6755 	.uleb128	5
+      000568 02                    6756 	.db	2
+      000569 00 00 0A E9           6757 	.dw	0,(Smain$toNextMode$273)
+      00056D 03                    6758 	.db	3
+      00056E A7 04                 6759 	.sleb128	551
+      000570 01                    6760 	.db	1
+      000571 09                    6761 	.db	9
+      000572 00 00                 6762 	.dw	Smain$toNextMode$275-Smain$toNextMode$273
+      000574 03                    6763 	.db	3
+      000575 02                    6764 	.sleb128	2
+      000576 01                    6765 	.db	1
+      000577 09                    6766 	.db	9
+      000578 00 0D                 6767 	.dw	Smain$toNextMode$276-Smain$toNextMode$275
+      00057A 03                    6768 	.db	3
+      00057B 01                    6769 	.sleb128	1
+      00057C 01                    6770 	.db	1
+      00057D 09                    6771 	.db	9
+      00057E 00 01                 6772 	.dw	1+Smain$toNextMode$277-Smain$toNextMode$276
+      000580 00                    6773 	.db	0
+      000581 01                    6774 	.uleb128	1
+      000582 01                    6775 	.db	1
+      000583 00                    6776 	.db	0
+      000584 05                    6777 	.uleb128	5
+      000585 02                    6778 	.db	2
+      000586 00 00 0A F7           6779 	.dw	0,(Smain$process_uart$279)
+      00058A 03                    6780 	.db	3
+      00058B AD 04                 6781 	.sleb128	557
+      00058D 01                    6782 	.db	1
+      00058E 09                    6783 	.db	9
+      00058F 00 00                 6784 	.dw	Smain$process_uart$281-Smain$process_uart$279
+      000591 03                    6785 	.db	3
+      000592 02                    6786 	.sleb128	2
+      000593 01                    6787 	.db	1
+      000594 09                    6788 	.db	9
+      000595 00 11                 6789 	.dw	Smain$process_uart$283-Smain$process_uart$281
+      000597 03                    6790 	.db	3
+      000598 01                    6791 	.sleb128	1
+      000599 01                    6792 	.db	1
+      00059A 09                    6793 	.db	9
+      00059B 00 06                 6794 	.dw	Smain$process_uart$284-Smain$process_uart$283
+      00059D 03                    6795 	.db	3
+      00059E 01                    6796 	.sleb128	1
+      00059F 01                    6797 	.db	1
+      0005A0 09                    6798 	.db	9
+      0005A1 00 06                 6799 	.dw	Smain$process_uart$286-Smain$process_uart$284
+      0005A3 03                    6800 	.db	3
+      0005A4 02                    6801 	.sleb128	2
+      0005A5 01                    6802 	.db	1
+      0005A6 09                    6803 	.db	9
+      0005A7 00 11                 6804 	.dw	Smain$process_uart$290-Smain$process_uart$286
+      0005A9 03                    6805 	.db	3
+      0005AA 01                    6806 	.sleb128	1
+      0005AB 01                    6807 	.db	1
+      0005AC 09                    6808 	.db	9
+      0005AD 00 0F                 6809 	.dw	Smain$process_uart$291-Smain$process_uart$290
+      0005AF 03                    6810 	.db	3
+      0005B0 01                    6811 	.sleb128	1
+      0005B1 01                    6812 	.db	1
+      0005B2 09                    6813 	.db	9
+      0005B3 00 1E                 6814 	.dw	Smain$process_uart$292-Smain$process_uart$291
+      0005B5 03                    6815 	.db	3
+      0005B6 01                    6816 	.sleb128	1
+      0005B7 01                    6817 	.db	1
+      0005B8 09                    6818 	.db	9
+      0005B9 00 0B                 6819 	.dw	Smain$process_uart$293-Smain$process_uart$292
+      0005BB 03                    6820 	.db	3
+      0005BC 02                    6821 	.sleb128	2
+      0005BD 01                    6822 	.db	1
+      0005BE 09                    6823 	.db	9
+      0005BF 00 0E                 6824 	.dw	Smain$process_uart$294-Smain$process_uart$293
+      0005C1 03                    6825 	.db	3
+      0005C2 01                    6826 	.sleb128	1
+      0005C3 01                    6827 	.db	1
+      0005C4 09                    6828 	.db	9
+      0005C5 00 4B                 6829 	.dw	Smain$process_uart$295-Smain$process_uart$294
+      0005C7 03                    6830 	.db	3
+      0005C8 01                    6831 	.sleb128	1
+      0005C9 01                    6832 	.db	1
+      0005CA 09                    6833 	.db	9
+      0005CB 00 00                 6834 	.dw	Smain$process_uart$296-Smain$process_uart$295
+      0005CD 03                    6835 	.db	3
+      0005CE 01                    6836 	.sleb128	1
+      0005CF 01                    6837 	.db	1
+      0005D0 09                    6838 	.db	9
+      0005D1 00 05                 6839 	.dw	Smain$process_uart$297-Smain$process_uart$296
+      0005D3 03                    6840 	.db	3
+      0005D4 01                    6841 	.sleb128	1
+      0005D5 01                    6842 	.db	1
+      0005D6 09                    6843 	.db	9
+      0005D7 00 0B                 6844 	.dw	Smain$process_uart$298-Smain$process_uart$297
+      0005D9 03                    6845 	.db	3
+      0005DA 01                    6846 	.sleb128	1
+      0005DB 01                    6847 	.db	1
+      0005DC 09                    6848 	.db	9
+      0005DD 00 03                 6849 	.dw	Smain$process_uart$299-Smain$process_uart$298
+      0005DF 03                    6850 	.db	3
+      0005E0 01                    6851 	.sleb128	1
+      0005E1 01                    6852 	.db	1
+      0005E2 09                    6853 	.db	9
+      0005E3 00 00                 6854 	.dw	Smain$process_uart$300-Smain$process_uart$299
+      0005E5 03                    6855 	.db	3
+      0005E6 01                    6856 	.sleb128	1
+      0005E7 01                    6857 	.db	1
+      0005E8 09                    6858 	.db	9
+      0005E9 00 06                 6859 	.dw	Smain$process_uart$301-Smain$process_uart$300
+      0005EB 03                    6860 	.db	3
+      0005EC 01                    6861 	.sleb128	1
+      0005ED 01                    6862 	.db	1
+      0005EE 09                    6863 	.db	9
+      0005EF 00 03                 6864 	.dw	Smain$process_uart$302-Smain$process_uart$301
+      0005F1 03                    6865 	.db	3
+      0005F2 01                    6866 	.sleb128	1
+      0005F3 01                    6867 	.db	1
+      0005F4 09                    6868 	.db	9
+      0005F5 00 00                 6869 	.dw	Smain$process_uart$303-Smain$process_uart$302
+      0005F7 03                    6870 	.db	3
+      0005F8 01                    6871 	.sleb128	1
+      0005F9 01                    6872 	.db	1
+      0005FA 09                    6873 	.db	9
+      0005FB 00 06                 6874 	.dw	Smain$process_uart$304-Smain$process_uart$303
+      0005FD 03                    6875 	.db	3
+      0005FE 01                    6876 	.sleb128	1
+      0005FF 01                    6877 	.db	1
+      000600 09                    6878 	.db	9
+      000601 00 03                 6879 	.dw	Smain$process_uart$305-Smain$process_uart$304
+      000603 03                    6880 	.db	3
+      000604 01                    6881 	.sleb128	1
+      000605 01                    6882 	.db	1
+      000606 09                    6883 	.db	9
+      000607 00 00                 6884 	.dw	Smain$process_uart$306-Smain$process_uart$305
+      000609 03                    6885 	.db	3
+      00060A 01                    6886 	.sleb128	1
+      00060B 01                    6887 	.db	1
+      00060C 09                    6888 	.db	9
+      00060D 00 06                 6889 	.dw	Smain$process_uart$307-Smain$process_uart$306
+      00060F 03                    6890 	.db	3
+      000610 01                    6891 	.sleb128	1
+      000611 01                    6892 	.db	1
+      000612 09                    6893 	.db	9
+      000613 00 03                 6894 	.dw	Smain$process_uart$308-Smain$process_uart$307
+      000615 03                    6895 	.db	3
+      000616 01                    6896 	.sleb128	1
+      000617 01                    6897 	.db	1
+      000618 09                    6898 	.db	9
+      000619 00 00                 6899 	.dw	Smain$process_uart$309-Smain$process_uart$308
+      00061B 03                    6900 	.db	3
+      00061C 01                    6901 	.sleb128	1
+      00061D 01                    6902 	.db	1
+      00061E 09                    6903 	.db	9
+      00061F 00 06                 6904 	.dw	Smain$process_uart$310-Smain$process_uart$309
+      000621 03                    6905 	.db	3
+      000622 01                    6906 	.sleb128	1
+      000623 01                    6907 	.db	1
+      000624 09                    6908 	.db	9
+      000625 00 03                 6909 	.dw	Smain$process_uart$311-Smain$process_uart$310
+      000627 03                    6910 	.db	3
+      000628 01                    6911 	.sleb128	1
+      000629 01                    6912 	.db	1
+      00062A 09                    6913 	.db	9
+      00062B 00 02                 6914 	.dw	Smain$process_uart$312-Smain$process_uart$311
+      00062D 03                    6915 	.db	3
+      00062E 01                    6916 	.sleb128	1
+      00062F 01                    6917 	.db	1
+      000630 09                    6918 	.db	9
+      000631 00 0D                 6919 	.dw	Smain$process_uart$313-Smain$process_uart$312
+      000633 03                    6920 	.db	3
+      000634 01                    6921 	.sleb128	1
+      000635 01                    6922 	.db	1
+      000636 09                    6923 	.db	9
+      000637 00 0A                 6924 	.dw	Smain$process_uart$314-Smain$process_uart$313
+      000639 03                    6925 	.db	3
+      00063A 01                    6926 	.sleb128	1
+      00063B 01                    6927 	.db	1
+      00063C 09                    6928 	.db	9
+      00063D 00 03                 6929 	.dw	Smain$process_uart$315-Smain$process_uart$314
+      00063F 03                    6930 	.db	3
+      000640 01                    6931 	.sleb128	1
+      000641 01                    6932 	.db	1
+      000642 09                    6933 	.db	9
+      000643 00 00                 6934 	.dw	Smain$process_uart$316-Smain$process_uart$315
+      000645 03                    6935 	.db	3
+      000646 01                    6936 	.sleb128	1
+      000647 01                    6937 	.db	1
+      000648 09                    6938 	.db	9
+      000649 00 0D                 6939 	.dw	Smain$process_uart$317-Smain$process_uart$316
+      00064B 03                    6940 	.db	3
+      00064C 01                    6941 	.sleb128	1
+      00064D 01                    6942 	.db	1
+      00064E 09                    6943 	.db	9
+      00064F 00 06                 6944 	.dw	Smain$process_uart$318-Smain$process_uart$317
+      000651 03                    6945 	.db	3
+      000652 01                    6946 	.sleb128	1
+      000653 01                    6947 	.db	1
+      000654 09                    6948 	.db	9
+      000655 00 03                 6949 	.dw	Smain$process_uart$319-Smain$process_uart$318
+      000657 03                    6950 	.db	3
+      000658 06                    6951 	.sleb128	6
+      000659 01                    6952 	.db	1
+      00065A 09                    6953 	.db	9
+      00065B 00 00                 6954 	.dw	Smain$process_uart$320-Smain$process_uart$319
+      00065D 03                    6955 	.db	3
+      00065E 01                    6956 	.sleb128	1
+      00065F 01                    6957 	.db	1
+      000660 09                    6958 	.db	9
+      000661 00 05                 6959 	.dw	Smain$process_uart$321-Smain$process_uart$320
+      000663 03                    6960 	.db	3
+      000664 01                    6961 	.sleb128	1
+      000665 01                    6962 	.db	1
+      000666 09                    6963 	.db	9
+      000667 00 12                 6964 	.dw	Smain$process_uart$323-Smain$process_uart$321
+      000669 03                    6965 	.db	3
+      00066A 02                    6966 	.sleb128	2
+      00066B 01                    6967 	.db	1
+      00066C 09                    6968 	.db	9
+      00066D 00 0B                 6969 	.dw	Smain$process_uart$324-Smain$process_uart$323
+      00066F 03                    6970 	.db	3
+      000670 01                    6971 	.sleb128	1
+      000671 01                    6972 	.db	1
+      000672 09                    6973 	.db	9
+      000673 00 03                 6974 	.dw	Smain$process_uart$325-Smain$process_uart$324
+      000675 03                    6975 	.db	3
+      000676 01                    6976 	.sleb128	1
+      000677 01                    6977 	.db	1
+      000678 09                    6978 	.db	9
+      000679 00 00                 6979 	.dw	Smain$process_uart$326-Smain$process_uart$325
+      00067B 03                    6980 	.db	3
+      00067C 01                    6981 	.sleb128	1
+      00067D 01                    6982 	.db	1
+      00067E 09                    6983 	.db	9
+      00067F 00 0D                 6984 	.dw	Smain$process_uart$328-Smain$process_uart$326
+      000681 03                    6985 	.db	3
+      000682 01                    6986 	.sleb128	1
+      000683 01                    6987 	.db	1
+      000684 09                    6988 	.db	9
+      000685 00 08                 6989 	.dw	Smain$process_uart$330-Smain$process_uart$328
+      000687 03                    6990 	.db	3
+      000688 04                    6991 	.sleb128	4
+      000689 01                    6992 	.db	1
+      00068A 09                    6993 	.db	9
+      00068B 00 03                 6994 	.dw	Smain$process_uart$331-Smain$process_uart$330
+      00068D 03                    6995 	.db	3
+      00068E 03                    6996 	.sleb128	3
+      00068F 01                    6997 	.db	1
+      000690 09                    6998 	.db	9
+      000691 00 03                 6999 	.dw	Smain$process_uart$332-Smain$process_uart$331
+      000693 03                    7000 	.db	3
+      000694 01                    7001 	.sleb128	1
+      000695 01                    7002 	.db	1
+      000696 09                    7003 	.db	9
+      000697 00 01                 7004 	.dw	1+Smain$process_uart$333-Smain$process_uart$332
+      000699 00                    7005 	.db	0
+      00069A 01                    7006 	.uleb128	1
+      00069B 01                    7007 	.db	1
+      00069C 00                    7008 	.db	0
+      00069D 05                    7009 	.uleb128	5
+      00069E 02                    7010 	.db	2
+      00069F 00 00 0C 60           7011 	.dw	0,(Smain$process_button$335)
+      0006A3 03                    7012 	.db	3
+      0006A4 E9 04                 7013 	.sleb128	617
+      0006A6 01                    7014 	.db	1
+      0006A7 09                    7015 	.db	9
+      0006A8 00 00                 7016 	.dw	Smain$process_button$337-Smain$process_button$335
+      0006AA 03                    7017 	.db	3
+      0006AB 02                    7018 	.sleb128	2
+      0006AC 01                    7019 	.db	1
+      0006AD 09                    7020 	.db	9
+      0006AE 00 03                 7021 	.dw	Smain$process_button$339-Smain$process_button$337
+      0006B0 03                    7022 	.db	3
+      0006B1 01                    7023 	.sleb128	1
+      0006B2 01                    7024 	.db	1
+      0006B3 09                    7025 	.db	9
+      0006B4 00 06                 7026 	.dw	Smain$process_button$340-Smain$process_button$339
+      0006B6 03                    7027 	.db	3
+      0006B7 01                    7028 	.sleb128	1
+      0006B8 01                    7029 	.db	1
+      0006B9 09                    7030 	.db	9
+      0006BA 00 16                 7031 	.dw	Smain$process_button$341-Smain$process_button$340
+      0006BC 03                    7032 	.db	3
+      0006BD 01                    7033 	.sleb128	1
+      0006BE 01                    7034 	.db	1
+      0006BF 09                    7035 	.db	9
+      0006C0 00 0B                 7036 	.dw	Smain$process_button$342-Smain$process_button$341
+      0006C2 03                    7037 	.db	3
+      0006C3 02                    7038 	.sleb128	2
+      0006C4 01                    7039 	.db	1
+      0006C5 09                    7040 	.db	9
+      0006C6 00 1F                 7041 	.dw	Smain$process_button$344-Smain$process_button$342
+      0006C8 03                    7042 	.db	3
+      0006C9 01                    7043 	.sleb128	1
+      0006CA 01                    7044 	.db	1
+      0006CB 09                    7045 	.db	9
+      0006CC 00 06                 7046 	.dw	Smain$process_button$345-Smain$process_button$344
+      0006CE 03                    7047 	.db	3
+      0006CF 01                    7048 	.sleb128	1
+      0006D0 01                    7049 	.db	1
+      0006D1 09                    7050 	.db	9
+      0006D2 00 06                 7051 	.dw	Smain$process_button$347-Smain$process_button$345
+      0006D4 03                    7052 	.db	3
+      0006D5 01                    7053 	.sleb128	1
+      0006D6 01                    7054 	.db	1
+      0006D7 09                    7055 	.db	9
+      0006D8 00 09                 7056 	.dw	Smain$process_button$350-Smain$process_button$347
+      0006DA 03                    7057 	.db	3
+      0006DB 02                    7058 	.sleb128	2
+      0006DC 01                    7059 	.db	1
+      0006DD 09                    7060 	.db	9
+      0006DE 00 0D                 7061 	.dw	Smain$process_button$352-Smain$process_button$350
+      0006E0 03                    7062 	.db	3
+      0006E1 03                    7063 	.sleb128	3
+      0006E2 01                    7064 	.db	1
+      0006E3 09                    7065 	.db	9
+      0006E4 00 17                 7066 	.dw	Smain$process_button$354-Smain$process_button$352
+      0006E6 03                    7067 	.db	3
+      0006E7 01                    7068 	.sleb128	1
+      0006E8 01                    7069 	.db	1
+      0006E9 09                    7070 	.db	9
+      0006EA 00 06                 7071 	.dw	Smain$process_button$355-Smain$process_button$354
+      0006EC 03                    7072 	.db	3
+      0006ED 01                    7073 	.sleb128	1
+      0006EE 01                    7074 	.db	1
+      0006EF 09                    7075 	.db	9
+      0006F0 00 16                 7076 	.dw	Smain$process_button$356-Smain$process_button$355
+      0006F2 03                    7077 	.db	3
+      0006F3 01                    7078 	.sleb128	1
+      0006F4 01                    7079 	.db	1
+      0006F5 09                    7080 	.db	9
+      0006F6 00 1A                 7081 	.dw	Smain$process_button$358-Smain$process_button$356
+      0006F8 03                    7082 	.db	3
+      0006F9 01                    7083 	.sleb128	1
+      0006FA 01                    7084 	.db	1
+      0006FB 09                    7085 	.db	9
+      0006FC 00 1D                 7086 	.dw	Smain$process_button$360-Smain$process_button$358
+      0006FE 03                    7087 	.db	3
+      0006FF 01                    7088 	.sleb128	1
+      000700 01                    7089 	.db	1
+      000701 09                    7090 	.db	9
+      000702 00 06                 7091 	.dw	Smain$process_button$362-Smain$process_button$360
+      000704 03                    7092 	.db	3
+      000705 01                    7093 	.sleb128	1
+      000706 01                    7094 	.db	1
+      000707 09                    7095 	.db	9
+      000708 00 06                 7096 	.dw	Smain$process_button$363-Smain$process_button$362
+      00070A 03                    7097 	.db	3
+      00070B 01                    7098 	.sleb128	1
+      00070C 01                    7099 	.db	1
+      00070D 09                    7100 	.db	9
+      00070E 00 15                 7101 	.dw	Smain$process_button$364-Smain$process_button$363
+      000710 03                    7102 	.db	3
+      000711 01                    7103 	.sleb128	1
+      000712 01                    7104 	.db	1
+      000713 09                    7105 	.db	9
+      000714 00 05                 7106 	.dw	Smain$process_button$367-Smain$process_button$364
+      000716 03                    7107 	.db	3
+      000717 03                    7108 	.sleb128	3
+      000718 01                    7109 	.db	1
+      000719 09                    7110 	.db	9
+      00071A 00 06                 7111 	.dw	Smain$process_button$368-Smain$process_button$367
+      00071C 03                    7112 	.db	3
+      00071D 01                    7113 	.sleb128	1
+      00071E 01                    7114 	.db	1
+      00071F 09                    7115 	.db	9
+      000720 00 16                 7116 	.dw	Smain$process_button$370-Smain$process_button$368
+      000722 03                    7117 	.db	3
+      000723 02                    7118 	.sleb128	2
+      000724 01                    7119 	.db	1
+      000725 09                    7120 	.db	9
+      000726 00 15                 7121 	.dw	Smain$process_button$372-Smain$process_button$370
+      000728 03                    7122 	.db	3
+      000729 03                    7123 	.sleb128	3
+      00072A 01                    7124 	.db	1
+      00072B 09                    7125 	.db	9
+      00072C 00 01                 7126 	.dw	1+Smain$process_button$373-Smain$process_button$372
+      00072E 00                    7127 	.db	0
+      00072F 01                    7128 	.uleb128	1
+      000730 01                    7129 	.db	1
+      000731 00                    7130 	.db	0
+      000732 05                    7131 	.uleb128	5
+      000733 02                    7132 	.db	2
+      000734 00 00 0D 8D           7133 	.dw	0,(Smain$stop_leds$375)
+      000738 03                    7134 	.db	3
+      000739 8C 05                 7135 	.sleb128	652
+      00073B 01                    7136 	.db	1
+      00073C 09                    7137 	.db	9
+      00073D 00 00                 7138 	.dw	Smain$stop_leds$377-Smain$stop_leds$375
+      00073F 03                    7139 	.db	3
+      000740 03                    7140 	.sleb128	3
+      000741 01                    7141 	.db	1
+      000742 09                    7142 	.db	9
+      000743 00 02                 7143 	.dw	Smain$stop_leds$378-Smain$stop_leds$377
+      000745 03                    7144 	.db	3
+      000746 01                    7145 	.sleb128	1
+      000747 01                    7146 	.db	1
+      000748 09                    7147 	.db	9
+      000749 00 13                 7148 	.dw	Smain$stop_leds$379-Smain$stop_leds$378
+      00074B 03                    7149 	.db	3
+      00074C 02                    7150 	.sleb128	2
+      00074D 01                    7151 	.db	1
+      00074E 09                    7152 	.db	9
+      00074F 00 03                 7153 	.dw	Smain$stop_leds$380-Smain$stop_leds$379
+      000751 03                    7154 	.db	3
+      000752 01                    7155 	.sleb128	1
+      000753 01                    7156 	.db	1
+      000754 09                    7157 	.db	9
+      000755 00 03                 7158 	.dw	Smain$stop_leds$381-Smain$stop_leds$380
+      000757 03                    7159 	.db	3
+      000758 01                    7160 	.sleb128	1
+      000759 01                    7161 	.db	1
+      00075A 09                    7162 	.db	9
+      00075B 00 03                 7163 	.dw	Smain$stop_leds$382-Smain$stop_leds$381
+      00075D 03                    7164 	.db	3
+      00075E 01                    7165 	.sleb128	1
+      00075F 01                    7166 	.db	1
+      000760 09                    7167 	.db	9
+      000761 00 03                 7168 	.dw	Smain$stop_leds$383-Smain$stop_leds$382
+      000763 03                    7169 	.db	3
+      000764 02                    7170 	.sleb128	2
+      000765 01                    7171 	.db	1
+      000766 09                    7172 	.db	9
+      000767 00 13                 7173 	.dw	Smain$stop_leds$384-Smain$stop_leds$383
+      000769 03                    7174 	.db	3
+      00076A 01                    7175 	.sleb128	1
+      00076B 01                    7176 	.db	1
+      00076C 09                    7177 	.db	9
+      00076D 00 02                 7178 	.dw	Smain$stop_leds$385-Smain$stop_leds$384
+      00076F 03                    7179 	.db	3
+      000770 01                    7180 	.sleb128	1
+      000771 01                    7181 	.db	1
+      000772 09                    7182 	.db	9
+      000773 00 01                 7183 	.dw	1+Smain$stop_leds$386-Smain$stop_leds$385
+      000775 00                    7184 	.db	0
+      000776 01                    7185 	.uleb128	1
+      000777 01                    7186 	.db	1
+      000778 00                    7187 	.db	0
+      000779 05                    7188 	.uleb128	5
+      00077A 02                    7189 	.db	2
+      00077B 00 00 0D C4           7190 	.dw	0,(Smain$activate_leds$388)
+      00077F 03                    7191 	.db	3
+      000780 9B 05                 7192 	.sleb128	667
+      000782 01                    7193 	.db	1
+      000783 09                    7194 	.db	9
+      000784 00 00                 7195 	.dw	Smain$activate_leds$390-Smain$activate_leds$388
+      000786 03                    7196 	.db	3
+      000787 02                    7197 	.sleb128	2
+      000788 01                    7198 	.db	1
+      000789 09                    7199 	.db	9
+      00078A 00 02                 7200 	.dw	Smain$activate_leds$391-Smain$activate_leds$390
+      00078C 03                    7201 	.db	3
+      00078D 01                    7202 	.sleb128	1
+      00078E 01                    7203 	.db	1
+      00078F 09                    7204 	.db	9
+      000790 00 13                 7205 	.dw	Smain$activate_leds$392-Smain$activate_leds$391
+      000792 03                    7206 	.db	3
+      000793 02                    7207 	.sleb128	2
+      000794 01                    7208 	.db	1
+      000795 09                    7209 	.db	9
+      000796 00 06                 7210 	.dw	Smain$activate_leds$393-Smain$activate_leds$392
+      000798 03                    7211 	.db	3
+      000799 01                    7212 	.sleb128	1
+      00079A 01                    7213 	.db	1
+      00079B 09                    7214 	.db	9
+      00079C 00 06                 7215 	.dw	Smain$activate_leds$394-Smain$activate_leds$393
+      00079E 03                    7216 	.db	3
+      00079F 02                    7217 	.sleb128	2
+      0007A0 01                    7218 	.db	1
+      0007A1 09                    7219 	.db	9
+      0007A2 00 13                 7220 	.dw	Smain$activate_leds$395-Smain$activate_leds$394
+      0007A4 03                    7221 	.db	3
+      0007A5 01                    7222 	.sleb128	1
+      0007A6 01                    7223 	.db	1
+      0007A7 09                    7224 	.db	9
+      0007A8 00 02                 7225 	.dw	Smain$activate_leds$396-Smain$activate_leds$395
+      0007AA 03                    7226 	.db	3
+      0007AB 01                    7227 	.sleb128	1
+      0007AC 01                    7228 	.db	1
+      0007AD 09                    7229 	.db	9
+      0007AE 00 01                 7230 	.dw	1+Smain$activate_leds$397-Smain$activate_leds$396
+      0007B0 00                    7231 	.db	0
+      0007B1 01                    7232 	.uleb128	1
+      0007B2 01                    7233 	.db	1
+      0007B3 00                    7234 	.db	0
+      0007B4 05                    7235 	.uleb128	5
+      0007B5 02                    7236 	.db	2
+      0007B6 00 00 0D FB           7237 	.dw	0,(Smain$mode_changing_control$399)
+      0007BA 03                    7238 	.db	3
+      0007BB AC 05                 7239 	.sleb128	684
+      0007BD 01                    7240 	.db	1
+      0007BE 09                    7241 	.db	9
+      0007BF 00 00                 7242 	.dw	Smain$mode_changing_control$401-Smain$mode_changing_control$399
+      0007C1 03                    7243 	.db	3
+      0007C2 02                    7244 	.sleb128	2
+      0007C3 01                    7245 	.db	1
+      0007C4 09                    7246 	.db	9
+      0007C5 00 05                 7247 	.dw	Smain$mode_changing_control$403-Smain$mode_changing_control$401
+      0007C7 03                    7248 	.db	3
+      0007C8 02                    7249 	.sleb128	2
+      0007C9 01                    7250 	.db	1
+      0007CA 09                    7251 	.db	9
+      0007CB 00 12                 7252 	.dw	Smain$mode_changing_control$412-Smain$mode_changing_control$403
+      0007CD 03                    7253 	.db	3
+      0007CE 01                    7254 	.sleb128	1
+      0007CF 01                    7255 	.db	1
+      0007D0 09                    7256 	.db	9
+      0007D1 00 21                 7257 	.dw	Smain$mode_changing_control$413-Smain$mode_changing_control$412
+      0007D3 03                    7258 	.db	3
+      0007D4 01                    7259 	.sleb128	1
+      0007D5 01                    7260 	.db	1
+      0007D6 09                    7261 	.db	9
+      0007D7 00 00                 7262 	.dw	Smain$mode_changing_control$414-Smain$mode_changing_control$413
+      0007D9 03                    7263 	.db	3
+      0007DA 01                    7264 	.sleb128	1
+      0007DB 01                    7265 	.db	1
+      0007DC 09                    7266 	.db	9
+      0007DD 00 1A                 7267 	.dw	Smain$mode_changing_control$416-Smain$mode_changing_control$414
+      0007DF 03                    7268 	.db	3
+      0007E0 01                    7269 	.sleb128	1
+      0007E1 01                    7270 	.db	1
+      0007E2 09                    7271 	.db	9
+      0007E3 00 0A                 7272 	.dw	Smain$mode_changing_control$418-Smain$mode_changing_control$416
+      0007E5 03                    7273 	.db	3
+      0007E6 01                    7274 	.sleb128	1
+      0007E7 01                    7275 	.db	1
+      0007E8 09                    7276 	.db	9
+      0007E9 00 18                 7277 	.dw	Smain$mode_changing_control$420-Smain$mode_changing_control$418
+      0007EB 03                    7278 	.db	3
+      0007EC 01                    7279 	.sleb128	1
+      0007ED 01                    7280 	.db	1
+      0007EE 09                    7281 	.db	9
+      0007EF 00 04                 7282 	.dw	Smain$mode_changing_control$422-Smain$mode_changing_control$420
+      0007F1 03                    7283 	.db	3
+      0007F2 01                    7284 	.sleb128	1
+      0007F3 01                    7285 	.db	1
+      0007F4 09                    7286 	.db	9
+      0007F5 00 09                 7287 	.dw	Smain$mode_changing_control$425-Smain$mode_changing_control$422
+      0007F7 03                    7288 	.db	3
+      0007F8 02                    7289 	.sleb128	2
+      0007F9 01                    7290 	.db	1
+      0007FA 09                    7291 	.db	9
+      0007FB 00 06                 7292 	.dw	Smain$mode_changing_control$426-Smain$mode_changing_control$425
+      0007FD 03                    7293 	.db	3
+      0007FE 01                    7294 	.sleb128	1
+      0007FF 01                    7295 	.db	1
+      000800 09                    7296 	.db	9
+      000801 00 08                 7297 	.dw	Smain$mode_changing_control$428-Smain$mode_changing_control$426
+      000803 03                    7298 	.db	3
+      000804 02                    7299 	.sleb128	2
+      000805 01                    7300 	.db	1
+      000806 09                    7301 	.db	9
+      000807 00 03                 7302 	.dw	Smain$mode_changing_control$429-Smain$mode_changing_control$428
+      000809 03                    7303 	.db	3
+      00080A 01                    7304 	.sleb128	1
+      00080B 01                    7305 	.db	1
+      00080C 09                    7306 	.db	9
+      00080D 00 00                 7307 	.dw	Smain$mode_changing_control$431-Smain$mode_changing_control$429
+      00080F 03                    7308 	.db	3
+      000810 01                    7309 	.sleb128	1
+      000811 01                    7310 	.db	1
+      000812 09                    7311 	.db	9
+      000813 00 41                 7312 	.dw	Smain$mode_changing_control$432-Smain$mode_changing_control$431
+      000815 03                    7313 	.db	3
+      000816 01                    7314 	.sleb128	1
+      000817 01                    7315 	.db	1
+      000818 09                    7316 	.db	9
+      000819 00 0C                 7317 	.dw	Smain$mode_changing_control$433-Smain$mode_changing_control$432
+      00081B 03                    7318 	.db	3
+      00081C 01                    7319 	.sleb128	1
+      00081D 01                    7320 	.db	1
+      00081E 09                    7321 	.db	9
+      00081F 00 05                 7322 	.dw	Smain$mode_changing_control$434-Smain$mode_changing_control$433
+      000821 03                    7323 	.db	3
+      000822 01                    7324 	.sleb128	1
+      000823 01                    7325 	.db	1
+      000824 09                    7326 	.db	9
+      000825 00 26                 7327 	.dw	Smain$mode_changing_control$436-Smain$mode_changing_control$434
+      000827 03                    7328 	.db	3
+      000828 01                    7329 	.sleb128	1
+      000829 01                    7330 	.db	1
+      00082A 09                    7331 	.db	9
+      00082B 00 11                 7332 	.dw	Smain$mode_changing_control$439-Smain$mode_changing_control$436
+      00082D 03                    7333 	.db	3
+      00082E 02                    7334 	.sleb128	2
+      00082F 01                    7335 	.db	1
+      000830 09                    7336 	.db	9
+      000831 00 0D                 7337 	.dw	Smain$mode_changing_control$441-Smain$mode_changing_control$439
+      000833 03                    7338 	.db	3
+      000834 03                    7339 	.sleb128	3
+      000835 01                    7340 	.db	1
+      000836 09                    7341 	.db	9
+      000837 00 15                 7342 	.dw	Smain$mode_changing_control$442-Smain$mode_changing_control$441
+      000839 03                    7343 	.db	3
+      00083A 01                    7344 	.sleb128	1
+      00083B 01                    7345 	.db	1
+      00083C 09                    7346 	.db	9
+      00083D 00 08                 7347 	.dw	Smain$mode_changing_control$444-Smain$mode_changing_control$442
+      00083F 03                    7348 	.db	3
+      000840 01                    7349 	.sleb128	1
+      000841 01                    7350 	.db	1
+      000842 09                    7351 	.db	9
+      000843 00 06                 7352 	.dw	Smain$mode_changing_control$446-Smain$mode_changing_control$444
+      000845 03                    7353 	.db	3
+      000846 03                    7354 	.sleb128	3
+      000847 01                    7355 	.db	1
+      000848 09                    7356 	.db	9
+      000849 00 03                 7357 	.dw	Smain$mode_changing_control$447-Smain$mode_changing_control$446
+      00084B 03                    7358 	.db	3
+      00084C 01                    7359 	.sleb128	1
+      00084D 01                    7360 	.db	1
+      00084E 09                    7361 	.db	9
+      00084F 00 00                 7362 	.dw	Smain$mode_changing_control$449-Smain$mode_changing_control$447
+      000851 03                    7363 	.db	3
+      000852 01                    7364 	.sleb128	1
+      000853 01                    7365 	.db	1
+      000854 09                    7366 	.db	9
+      000855 00 41                 7367 	.dw	Smain$mode_changing_control$450-Smain$mode_changing_control$449
+      000857 03                    7368 	.db	3
+      000858 01                    7369 	.sleb128	1
+      000859 01                    7370 	.db	1
+      00085A 09                    7371 	.db	9
+      00085B 00 0C                 7372 	.dw	Smain$mode_changing_control$451-Smain$mode_changing_control$450
+      00085D 03                    7373 	.db	3
+      00085E 01                    7374 	.sleb128	1
+      00085F 01                    7375 	.db	1
+      000860 09                    7376 	.db	9
+      000861 00 05                 7377 	.dw	Smain$mode_changing_control$452-Smain$mode_changing_control$451
+      000863 03                    7378 	.db	3
+      000864 01                    7379 	.sleb128	1
+      000865 01                    7380 	.db	1
+      000866 09                    7381 	.db	9
+      000867 00 14                 7382 	.dw	Smain$mode_changing_control$454-Smain$mode_changing_control$452
+      000869 03                    7383 	.db	3
+      00086A 01                    7384 	.sleb128	1
+      00086B 01                    7385 	.db	1
+      00086C 09                    7386 	.db	9
+      00086D 00 0A                 7387 	.dw	Smain$mode_changing_control$457-Smain$mode_changing_control$454
+      00086F 03                    7388 	.db	3
+      000870 01                    7389 	.sleb128	1
+      000871 01                    7390 	.db	1
+      000872 09                    7391 	.db	9
+      000873 00 14                 7392 	.dw	Smain$mode_changing_control$459-Smain$mode_changing_control$457
+      000875 03                    7393 	.db	3
+      000876 01                    7394 	.sleb128	1
+      000877 01                    7395 	.db	1
+      000878 09                    7396 	.db	9
+      000879 00 0C                 7397 	.dw	Smain$mode_changing_control$462-Smain$mode_changing_control$459
+      00087B 03                    7398 	.db	3
+      00087C 02                    7399 	.sleb128	2
+      00087D 01                    7400 	.db	1
+      00087E 09                    7401 	.db	9
+      00087F 00 10                 7402 	.dw	Smain$mode_changing_control$464-Smain$mode_changing_control$462
+      000881 03                    7403 	.db	3
+      000882 03                    7404 	.sleb128	3
+      000883 01                    7405 	.db	1
+      000884 09                    7406 	.db	9
+      000885 00 15                 7407 	.dw	Smain$mode_changing_control$465-Smain$mode_changing_control$464
+      000887 03                    7408 	.db	3
+      000888 01                    7409 	.sleb128	1
+      000889 01                    7410 	.db	1
+      00088A 09                    7411 	.db	9
+      00088B 00 05                 7412 	.dw	Smain$mode_changing_control$467-Smain$mode_changing_control$465
+      00088D 03                    7413 	.db	3
+      00088E 01                    7414 	.sleb128	1
+      00088F 01                    7415 	.db	1
+      000890 09                    7416 	.db	9
+      000891 00 06                 7417 	.dw	Smain$mode_changing_control$469-Smain$mode_changing_control$467
+      000893 03                    7418 	.db	3
+      000894 04                    7419 	.sleb128	4
+      000895 01                    7420 	.db	1
+      000896 09                    7421 	.db	9
+      000897 00 00                 7422 	.dw	Smain$mode_changing_control$471-Smain$mode_changing_control$469
+      000899 03                    7423 	.db	3
+      00089A 51                    7424 	.sleb128	-47
+      00089B 01                    7425 	.db	1
+      00089C 09                    7426 	.db	9
+      00089D 00 08                 7427 	.dw	Smain$mode_changing_control$473-Smain$mode_changing_control$471
+      00089F 03                    7428 	.db	3
+      0008A0 31                    7429 	.sleb128	49
+      0008A1 01                    7430 	.db	1
+      0008A2 09                    7431 	.db	9
+      0008A3 00 04                 7432 	.dw	Smain$mode_changing_control$474-Smain$mode_changing_control$473
+      0008A5 03                    7433 	.db	3
+      0008A6 01                    7434 	.sleb128	1
+      0008A7 01                    7435 	.db	1
+      0008A8 09                    7436 	.db	9
+      0008A9 00 01                 7437 	.dw	1+Smain$mode_changing_control$475-Smain$mode_changing_control$474
+      0008AB 00                    7438 	.db	0
+      0008AC 01                    7439 	.uleb128	1
+      0008AD 01                    7440 	.db	1
+      0008AE 00                    7441 	.db	0
+      0008AF 05                    7442 	.uleb128	5
+      0008B0 02                    7443 	.db	2
+      0008B1 00 00 10 18           7444 	.dw	0,(Smain$is_stable$477)
+      0008B5 03                    7445 	.db	3
+      0008B6 E4 05                 7446 	.sleb128	740
+      0008B8 01                    7447 	.db	1
+      0008B9 09                    7448 	.db	9
+      0008BA 00 00                 7449 	.dw	Smain$is_stable$480-Smain$is_stable$477
+      0008BC 03                    7450 	.db	3
+      0008BD 01                    7451 	.sleb128	1
+      0008BE 01                    7452 	.db	1
+      0008BF 09                    7453 	.db	9
+      0008C0 00 0F                 7454 	.dw	Smain$is_stable$483-Smain$is_stable$480
+      0008C2 03                    7455 	.db	3
+      0008C3 01                    7456 	.sleb128	1
+      0008C4 01                    7457 	.db	1
+      0008C5 09                    7458 	.db	9
+      0008C6 00 14                 7459 	.dw	Smain$is_stable$485-Smain$is_stable$483
+      0008C8 03                    7460 	.db	3
+      0008C9 7F                    7461 	.sleb128	-1
+      0008CA 01                    7462 	.db	1
+      0008CB 09                    7463 	.db	9
+      0008CC 00 07                 7464 	.dw	Smain$is_stable$487-Smain$is_stable$485
+      0008CE 03                    7465 	.db	3
+      0008CF 04                    7466 	.sleb128	4
+      0008D0 01                    7467 	.db	1
+      0008D1 09                    7468 	.db	9
+      0008D2 00 03                 7469 	.dw	Smain$is_stable$488-Smain$is_stable$487
+      0008D4 03                    7470 	.db	3
+      0008D5 01                    7471 	.sleb128	1
+      0008D6 01                    7472 	.db	1
+      0008D7 09                    7473 	.db	9
+      0008D8 00 01                 7474 	.dw	1+Smain$is_stable$489-Smain$is_stable$488
+      0008DA 00                    7475 	.db	0
+      0008DB 01                    7476 	.uleb128	1
+      0008DC 01                    7477 	.db	1
+      0008DD 00                    7478 	.db	0
+      0008DE 05                    7479 	.uleb128	5
+      0008DF 02                    7480 	.db	2
+      0008E0 00 00 10 46           7481 	.dw	0,(Smain$mode_stable_control$491)
+      0008E4 03                    7482 	.db	3
+      0008E5 EC 05                 7483 	.sleb128	748
+      0008E7 01                    7484 	.db	1
+      0008E8 09                    7485 	.db	9
+      0008E9 00 00                 7486 	.dw	Smain$mode_stable_control$493-Smain$mode_stable_control$491
+      0008EB 03                    7487 	.db	3
+      0008EC 02                    7488 	.sleb128	2
+      0008ED 01                    7489 	.db	1
+      0008EE 09                    7490 	.db	9
+      0008EF 00 05                 7491 	.dw	Smain$mode_stable_control$494-Smain$mode_stable_control$493
+      0008F1 03                    7492 	.db	3
+      0008F2 02                    7493 	.sleb128	2
+      0008F3 01                    7494 	.db	1
+      0008F4 09                    7495 	.db	9
+      0008F5 00 35                 7496 	.dw	Smain$mode_stable_control$496-Smain$mode_stable_control$494
+      0008F7 03                    7497 	.db	3
+      0008F8 02                    7498 	.sleb128	2
+      0008F9 01                    7499 	.db	1
+      0008FA 09                    7500 	.db	9
+      0008FB 00 12                 7501 	.dw	Smain$mode_stable_control$501-Smain$mode_stable_control$496
+      0008FD 03                    7502 	.db	3
+      0008FE 01                    7503 	.sleb128	1
+      0008FF 01                    7504 	.db	1
+      000900 09                    7505 	.db	9
+      000901 00 21                 7506 	.dw	Smain$mode_stable_control$502-Smain$mode_stable_control$501
+      000903 03                    7507 	.db	3
+      000904 01                    7508 	.sleb128	1
+      000905 01                    7509 	.db	1
+      000906 09                    7510 	.db	9
+      000907 00 11                 7511 	.dw	Smain$mode_stable_control$504-Smain$mode_stable_control$502
+      000909 03                    7512 	.db	3
+      00090A 02                    7513 	.sleb128	2
+      00090B 01                    7514 	.db	1
+      00090C 09                    7515 	.db	9
+      00090D 00 19                 7516 	.dw	Smain$mode_stable_control$505-Smain$mode_stable_control$504
+      00090F 03                    7517 	.db	3
+      000910 01                    7518 	.sleb128	1
+      000911 01                    7519 	.db	1
+      000912 09                    7520 	.db	9
+      000913 00 0F                 7521 	.dw	Smain$mode_stable_control$506-Smain$mode_stable_control$505
+      000915 03                    7522 	.db	3
+      000916 01                    7523 	.sleb128	1
+      000917 01                    7524 	.db	1
+      000918 09                    7525 	.db	9
+      000919 00 29                 7526 	.dw	Smain$mode_stable_control$508-Smain$mode_stable_control$506
+      00091B 03                    7527 	.db	3
+      00091C 01                    7528 	.sleb128	1
+      00091D 01                    7529 	.db	1
+      00091E 09                    7530 	.db	9
+      00091F 00 0C                 7531 	.dw	Smain$mode_stable_control$509-Smain$mode_stable_control$508
+      000921 03                    7532 	.db	3
+      000922 01                    7533 	.sleb128	1
+      000923 01                    7534 	.db	1
+      000924 09                    7535 	.db	9
+      000925 00 0E                 7536 	.dw	Smain$mode_stable_control$510-Smain$mode_stable_control$509
+      000927 03                    7537 	.db	3
+      000928 01                    7538 	.sleb128	1
+      000929 01                    7539 	.db	1
+      00092A 09                    7540 	.db	9
+      00092B 00 25                 7541 	.dw	Smain$mode_stable_control$511-Smain$mode_stable_control$510
+      00092D 03                    7542 	.db	3
+      00092E 01                    7543 	.sleb128	1
+      00092F 01                    7544 	.db	1
+      000930 09                    7545 	.db	9
+      000931 00 06                 7546 	.dw	Smain$mode_stable_control$512-Smain$mode_stable_control$511
+      000933 03                    7547 	.db	3
+      000934 76                    7548 	.sleb128	-10
+      000935 01                    7549 	.db	1
+      000936 09                    7550 	.db	9
+      000937 00 08                 7551 	.dw	Smain$mode_stable_control$513-Smain$mode_stable_control$512
+      000939 03                    7552 	.db	3
+      00093A 0D                    7553 	.sleb128	13
+      00093B 01                    7554 	.db	1
+      00093C 09                    7555 	.db	9
+      00093D 00 04                 7556 	.dw	Smain$mode_stable_control$514-Smain$mode_stable_control$513
+      00093F 03                    7557 	.db	3
+      000940 01                    7558 	.sleb128	1
+      000941 01                    7559 	.db	1
+      000942 09                    7560 	.db	9
+      000943 00 01                 7561 	.dw	1+Smain$mode_stable_control$515-Smain$mode_stable_control$514
+      000945 00                    7562 	.db	0
+      000946 01                    7563 	.uleb128	1
+      000947 01                    7564 	.db	1
+      000948 00                    7565 	.db	0
+      000949 05                    7566 	.uleb128	5
+      00094A 02                    7567 	.db	2
+      00094B 00 00 11 69           7568 	.dw	0,(Smain$control_loop$517)
+      00094F 03                    7569 	.db	3
+      000950 82 06                 7570 	.sleb128	770
+      000952 01                    7571 	.db	1
+      000953 09                    7572 	.db	9
+      000954 00 00                 7573 	.dw	Smain$control_loop$519-Smain$control_loop$517
+      000956 03                    7574 	.db	3
+      000957 04                    7575 	.sleb128	4
+      000958 01                    7576 	.db	1
+      000959 09                    7577 	.db	9
+      00095A 00 03                 7578 	.dw	Smain$control_loop$520-Smain$control_loop$519
+      00095C 03                    7579 	.db	3
+      00095D 02                    7580 	.sleb128	2
+      00095E 01                    7581 	.db	1
+      00095F 09                    7582 	.db	9
+      000960 00 09                 7583 	.dw	Smain$control_loop$521-Smain$control_loop$520
+      000962 03                    7584 	.db	3
+      000963 02                    7585 	.sleb128	2
+      000964 01                    7586 	.db	1
+      000965 09                    7587 	.db	9
+      000966 00 0A                 7588 	.dw	Smain$control_loop$523-Smain$control_loop$521
+      000968 03                    7589 	.db	3
+      000969 01                    7590 	.sleb128	1
+      00096A 01                    7591 	.db	1
+      00096B 09                    7592 	.db	9
+      00096C 00 07                 7593 	.dw	Smain$control_loop$525-Smain$control_loop$523
+      00096E 03                    7594 	.db	3
+      00096F 02                    7595 	.sleb128	2
+      000970 01                    7596 	.db	1
+      000971 09                    7597 	.db	9
+      000972 00 0F                 7598 	.dw	Smain$control_loop$527-Smain$control_loop$525
+      000974 03                    7599 	.db	3
+      000975 01                    7600 	.sleb128	1
+      000976 01                    7601 	.db	1
+      000977 09                    7602 	.db	9
+      000978 00 62                 7603 	.dw	Smain$control_loop$528-Smain$control_loop$527
+      00097A 03                    7604 	.db	3
+      00097B 7F                    7605 	.sleb128	-1
+      00097C 01                    7606 	.db	1
+      00097D 09                    7607 	.db	9
+      00097E 00 07                 7608 	.dw	Smain$control_loop$529-Smain$control_loop$528
+      000980 03                    7609 	.db	3
+      000981 03                    7610 	.sleb128	3
+      000982 01                    7611 	.db	1
+      000983 09                    7612 	.db	9
+      000984 00 03                 7613 	.dw	Smain$control_loop$530-Smain$control_loop$529
+      000986 03                    7614 	.db	3
+      000987 02                    7615 	.sleb128	2
+      000988 01                    7616 	.db	1
+      000989 09                    7617 	.db	9
+      00098A 00 13                 7618 	.dw	Smain$control_loop$532-Smain$control_loop$530
+      00098C 03                    7619 	.db	3
+      00098D 01                    7620 	.sleb128	1
+      00098E 01                    7621 	.db	1
+      00098F 09                    7622 	.db	9
+      000990 00 08                 7623 	.dw	Smain$control_loop$534-Smain$control_loop$532
+      000992 03                    7624 	.db	3
+      000993 01                    7625 	.sleb128	1
+      000994 01                    7626 	.db	1
+      000995 09                    7627 	.db	9
+      000996 00 05                 7628 	.dw	Smain$control_loop$536-Smain$control_loop$534
+      000998 03                    7629 	.db	3
+      000999 01                    7630 	.sleb128	1
+      00099A 01                    7631 	.db	1
+      00099B 09                    7632 	.db	9
+      00099C 00 03                 7633 	.dw	Smain$control_loop$538-Smain$control_loop$536
+      00099E 03                    7634 	.db	3
+      00099F 01                    7635 	.sleb128	1
+      0009A0 01                    7636 	.db	1
+      0009A1 09                    7637 	.db	9
+      0009A2 00 03                 7638 	.dw	Smain$control_loop$540-Smain$control_loop$538
+      0009A4 03                    7639 	.db	3
+      0009A5 04                    7640 	.sleb128	4
+      0009A6 01                    7641 	.db	1
+      0009A7 09                    7642 	.db	9
+      0009A8 00 0A                 7643 	.dw	Smain$control_loop$542-Smain$control_loop$540
+      0009AA 03                    7644 	.db	3
+      0009AB 01                    7645 	.sleb128	1
+      0009AC 01                    7646 	.db	1
+      0009AD 09                    7647 	.db	9
+      0009AE 00 13                 7648 	.dw	Smain$control_loop$544-Smain$control_loop$542
+      0009B0 03                    7649 	.db	3
+      0009B1 01                    7650 	.sleb128	1
+      0009B2 01                    7651 	.db	1
+      0009B3 09                    7652 	.db	9
+      0009B4 00 09                 7653 	.dw	Smain$control_loop$546-Smain$control_loop$544
+      0009B6 03                    7654 	.db	3
+      0009B7 02                    7655 	.sleb128	2
+      0009B8 01                    7656 	.db	1
+      0009B9 09                    7657 	.db	9
+      0009BA 00 03                 7658 	.dw	Smain$control_loop$548-Smain$control_loop$546
+      0009BC 03                    7659 	.db	3
+      0009BD 04                    7660 	.sleb128	4
+      0009BE 01                    7661 	.db	1
+      0009BF 09                    7662 	.db	9
+      0009C0 00 06                 7663 	.dw	Smain$control_loop$550-Smain$control_loop$548
+      0009C2 03                    7664 	.db	3
+      0009C3 01                    7665 	.sleb128	1
+      0009C4 01                    7666 	.db	1
+      0009C5 09                    7667 	.db	9
+      0009C6 00 03                 7668 	.dw	Smain$control_loop$552-Smain$control_loop$550
+      0009C8 03                    7669 	.db	3
+      0009C9 03                    7670 	.sleb128	3
+      0009CA 01                    7671 	.db	1
+      0009CB 09                    7672 	.db	9
+      0009CC 00 01                 7673 	.dw	1+Smain$control_loop$553-Smain$control_loop$552
+      0009CE 00                    7674 	.db	0
+      0009CF 01                    7675 	.uleb128	1
+      0009D0 01                    7676 	.db	1
+      0009D1 00                    7677 	.db	0
+      0009D2 05                    7678 	.uleb128	5
+      0009D3 02                    7679 	.db	2
+      0009D4 00 00 12 5A           7680 	.dw	0,(Smain$wdt_init$555)
+      0009D8 03                    7681 	.db	3
+      0009D9 A9 06                 7682 	.sleb128	809
+      0009DB 01                    7683 	.db	1
+      0009DC 09                    7684 	.db	9
+      0009DD 00 00                 7685 	.dw	Smain$wdt_init$557-Smain$wdt_init$555
+      0009DF 03                    7686 	.db	3
+      0009E0 02                    7687 	.sleb128	2
+      0009E1 01                    7688 	.db	1
+      0009E2 09                    7689 	.db	9
+      0009E3 00 03                 7690 	.dw	Smain$wdt_init$558-Smain$wdt_init$557
+      0009E5 03                    7691 	.db	3
+      0009E6 01                    7692 	.sleb128	1
+      0009E7 01                    7693 	.db	1
+      0009E8 09                    7694 	.db	9
+      0009E9 00 04                 7695 	.dw	Smain$wdt_init$559-Smain$wdt_init$558
+      0009EB 03                    7696 	.db	3
+      0009EC 01                    7697 	.sleb128	1
+      0009ED 01                    7698 	.db	1
+      0009EE 09                    7699 	.db	9
+      0009EF 00 02                 7700 	.dw	Smain$wdt_init$560-Smain$wdt_init$559
+      0009F1 03                    7701 	.db	3
+      0009F2 02                    7702 	.sleb128	2
+      0009F3 01                    7703 	.db	1
+      0009F4 09                    7704 	.db	9
+      0009F5 00 03                 7705 	.dw	Smain$wdt_init$561-Smain$wdt_init$560
+      0009F7 03                    7706 	.db	3
+      0009F8 01                    7707 	.sleb128	1
+      0009F9 01                    7708 	.db	1
+      0009FA 09                    7709 	.db	9
+      0009FB 00 03                 7710 	.dw	Smain$wdt_init$562-Smain$wdt_init$561
+      0009FD 03                    7711 	.db	3
+      0009FE 01                    7712 	.sleb128	1
+      0009FF 01                    7713 	.db	1
+      000A00 09                    7714 	.db	9
+      000A01 00 03                 7715 	.dw	Smain$wdt_init$563-Smain$wdt_init$562
+      000A03 03                    7716 	.db	3
+      000A04 02                    7717 	.sleb128	2
+      000A05 01                    7718 	.db	1
+      000A06 09                    7719 	.db	9
+      000A07 00 03                 7720 	.dw	Smain$wdt_init$564-Smain$wdt_init$563
+      000A09 03                    7721 	.db	3
+      000A0A 01                    7722 	.sleb128	1
+      000A0B 01                    7723 	.db	1
+      000A0C 09                    7724 	.db	9
+      000A0D 00 03                 7725 	.dw	Smain$wdt_init$565-Smain$wdt_init$564
+      000A0F 03                    7726 	.db	3
+      000A10 01                    7727 	.sleb128	1
+      000A11 01                    7728 	.db	1
+      000A12 09                    7729 	.db	9
+      000A13 00 03                 7730 	.dw	Smain$wdt_init$566-Smain$wdt_init$565
+      000A15 03                    7731 	.db	3
+      000A16 02                    7732 	.sleb128	2
+      000A17 01                    7733 	.db	1
+      000A18 09                    7734 	.db	9
+      000A19 00 04                 7735 	.dw	Smain$wdt_init$567-Smain$wdt_init$566
+      000A1B 03                    7736 	.db	3
+      000A1C 01                    7737 	.sleb128	1
+      000A1D 01                    7738 	.db	1
+      000A1E 09                    7739 	.db	9
+      000A1F 00 13                 7740 	.dw	Smain$wdt_init$568-Smain$wdt_init$567
+      000A21 03                    7741 	.db	3
+      000A22 01                    7742 	.sleb128	1
+      000A23 01                    7743 	.db	1
+      000A24 09                    7744 	.db	9
+      000A25 00 13                 7745 	.dw	Smain$wdt_init$569-Smain$wdt_init$568
+      000A27 03                    7746 	.db	3
+      000A28 03                    7747 	.sleb128	3
+      000A29 01                    7748 	.db	1
+      000A2A 09                    7749 	.db	9
+      000A2B 00 03                 7750 	.dw	Smain$wdt_init$570-Smain$wdt_init$569
+      000A2D 03                    7751 	.db	3
+      000A2E 01                    7752 	.sleb128	1
+      000A2F 01                    7753 	.db	1
+      000A30 09                    7754 	.db	9
+      000A31 00 01                 7755 	.dw	1+Smain$wdt_init$571-Smain$wdt_init$570
+      000A33 00                    7756 	.db	0
+      000A34 01                    7757 	.uleb128	1
+      000A35 01                    7758 	.db	1
+      000A36 00                    7759 	.db	0
+      000A37 05                    7760 	.uleb128	5
+      000A38 02                    7761 	.db	2
+      000A39 00 00 12 A3           7762 	.dw	0,(Smain$wdt_clear$573)
+      000A3D 03                    7763 	.db	3
+      000A3E C0 06                 7764 	.sleb128	832
+      000A40 01                    7765 	.db	1
+      000A41 09                    7766 	.db	9
+      000A42 00 00                 7767 	.dw	Smain$wdt_clear$575-Smain$wdt_clear$573
+      000A44 03                    7768 	.db	3
+      000A45 03                    7769 	.sleb128	3
+      000A46 01                    7770 	.db	1
+      000A47 09                    7771 	.db	9
+      000A48 00 04                 7772 	.dw	Smain$wdt_clear$576-Smain$wdt_clear$575
+      000A4A 03                    7773 	.db	3
+      000A4B 01                    7774 	.sleb128	1
+      000A4C 01                    7775 	.db	1
+      000A4D 09                    7776 	.db	9
+      000A4E 00 02                 7777 	.dw	Smain$wdt_clear$577-Smain$wdt_clear$576
+      000A50 03                    7778 	.db	3
+      000A51 02                    7779 	.sleb128	2
+      000A52 01                    7780 	.db	1
+      000A53 09                    7781 	.db	9
+      000A54 00 03                 7782 	.dw	Smain$wdt_clear$578-Smain$wdt_clear$577
+      000A56 03                    7783 	.db	3
+      000A57 01                    7784 	.sleb128	1
+      000A58 01                    7785 	.db	1
+      000A59 09                    7786 	.db	9
+      000A5A 00 03                 7787 	.dw	Smain$wdt_clear$579-Smain$wdt_clear$578
+      000A5C 03                    7788 	.db	3
+      000A5D 02                    7789 	.sleb128	2
+      000A5E 01                    7790 	.db	1
+      000A5F 09                    7791 	.db	9
+      000A60 00 03                 7792 	.dw	Smain$wdt_clear$580-Smain$wdt_clear$579
+      000A62 03                    7793 	.db	3
+      000A63 01                    7794 	.sleb128	1
+      000A64 01                    7795 	.db	1
+      000A65 09                    7796 	.db	9
+      000A66 00 04                 7797 	.dw	Smain$wdt_clear$581-Smain$wdt_clear$580
+      000A68 03                    7798 	.db	3
+      000A69 02                    7799 	.sleb128	2
+      000A6A 01                    7800 	.db	1
+      000A6B 09                    7801 	.db	9
+      000A6C 00 05                 7802 	.dw	Smain$wdt_clear$582-Smain$wdt_clear$581
+      000A6E 03                    7803 	.db	3
+      000A6F 01                    7804 	.sleb128	1
+      000A70 01                    7805 	.db	1
+      000A71 09                    7806 	.db	9
+      000A72 00 01                 7807 	.dw	1+Smain$wdt_clear$583-Smain$wdt_clear$582
+      000A74 00                    7808 	.db	0
+      000A75 01                    7809 	.uleb128	1
+      000A76 01                    7810 	.db	1
+      000A77 00                    7811 	.db	0
+      000A78 05                    7812 	.uleb128	5
+      000A79 02                    7813 	.db	2
+      000A7A 00 00 12 BC           7814 	.dw	0,(Smain$main$585)
+      000A7E 03                    7815 	.db	3
+      000A7F D1 06                 7816 	.sleb128	849
+      000A81 01                    7817 	.db	1
+      000A82 09                    7818 	.db	9
+      000A83 00 00                 7819 	.dw	Smain$main$587-Smain$main$585
+      000A85 03                    7820 	.db	3
+      000A86 03                    7821 	.sleb128	3
+      000A87 01                    7822 	.db	1
+      000A88 09                    7823 	.db	9
+      000A89 00 06                 7824 	.dw	Smain$main$588-Smain$main$587
+      000A8B 03                    7825 	.db	3
+      000A8C 04                    7826 	.sleb128	4
+      000A8D 01                    7827 	.db	1
+      000A8E 09                    7828 	.db	9
+      000A8F 00 03                 7829 	.dw	Smain$main$589-Smain$main$588
+      000A91 03                    7830 	.db	3
+      000A92 02                    7831 	.sleb128	2
+      000A93 01                    7832 	.db	1
+      000A94 09                    7833 	.db	9
+      000A95 00 03                 7834 	.dw	Smain$main$590-Smain$main$589
+      000A97 03                    7835 	.db	3
+      000A98 01                    7836 	.sleb128	1
+      000A99 01                    7837 	.db	1
+      000A9A 09                    7838 	.db	9
+      000A9B 00 03                 7839 	.dw	Smain$main$591-Smain$main$590
+      000A9D 03                    7840 	.db	3
+      000A9E 06                    7841 	.sleb128	6
+      000A9F 01                    7842 	.db	1
+      000AA0 09                    7843 	.db	9
+      000AA1 00 0B                 7844 	.dw	Smain$main$593-Smain$main$591
+      000AA3 03                    7845 	.db	3
+      000AA4 01                    7846 	.sleb128	1
+      000AA5 01                    7847 	.db	1
+      000AA6 09                    7848 	.db	9
+      000AA7 00 07                 7849 	.dw	Smain$main$594-Smain$main$593
+      000AA9 03                    7850 	.db	3
+      000AAA 01                    7851 	.sleb128	1
+      000AAB 01                    7852 	.db	1
+      000AAC 09                    7853 	.db	9
+      000AAD 00 1E                 7854 	.dw	Smain$main$596-Smain$main$594
+      000AAF 03                    7855 	.db	3
+      000AB0 7E                    7856 	.sleb128	-2
+      000AB1 01                    7857 	.db	1
+      000AB2 09                    7858 	.db	9
+      000AB3 00 33                 7859 	.dw	Smain$main$597-Smain$main$596
+      000AB5 03                    7860 	.db	3
+      000AB6 05                    7861 	.sleb128	5
+      000AB7 01                    7862 	.db	1
+      000AB8 09                    7863 	.db	9
+      000AB9 00 06                 7864 	.dw	Smain$main$598-Smain$main$597
+      000ABB 03                    7865 	.db	3
+      000ABC 02                    7866 	.sleb128	2
+      000ABD 01                    7867 	.db	1
+      000ABE 09                    7868 	.db	9
+      000ABF 00 06                 7869 	.dw	Smain$main$600-Smain$main$598
+      000AC1 03                    7870 	.db	3
+      000AC2 01                    7871 	.sleb128	1
+      000AC3 01                    7872 	.db	1
+      000AC4 09                    7873 	.db	9
+      000AC5 00 03                 7874 	.dw	Smain$main$602-Smain$main$600
+      000AC7 03                    7875 	.db	3
+      000AC8 03                    7876 	.sleb128	3
+      000AC9 01                    7877 	.db	1
+      000ACA 09                    7878 	.db	9
+      000ACB 00 06                 7879 	.dw	Smain$main$603-Smain$main$602
+      000ACD 03                    7880 	.db	3
+      000ACE 01                    7881 	.sleb128	1
+      000ACF 01                    7882 	.db	1
+      000AD0 09                    7883 	.db	9
+      000AD1 00 03                 7884 	.dw	Smain$main$604-Smain$main$603
+      000AD3 03                    7885 	.db	3
+      000AD4 02                    7886 	.sleb128	2
+      000AD5 01                    7887 	.db	1
+      000AD6 09                    7888 	.db	9
+      000AD7 00 00                 7889 	.dw	Smain$main$606-Smain$main$604
+      000AD9 03                    7890 	.db	3
+      000ADA 04                    7891 	.sleb128	4
+      000ADB 01                    7892 	.db	1
+      000ADC 09                    7893 	.db	9
+      000ADD 00 32                 7894 	.dw	Smain$main$609-Smain$main$606
+      000ADF 03                    7895 	.db	3
+      000AE0 01                    7896 	.sleb128	1
+      000AE1 01                    7897 	.db	1
+      000AE2 09                    7898 	.db	9
+      000AE3 00 06                 7899 	.dw	Smain$main$611-Smain$main$609
+      000AE5 03                    7900 	.db	3
+      000AE6 02                    7901 	.sleb128	2
+      000AE7 01                    7902 	.db	1
+      000AE8 09                    7903 	.db	9
+      000AE9 00 16                 7904 	.dw	Smain$main$612-Smain$main$611
+      000AEB 03                    7905 	.db	3
+      000AEC 02                    7906 	.sleb128	2
+      000AED 01                    7907 	.db	1
+      000AEE 09                    7908 	.db	9
+      000AEF 00 06                 7909 	.dw	Smain$main$614-Smain$main$612
+      000AF1 03                    7910 	.db	3
+      000AF2 01                    7911 	.sleb128	1
+      000AF3 01                    7912 	.db	1
+      000AF4 09                    7913 	.db	9
+      000AF5 00 06                 7914 	.dw	Smain$main$616-Smain$main$614
+      000AF7 03                    7915 	.db	3
+      000AF8 01                    7916 	.sleb128	1
+      000AF9 01                    7917 	.db	1
+      000AFA 09                    7918 	.db	9
+      000AFB 00 16                 7919 	.dw	Smain$main$618-Smain$main$616
+      000AFD 03                    7920 	.db	3
+      000AFE 02                    7921 	.sleb128	2
+      000AFF 01                    7922 	.db	1
+      000B00 09                    7923 	.db	9
+      000B01 00 05                 7924 	.dw	Smain$main$621-Smain$main$618
+      000B03 03                    7925 	.db	3
+      000B04 03                    7926 	.sleb128	3
+      000B05 01                    7927 	.db	1
+      000B06 09                    7928 	.db	9
+      000B07 00 03                 7929 	.dw	Smain$main$623-Smain$main$621
+      000B09 03                    7930 	.db	3
+      000B0A 04                    7931 	.sleb128	4
+      000B0B 01                    7932 	.db	1
+      000B0C 09                    7933 	.db	9
+      000B0D 00 08                 7934 	.dw	Smain$main$625-Smain$main$623
+      000B0F 03                    7935 	.db	3
+      000B10 01                    7936 	.sleb128	1
+      000B11 01                    7937 	.db	1
+      000B12 09                    7938 	.db	9
+      000B13 00 06                 7939 	.dw	Smain$main$626-Smain$main$625
+      000B15 03                    7940 	.db	3
+      000B16 01                    7941 	.sleb128	1
+      000B17 01                    7942 	.db	1
+      000B18 09                    7943 	.db	9
+      000B19 00 44                 7944 	.dw	Smain$main$628-Smain$main$626
+      000B1B 03                    7945 	.db	3
+      000B1C 01                    7946 	.sleb128	1
+      000B1D 01                    7947 	.db	1
+      000B1E 09                    7948 	.db	9
+      000B1F 00 03                 7949 	.dw	Smain$main$629-Smain$main$628
+      000B21 03                    7950 	.db	3
+      000B22 01                    7951 	.sleb128	1
+      000B23 01                    7952 	.db	1
+      000B24 09                    7953 	.db	9
+      000B25 00 03                 7954 	.dw	Smain$main$630-Smain$main$629
+      000B27 03                    7955 	.db	3
+      000B28 02                    7956 	.sleb128	2
+      000B29 01                    7957 	.db	1
+      000B2A 09                    7958 	.db	9
+      000B2B 00 02                 7959 	.dw	Smain$main$631-Smain$main$630
+      000B2D 03                    7960 	.db	3
+      000B2E 01                    7961 	.sleb128	1
+      000B2F 01                    7962 	.db	1
+      000B30 09                    7963 	.db	9
+      000B31 00 02                 7964 	.dw	Smain$main$632-Smain$main$631
+      000B33 03                    7965 	.db	3
+      000B34 01                    7966 	.sleb128	1
+      000B35 01                    7967 	.db	1
+      000B36 09                    7968 	.db	9
+      000B37 00 03                 7969 	.dw	Smain$main$633-Smain$main$632
+      000B39 03                    7970 	.db	3
+      000B3A 01                    7971 	.sleb128	1
+      000B3B 01                    7972 	.db	1
+      000B3C 09                    7973 	.db	9
+      000B3D 00 01                 7974 	.dw	Smain$main$634-Smain$main$633
+      000B3F 03                    7975 	.db	3
+      000B40 01                    7976 	.sleb128	1
+      000B41 01                    7977 	.db	1
+      000B42 09                    7978 	.db	9
+      000B43 00 01                 7979 	.dw	Smain$main$635-Smain$main$634
+      000B45 03                    7980 	.db	3
+      000B46 01                    7981 	.sleb128	1
+      000B47 01                    7982 	.db	1
+      000B48 09                    7983 	.db	9
+      000B49 00 03                 7984 	.dw	Smain$main$636-Smain$main$635
+      000B4B 03                    7985 	.db	3
+      000B4C 02                    7986 	.sleb128	2
+      000B4D 01                    7987 	.db	1
+      000B4E 09                    7988 	.db	9
+      000B4F 00 03                 7989 	.dw	Smain$main$637-Smain$main$636
+      000B51 03                    7990 	.db	3
+      000B52 01                    7991 	.sleb128	1
+      000B53 01                    7992 	.db	1
+      000B54 09                    7993 	.db	9
+      000B55 00 06                 7994 	.dw	Smain$main$639-Smain$main$637
+      000B57 03                    7995 	.db	3
+      000B58 01                    7996 	.sleb128	1
+      000B59 01                    7997 	.db	1
+      000B5A 09                    7998 	.db	9
+      000B5B 00 05                 7999 	.dw	Smain$main$642-Smain$main$639
+      000B5D 03                    8000 	.db	3
+      000B5E 02                    8001 	.sleb128	2
+      000B5F 01                    8002 	.db	1
+      000B60 09                    8003 	.db	9
+      000B61 00 05                 8004 	.dw	Smain$main$644-Smain$main$642
+      000B63 03                    8005 	.db	3
+      000B64 04                    8006 	.sleb128	4
+      000B65 01                    8007 	.db	1
+      000B66 09                    8008 	.db	9
+      000B67 00 03                 8009 	.dw	Smain$main$646-Smain$main$644
+      000B69 03                    8010 	.db	3
+      000B6A 01                    8011 	.sleb128	1
+      000B6B 01                    8012 	.db	1
+      000B6C 09                    8013 	.db	9
+      000B6D 00 05                 8014 	.dw	Smain$main$648-Smain$main$646
+      000B6F 03                    8015 	.db	3
+      000B70 03                    8016 	.sleb128	3
+      000B71 01                    8017 	.db	1
+      000B72 09                    8018 	.db	9
+      000B73 00 03                 8019 	.dw	Smain$main$649-Smain$main$648
+      000B75 03                    8020 	.db	3
+      000B76 02                    8021 	.sleb128	2
+      000B77 01                    8022 	.db	1
+      000B78 09                    8023 	.db	9
+      000B79 00 1E                 8024 	.dw	Smain$main$650-Smain$main$649
+      000B7B 03                    8025 	.db	3
+      000B7C 03                    8026 	.sleb128	3
+      000B7D 01                    8027 	.db	1
+      000B7E 09                    8028 	.db	9
+      000B7F 00 06                 8029 	.dw	Smain$main$652-Smain$main$650
+      000B81 03                    8030 	.db	3
+      000B82 01                    8031 	.sleb128	1
+      000B83 01                    8032 	.db	1
+      000B84 09                    8033 	.db	9
+      000B85 00 08                 8034 	.dw	Smain$main$654-Smain$main$652
+      000B87 03                    8035 	.db	3
+      000B88 07                    8036 	.sleb128	7
+      000B89 01                    8037 	.db	1
+      000B8A 09                    8038 	.db	9
+      000B8B 00 06                 8039 	.dw	Smain$main$655-Smain$main$654
+      000B8D 03                    8040 	.db	3
+      000B8E 03                    8041 	.sleb128	3
+      000B8F 01                    8042 	.db	1
+      000B90 09                    8043 	.db	9
+      000B91 00 06                 8044 	.dw	Smain$main$657-Smain$main$655
+      000B93 03                    8045 	.db	3
+      000B94 02                    8046 	.sleb128	2
+      000B95 01                    8047 	.db	1
+      000B96 09                    8048 	.db	9
+      000B97 00 01                 8049 	.dw	1+Smain$main$658-Smain$main$657
+      000B99 00                    8050 	.db	0
+      000B9A 01                    8051 	.uleb128	1
+      000B9B 01                    8052 	.db	1
+      000B9C                       8053 Ldebug_line_end:
+                                   8054 
+                                   8055 	.area .debug_loc (NOLOAD)
+      000000                       8056 Ldebug_loc_start:
+      000000 00 00 12 BC           8057 	.dw	0,(Smain$main$586)
+      000004 00 00 14 79           8058 	.dw	0,(Smain$main$659)
+      000008 00 02                 8059 	.dw	2
+      00000A 86                    8060 	.db	134
+      00000B 01                    8061 	.sleb128	1
+      00000C 00 00 00 00           8062 	.dw	0,0
+      000010 00 00 00 00           8063 	.dw	0,0
+      000014 00 00 12 A3           8064 	.dw	0,(Smain$wdt_clear$574)
+      000018 00 00 12 BC           8065 	.dw	0,(Smain$wdt_clear$584)
+      00001C 00 02                 8066 	.dw	2
+      00001E 86                    8067 	.db	134
+      00001F 01                    8068 	.sleb128	1
+      000020 00 00 00 00           8069 	.dw	0,0
+      000024 00 00 00 00           8070 	.dw	0,0
+      000028 00 00 12 5A           8071 	.dw	0,(Smain$wdt_init$556)
+      00002C 00 00 12 A3           8072 	.dw	0,(Smain$wdt_init$572)
+      000030 00 02                 8073 	.dw	2
+      000032 86                    8074 	.db	134
+      000033 01                    8075 	.sleb128	1
+      000034 00 00 00 00           8076 	.dw	0,0
+      000038 00 00 00 00           8077 	.dw	0,0
+      00003C 00 00 11 69           8078 	.dw	0,(Smain$control_loop$518)
+      000040 00 00 12 5A           8079 	.dw	0,(Smain$control_loop$554)
+      000044 00 02                 8080 	.dw	2
+      000046 86                    8081 	.db	134
+      000047 01                    8082 	.sleb128	1
+      000048 00 00 00 00           8083 	.dw	0,0
+      00004C 00 00 00 00           8084 	.dw	0,0
+      000050 00 00 10 46           8085 	.dw	0,(Smain$mode_stable_control$492)
+      000054 00 00 11 69           8086 	.dw	0,(Smain$mode_stable_control$516)
+      000058 00 02                 8087 	.dw	2
+      00005A 86                    8088 	.db	134
+      00005B 01                    8089 	.sleb128	1
+      00005C 00 00 00 00           8090 	.dw	0,0
+      000060 00 00 00 00           8091 	.dw	0,0
+      000064 00 00 10 18           8092 	.dw	0,(Smain$is_stable$478)
+      000068 00 00 10 46           8093 	.dw	0,(Smain$is_stable$490)
+      00006C 00 02                 8094 	.dw	2
+      00006E 86                    8095 	.db	134
+      00006F 01                    8096 	.sleb128	1
+      000070 00 00 00 00           8097 	.dw	0,0
+      000074 00 00 00 00           8098 	.dw	0,0
+      000078 00 00 0D FB           8099 	.dw	0,(Smain$mode_changing_control$400)
+      00007C 00 00 10 18           8100 	.dw	0,(Smain$mode_changing_control$476)
+      000080 00 02                 8101 	.dw	2
+      000082 86                    8102 	.db	134
+      000083 01                    8103 	.sleb128	1
+      000084 00 00 00 00           8104 	.dw	0,0
+      000088 00 00 00 00           8105 	.dw	0,0
+      00008C 00 00 0D C4           8106 	.dw	0,(Smain$activate_leds$389)
+      000090 00 00 0D FB           8107 	.dw	0,(Smain$activate_leds$398)
+      000094 00 02                 8108 	.dw	2
+      000096 86                    8109 	.db	134
+      000097 01                    8110 	.sleb128	1
+      000098 00 00 00 00           8111 	.dw	0,0
+      00009C 00 00 00 00           8112 	.dw	0,0
+      0000A0 00 00 0D 8D           8113 	.dw	0,(Smain$stop_leds$376)
+      0000A4 00 00 0D C4           8114 	.dw	0,(Smain$stop_leds$387)
+      0000A8 00 02                 8115 	.dw	2
+      0000AA 86                    8116 	.db	134
+      0000AB 01                    8117 	.sleb128	1
+      0000AC 00 00 00 00           8118 	.dw	0,0
+      0000B0 00 00 00 00           8119 	.dw	0,0
+      0000B4 00 00 0C 60           8120 	.dw	0,(Smain$process_button$336)
+      0000B8 00 00 0D 8D           8121 	.dw	0,(Smain$process_button$374)
+      0000BC 00 02                 8122 	.dw	2
+      0000BE 86                    8123 	.db	134
+      0000BF 01                    8124 	.sleb128	1
+      0000C0 00 00 00 00           8125 	.dw	0,0
+      0000C4 00 00 00 00           8126 	.dw	0,0
+      0000C8 00 00 0A F7           8127 	.dw	0,(Smain$process_uart$280)
+      0000CC 00 00 0C 60           8128 	.dw	0,(Smain$process_uart$334)
+      0000D0 00 02                 8129 	.dw	2
+      0000D2 86                    8130 	.db	134
+      0000D3 01                    8131 	.sleb128	1
+      0000D4 00 00 00 00           8132 	.dw	0,0
+      0000D8 00 00 00 00           8133 	.dw	0,0
+      0000DC 00 00 0A E9           8134 	.dw	0,(Smain$toNextMode$274)
+      0000E0 00 00 0A F7           8135 	.dw	0,(Smain$toNextMode$278)
+      0000E4 00 02                 8136 	.dw	2
+      0000E6 86                    8137 	.db	134
+      0000E7 01                    8138 	.sleb128	1
+      0000E8 00 00 00 00           8139 	.dw	0,0
+      0000EC 00 00 00 00           8140 	.dw	0,0
+      0000F0 00 00 09 31           8141 	.dw	0,(Smain$changeMode$226)
+      0000F4 00 00 0A E9           8142 	.dw	0,(Smain$changeMode$272)
+      0000F8 00 02                 8143 	.dw	2
+      0000FA 86                    8144 	.db	134
+      0000FB 01                    8145 	.sleb128	1
+      0000FC 00 00 00 00           8146 	.dw	0,0
+      000100 00 00 00 00           8147 	.dw	0,0
+      000104 00 00 08 14           8148 	.dw	0,(Smain$target_amp$207)
+      000108 00 00 09 31           8149 	.dw	0,(Smain$target_amp$224)
+      00010C 00 02                 8150 	.dw	2
+      00010E 86                    8151 	.db	134
+      00010F 01                    8152 	.sleb128	1
+      000110 00 00 00 00           8153 	.dw	0,0
+      000114 00 00 00 00           8154 	.dw	0,0
+      000118 00 00 07 AF           8155 	.dw	0,(Smain$avg_amp$195)
+      00011C 00 00 08 14           8156 	.dw	0,(Smain$avg_amp$205)
+      000120 00 02                 8157 	.dw	2
+      000122 86                    8158 	.db	134
+      000123 01                    8159 	.sleb128	1
+      000124 00 00 00 00           8160 	.dw	0,0
+      000128 00 00 00 00           8161 	.dw	0,0
+      00012C 00 00 07 6F           8162 	.dw	0,(Smain$has_high_beam$189)
+      000130 00 00 07 AF           8163 	.dw	0,(Smain$has_high_beam$193)
+      000134 00 02                 8164 	.dw	2
+      000136 86                    8165 	.db	134
+      000137 01                    8166 	.sleb128	1
+      000138 00 00 00 00           8167 	.dw	0,0
+      00013C 00 00 00 00           8168 	.dw	0,0
+      000140 00 00 06 A8           8169 	.dw	0,(Smain$sample_temperature$178)
+      000144 00 00 07 6F           8170 	.dw	0,(Smain$sample_temperature$187)
+      000148 00 02                 8171 	.dw	2
+      00014A 86                    8172 	.db	134
+      00014B 01                    8173 	.sleb128	1
+      00014C 00 00 00 00           8174 	.dw	0,0
+      000150 00 00 00 00           8175 	.dw	0,0
+      000154 00 00 05 5B           8176 	.dw	0,(Smain$sample_amps$161)
+      000158 00 00 06 A8           8177 	.dw	0,(Smain$sample_amps$176)
+      00015C 00 02                 8178 	.dw	2
+      00015E 86                    8179 	.db	134
+      00015F 01                    8180 	.sleb128	1
+      000160 00 00 00 00           8181 	.dw	0,0
+      000164 00 00 00 00           8182 	.dw	0,0
+      000168 00 00 04 B9           8183 	.dw	0,(Smain$init_peripherals_but_button_n_uart$131)
+      00016C 00 00 05 5B           8184 	.dw	0,(Smain$init_peripherals_but_button_n_uart$159)
+      000170 00 02                 8185 	.dw	2
+      000172 86                    8186 	.db	134
+      000173 01                    8187 	.sleb128	1
+      000174 00 00 00 00           8188 	.dw	0,0
+      000178 00 00 00 00           8189 	.dw	0,0
+      00017C 00 00 04 6F           8190 	.dw	0,(Smain$init_sample$115)
+      000180 00 00 04 B9           8191 	.dw	0,(Smain$init_sample$129)
+      000184 00 02                 8192 	.dw	2
+      000186 86                    8193 	.db	134
+      000187 01                    8194 	.sleb128	1
+      000188 00 00 00 00           8195 	.dw	0,0
+      00018C 00 00 00 00           8196 	.dw	0,0
+      000190 00 00 04 6E           8197 	.dw	0,(Smain$disable_ntc$110)
+      000194 00 00 04 6F           8198 	.dw	0,(Smain$disable_ntc$113)
+      000198 00 02                 8199 	.dw	2
+      00019A 86                    8200 	.db	134
+      00019B 01                    8201 	.sleb128	1
+      00019C 00 00 00 00           8202 	.dw	0,0
+      0001A0 00 00 00 00           8203 	.dw	0,0
+      0001A4 00 00 04 6D           8204 	.dw	0,(Smain$enable_ntc$105)
+      0001A8 00 00 04 6E           8205 	.dw	0,(Smain$enable_ntc$108)
+      0001AC 00 02                 8206 	.dw	2
+      0001AE 86                    8207 	.db	134
+      0001AF 01                    8208 	.sleb128	1
+      0001B0 00 00 00 00           8209 	.dw	0,0
+      0001B4 00 00 00 00           8210 	.dw	0,0
+      0001B8 00 00 04 55           8211 	.dw	0,(Smain$button_interrupt_init$96)
+      0001BC 00 00 04 6D           8212 	.dw	0,(Smain$button_interrupt_init$103)
+      0001C0 00 02                 8213 	.dw	2
+      0001C2 86                    8214 	.db	134
+      0001C3 01                    8215 	.sleb128	1
+      0001C4 00 00 00 00           8216 	.dw	0,0
+      0001C8 00 00 00 00           8217 	.dw	0,0
+      0001CC 00 00 04 24           8218 	.dw	0,(Smain$PinInterrupt_ISR$84)
+      0001D0 00 00 04 55           8219 	.dw	0,(Smain$PinInterrupt_ISR$94)
+      0001D4 00 02                 8220 	.dw	2
+      0001D6 86                    8221 	.db	134
+      0001D7 01                    8222 	.sleb128	1
+      0001D8 00 00 00 00           8223 	.dw	0,0
+      0001DC 00 00 00 00           8224 	.dw	0,0
+      0001E0 00 00 03 F8           8225 	.dw	0,(Smain$uart_interrupt_init$77)
+      0001E4 00 00 04 1C           8226 	.dw	0,(Smain$uart_interrupt_init$82)
+      0001E8 00 02                 8227 	.dw	2
+      0001EA 86                    8228 	.db	134
+      0001EB 01                    8229 	.sleb128	1
+      0001EC 00 00 00 00           8230 	.dw	0,0
+      0001F0 00 00 00 00           8231 	.dw	0,0
+      0001F4 00 00 03 98           8232 	.dw	0,(Smain$SerialPort1_ISR$60)
+      0001F8 00 00 03 F8           8233 	.dw	0,(Smain$SerialPort1_ISR$75)
+      0001FC 00 02                 8234 	.dw	2
+      0001FE 86                    8235 	.db	134
+      0001FF 01                    8236 	.sleb128	1
+      000200 00 00 00 00           8237 	.dw	0,0
+      000204 00 00 00 00           8238 	.dw	0,0
+      000208 00 00 03 4C           8239 	.dw	0,(Smain$log_init$50)
+      00020C 00 00 03 79           8240 	.dw	0,(Smain$log_init$58)
+      000210 00 02                 8241 	.dw	2
+      000212 86                    8242 	.db	134
+      000213 01                    8243 	.sleb128	1
+      000214 00 00 00 00           8244 	.dw	0,0
+      000218 00 00 00 00           8245 	.dw	0,0
+      00021C 00 00 01 D4           8246 	.dw	0,(Smain$uart_logn$27)
+      000220 00 00 03 4C           8247 	.dw	0,(Smain$uart_logn$48)
+      000224 00 02                 8248 	.dw	2
+      000226 86                    8249 	.db	134
+      000227 01                    8250 	.sleb128	1
+      000228 00 00 00 00           8251 	.dw	0,0
+      00022C 00 00 00 00           8252 	.dw	0,0
+      000230 00 00 01 A5           8253 	.dw	0,(Smain$uart_log$20)
+      000234 00 00 01 D4           8254 	.dw	0,(Smain$uart_log$25)
+      000238 00 02                 8255 	.dw	2
+      00023A 86                    8256 	.db	134
+      00023B 01                    8257 	.sleb128	1
+      00023C 00 00 00 00           8258 	.dw	0,0
+      000240 00 00 00 00           8259 	.dw	0,0
+      000244 00 00 00 DD           8260 	.dw	0,(Smain$Timer0_Delay$1)
+      000248 00 00 01 A5           8261 	.dw	0,(Smain$Timer0_Delay$18)
+      00024C 00 02                 8262 	.dw	2
+      00024E 86                    8263 	.db	134
+      00024F 01                    8264 	.sleb128	1
+      000250 00 00 00 00           8265 	.dw	0,0
+      000254 00 00 00 00           8266 	.dw	0,0
+                                   8267 
+                                   8268 	.area .debug_abbrev (NOLOAD)
+      000000                       8269 Ldebug_abbrev:
+      000000 01                    8270 	.uleb128	1
+      000001 11                    8271 	.uleb128	17
+      000002 01                    8272 	.db	1
+      000003 03                    8273 	.uleb128	3
+      000004 08                    8274 	.uleb128	8
+      000005 10                    8275 	.uleb128	16
+      000006 06                    8276 	.uleb128	6
+      000007 13                    8277 	.uleb128	19
+      000008 0B                    8278 	.uleb128	11
+      000009 25                    8279 	.uleb128	37
+      00000A 08                    8280 	.uleb128	8
+      00000B 00                    8281 	.uleb128	0
+      00000C 00                    8282 	.uleb128	0
+      00000D 02                    8283 	.uleb128	2
+      00000E 2E                    8284 	.uleb128	46
+      00000F 01                    8285 	.db	1
+      000010 01                    8286 	.uleb128	1
+      000011 13                    8287 	.uleb128	19
+      000012 03                    8288 	.uleb128	3
+      000013 08                    8289 	.uleb128	8
+      000014 11                    8290 	.uleb128	17
+      000015 01                    8291 	.uleb128	1
+      000016 12                    8292 	.uleb128	18
+      000017 01                    8293 	.uleb128	1
+      000018 3F                    8294 	.uleb128	63
+      000019 0C                    8295 	.uleb128	12
+      00001A 40                    8296 	.uleb128	64
+      00001B 06                    8297 	.uleb128	6
+      00001C 00                    8298 	.uleb128	0
+      00001D 00                    8299 	.uleb128	0
+      00001E 03                    8300 	.uleb128	3
+      00001F 05                    8301 	.uleb128	5
+      000020 00                    8302 	.db	0
+      000021 02                    8303 	.uleb128	2
+      000022 0A                    8304 	.uleb128	10
+      000023 03                    8305 	.uleb128	3
+      000024 08                    8306 	.uleb128	8
+      000025 49                    8307 	.uleb128	73
+      000026 13                    8308 	.uleb128	19
+      000027 00                    8309 	.uleb128	0
+      000028 00                    8310 	.uleb128	0
+      000029 04                    8311 	.uleb128	4
+      00002A 05                    8312 	.uleb128	5
+      00002B 00                    8313 	.db	0
+      00002C 03                    8314 	.uleb128	3
+      00002D 08                    8315 	.uleb128	8
+      00002E 49                    8316 	.uleb128	73
+      00002F 13                    8317 	.uleb128	19
+      000030 00                    8318 	.uleb128	0
+      000031 00                    8319 	.uleb128	0
+      000032 05                    8320 	.uleb128	5
+      000033 0B                    8321 	.uleb128	11
+      000034 00                    8322 	.db	0
+      000035 11                    8323 	.uleb128	17
+      000036 01                    8324 	.uleb128	1
+      000037 12                    8325 	.uleb128	18
+      000038 01                    8326 	.uleb128	1
+      000039 00                    8327 	.uleb128	0
+      00003A 00                    8328 	.uleb128	0
+      00003B 06                    8329 	.uleb128	6
+      00003C 34                    8330 	.uleb128	52
+      00003D 00                    8331 	.db	0
+      00003E 03                    8332 	.uleb128	3
+      00003F 08                    8333 	.uleb128	8
+      000040 49                    8334 	.uleb128	73
+      000041 13                    8335 	.uleb128	19
+      000042 00                    8336 	.uleb128	0
+      000043 00                    8337 	.uleb128	0
+      000044 07                    8338 	.uleb128	7
+      000045 24                    8339 	.uleb128	36
+      000046 00                    8340 	.db	0
+      000047 03                    8341 	.uleb128	3
+      000048 08                    8342 	.uleb128	8
+      000049 0B                    8343 	.uleb128	11
+      00004A 0B                    8344 	.uleb128	11
+      00004B 3E                    8345 	.uleb128	62
+      00004C 0B                    8346 	.uleb128	11
+      00004D 00                    8347 	.uleb128	0
+      00004E 00                    8348 	.uleb128	0
+      00004F 08                    8349 	.uleb128	8
+      000050 0B                    8350 	.uleb128	11
+      000051 01                    8351 	.db	1
+      000052 11                    8352 	.uleb128	17
+      000053 01                    8353 	.uleb128	1
+      000054 12                    8354 	.uleb128	18
+      000055 01                    8355 	.uleb128	1
+      000056 00                    8356 	.uleb128	0
+      000057 00                    8357 	.uleb128	0
+      000058 09                    8358 	.uleb128	9
+      000059 0B                    8359 	.uleb128	11
+      00005A 01                    8360 	.db	1
+      00005B 01                    8361 	.uleb128	1
+      00005C 13                    8362 	.uleb128	19
+      00005D 11                    8363 	.uleb128	17
+      00005E 01                    8364 	.uleb128	1
+      00005F 00                    8365 	.uleb128	0
+      000060 00                    8366 	.uleb128	0
+      000061 0A                    8367 	.uleb128	10
+      000062 34                    8368 	.uleb128	52
+      000063 00                    8369 	.db	0
+      000064 02                    8370 	.uleb128	2
+      000065 0A                    8371 	.uleb128	10
+      000066 03                    8372 	.uleb128	3
+      000067 08                    8373 	.uleb128	8
+      000068 49                    8374 	.uleb128	73
+      000069 13                    8375 	.uleb128	19
+      00006A 00                    8376 	.uleb128	0
+      00006B 00                    8377 	.uleb128	0
+      00006C 0B                    8378 	.uleb128	11
+      00006D 2E                    8379 	.uleb128	46
+      00006E 01                    8380 	.db	1
+      00006F 01                    8381 	.uleb128	1
+      000070 13                    8382 	.uleb128	19
+      000071 03                    8383 	.uleb128	3
+      000072 08                    8384 	.uleb128	8
+      000073 11                    8385 	.uleb128	17
+      000074 01                    8386 	.uleb128	1
+      000075 12                    8387 	.uleb128	18
+      000076 01                    8388 	.uleb128	1
+      000077 36                    8389 	.uleb128	54
+      000078 0B                    8390 	.uleb128	11
+      000079 3F                    8391 	.uleb128	63
+      00007A 0C                    8392 	.uleb128	12
+      00007B 40                    8393 	.uleb128	64
+      00007C 06                    8394 	.uleb128	6
+      00007D 00                    8395 	.uleb128	0
+      00007E 00                    8396 	.uleb128	0
+      00007F 0C                    8397 	.uleb128	12
+      000080 2E                    8398 	.uleb128	46
+      000081 00                    8399 	.db	0
+      000082 03                    8400 	.uleb128	3
+      000083 08                    8401 	.uleb128	8
+      000084 11                    8402 	.uleb128	17
+      000085 01                    8403 	.uleb128	1
+      000086 12                    8404 	.uleb128	18
+      000087 01                    8405 	.uleb128	1
+      000088 3F                    8406 	.uleb128	63
+      000089 0C                    8407 	.uleb128	12
+      00008A 40                    8408 	.uleb128	64
+      00008B 06                    8409 	.uleb128	6
+      00008C 00                    8410 	.uleb128	0
+      00008D 00                    8411 	.uleb128	0
+      00008E 0D                    8412 	.uleb128	13
+      00008F 2E                    8413 	.uleb128	46
+      000090 01                    8414 	.db	1
+      000091 01                    8415 	.uleb128	1
+      000092 13                    8416 	.uleb128	19
+      000093 03                    8417 	.uleb128	3
+      000094 08                    8418 	.uleb128	8
+      000095 11                    8419 	.uleb128	17
+      000096 01                    8420 	.uleb128	1
+      000097 12                    8421 	.uleb128	18
+      000098 01                    8422 	.uleb128	1
+      000099 3F                    8423 	.uleb128	63
+      00009A 0C                    8424 	.uleb128	12
+      00009B 40                    8425 	.uleb128	64
+      00009C 06                    8426 	.uleb128	6
+      00009D 49                    8427 	.uleb128	73
+      00009E 13                    8428 	.uleb128	19
+      00009F 00                    8429 	.uleb128	0
+      0000A0 00                    8430 	.uleb128	0
+      0000A1 0E                    8431 	.uleb128	14
+      0000A2 0B                    8432 	.uleb128	11
+      0000A3 01                    8433 	.db	1
+      0000A4 01                    8434 	.uleb128	1
+      0000A5 13                    8435 	.uleb128	19
+      0000A6 11                    8436 	.uleb128	17
+      0000A7 01                    8437 	.uleb128	1
+      0000A8 12                    8438 	.uleb128	18
+      0000A9 01                    8439 	.uleb128	1
+      0000AA 00                    8440 	.uleb128	0
+      0000AB 00                    8441 	.uleb128	0
+      0000AC 0F                    8442 	.uleb128	15
+      0000AD 0B                    8443 	.uleb128	11
+      0000AE 01                    8444 	.db	1
+      0000AF 01                    8445 	.uleb128	1
+      0000B0 13                    8446 	.uleb128	19
+      0000B1 00                    8447 	.uleb128	0
+      0000B2 00                    8448 	.uleb128	0
+      0000B3 10                    8449 	.uleb128	16
+      0000B4 0B                    8450 	.uleb128	11
+      0000B5 01                    8451 	.db	1
+      0000B6 11                    8452 	.uleb128	17
+      0000B7 01                    8453 	.uleb128	1
+      0000B8 00                    8454 	.uleb128	0
+      0000B9 00                    8455 	.uleb128	0
+      0000BA 11                    8456 	.uleb128	17
+      0000BB 34                    8457 	.uleb128	52
+      0000BC 00                    8458 	.db	0
+      0000BD 02                    8459 	.uleb128	2
+      0000BE 0A                    8460 	.uleb128	10
+      0000BF 03                    8461 	.uleb128	3
+      0000C0 08                    8462 	.uleb128	8
+      0000C1 3C                    8463 	.uleb128	60
+      0000C2 0C                    8464 	.uleb128	12
+      0000C3 3F                    8465 	.uleb128	63
+      0000C4 0C                    8466 	.uleb128	12
+      0000C5 49                    8467 	.uleb128	73
+      0000C6 13                    8468 	.uleb128	19
+      0000C7 00                    8469 	.uleb128	0
+      0000C8 00                    8470 	.uleb128	0
+      0000C9 12                    8471 	.uleb128	18
+      0000CA 01                    8472 	.uleb128	1
+      0000CB 01                    8473 	.db	1
+      0000CC 01                    8474 	.uleb128	1
+      0000CD 13                    8475 	.uleb128	19
+      0000CE 0B                    8476 	.uleb128	11
+      0000CF 0B                    8477 	.uleb128	11
+      0000D0 49                    8478 	.uleb128	73
+      0000D1 13                    8479 	.uleb128	19
+      0000D2 00                    8480 	.uleb128	0
+      0000D3 00                    8481 	.uleb128	0
+      0000D4 13                    8482 	.uleb128	19
+      0000D5 21                    8483 	.uleb128	33
+      0000D6 00                    8484 	.db	0
+      0000D7 2F                    8485 	.uleb128	47
+      0000D8 0B                    8486 	.uleb128	11
+      0000D9 00                    8487 	.uleb128	0
+      0000DA 00                    8488 	.uleb128	0
+      0000DB 14                    8489 	.uleb128	20
+      0000DC 34                    8490 	.uleb128	52
+      0000DD 00                    8491 	.db	0
+      0000DE 02                    8492 	.uleb128	2
+      0000DF 0A                    8493 	.uleb128	10
+      0000E0 03                    8494 	.uleb128	3
+      0000E1 08                    8495 	.uleb128	8
+      0000E2 3F                    8496 	.uleb128	63
+      0000E3 0C                    8497 	.uleb128	12
+      0000E4 49                    8498 	.uleb128	73
+      0000E5 13                    8499 	.uleb128	19
+      0000E6 00                    8500 	.uleb128	0
+      0000E7 00                    8501 	.uleb128	0
+      0000E8 15                    8502 	.uleb128	21
+      0000E9 35                    8503 	.uleb128	53
+      0000EA 00                    8504 	.db	0
+      0000EB 49                    8505 	.uleb128	73
+      0000EC 13                    8506 	.uleb128	19
+      0000ED 00                    8507 	.uleb128	0
+      0000EE 00                    8508 	.uleb128	0
+      0000EF 16                    8509 	.uleb128	22
+      0000F0 26                    8510 	.uleb128	38
+      0000F1 00                    8511 	.db	0
+      0000F2 49                    8512 	.uleb128	73
+      0000F3 13                    8513 	.uleb128	19
+      0000F4 00                    8514 	.uleb128	0
+      0000F5 00                    8515 	.uleb128	0
+      0000F6 00                    8516 	.uleb128	0
+                                   8517 
+                                   8518 	.area .debug_info (NOLOAD)
+      000000 00 00 1F 47           8519 	.dw	0,Ldebug_info_end-Ldebug_info_start
+      000004                       8520 Ldebug_info_start:
+      000004 00 02                 8521 	.dw	2
+      000006 00 00 00 00           8522 	.dw	0,(Ldebug_abbrev)
+      00000A 04                    8523 	.db	4
+      00000B 01                    8524 	.uleb128	1
+      00000C 43 3A 2F 55 73 65 72  8525 	.ascii "C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c"
+             73 2F 47 6F 6F 73 6D
+             6F 73 2F 44 6F 77 6E
+             6C 6F 61 64 73 2F 4D
+             53 35 31 5F 42 53 50
+             2D 6D 61 73 74 65 72
+             2F 4D 53 35 31 5F 42
+             53 50 2D 6D 61 73 74
+             65 72 2F 4D 53 35 31
+             46 42 39 41 45 5F 4D
+             53 35 31 58 42 39 41
+             45 5F 4D 53 35 31 58
+             42 39 42 45 2F 53 61
+             6D 70 6C 65 43 6F 64
+             65 2F 54 65 6D 70 6C
+             61 74 65 2F 50 72 6F
+             6A 65 63 74 5F 74 65
+             6D 70 2F 6D 61 69 6E
+             2E 63
+      00008C 00                    8526 	.db	0
+      00008D 00 00 00 00           8527 	.dw	0,(Ldebug_line_start+-4)
+      000091 01                    8528 	.db	1
+      000092 53 44 43 43 20 76 65  8529 	.ascii "SDCC version 4.2.6 #13647"
+             72 73 69 6F 6E 20 34
+             2E 32 2E 36 20 23 31
+             33 36 34 37
+      0000AB 00                    8530 	.db	0
+      0000AC 02                    8531 	.uleb128	2
+      0000AD 00 00 01 1E           8532 	.dw	0,286
+      0000B1 54 69 6D 65 72 30 5F  8533 	.ascii "Timer0_Delay"
+             44 65 6C 61 79
+      0000BD 00                    8534 	.db	0
+      0000BE 00 00 00 DD           8535 	.dw	0,(_Timer0_Delay)
+      0000C2 00 00 01 A5           8536 	.dw	0,(XG$Timer0_Delay$0$0+1)
+      0000C6 01                    8537 	.db	1
+      0000C7 00 00 02 44           8538 	.dw	0,(Ldebug_loc_start+580)
+      0000CB 03                    8539 	.uleb128	3
+      0000CC 05                    8540 	.db	5
+      0000CD 03                    8541 	.db	3
+      0000CE 00 00 00 05           8542 	.dw	0,(_Timer0_Delay_u32SYSCLK_65536_145)
+      0000D2 75 33 32 53 59 53 43  8543 	.ascii "u32SYSCLK"
+             4C 4B
+      0000DB 00                    8544 	.db	0
+      0000DC 00 00 01 1E           8545 	.dw	0,286
+      0000E0 04                    8546 	.uleb128	4
+      0000E1 75 31 36 43 4E 54     8547 	.ascii "u16CNT"
+      0000E7 00                    8548 	.db	0
+      0000E8 00 00 01 2F           8549 	.dw	0,303
+      0000EC 04                    8550 	.uleb128	4
+      0000ED 75 31 36 44 4C 59 55  8551 	.ascii "u16DLYUnit"
+             6E 69 74
+      0000F7 00                    8552 	.db	0
+      0000F8 00 00 01 2F           8553 	.dw	0,303
+      0000FC 05                    8554 	.uleb128	5
+      0000FD 00 00 01 90           8555 	.dw	0,(Smain$Timer0_Delay$7)
+      000101 00 00 01 A2           8556 	.dw	0,(Smain$Timer0_Delay$15)
+      000105 06                    8557 	.uleb128	6
+      000106 54 4C 30 54 4D 50     8558 	.ascii "TL0TMP"
+      00010C 00                    8559 	.db	0
+      00010D 00 00 01 68           8560 	.dw	0,360
+      000111 06                    8561 	.uleb128	6
+      000112 54 48 30 54 4D 50     8562 	.ascii "TH0TMP"
+      000118 00                    8563 	.db	0
+      000119 00 00 01 68           8564 	.dw	0,360
+      00011D 00                    8565 	.uleb128	0
+      00011E 07                    8566 	.uleb128	7
+      00011F 75 6E 73 69 67 6E 65  8567 	.ascii "unsigned long"
+             64 20 6C 6F 6E 67
+      00012C 00                    8568 	.db	0
+      00012D 04                    8569 	.db	4
+      00012E 07                    8570 	.db	7
+      00012F 07                    8571 	.uleb128	7
+      000130 75 6E 73 69 67 6E 65  8572 	.ascii "unsigned int"
+             64 20 69 6E 74
+      00013C 00                    8573 	.db	0
+      00013D 02                    8574 	.db	2
+      00013E 07                    8575 	.db	7
+      00013F 02                    8576 	.uleb128	2
+      000140 00 00 01 68           8577 	.dw	0,360
+      000144 75 61 72 74 5F 6C 6F  8578 	.ascii "uart_log"
+             67
+      00014C 00                    8579 	.db	0
+      00014D 00 00 01 A5           8580 	.dw	0,(_uart_log)
+      000151 00 00 01 D4           8581 	.dw	0,(XG$uart_log$0$0+1)
+      000155 01                    8582 	.db	1
+      000156 00 00 02 30           8583 	.dw	0,(Ldebug_loc_start+560)
+      00015A 03                    8584 	.uleb128	3
+      00015B 05                    8585 	.db	5
+      00015C 03                    8586 	.db	3
+      00015D 00 00 00 09           8587 	.dw	0,(_uart_log_c_65536_148)
+      000161 63                    8588 	.ascii "c"
+      000162 00                    8589 	.db	0
+      000163 00 00 01 68           8590 	.dw	0,360
+      000167 00                    8591 	.uleb128	0
+      000168 07                    8592 	.uleb128	7
+      000169 75 6E 73 69 67 6E 65  8593 	.ascii "unsigned char"
+             64 20 63 68 61 72
+      000176 00                    8594 	.db	0
+      000177 01                    8595 	.db	1
+      000178 08                    8596 	.db	8
+      000179 02                    8597 	.uleb128	2
+      00017A 00 00 01 E0           8598 	.dw	0,480
+      00017E 75 61 72 74 5F 6C 6F  8599 	.ascii "uart_logn"
+             67 6E
+      000187 00                    8600 	.db	0
+      000188 00 00 01 D4           8601 	.dw	0,(_uart_logn)
+      00018C 00 00 03 4C           8602 	.dw	0,(XG$uart_logn$0$0+1)
+      000190 01                    8603 	.db	1
+      000191 00 00 02 1C           8604 	.dw	0,(Ldebug_loc_start+540)
+      000195 03                    8605 	.uleb128	3
+      000196 05                    8606 	.db	5
+      000197 03                    8607 	.db	3
+      000198 00 00 00 0A           8608 	.dw	0,(_uart_logn_n_65536_150)
+      00019C 6E                    8609 	.ascii "n"
+      00019D 00                    8610 	.db	0
+      00019E 00 00 01 1E           8611 	.dw	0,286
+      0001A2 05                    8612 	.uleb128	5
+      0001A3 00 00 02 0B           8613 	.dw	0,(Smain$uart_logn$29)
+      0001A7 00 00 02 14           8614 	.dw	0,(Smain$uart_logn$32)
+      0001AB 08                    8615 	.uleb128	8
+      0001AC 00 00 02 14           8616 	.dw	0,(Smain$uart_logn$33)
+      0001B0 00 00 02 3A           8617 	.dw	0,(Smain$uart_logn$37)
+      0001B4 09                    8618 	.uleb128	9
+      0001B5 00 00 01 D1           8619 	.dw	0,465
+      0001B9 00 00 02 B3           8620 	.dw	0,(Smain$uart_logn$40)
+      0001BD 08                    8621 	.uleb128	8
+      0001BE 00 00 02 C1           8622 	.dw	0,(Smain$uart_logn$41)
+      0001C2 00 00 02 E1           8623 	.dw	0,(Smain$uart_logn$43)
+      0001C6 06                    8624 	.uleb128	6
+      0001C7 72 65 73              8625 	.ascii "res"
+      0001CA 00                    8626 	.db	0
+      0001CB 00 00 01 1E           8627 	.dw	0,286
+      0001CF 00                    8628 	.uleb128	0
+      0001D0 00                    8629 	.uleb128	0
+      0001D1 0A                    8630 	.uleb128	10
+      0001D2 05                    8631 	.db	5
+      0001D3 03                    8632 	.db	3
+      0001D4 00 00 00 0E           8633 	.dw	0,(_uart_logn_e_65537_153)
+      0001D8 65                    8634 	.ascii "e"
+      0001D9 00                    8635 	.db	0
+      0001DA 00 00 01 1E           8636 	.dw	0,286
+      0001DE 00                    8637 	.uleb128	0
+      0001DF 00                    8638 	.uleb128	0
+      0001E0 02                    8639 	.uleb128	2
+      0001E1 00 00 02 05           8640 	.dw	0,517
+      0001E5 6C 6F 67 5F 69 6E 69  8641 	.ascii "log_init"
+             74
+      0001ED 00                    8642 	.db	0
+      0001EE 00 00 03 4C           8643 	.dw	0,(_log_init)
+      0001F2 00 00 03 79           8644 	.dw	0,(XG$log_init$0$0+1)
+      0001F6 01                    8645 	.db	1
+      0001F7 00 00 02 08           8646 	.dw	0,(Ldebug_loc_start+520)
+      0001FB 05                    8647 	.uleb128	5
+      0001FC 00 00 03 58           8648 	.dw	0,(Smain$log_init$53)
+      000200 00 00 03 78           8649 	.dw	0,(Smain$log_init$55)
+      000204 00                    8650 	.uleb128	0
+      000205 0B                    8651 	.uleb128	11
+      000206 00 00 02 3B           8652 	.dw	0,571
+      00020A 53 65 72 69 61 6C 50  8653 	.ascii "SerialPort1_ISR"
+             6F 72 74 31 5F 49 53
+             52
+      000219 00                    8654 	.db	0
+      00021A 00 00 03 79           8655 	.dw	0,(_SerialPort1_ISR)
+      00021E 00 00 03 F8           8656 	.dw	0,(XG$SerialPort1_ISR$0$0+1)
+      000222 03                    8657 	.db	3
+      000223 01                    8658 	.db	1
+      000224 00 00 01 F4           8659 	.dw	0,(Ldebug_loc_start+500)
+      000228 05                    8660 	.uleb128	5
+      000229 00 00 03 9D           8661 	.dw	0,(Smain$SerialPort1_ISR$63)
+      00022D 00 00 03 B9           8662 	.dw	0,(Smain$SerialPort1_ISR$66)
+      000231 05                    8663 	.uleb128	5
+      000232 00 00 03 D4           8664 	.dw	0,(Smain$SerialPort1_ISR$69)
+      000236 00 00 03 D9           8665 	.dw	0,(Smain$SerialPort1_ISR$71)
+      00023A 00                    8666 	.uleb128	0
+      00023B 0C                    8667 	.uleb128	12
+      00023C 75 61 72 74 5F 69 6E  8668 	.ascii "uart_interrupt_init"
+             74 65 72 72 75 70 74
+             5F 69 6E 69 74
+      00024F 00                    8669 	.db	0
+      000250 00 00 03 F8           8670 	.dw	0,(_uart_interrupt_init)
+      000254 00 00 04 1C           8671 	.dw	0,(XG$uart_interrupt_init$0$0+1)
+      000258 01                    8672 	.db	1
+      000259 00 00 01 E0           8673 	.dw	0,(Ldebug_loc_start+480)
+      00025D 0B                    8674 	.uleb128	11
+      00025E 00 00 02 8B           8675 	.dw	0,651
+      000262 50 69 6E 49 6E 74 65  8676 	.ascii "PinInterrupt_ISR"
+             72 72 75 70 74 5F 49
+             53 52
+      000272 00                    8677 	.db	0
+      000273 00 00 04 1C           8678 	.dw	0,(_PinInterrupt_ISR)
+      000277 00 00 04 55           8679 	.dw	0,(XG$PinInterrupt_ISR$0$0+1)
+      00027B 03                    8680 	.db	3
+      00027C 01                    8681 	.db	1
+      00027D 00 00 01 CC           8682 	.dw	0,(Ldebug_loc_start+460)
+      000281 05                    8683 	.uleb128	5
+      000282 00 00 04 3A           8684 	.dw	0,(Smain$PinInterrupt_ISR$87)
+      000286 00 00 04 47           8685 	.dw	0,(Smain$PinInterrupt_ISR$89)
+      00028A 00                    8686 	.uleb128	0
+      00028B 0C                    8687 	.uleb128	12
+      00028C 62 75 74 74 6F 6E 5F  8688 	.ascii "button_interrupt_init"
+             69 6E 74 65 72 72 75
+             70 74 5F 69 6E 69 74
+      0002A1 00                    8689 	.db	0
+      0002A2 00 00 04 55           8690 	.dw	0,(_button_interrupt_init)
+      0002A6 00 00 04 6D           8691 	.dw	0,(XG$button_interrupt_init$0$0+1)
+      0002AA 01                    8692 	.db	1
+      0002AB 00 00 01 B8           8693 	.dw	0,(Ldebug_loc_start+440)
+      0002AF 0C                    8694 	.uleb128	12
+      0002B0 65 6E 61 62 6C 65 5F  8695 	.ascii "enable_ntc"
+             6E 74 63
+      0002BA 00                    8696 	.db	0
+      0002BB 00 00 04 6D           8697 	.dw	0,(_enable_ntc)
+      0002BF 00 00 04 6E           8698 	.dw	0,(XG$enable_ntc$0$0+1)
+      0002C3 01                    8699 	.db	1
+      0002C4 00 00 01 A4           8700 	.dw	0,(Ldebug_loc_start+420)
+      0002C8 0C                    8701 	.uleb128	12
+      0002C9 64 69 73 61 62 6C 65  8702 	.ascii "disable_ntc"
+             5F 6E 74 63
+      0002D4 00                    8703 	.db	0
+      0002D5 00 00 04 6E           8704 	.dw	0,(_disable_ntc)
+      0002D9 00 00 04 6F           8705 	.dw	0,(XG$disable_ntc$0$0+1)
+      0002DD 01                    8706 	.db	1
+      0002DE 00 00 01 90           8707 	.dw	0,(Ldebug_loc_start+400)
+      0002E2 02                    8708 	.uleb128	2
+      0002E3 00 00 03 1B           8709 	.dw	0,795
+      0002E7 69 6E 69 74 5F 73 61  8710 	.ascii "init_sample"
+             6D 70 6C 65
+      0002F2 00                    8711 	.db	0
+      0002F3 00 00 04 6F           8712 	.dw	0,(_init_sample)
+      0002F7 00 00 04 B9           8713 	.dw	0,(XG$init_sample$0$0+1)
+      0002FB 01                    8714 	.db	1
+      0002FC 00 00 01 7C           8715 	.dw	0,(Ldebug_loc_start+380)
+      000300 08                    8716 	.uleb128	8
+      000301 00 00 04 82           8717 	.dw	0,(Smain$init_sample$121)
+      000305 00 00 04 B2           8718 	.dw	0,(Smain$init_sample$125)
+      000309 05                    8719 	.uleb128	5
+      00030A 00 00 04 7E           8720 	.dw	0,(Smain$init_sample$118)
+      00030E 00 00 04 7E           8721 	.dw	0,(Smain$init_sample$120)
+      000312 06                    8722 	.uleb128	6
+      000313 69                    8723 	.ascii "i"
+      000314 00                    8724 	.db	0
+      000315 00 00 09 D6           8725 	.dw	0,2518
+      000319 00                    8726 	.uleb128	0
+      00031A 00                    8727 	.uleb128	0
+      00031B 0C                    8728 	.uleb128	12
+      00031C 69 6E 69 74 5F 70 65  8729 	.ascii "init_peripherals_but_button_n_uart"
+             72 69 70 68 65 72 61
+             6C 73 5F 62 75 74 5F
+             62 75 74 74 6F 6E 5F
+             6E 5F 75 61 72 74
+      00033E 00                    8730 	.db	0
+      00033F 00 00 04 B9           8731 	.dw	0,(_init_peripherals_but_button_n_uart)
+      000343 00 00 05 5B           8732 	.dw	0,(XG$init_peripherals_but_button_n_uart$0$0+1)
+      000347 01                    8733 	.db	1
+      000348 00 00 01 68           8734 	.dw	0,(Ldebug_loc_start+360)
+      00034C 0C                    8735 	.uleb128	12
+      00034D 73 61 6D 70 6C 65 5F  8736 	.ascii "sample_amps"
+             61 6D 70 73
+      000358 00                    8737 	.db	0
+      000359 00 00 05 5B           8738 	.dw	0,(_sample_amps)
+      00035D 00 00 06 A8           8739 	.dw	0,(XG$sample_amps$0$0+1)
+      000361 01                    8740 	.db	1
+      000362 00 00 01 54           8741 	.dw	0,(Ldebug_loc_start+340)
+      000366 0C                    8742 	.uleb128	12
+      000367 73 61 6D 70 6C 65 5F  8743 	.ascii "sample_temperature"
+             74 65 6D 70 65 72 61
+             74 75 72 65
+      000379 00                    8744 	.db	0
+      00037A 00 00 06 A8           8745 	.dw	0,(_sample_temperature)
+      00037E 00 00 07 6F           8746 	.dw	0,(XG$sample_temperature$0$0+1)
+      000382 01                    8747 	.db	1
+      000383 00 00 01 40           8748 	.dw	0,(Ldebug_loc_start+320)
+      000387 07                    8749 	.uleb128	7
+      000388 73 69 67 6E 65 64 20  8750 	.ascii "signed char"
+             63 68 61 72
+      000393 00                    8751 	.db	0
+      000394 01                    8752 	.db	1
+      000395 05                    8753 	.db	5
+      000396 0D                    8754 	.uleb128	13
+      000397 00 00 03 CB           8755 	.dw	0,971
+      00039B 68 61 73 5F 68 69 67  8756 	.ascii "has_high_beam"
+             68 5F 62 65 61 6D
+      0003A8 00                    8757 	.db	0
+      0003A9 00 00 07 6F           8758 	.dw	0,(_has_high_beam)
+      0003AD 00 00 07 AF           8759 	.dw	0,(XG$has_high_beam$0$0+1)
+      0003B1 01                    8760 	.db	1
+      0003B2 00 00 01 2C           8761 	.dw	0,(Ldebug_loc_start+300)
+      0003B6 00 00 03 87           8762 	.dw	0,903
+      0003BA 03                    8763 	.uleb128	3
+      0003BB 05                    8764 	.db	5
+      0003BC 03                    8765 	.db	3
+      0003BD 00 00 00 22           8766 	.dw	0,(_has_high_beam_mode_65536_186)
+      0003C1 6D 6F 64 65           8767 	.ascii "mode"
+      0003C5 00                    8768 	.db	0
+      0003C6 00 00 03 87           8769 	.dw	0,903
+      0003CA 00                    8770 	.uleb128	0
+      0003CB 07                    8771 	.uleb128	7
+      0003CC 75 6E 73 69 67 6E 65  8772 	.ascii "unsigned int"
+             64 20 69 6E 74
+      0003D8 00                    8773 	.db	0
+      0003D9 02                    8774 	.db	2
+      0003DA 07                    8775 	.db	7
+      0003DB 0D                    8776 	.uleb128	13
+      0003DC 00 00 04 1B           8777 	.dw	0,1051
+      0003E0 61 76 67 5F 61 6D 70  8778 	.ascii "avg_amp"
+      0003E7 00                    8779 	.db	0
+      0003E8 00 00 07 AF           8780 	.dw	0,(_avg_amp)
+      0003EC 00 00 08 10           8781 	.dw	0,(XG$avg_amp$0$0+1)
+      0003F0 01                    8782 	.db	1
+      0003F1 00 00 01 18           8783 	.dw	0,(Ldebug_loc_start+280)
+      0003F5 00 00 03 CB           8784 	.dw	0,971
+      0003F9 03                    8785 	.uleb128	3
+      0003FA 05                    8786 	.db	5
+      0003FB 03                    8787 	.db	3
+      0003FC 00 00 00 23           8788 	.dw	0,(_avg_amp_idx_65536_188)
+      000400 69 64 78              8789 	.ascii "idx"
+      000403 00                    8790 	.db	0
+      000404 00 00 01 68           8791 	.dw	0,360
+      000408 05                    8792 	.uleb128	5
+      000409 00 00 07 BD           8793 	.dw	0,(Smain$avg_amp$197)
+      00040D 00 00 07 E6           8794 	.dw	0,(Smain$avg_amp$199)
+      000411 05                    8795 	.uleb128	5
+      000412 00 00 07 F9           8796 	.dw	0,(Smain$avg_amp$200)
+      000416 00 00 08 0F           8797 	.dw	0,(Smain$avg_amp$202)
+      00041A 00                    8798 	.uleb128	0
+      00041B 0D                    8799 	.uleb128	13
+      00041C 00 00 04 8A           8800 	.dw	0,1162
+      000420 74 61 72 67 65 74 5F  8801 	.ascii "target_amp"
+             61 6D 70
+      00042A 00                    8802 	.db	0
+      00042B 00 00 08 14           8803 	.dw	0,(_target_amp)
+      00042F 00 00 09 2F           8804 	.dw	0,(XG$target_amp$0$0+1)
+      000433 01                    8805 	.db	1
+      000434 00 00 01 04           8806 	.dw	0,(Ldebug_loc_start+260)
+      000438 00 00 01 68           8807 	.dw	0,360
+      00043C 03                    8808 	.uleb128	3
+      00043D 05                    8809 	.db	5
+      00043E 03                    8810 	.db	3
+      00043F 00 00 00 25           8811 	.dw	0,(_target_amp_mode_65536_192)
+      000443 6D 6F 64 65           8812 	.ascii "mode"
+      000447 00                    8813 	.db	0
+      000448 00 00 01 68           8814 	.dw	0,360
+      00044C 04                    8815 	.uleb128	4
+      00044D 69 64 78              8816 	.ascii "idx"
+      000450 00                    8817 	.db	0
+      000451 00 00 01 68           8818 	.dw	0,360
+      000455 09                    8819 	.uleb128	9
+      000456 00 00 04 80           8820 	.dw	0,1152
+      00045A 00 00 08 46           8821 	.dw	0,(Smain$target_amp$209)
+      00045E 05                    8822 	.uleb128	5
+      00045F 00 00 08 4F           8823 	.dw	0,(Smain$target_amp$211)
+      000463 00 00 08 72           8824 	.dw	0,(Smain$target_amp$213)
+      000467 08                    8825 	.uleb128	8
+      000468 00 00 08 72           8826 	.dw	0,(Smain$target_amp$214)
+      00046C 00 00 08 A7           8827 	.dw	0,(Smain$target_amp$217)
+      000470 06                    8828 	.uleb128	6
+      000471 6D                    8829 	.ascii "m"
+      000472 00                    8830 	.db	0
+      000473 00 00 01 1E           8831 	.dw	0,286
+      000477 06                    8832 	.uleb128	6
+      000478 61                    8833 	.ascii "a"
+      000479 00                    8834 	.db	0
+      00047A 00 00 01 1E           8835 	.dw	0,286
+      00047E 00                    8836 	.uleb128	0
+      00047F 00                    8837 	.uleb128	0
+      000480 05                    8838 	.uleb128	5
+      000481 00 00 09 10           8839 	.dw	0,(Smain$target_amp$219)
+      000485 00 00 09 2E           8840 	.dw	0,(Smain$target_amp$221)
+      000489 00                    8841 	.uleb128	0
+      00048A 02                    8842 	.uleb128	2
+      00048B 00 00 05 4A           8843 	.dw	0,1354
+      00048F 63 68 61 6E 67 65 4D  8844 	.ascii "changeMode"
+             6F 64 65
+      000499 00                    8845 	.db	0
+      00049A 00 00 09 31           8846 	.dw	0,(_changeMode)
+      00049E 00 00 0A E9           8847 	.dw	0,(XG$changeMode$0$0+1)
+      0004A2 01                    8848 	.db	1
+      0004A3 00 00 00 F0           8849 	.dw	0,(Ldebug_loc_start+240)
+      0004A7 03                    8850 	.uleb128	3
+      0004A8 05                    8851 	.db	5
+      0004A9 03                    8852 	.db	3
+      0004AA 00 00 00 26           8853 	.dw	0,(_changeMode_new_mode_65536_198)
+      0004AE 6E 65 77 5F 6D 6F 64  8854 	.ascii "new_mode"
+             65
+      0004B6 00                    8855 	.db	0
+      0004B7 00 00 01 68           8856 	.dw	0,360
+      0004BB 0E                    8857 	.uleb128	14
+      0004BC 00 00 05 01           8858 	.dw	0,1281
+      0004C0 00 00 09 64           8859 	.dw	0,(Smain$changeMode$236)
+      0004C4 00 00 0A 2A           8860 	.dw	0,(Smain$changeMode$246)
+      0004C8 09                    8861 	.uleb128	9
+      0004C9 00 00 04 F9           8862 	.dw	0,1273
+      0004CD 00 00 09 60           8863 	.dw	0,(Smain$changeMode$231)
+      0004D1 05                    8864 	.uleb128	5
+      0004D2 00 00 09 60           8865 	.dw	0,(Smain$changeMode$234)
+      0004D6 00 00 09 60           8866 	.dw	0,(Smain$changeMode$235)
+      0004DA 05                    8867 	.uleb128	5
+      0004DB 00 00 09 60           8868 	.dw	0,(Smain$changeMode$233)
+      0004DF 00 00 09 60           8869 	.dw	0,(Smain$changeMode$234)
+      0004E3 05                    8870 	.uleb128	5
+      0004E4 00 00 09 60           8871 	.dw	0,(Smain$changeMode$232)
+      0004E8 00 00 09 60           8872 	.dw	0,(Smain$changeMode$233)
+      0004EC 06                    8873 	.uleb128	6
+      0004ED 74 61 72 67 65 74     8874 	.ascii "target"
+      0004F3 00                    8875 	.db	0
+      0004F4 00 00 09 DD           8876 	.dw	0,2525
+      0004F8 00                    8877 	.uleb128	0
+      0004F9 06                    8878 	.uleb128	6
+      0004FA 69                    8879 	.ascii "i"
+      0004FB 00                    8880 	.db	0
+      0004FC 00 00 09 D6           8881 	.dw	0,2518
+      000500 00                    8882 	.uleb128	0
+      000501 0E                    8883 	.uleb128	14
+      000502 00 00 05 1F           8884 	.dw	0,1311
+      000506 00 00 0A 31           8885 	.dw	0,(Smain$changeMode$251)
+      00050A 00 00 0A 4F           8886 	.dw	0,(Smain$changeMode$255)
+      00050E 05                    8887 	.uleb128	5
+      00050F 00 00 0A 2D           8888 	.dw	0,(Smain$changeMode$248)
+      000513 00 00 0A 2D           8889 	.dw	0,(Smain$changeMode$250)
+      000517 06                    8890 	.uleb128	6
+      000518 69                    8891 	.ascii "i"
+      000519 00                    8892 	.db	0
+      00051A 00 00 09 D6           8893 	.dw	0,2518
+      00051E 00                    8894 	.uleb128	0
+      00051F 08                    8895 	.uleb128	8
+      000520 00 00 0A 69           8896 	.dw	0,(Smain$changeMode$261)
+      000524 00 00 0A BF           8897 	.dw	0,(Smain$changeMode$266)
+      000528 0F                    8898 	.uleb128	15
+      000529 00 00 05 41           8899 	.dw	0,1345
+      00052D 08                    8900 	.uleb128	8
+      00052E 00 00 0A 5D           8901 	.dw	0,(Smain$changeMode$259)
+      000532 00 00 0A 65           8902 	.dw	0,(Smain$changeMode$260)
+      000536 05                    8903 	.uleb128	5
+      000537 00 00 0A 5D           8904 	.dw	0,(Smain$changeMode$257)
+      00053B 00 00 0A 5D           8905 	.dw	0,(Smain$changeMode$259)
+      00053F 00                    8906 	.uleb128	0
+      000540 00                    8907 	.uleb128	0
+      000541 06                    8908 	.uleb128	6
+      000542 69                    8909 	.ascii "i"
+      000543 00                    8910 	.db	0
+      000544 00 00 09 D6           8911 	.dw	0,2518
+      000548 00                    8912 	.uleb128	0
+      000549 00                    8913 	.uleb128	0
+      00054A 0C                    8914 	.uleb128	12
+      00054B 74 6F 4E 65 78 74 4D  8915 	.ascii "toNextMode"
+             6F 64 65
+      000555 00                    8916 	.db	0
+      000556 00 00 0A E9           8917 	.dw	0,(_toNextMode)
+      00055A 00 00 0A F7           8918 	.dw	0,(XG$toNextMode$0$0+1)
+      00055E 01                    8919 	.db	1
+      00055F 00 00 00 DC           8920 	.dw	0,(Ldebug_loc_start+220)
+      000563 07                    8921 	.uleb128	7
+      000564 5F 42 6F 6F 6C        8922 	.ascii "_Bool"
+      000569 00                    8923 	.db	0
+      00056A 01                    8924 	.db	1
+      00056B 02                    8925 	.db	2
+      00056C 0D                    8926 	.uleb128	13
+      00056D 00 00 05 CA           8927 	.dw	0,1482
+      000571 70 72 6F 63 65 73 73  8928 	.ascii "process_uart"
+             5F 75 61 72 74
+      00057D 00                    8929 	.db	0
+      00057E 00 00 0A F7           8930 	.dw	0,(_process_uart)
+      000582 00 00 0C 60           8931 	.dw	0,(XG$process_uart$0$0+1)
+      000586 01                    8932 	.db	1
+      000587 00 00 00 C8           8933 	.dw	0,(Ldebug_loc_start+200)
+      00058B 00 00 05 63           8934 	.dw	0,1379
+      00058F 05                    8935 	.uleb128	5
+      000590 00 00 0B 08           8936 	.dw	0,(Smain$process_uart$282)
+      000594 00 00 0B 14           8937 	.dw	0,(Smain$process_uart$285)
+      000598 10                    8938 	.uleb128	16
+      000599 00 00 0B 14           8939 	.dw	0,(Smain$process_uart$287)
+      00059D 0E                    8940 	.uleb128	14
+      00059E 00 00 05 BA           8941 	.dw	0,1466
+      0005A2 00 00 0B 14           8942 	.dw	0,(Smain$process_uart$288)
+      0005A6 00 00 0B 14           8943 	.dw	0,(Smain$process_uart$289)
+      0005AA 10                    8944 	.uleb128	16
+      0005AB 00 00 0C 36           8945 	.dw	0,(Smain$process_uart$322)
+      0005AF 05                    8946 	.uleb128	5
+      0005B0 00 00 0C 51           8947 	.dw	0,(Smain$process_uart$327)
+      0005B4 00 00 0C 59           8948 	.dw	0,(Smain$process_uart$329)
+      0005B8 00                    8949 	.uleb128	0
+      0005B9 00                    8950 	.uleb128	0
+      0005BA 0A                    8951 	.uleb128	10
+      0005BB 05                    8952 	.db	5
+      0005BC 03                    8953 	.db	3
+      0005BD 00 00 00 27           8954 	.dw	0,(_process_uart_ch_131072_216)
+      0005C1 63 68                 8955 	.ascii "ch"
+      0005C3 00                    8956 	.db	0
+      0005C4 00 00 01 68           8957 	.dw	0,360
+      0005C8 00                    8958 	.uleb128	0
+      0005C9 00                    8959 	.uleb128	0
+      0005CA 02                    8960 	.uleb128	2
+      0005CB 00 00 06 3A           8961 	.dw	0,1594
+      0005CF 70 72 6F 63 65 73 73  8962 	.ascii "process_button"
+             5F 62 75 74 74 6F 6E
+      0005DD 00                    8963 	.db	0
+      0005DE 00 00 0C 60           8964 	.dw	0,(_process_button)
+      0005E2 00 00 0D 8D           8965 	.dw	0,(XG$process_button$0$0+1)
+      0005E6 01                    8966 	.db	1
+      0005E7 00 00 00 B4           8967 	.dw	0,(Ldebug_loc_start+180)
+      0005EB 09                    8968 	.uleb128	9
+      0005EC 00 00 06 0D           8969 	.dw	0,1549
+      0005F0 00 00 0C 63           8970 	.dw	0,(Smain$process_button$338)
+      0005F4 10                    8971 	.uleb128	16
+      0005F5 00 00 0C A9           8972 	.dw	0,(Smain$process_button$343)
+      0005F9 05                    8973 	.uleb128	5
+      0005FA 00 00 0C B5           8974 	.dw	0,(Smain$process_button$346)
+      0005FE 00 00 0C BB           8975 	.dw	0,(Smain$process_button$348)
+      000602 05                    8976 	.uleb128	5
+      000603 00 00 0C BE           8977 	.dw	0,(Smain$process_button$349)
+      000607 00 00 0C C8           8978 	.dw	0,(Smain$process_button$351)
+      00060B 00                    8979 	.uleb128	0
+      00060C 00                    8980 	.uleb128	0
+      00060D 10                    8981 	.uleb128	16
+      00060E 00 00 0C E2           8982 	.dw	0,(Smain$process_button$353)
+      000612 08                    8983 	.uleb128	8
+      000613 00 00 0D 18           8984 	.dw	0,(Smain$process_button$357)
+      000617 00 00 0D 8C           8985 	.dw	0,(Smain$process_button$371)
+      00061B 09                    8986 	.uleb128	9
+      00061C 00 00 06 2E           8987 	.dw	0,1582
+      000620 00 00 0D 35           8988 	.dw	0,(Smain$process_button$359)
+      000624 05                    8989 	.uleb128	5
+      000625 00 00 0D 3B           8990 	.dw	0,(Smain$process_button$361)
+      000629 00 00 0D 59           8991 	.dw	0,(Smain$process_button$365)
+      00062D 00                    8992 	.uleb128	0
+      00062E 05                    8993 	.uleb128	5
+      00062F 00 00 0D 5B           8994 	.dw	0,(Smain$process_button$366)
+      000633 00 00 0D 77           8995 	.dw	0,(Smain$process_button$369)
+      000637 00                    8996 	.uleb128	0
+      000638 00                    8997 	.uleb128	0
+      000639 00                    8998 	.uleb128	0
+      00063A 0C                    8999 	.uleb128	12
+      00063B 73 74 6F 70 5F 6C 65  9000 	.ascii "stop_leds"
+             64 73
+      000644 00                    9001 	.db	0
+      000645 00 00 0D 8D           9002 	.dw	0,(_stop_leds)
+      000649 00 00 0D C4           9003 	.dw	0,(XG$stop_leds$0$0+1)
+      00064D 01                    9004 	.db	1
+      00064E 00 00 00 A0           9005 	.dw	0,(Ldebug_loc_start+160)
+      000652 0C                    9006 	.uleb128	12
+      000653 61 63 74 69 76 61 74  9007 	.ascii "activate_leds"
+             65 5F 6C 65 64 73
+      000660 00                    9008 	.db	0
+      000661 00 00 0D C4           9009 	.dw	0,(_activate_leds)
+      000665 00 00 0D FB           9010 	.dw	0,(XG$activate_leds$0$0+1)
+      000669 01                    9011 	.db	1
+      00066A 00 00 00 8C           9012 	.dw	0,(Ldebug_loc_start+140)
+      00066E 0D                    9013 	.uleb128	13
+      00066F 00 00 07 70           9014 	.dw	0,1904
+      000673 6D 6F 64 65 5F 63 68  9015 	.ascii "mode_changing_control"
+             61 6E 67 69 6E 67 5F
+             63 6F 6E 74 72 6F 6C
+      000688 00                    9016 	.db	0
+      000689 00 00 0D FB           9017 	.dw	0,(_mode_changing_control)
+      00068D 00 00 10 16           9018 	.dw	0,(XG$mode_changing_control$0$0+1)
+      000691 01                    9019 	.db	1
+      000692 00 00 00 78           9020 	.dw	0,(Ldebug_loc_start+120)
+      000696 00 00 05 63           9021 	.dw	0,1379
+      00069A 0E                    9022 	.uleb128	14
+      00069B 00 00 07 55           9023 	.dw	0,1877
+      00069F 00 00 0E 04           9024 	.dw	0,(Smain$mode_changing_control$411)
+      0006A3 00 00 10 11           9025 	.dw	0,(Smain$mode_changing_control$472)
+      0006A7 0E                    9026 	.uleb128	14
+      0006A8 00 00 07 4D           9027 	.dw	0,1869
+      0006AC 00 00 0E 00           9028 	.dw	0,(Smain$mode_changing_control$407)
+      0006B0 00 00 10 09           9029 	.dw	0,(Smain$mode_changing_control$470)
+      0006B4 08                    9030 	.uleb128	8
+      0006B5 00 00 0E 00           9031 	.dw	0,(Smain$mode_changing_control$402)
+      0006B9 00 00 0F 49           9032 	.dw	0,(Smain$mode_changing_control$448)
+      0006BD 05                    9033 	.uleb128	5
+      0006BE 00 00 0E 51           9034 	.dw	0,(Smain$mode_changing_control$417)
+      0006C2 00 00 0E 68           9035 	.dw	0,(Smain$mode_changing_control$419)
+      0006C6 05                    9036 	.uleb128	5
+      0006C7 00 00 0E 73           9037 	.dw	0,(Smain$mode_changing_control$421)
+      0006CB 00 00 0E 79           9038 	.dw	0,(Smain$mode_changing_control$423)
+      0006CF 05                    9039 	.uleb128	5
+      0006D0 00 00 0E 7C           9040 	.dw	0,(Smain$mode_changing_control$424)
+      0006D4 00 00 0E 8A           9041 	.dw	0,(Smain$mode_changing_control$427)
+      0006D8 0E                    9042 	.uleb128	14
+      0006D9 00 00 06 F8           9043 	.dw	0,1784
+      0006DD 00 00 0E 00           9044 	.dw	0,(Smain$mode_changing_control$404)
+      0006E1 00 00 0E 00           9045 	.dw	0,(Smain$mode_changing_control$405)
+      0006E5 05                    9046 	.uleb128	5
+      0006E6 00 00 0F 05           9047 	.dw	0,(Smain$mode_changing_control$435)
+      0006EA 00 00 0F 13           9048 	.dw	0,(Smain$mode_changing_control$437)
+      0006EE 05                    9049 	.uleb128	5
+      0006EF 00 00 0F 16           9050 	.dw	0,(Smain$mode_changing_control$438)
+      0006F3 00 00 0F 20           9051 	.dw	0,(Smain$mode_changing_control$440)
+      0006F7 00                    9052 	.uleb128	0
+      0006F8 0E                    9053 	.uleb128	14
+      0006F9 00 00 07 0F           9054 	.dw	0,1807
+      0006FD 00 00 0E 00           9055 	.dw	0,(Smain$mode_changing_control$409)
+      000701 00 00 0E 00           9056 	.dw	0,(Smain$mode_changing_control$410)
+      000705 05                    9057 	.uleb128	5
+      000706 00 00 0F 40           9058 	.dw	0,(Smain$mode_changing_control$443)
+      00070A 00 00 0F 46           9059 	.dw	0,(Smain$mode_changing_control$445)
+      00070E 00                    9060 	.uleb128	0
+      00070F 0E                    9061 	.uleb128	14
+      000710 00 00 07 38           9062 	.dw	0,1848
+      000714 00 00 0E 00           9063 	.dw	0,(Smain$mode_changing_control$406)
+      000718 00 00 0F B9           9064 	.dw	0,(Smain$mode_changing_control$456)
+      00071C 05                    9065 	.uleb128	5
+      00071D 00 00 0F AF           9066 	.dw	0,(Smain$mode_changing_control$453)
+      000721 00 00 0F B7           9067 	.dw	0,(Smain$mode_changing_control$455)
+      000725 05                    9068 	.uleb128	5
+      000726 00 00 0F CD           9069 	.dw	0,(Smain$mode_changing_control$458)
+      00072A 00 00 0F D7           9070 	.dw	0,(Smain$mode_changing_control$460)
+      00072E 05                    9071 	.uleb128	5
+      00072F 00 00 0F D9           9072 	.dw	0,(Smain$mode_changing_control$461)
+      000733 00 00 0F E7           9073 	.dw	0,(Smain$mode_changing_control$463)
+      000737 00                    9074 	.uleb128	0
+      000738 08                    9075 	.uleb128	8
+      000739 00 00 0E 00           9076 	.dw	0,(Smain$mode_changing_control$408)
+      00073D 00 00 0E 00           9077 	.dw	0,(Smain$mode_changing_control$409)
+      000741 05                    9078 	.uleb128	5
+      000742 00 00 10 03           9079 	.dw	0,(Smain$mode_changing_control$466)
+      000746 00 00 10 09           9080 	.dw	0,(Smain$mode_changing_control$468)
+      00074A 00                    9081 	.uleb128	0
+      00074B 00                    9082 	.uleb128	0
+      00074C 00                    9083 	.uleb128	0
+      00074D 06                    9084 	.uleb128	6
+      00074E 69                    9085 	.ascii "i"
+      00074F 00                    9086 	.db	0
+      000750 00 00 09 D6           9087 	.dw	0,2518
+      000754 00                    9088 	.uleb128	0
+      000755 0A                    9089 	.uleb128	10
+      000756 05                    9090 	.db	5
+      000757 03                    9091 	.db	3
+      000758 00 00 00 28           9092 	.dw	0,(_mode_changing_control_light_changing_65536_236)
+      00075C 6C 69 67 68 74 5F 63  9093 	.ascii "light_changing"
+             68 61 6E 67 69 6E 67
+      00076A 00                    9094 	.db	0
+      00076B 00 00 05 63           9095 	.dw	0,1379
+      00076F 00                    9096 	.uleb128	0
+      000770 0D                    9097 	.uleb128	13
+      000771 00 00 07 AB           9098 	.dw	0,1963
+      000775 69 73 5F 73 74 61 62  9099 	.ascii "is_stable"
+             6C 65
+      00077E 00                    9100 	.db	0
+      00077F 00 00 10 18           9101 	.dw	0,(_is_stable)
+      000783 00 00 10 46           9102 	.dw	0,(XG$is_stable$0$0+1)
+      000787 01                    9103 	.db	1
+      000788 00 00 00 64           9104 	.dw	0,(Ldebug_loc_start+100)
+      00078C 00 00 05 63           9105 	.dw	0,1379
+      000790 08                    9106 	.uleb128	8
+      000791 00 00 10 1C           9107 	.dw	0,(Smain$is_stable$482)
+      000795 00 00 10 42           9108 	.dw	0,(Smain$is_stable$486)
+      000799 05                    9109 	.uleb128	5
+      00079A 00 00 10 18           9110 	.dw	0,(Smain$is_stable$479)
+      00079E 00 00 10 18           9111 	.dw	0,(Smain$is_stable$481)
+      0007A2 06                    9112 	.uleb128	6
+      0007A3 69                    9113 	.ascii "i"
+      0007A4 00                    9114 	.db	0
+      0007A5 00 00 09 D6           9115 	.dw	0,2518
+      0007A9 00                    9116 	.uleb128	0
+      0007AA 00                    9117 	.uleb128	0
+      0007AB 0D                    9118 	.uleb128	13
+      0007AC 00 00 08 3F           9119 	.dw	0,2111
+      0007B0 6D 6F 64 65 5F 73 74  9120 	.ascii "mode_stable_control"
+             61 62 6C 65 5F 63 6F
+             6E 74 72 6F 6C
+      0007C3 00                    9121 	.db	0
+      0007C4 00 00 10 46           9122 	.dw	0,(_mode_stable_control)
+      0007C8 00 00 11 67           9123 	.dw	0,(XG$mode_stable_control$0$0+1)
+      0007CC 01                    9124 	.db	1
+      0007CD 00 00 00 50           9125 	.dw	0,(Ldebug_loc_start+80)
+      0007D1 00 00 05 63           9126 	.dw	0,1379
+      0007D5 09                    9127 	.uleb128	9
+      0007D6 00 00 08 24           9128 	.dw	0,2084
+      0007DA 00 00 10 84           9129 	.dw	0,(Smain$mode_stable_control$499)
+      0007DE 09                    9130 	.uleb128	9
+      0007DF 00 00 08 1C           9131 	.dw	0,2076
+      0007E3 00 00 10 92           9132 	.dw	0,(Smain$mode_stable_control$500)
+      0007E7 0E                    9133 	.uleb128	14
+      0007E8 00 00 08 10           9134 	.dw	0,2064
+      0007EC 00 00 10 C4           9135 	.dw	0,(Smain$mode_stable_control$503)
+      0007F0 00 00 10 FA           9136 	.dw	0,(Smain$mode_stable_control$507)
+      0007F4 05                    9137 	.uleb128	5
+      0007F5 00 00 10 80           9138 	.dw	0,(Smain$mode_stable_control$497)
+      0007F9 00 00 10 80           9139 	.dw	0,(Smain$mode_stable_control$498)
+      0007FD 05                    9140 	.uleb128	5
+      0007FE 00 00 10 80           9141 	.dw	0,(Smain$mode_stable_control$495)
+      000802 00 00 10 80           9142 	.dw	0,(Smain$mode_stable_control$497)
+      000806 06                    9143 	.uleb128	6
+      000807 61 6D 70              9144 	.ascii "amp"
+      00080A 00                    9145 	.db	0
+      00080B 00 00 03 CB           9146 	.dw	0,971
+      00080F 00                    9147 	.uleb128	0
+      000810 06                    9148 	.uleb128	6
+      000811 74 5F 61 6D 70        9149 	.ascii "t_amp"
+      000816 00                    9150 	.db	0
+      000817 00 00 09 DD           9151 	.dw	0,2525
+      00081B 00                    9152 	.uleb128	0
+      00081C 06                    9153 	.uleb128	6
+      00081D 69                    9154 	.ascii "i"
+      00081E 00                    9155 	.db	0
+      00081F 00 00 09 D6           9156 	.dw	0,2518
+      000823 00                    9157 	.uleb128	0
+      000824 0A                    9158 	.uleb128	10
+      000825 05                    9159 	.db	5
+      000826 03                    9160 	.db	3
+      000827 00 00 00 29           9161 	.dw	0,(_mode_stable_control_light_changing_65536_259)
+      00082B 6C 69 67 68 74 5F 63  9162 	.ascii "light_changing"
+             68 61 6E 67 69 6E 67
+      000839 00                    9163 	.db	0
+      00083A 00 00 05 63           9164 	.dw	0,1379
+      00083E 00                    9165 	.uleb128	0
+      00083F 02                    9166 	.uleb128	2
+      000840 00 00 08 D0           9167 	.dw	0,2256
+      000844 63 6F 6E 74 72 6F 6C  9168 	.ascii "control_loop"
+             5F 6C 6F 6F 70
+      000850 00                    9169 	.db	0
+      000851 00 00 11 69           9170 	.dw	0,(_control_loop)
+      000855 00 00 12 5A           9171 	.dw	0,(XG$control_loop$0$0+1)
+      000859 01                    9172 	.db	1
+      00085A 00 00 00 3C           9173 	.dw	0,(Ldebug_loc_start+60)
+      00085E 09                    9174 	.uleb128	9
+      00085F 00 00 08 AC           9175 	.dw	0,2220
+      000863 00 00 11 7F           9176 	.dw	0,(Smain$control_loop$522)
+      000867 0E                    9177 	.uleb128	14
+      000868 00 00 08 7C           9178 	.dw	0,2172
+      00086C 00 00 11 86           9179 	.dw	0,(Smain$control_loop$524)
+      000870 00 00 11 86           9180 	.dw	0,(Smain$control_loop$526)
+      000874 06                    9181 	.uleb128	6
+      000875 69                    9182 	.ascii "i"
+      000876 00                    9183 	.db	0
+      000877 00 00 09 D6           9184 	.dw	0,2518
+      00087B 00                    9185 	.uleb128	0
+      00087C 09                    9186 	.uleb128	9
+      00087D 00 00 08 98           9187 	.dw	0,2200
+      000881 00 00 12 14           9188 	.dw	0,(Smain$control_loop$531)
+      000885 05                    9189 	.uleb128	5
+      000886 00 00 12 1C           9190 	.dw	0,(Smain$control_loop$533)
+      00088A 00 00 12 1F           9191 	.dw	0,(Smain$control_loop$535)
+      00088E 05                    9192 	.uleb128	5
+      00088F 00 00 12 24           9193 	.dw	0,(Smain$control_loop$537)
+      000893 00 00 12 27           9194 	.dw	0,(Smain$control_loop$539)
+      000897 00                    9195 	.uleb128	0
+      000898 08                    9196 	.uleb128	8
+      000899 00 00 12 31           9197 	.dw	0,(Smain$control_loop$541)
+      00089D 00 00 12 50           9198 	.dw	0,(Smain$control_loop$547)
+      0008A1 05                    9199 	.uleb128	5
+      0008A2 00 00 12 44           9200 	.dw	0,(Smain$control_loop$543)
+      0008A6 00 00 12 4D           9201 	.dw	0,(Smain$control_loop$545)
+      0008AA 00                    9202 	.uleb128	0
+      0008AB 00                    9203 	.uleb128	0
+      0008AC 05                    9204 	.uleb128	5
+      0008AD 00 00 12 56           9205 	.dw	0,(Smain$control_loop$549)
+      0008B1 00 00 12 59           9206 	.dw	0,(Smain$control_loop$551)
+      0008B5 0A                    9207 	.uleb128	10
+      0008B6 05                    9208 	.db	5
+      0008B7 03                    9209 	.db	3
+      0008B8 00 00 00 2A           9210 	.dw	0,(_control_loop_light_changing_65536_266)
+      0008BC 6C 69 67 68 74 5F 63  9211 	.ascii "light_changing"
+             68 61 6E 67 69 6E 67
+      0008CA 00                    9212 	.db	0
+      0008CB 00 00 05 63           9213 	.dw	0,1379
+      0008CF 00                    9214 	.uleb128	0
+      0008D0 0C                    9215 	.uleb128	12
+      0008D1 77 64 74 5F 69 6E 69  9216 	.ascii "wdt_init"
+             74
+      0008D9 00                    9217 	.db	0
+      0008DA 00 00 12 5A           9218 	.dw	0,(_wdt_init)
+      0008DE 00 00 12 A3           9219 	.dw	0,(XG$wdt_init$0$0+1)
+      0008E2 01                    9220 	.db	1
+      0008E3 00 00 00 28           9221 	.dw	0,(Ldebug_loc_start+40)
+      0008E7 0C                    9222 	.uleb128	12
+      0008E8 77 64 74 5F 63 6C 65  9223 	.ascii "wdt_clear"
+             61 72
+      0008F1 00                    9224 	.db	0
+      0008F2 00 00 12 A3           9225 	.dw	0,(_wdt_clear)
+      0008F6 00 00 12 BC           9226 	.dw	0,(XG$wdt_clear$0$0+1)
+      0008FA 01                    9227 	.db	1
+      0008FB 00 00 00 14           9228 	.dw	0,(Ldebug_loc_start+20)
+      0008FF 02                    9229 	.uleb128	2
+      000900 00 00 09 90           9230 	.dw	0,2448
+      000904 6D 61 69 6E           9231 	.ascii "main"
+      000908 00                    9232 	.db	0
+      000909 00 00 12 BC           9233 	.dw	0,(_main)
+      00090D 00 00 14 79           9234 	.dw	0,(XG$main$0$0+1)
+      000911 01                    9235 	.db	1
+      000912 00 00 00 00           9236 	.dw	0,(Ldebug_loc_start)
+      000916 05                    9237 	.uleb128	5
+      000917 00 00 12 D6           9238 	.dw	0,(Smain$main$592)
+      00091B 00 00 12 FB           9239 	.dw	0,(Smain$main$595)
+      00091F 05                    9240 	.uleb128	5
+      000920 00 00 13 3A           9241 	.dw	0,(Smain$main$599)
+      000924 00 00 13 3D           9242 	.dw	0,(Smain$main$601)
+      000928 08                    9243 	.uleb128	8
+      000929 00 00 13 46           9244 	.dw	0,(Smain$main$605)
+      00092D 00 00 14 75           9245 	.dw	0,(Smain$main$656)
+      000931 05                    9246 	.uleb128	5
+      000932 00 00 13 78           9247 	.dw	0,(Smain$main$608)
+      000936 00 00 13 7E           9248 	.dw	0,(Smain$main$610)
+      00093A 0E                    9249 	.uleb128	14
+      00093B 00 00 09 51           9250 	.dw	0,2385
+      00093F 00 00 13 9A           9251 	.dw	0,(Smain$main$613)
+      000943 00 00 13 B9           9252 	.dw	0,(Smain$main$619)
+      000947 05                    9253 	.uleb128	5
+      000948 00 00 13 A0           9254 	.dw	0,(Smain$main$615)
+      00094C 00 00 13 B6           9255 	.dw	0,(Smain$main$617)
+      000950 00                    9256 	.uleb128	0
+      000951 05                    9257 	.uleb128	5
+      000952 00 00 13 BB           9258 	.dw	0,(Smain$main$620)
+      000956 00 00 13 BE           9259 	.dw	0,(Smain$main$622)
+      00095A 09                    9260 	.uleb128	9
+      00095B 00 00 09 7C           9261 	.dw	0,2428
+      00095F 00 00 13 C6           9262 	.dw	0,(Smain$main$624)
+      000963 10                    9263 	.uleb128	16
+      000964 00 00 14 10           9264 	.dw	0,(Smain$main$627)
+      000968 05                    9265 	.uleb128	5
+      000969 00 00 14 2B           9266 	.dw	0,(Smain$main$638)
+      00096D 00 00 14 2E           9267 	.dw	0,(Smain$main$640)
+      000971 05                    9268 	.uleb128	5
+      000972 00 00 14 30           9269 	.dw	0,(Smain$main$641)
+      000976 00 00 14 33           9270 	.dw	0,(Smain$main$643)
+      00097A 00                    9271 	.uleb128	0
+      00097B 00                    9272 	.uleb128	0
+      00097C 05                    9273 	.uleb128	5
+      00097D 00 00 14 38           9274 	.dw	0,(Smain$main$645)
+      000981 00 00 14 3D           9275 	.dw	0,(Smain$main$647)
+      000985 05                    9276 	.uleb128	5
+      000986 00 00 14 64           9277 	.dw	0,(Smain$main$651)
+      00098A 00 00 14 6A           9278 	.dw	0,(Smain$main$653)
+      00098E 00                    9279 	.uleb128	0
+      00098F 00                    9280 	.uleb128	0
+      000990 07                    9281 	.uleb128	7
+      000991 5F 62 69 74           9282 	.ascii "_bit"
+      000995 00                    9283 	.db	0
+      000996 01                    9284 	.db	1
+      000997 08                    9285 	.db	8
+      000998 11                    9286 	.uleb128	17
+      000999 05                    9287 	.db	5
+      00099A 03                    9288 	.db	3
+      00099B 00 00 00 00           9289 	.dw	0,(_BIT_TMP)
+      00099F 42 49 54 5F 54 4D 50  9290 	.ascii "BIT_TMP"
+      0009A6 00                    9291 	.db	0
+      0009A7 01                    9292 	.db	1
+      0009A8 01                    9293 	.db	1
+      0009A9 00 00 09 90           9294 	.dw	0,2448
+      0009AD 12                    9295 	.uleb128	18
+      0009AE 00 00 09 BA           9296 	.dw	0,2490
+      0009B2 10                    9297 	.db	16
+      0009B3 00 00 01 68           9298 	.dw	0,360
+      0009B7 13                    9299 	.uleb128	19
+      0009B8 0F                    9300 	.db	15
+      0009B9 00                    9301 	.uleb128	0
+      0009BA 14                    9302 	.uleb128	20
+      0009BB 05                    9303 	.db	5
+      0009BC 03                    9304 	.db	3
+      0009BD 00 00 00 12           9305 	.dw	0,(_uart1_rx_buffer)
+      0009C1 75 61 72 74 31 5F 72  9306 	.ascii "uart1_rx_buffer"
+             78 5F 62 75 66 66 65
+             72
+      0009D0 00                    9307 	.db	0
+      0009D1 01                    9308 	.db	1
+      0009D2 00 00 09 AD           9309 	.dw	0,2477
+      0009D6 07                    9310 	.uleb128	7
+      0009D7 69 6E 74              9311 	.ascii "int"
+      0009DA 00                    9312 	.db	0
+      0009DB 02                    9313 	.db	2
+      0009DC 05                    9314 	.db	5
+      0009DD 07                    9315 	.uleb128	7
+      0009DE 69 6E 74              9316 	.ascii "int"
+      0009E1 00                    9317 	.db	0
+      0009E2 02                    9318 	.db	2
+      0009E3 05                    9319 	.db	5
+      0009E4 14                    9320 	.uleb128	20
+      0009E5 05                    9321 	.db	5
+      0009E6 03                    9322 	.db	3
+      0009E7 00 00 00 6C           9323 	.dw	0,(_light_mode)
+      0009EB 6C 69 67 68 74 5F 6D  9324 	.ascii "light_mode"
+             6F 64 65
+      0009F5 00                    9325 	.db	0
+      0009F6 01                    9326 	.db	1
+      0009F7 00 00 01 68           9327 	.dw	0,360
+      0009FB 14                    9328 	.uleb128	20
+      0009FC 05                    9329 	.db	5
+      0009FD 03                    9330 	.db	3
+      0009FE 00 00 00 6D           9331 	.dw	0,(_is_uart_mode)
+      000A02 69 73 5F 75 61 72 74  9332 	.ascii "is_uart_mode"
+             5F 6D 6F 64 65
+      000A0E 00                    9333 	.db	0
+      000A0F 01                    9334 	.db	1
+      000A10 00 00 05 63           9335 	.dw	0,1379
+      000A14 14                    9336 	.uleb128	20
+      000A15 05                    9337 	.db	5
+      000A16 03                    9338 	.db	3
+      000A17 00 00 00 6E           9339 	.dw	0,(_flashing_on)
+      000A1B 66 6C 61 73 68 69 6E  9340 	.ascii "flashing_on"
+             67 5F 6F 6E
+      000A26 00                    9341 	.db	0
+      000A27 01                    9342 	.db	1
+      000A28 00 00 05 63           9343 	.dw	0,1379
+      000A2C 14                    9344 	.uleb128	20
+      000A2D 05                    9345 	.db	5
+      000A2E 03                    9346 	.db	3
+      000A2F 00 00 00 6F           9347 	.dw	0,(_flashing_count)
+      000A33 66 6C 61 73 68 69 6E  9348 	.ascii "flashing_count"
+             67 5F 63 6F 75 6E 74
+      000A41 00                    9349 	.db	0
+      000A42 01                    9350 	.db	1
+      000A43 00 00 03 CB           9351 	.dw	0,971
+      000A47 12                    9352 	.uleb128	18
+      000A48 00 00 0A 54           9353 	.dw	0,2644
+      000A4C 04                    9354 	.db	4
+      000A4D 00 00 03 CB           9355 	.dw	0,971
+      000A51 13                    9356 	.uleb128	19
+      000A52 01                    9357 	.db	1
+      000A53 00                    9358 	.uleb128	0
+      000A54 14                    9359 	.uleb128	20
+      000A55 05                    9360 	.db	5
+      000A56 03                    9361 	.db	3
+      000A57 00 00 00 71           9362 	.dw	0,(_pwm)
+      000A5B 70 77 6D              9363 	.ascii "pwm"
+      000A5E 00                    9364 	.db	0
+      000A5F 01                    9365 	.db	1
+      000A60 00 00 0A 47           9366 	.dw	0,2631
+      000A64 12                    9367 	.uleb128	18
+      000A65 00 00 0A 71           9368 	.dw	0,2673
+      000A69 02                    9369 	.db	2
+      000A6A 00 00 03 87           9370 	.dw	0,903
+      000A6E 13                    9371 	.uleb128	19
+      000A6F 01                    9372 	.db	1
+      000A70 00                    9373 	.uleb128	0
+      000A71 14                    9374 	.uleb128	20
+      000A72 05                    9375 	.db	5
+      000A73 03                    9376 	.db	3
+      000A74 00 00 00 75           9377 	.dw	0,(_light_control_mode)
+      000A78 6C 69 67 68 74 5F 63  9378 	.ascii "light_control_mode"
+             6F 6E 74 72 6F 6C 5F
+             6D 6F 64 65
+      000A8A 00                    9379 	.db	0
+      000A8B 01                    9380 	.db	1
+      000A8C 00 00 0A 64           9381 	.dw	0,2660
+      000A90 14                    9382 	.uleb128	20
+      000A91 05                    9383 	.db	5
+      000A92 03                    9384 	.db	3
+      000A93 00 00 00 77           9385 	.dw	0,(_sample_count)
+      000A97 73 61 6D 70 6C 65 5F  9386 	.ascii "sample_count"
+             63 6F 75 6E 74
+      000AA3 00                    9387 	.db	0
+      000AA4 01                    9388 	.db	1
+      000AA5 00 00 01 68           9389 	.dw	0,360
+      000AA9 12                    9390 	.uleb128	18
+      000AAA 00 00 0A B6           9391 	.dw	0,2742
+      000AAE 08                    9392 	.db	8
+      000AAF 00 00 01 1E           9393 	.dw	0,286
+      000AB3 13                    9394 	.uleb128	19
+      000AB4 01                    9395 	.db	1
+      000AB5 00                    9396 	.uleb128	0
+      000AB6 14                    9397 	.uleb128	20
+      000AB7 05                    9398 	.db	5
+      000AB8 03                    9399 	.db	3
+      000AB9 00 00 00 78           9400 	.dw	0,(_acc_amp)
+      000ABD 61 63 63 5F 61 6D 70  9401 	.ascii "acc_amp"
+      000AC4 00                    9402 	.db	0
+      000AC5 01                    9403 	.db	1
+      000AC6 00 00 0A A9           9404 	.dw	0,2729
+      000ACA 14                    9405 	.uleb128	20
+      000ACB 05                    9406 	.db	5
+      000ACC 03                    9407 	.db	3
+      000ACD 00 00 00 80           9408 	.dw	0,(_acc_temp)
+      000AD1 61 63 63 5F 74 65 6D  9409 	.ascii "acc_temp"
+             70
+      000AD9 00                    9410 	.db	0
+      000ADA 01                    9411 	.db	1
+      000ADB 00 00 01 1E           9412 	.dw	0,286
+      000ADF 14                    9413 	.uleb128	20
+      000AE0 05                    9414 	.db	5
+      000AE1 03                    9415 	.db	3
+      000AE2 00 00 00 84           9416 	.dw	0,(_cur_amp)
+      000AE6 63 75 72 5F 61 6D 70  9417 	.ascii "cur_amp"
+      000AED 00                    9418 	.db	0
+      000AEE 01                    9419 	.db	1
+      000AEF 00 00 0A 47           9420 	.dw	0,2631
+      000AF3 14                    9421 	.uleb128	20
+      000AF4 05                    9422 	.db	5
+      000AF5 03                    9423 	.db	3
+      000AF6 00 00 00 88           9424 	.dw	0,(_cur_temp)
+      000AFA 63 75 72 5F 74 65 6D  9425 	.ascii "cur_temp"
+             70
+      000B02 00                    9426 	.db	0
+      000B03 01                    9427 	.db	1
+      000B04 00 00 03 CB           9428 	.dw	0,971
+      000B08 12                    9429 	.uleb128	18
+      000B09 00 00 0B 15           9430 	.dw	0,2837
+      000B0D 02                    9431 	.db	2
+      000B0E 00 00 01 68           9432 	.dw	0,360
+      000B12 13                    9433 	.uleb128	19
+      000B13 01                    9434 	.db	1
+      000B14 00                    9435 	.uleb128	0
+      000B15 14                    9436 	.uleb128	20
+      000B16 05                    9437 	.db	5
+      000B17 03                    9438 	.db	3
+      000B18 00 00 00 8A           9439 	.dw	0,(_good_amp_count)
+      000B1C 67 6F 6F 64 5F 61 6D  9440 	.ascii "good_amp_count"
+             70 5F 63 6F 75 6E 74
+      000B2A 00                    9441 	.db	0
+      000B2B 01                    9442 	.db	1
+      000B2C 00 00 0B 08           9443 	.dw	0,2824
+      000B30 14                    9444 	.uleb128	20
+      000B31 05                    9445 	.db	5
+      000B32 03                    9446 	.db	3
+      000B33 00 00 00 8C           9447 	.dw	0,(_uart1_next_idx)
+      000B37 75 61 72 74 31 5F 6E  9448 	.ascii "uart1_next_idx"
+             65 78 74 5F 69 64 78
+      000B45 00                    9449 	.db	0
+      000B46 01                    9450 	.db	1
+      000B47 00 00 01 68           9451 	.dw	0,360
+      000B4B 14                    9452 	.uleb128	20
+      000B4C 05                    9453 	.db	5
+      000B4D 03                    9454 	.db	3
+      000B4E 00 00 00 8D           9455 	.dw	0,(_uart1_read_idx)
+      000B52 75 61 72 74 31 5F 72  9456 	.ascii "uart1_read_idx"
+             65 61 64 5F 69 64 78
+      000B60 00                    9457 	.db	0
+      000B61 01                    9458 	.db	1
+      000B62 00 00 01 68           9459 	.dw	0,360
+      000B66 14                    9460 	.uleb128	20
+      000B67 05                    9461 	.db	5
+      000B68 03                    9462 	.db	3
+      000B69 00 00 00 8E           9463 	.dw	0,(_uart_flag)
+      000B6D 75 61 72 74 5F 66 6C  9464 	.ascii "uart_flag"
+             61 67
+      000B76 00                    9465 	.db	0
+      000B77 01                    9466 	.db	1
+      000B78 00 00 03 87           9467 	.dw	0,903
+      000B7C 14                    9468 	.uleb128	20
+      000B7D 05                    9469 	.db	5
+      000B7E 03                    9470 	.db	3
+      000B7F 00 00 00 8F           9471 	.dw	0,(_button_pressed)
+      000B83 62 75 74 74 6F 6E 5F  9472 	.ascii "button_pressed"
+             70 72 65 73 73 65 64
+      000B91 00                    9473 	.db	0
+      000B92 01                    9474 	.db	1
+      000B93 00 00 01 1E           9475 	.dw	0,286
+      000B97 14                    9476 	.uleb128	20
+      000B98 05                    9477 	.db	5
+      000B99 03                    9478 	.db	3
+      000B9A 00 00 00 93           9479 	.dw	0,(_button_unpressed)
+      000B9E 62 75 74 74 6F 6E 5F  9480 	.ascii "button_unpressed"
+             75 6E 70 72 65 73 73
+             65 64
+      000BAE 00                    9481 	.db	0
+      000BAF 01                    9482 	.db	1
+      000BB0 00 00 01 1E           9483 	.dw	0,286
+      000BB4 14                    9484 	.uleb128	20
+      000BB5 05                    9485 	.db	5
+      000BB6 03                    9486 	.db	3
+      000BB7 00 00 00 97           9487 	.dw	0,(_uart_counter)
+      000BBB 75 61 72 74 5F 63 6F  9488 	.ascii "uart_counter"
+             75 6E 74 65 72
+      000BC7 00                    9489 	.db	0
+      000BC8 01                    9490 	.db	1
+      000BC9 00 00 01 1E           9491 	.dw	0,286
+      000BCD 14                    9492 	.uleb128	20
+      000BCE 05                    9493 	.db	5
+      000BCF 03                    9494 	.db	3
+      000BD0 00 00 00 9B           9495 	.dw	0,(_uart_rx_state)
+      000BD4 75 61 72 74 5F 72 78  9496 	.ascii "uart_rx_state"
+             5F 73 74 61 74 65
+      000BE1 00                    9497 	.db	0
+      000BE2 01                    9498 	.db	1
+      000BE3 00 00 01 68           9499 	.dw	0,360
+      000BE7 14                    9500 	.uleb128	20
+      000BE8 05                    9501 	.db	5
+      000BE9 03                    9502 	.db	3
+      000BEA 00 00 00 9C           9503 	.dw	0,(_lamp_state)
+      000BEE 6C 61 6D 70 5F 73 74  9504 	.ascii "lamp_state"
+             61 74 65
+      000BF8 00                    9505 	.db	0
+      000BF9 01                    9506 	.db	1
+      000BFA 00 00 01 68           9507 	.dw	0,360
+      000BFE 14                    9508 	.uleb128	20
+      000BFF 05                    9509 	.db	5
+      000C00 03                    9510 	.db	3
+      000C01 00 00 00 9D           9511 	.dw	0,(_log_counter)
+      000C05 6C 6F 67 5F 63 6F 75  9512 	.ascii "log_counter"
+             6E 74 65 72
+      000C10 00                    9513 	.db	0
+      000C11 01                    9514 	.db	1
+      000C12 00 00 01 1E           9515 	.dw	0,286
+      000C16 14                    9516 	.uleb128	20
+      000C17 05                    9517 	.db	5
+      000C18 03                    9518 	.db	3
+      000C19 00 00 00 A1           9519 	.dw	0,(_wdt_flag)
+      000C1D 77 64 74 5F 66 6C 61  9520 	.ascii "wdt_flag"
+             67
+      000C25 00                    9521 	.db	0
+      000C26 01                    9522 	.db	1
+      000C27 00 00 05 63           9523 	.dw	0,1379
+      000C2B 15                    9524 	.uleb128	21
+      000C2C 00 00 01 68           9525 	.dw	0,360
+      000C30 14                    9526 	.uleb128	20
+      000C31 05                    9527 	.db	5
+      000C32 03                    9528 	.db	3
+      000C33 00 00 00 80           9529 	.dw	0,(_P0)
+      000C37 50 30                 9530 	.ascii "P0"
+      000C39 00                    9531 	.db	0
+      000C3A 01                    9532 	.db	1
+      000C3B 00 00 0C 2B           9533 	.dw	0,3115
+      000C3F 14                    9534 	.uleb128	20
+      000C40 05                    9535 	.db	5
+      000C41 03                    9536 	.db	3
+      000C42 00 00 00 81           9537 	.dw	0,(_SP)
+      000C46 53 50                 9538 	.ascii "SP"
+      000C48 00                    9539 	.db	0
+      000C49 01                    9540 	.db	1
+      000C4A 00 00 0C 2B           9541 	.dw	0,3115
+      000C4E 14                    9542 	.uleb128	20
+      000C4F 05                    9543 	.db	5
+      000C50 03                    9544 	.db	3
+      000C51 00 00 00 82           9545 	.dw	0,(_DPL)
+      000C55 44 50 4C              9546 	.ascii "DPL"
+      000C58 00                    9547 	.db	0
+      000C59 01                    9548 	.db	1
+      000C5A 00 00 0C 2B           9549 	.dw	0,3115
+      000C5E 14                    9550 	.uleb128	20
+      000C5F 05                    9551 	.db	5
+      000C60 03                    9552 	.db	3
+      000C61 00 00 00 83           9553 	.dw	0,(_DPH)
+      000C65 44 50 48              9554 	.ascii "DPH"
+      000C68 00                    9555 	.db	0
+      000C69 01                    9556 	.db	1
+      000C6A 00 00 0C 2B           9557 	.dw	0,3115
+      000C6E 14                    9558 	.uleb128	20
+      000C6F 05                    9559 	.db	5
+      000C70 03                    9560 	.db	3
+      000C71 00 00 00 84           9561 	.dw	0,(_RCTRIM0)
+      000C75 52 43 54 52 49 4D 30  9562 	.ascii "RCTRIM0"
+      000C7C 00                    9563 	.db	0
+      000C7D 01                    9564 	.db	1
+      000C7E 00 00 0C 2B           9565 	.dw	0,3115
+      000C82 14                    9566 	.uleb128	20
+      000C83 05                    9567 	.db	5
+      000C84 03                    9568 	.db	3
+      000C85 00 00 00 85           9569 	.dw	0,(_RCTRIM1)
+      000C89 52 43 54 52 49 4D 31  9570 	.ascii "RCTRIM1"
+      000C90 00                    9571 	.db	0
+      000C91 01                    9572 	.db	1
+      000C92 00 00 0C 2B           9573 	.dw	0,3115
+      000C96 14                    9574 	.uleb128	20
+      000C97 05                    9575 	.db	5
+      000C98 03                    9576 	.db	3
+      000C99 00 00 00 86           9577 	.dw	0,(_RWK)
+      000C9D 52 57 4B              9578 	.ascii "RWK"
+      000CA0 00                    9579 	.db	0
+      000CA1 01                    9580 	.db	1
+      000CA2 00 00 0C 2B           9581 	.dw	0,3115
+      000CA6 14                    9582 	.uleb128	20
+      000CA7 05                    9583 	.db	5
+      000CA8 03                    9584 	.db	3
+      000CA9 00 00 00 87           9585 	.dw	0,(_PCON)
+      000CAD 50 43 4F 4E           9586 	.ascii "PCON"
+      000CB1 00                    9587 	.db	0
+      000CB2 01                    9588 	.db	1
+      000CB3 00 00 0C 2B           9589 	.dw	0,3115
+      000CB7 14                    9590 	.uleb128	20
+      000CB8 05                    9591 	.db	5
+      000CB9 03                    9592 	.db	3
+      000CBA 00 00 00 88           9593 	.dw	0,(_TCON)
+      000CBE 54 43 4F 4E           9594 	.ascii "TCON"
+      000CC2 00                    9595 	.db	0
+      000CC3 01                    9596 	.db	1
+      000CC4 00 00 0C 2B           9597 	.dw	0,3115
+      000CC8 14                    9598 	.uleb128	20
+      000CC9 05                    9599 	.db	5
+      000CCA 03                    9600 	.db	3
+      000CCB 00 00 00 89           9601 	.dw	0,(_TMOD)
+      000CCF 54 4D 4F 44           9602 	.ascii "TMOD"
+      000CD3 00                    9603 	.db	0
+      000CD4 01                    9604 	.db	1
+      000CD5 00 00 0C 2B           9605 	.dw	0,3115
+      000CD9 14                    9606 	.uleb128	20
+      000CDA 05                    9607 	.db	5
+      000CDB 03                    9608 	.db	3
+      000CDC 00 00 00 8A           9609 	.dw	0,(_TL0)
+      000CE0 54 4C 30              9610 	.ascii "TL0"
+      000CE3 00                    9611 	.db	0
+      000CE4 01                    9612 	.db	1
+      000CE5 00 00 0C 2B           9613 	.dw	0,3115
+      000CE9 14                    9614 	.uleb128	20
+      000CEA 05                    9615 	.db	5
+      000CEB 03                    9616 	.db	3
+      000CEC 00 00 00 8B           9617 	.dw	0,(_TL1)
+      000CF0 54 4C 31              9618 	.ascii "TL1"
+      000CF3 00                    9619 	.db	0
+      000CF4 01                    9620 	.db	1
+      000CF5 00 00 0C 2B           9621 	.dw	0,3115
+      000CF9 14                    9622 	.uleb128	20
+      000CFA 05                    9623 	.db	5
+      000CFB 03                    9624 	.db	3
+      000CFC 00 00 00 8C           9625 	.dw	0,(_TH0)
+      000D00 54 48 30              9626 	.ascii "TH0"
+      000D03 00                    9627 	.db	0
+      000D04 01                    9628 	.db	1
+      000D05 00 00 0C 2B           9629 	.dw	0,3115
+      000D09 14                    9630 	.uleb128	20
+      000D0A 05                    9631 	.db	5
+      000D0B 03                    9632 	.db	3
+      000D0C 00 00 00 8D           9633 	.dw	0,(_TH1)
+      000D10 54 48 31              9634 	.ascii "TH1"
+      000D13 00                    9635 	.db	0
+      000D14 01                    9636 	.db	1
+      000D15 00 00 0C 2B           9637 	.dw	0,3115
+      000D19 14                    9638 	.uleb128	20
+      000D1A 05                    9639 	.db	5
+      000D1B 03                    9640 	.db	3
+      000D1C 00 00 00 8E           9641 	.dw	0,(_CKCON)
+      000D20 43 4B 43 4F 4E        9642 	.ascii "CKCON"
+      000D25 00                    9643 	.db	0
+      000D26 01                    9644 	.db	1
+      000D27 00 00 0C 2B           9645 	.dw	0,3115
+      000D2B 14                    9646 	.uleb128	20
+      000D2C 05                    9647 	.db	5
+      000D2D 03                    9648 	.db	3
+      000D2E 00 00 00 8F           9649 	.dw	0,(_WKCON)
+      000D32 57 4B 43 4F 4E        9650 	.ascii "WKCON"
+      000D37 00                    9651 	.db	0
+      000D38 01                    9652 	.db	1
+      000D39 00 00 0C 2B           9653 	.dw	0,3115
+      000D3D 14                    9654 	.uleb128	20
+      000D3E 05                    9655 	.db	5
+      000D3F 03                    9656 	.db	3
+      000D40 00 00 00 90           9657 	.dw	0,(_P1)
+      000D44 50 31                 9658 	.ascii "P1"
+      000D46 00                    9659 	.db	0
+      000D47 01                    9660 	.db	1
+      000D48 00 00 0C 2B           9661 	.dw	0,3115
+      000D4C 14                    9662 	.uleb128	20
+      000D4D 05                    9663 	.db	5
+      000D4E 03                    9664 	.db	3
+      000D4F 00 00 00 91           9665 	.dw	0,(_SFRS)
+      000D53 53 46 52 53           9666 	.ascii "SFRS"
+      000D57 00                    9667 	.db	0
+      000D58 01                    9668 	.db	1
+      000D59 00 00 0C 2B           9669 	.dw	0,3115
+      000D5D 14                    9670 	.uleb128	20
+      000D5E 05                    9671 	.db	5
+      000D5F 03                    9672 	.db	3
+      000D60 00 00 00 92           9673 	.dw	0,(_CAPCON0)
+      000D64 43 41 50 43 4F 4E 30  9674 	.ascii "CAPCON0"
+      000D6B 00                    9675 	.db	0
+      000D6C 01                    9676 	.db	1
+      000D6D 00 00 0C 2B           9677 	.dw	0,3115
+      000D71 14                    9678 	.uleb128	20
+      000D72 05                    9679 	.db	5
+      000D73 03                    9680 	.db	3
+      000D74 00 00 00 93           9681 	.dw	0,(_CAPCON1)
+      000D78 43 41 50 43 4F 4E 31  9682 	.ascii "CAPCON1"
+      000D7F 00                    9683 	.db	0
+      000D80 01                    9684 	.db	1
+      000D81 00 00 0C 2B           9685 	.dw	0,3115
+      000D85 14                    9686 	.uleb128	20
+      000D86 05                    9687 	.db	5
+      000D87 03                    9688 	.db	3
+      000D88 00 00 00 94           9689 	.dw	0,(_CAPCON2)
+      000D8C 43 41 50 43 4F 4E 32  9690 	.ascii "CAPCON2"
+      000D93 00                    9691 	.db	0
+      000D94 01                    9692 	.db	1
+      000D95 00 00 0C 2B           9693 	.dw	0,3115
+      000D99 14                    9694 	.uleb128	20
+      000D9A 05                    9695 	.db	5
+      000D9B 03                    9696 	.db	3
+      000D9C 00 00 00 95           9697 	.dw	0,(_CKDIV)
+      000DA0 43 4B 44 49 56        9698 	.ascii "CKDIV"
+      000DA5 00                    9699 	.db	0
+      000DA6 01                    9700 	.db	1
+      000DA7 00 00 0C 2B           9701 	.dw	0,3115
+      000DAB 14                    9702 	.uleb128	20
+      000DAC 05                    9703 	.db	5
+      000DAD 03                    9704 	.db	3
+      000DAE 00 00 00 96           9705 	.dw	0,(_CKSWT)
+      000DB2 43 4B 53 57 54        9706 	.ascii "CKSWT"
+      000DB7 00                    9707 	.db	0
+      000DB8 01                    9708 	.db	1
+      000DB9 00 00 0C 2B           9709 	.dw	0,3115
+      000DBD 14                    9710 	.uleb128	20
+      000DBE 05                    9711 	.db	5
+      000DBF 03                    9712 	.db	3
+      000DC0 00 00 00 97           9713 	.dw	0,(_CKEN)
+      000DC4 43 4B 45 4E           9714 	.ascii "CKEN"
+      000DC8 00                    9715 	.db	0
+      000DC9 01                    9716 	.db	1
+      000DCA 00 00 0C 2B           9717 	.dw	0,3115
+      000DCE 14                    9718 	.uleb128	20
+      000DCF 05                    9719 	.db	5
+      000DD0 03                    9720 	.db	3
+      000DD1 00 00 00 98           9721 	.dw	0,(_SCON)
+      000DD5 53 43 4F 4E           9722 	.ascii "SCON"
+      000DD9 00                    9723 	.db	0
+      000DDA 01                    9724 	.db	1
+      000DDB 00 00 0C 2B           9725 	.dw	0,3115
+      000DDF 14                    9726 	.uleb128	20
+      000DE0 05                    9727 	.db	5
+      000DE1 03                    9728 	.db	3
+      000DE2 00 00 00 99           9729 	.dw	0,(_SBUF)
+      000DE6 53 42 55 46           9730 	.ascii "SBUF"
+      000DEA 00                    9731 	.db	0
+      000DEB 01                    9732 	.db	1
+      000DEC 00 00 0C 2B           9733 	.dw	0,3115
+      000DF0 14                    9734 	.uleb128	20
+      000DF1 05                    9735 	.db	5
+      000DF2 03                    9736 	.db	3
+      000DF3 00 00 00 9A           9737 	.dw	0,(_SBUF_1)
+      000DF7 53 42 55 46 5F 31     9738 	.ascii "SBUF_1"
+      000DFD 00                    9739 	.db	0
+      000DFE 01                    9740 	.db	1
+      000DFF 00 00 0C 2B           9741 	.dw	0,3115
+      000E03 14                    9742 	.uleb128	20
+      000E04 05                    9743 	.db	5
+      000E05 03                    9744 	.db	3
+      000E06 00 00 00 9B           9745 	.dw	0,(_EIE)
+      000E0A 45 49 45              9746 	.ascii "EIE"
+      000E0D 00                    9747 	.db	0
+      000E0E 01                    9748 	.db	1
+      000E0F 00 00 0C 2B           9749 	.dw	0,3115
+      000E13 14                    9750 	.uleb128	20
+      000E14 05                    9751 	.db	5
+      000E15 03                    9752 	.db	3
+      000E16 00 00 00 9C           9753 	.dw	0,(_EIE1)
+      000E1A 45 49 45 31           9754 	.ascii "EIE1"
+      000E1E 00                    9755 	.db	0
+      000E1F 01                    9756 	.db	1
+      000E20 00 00 0C 2B           9757 	.dw	0,3115
+      000E24 14                    9758 	.uleb128	20
+      000E25 05                    9759 	.db	5
+      000E26 03                    9760 	.db	3
+      000E27 00 00 00 9F           9761 	.dw	0,(_CHPCON)
+      000E2B 43 48 50 43 4F 4E     9762 	.ascii "CHPCON"
+      000E31 00                    9763 	.db	0
+      000E32 01                    9764 	.db	1
+      000E33 00 00 0C 2B           9765 	.dw	0,3115
+      000E37 14                    9766 	.uleb128	20
+      000E38 05                    9767 	.db	5
+      000E39 03                    9768 	.db	3
+      000E3A 00 00 00 A0           9769 	.dw	0,(_P2)
+      000E3E 50 32                 9770 	.ascii "P2"
+      000E40 00                    9771 	.db	0
+      000E41 01                    9772 	.db	1
+      000E42 00 00 0C 2B           9773 	.dw	0,3115
+      000E46 14                    9774 	.uleb128	20
+      000E47 05                    9775 	.db	5
+      000E48 03                    9776 	.db	3
+      000E49 00 00 00 A2           9777 	.dw	0,(_AUXR1)
+      000E4D 41 55 58 52 31        9778 	.ascii "AUXR1"
+      000E52 00                    9779 	.db	0
+      000E53 01                    9780 	.db	1
+      000E54 00 00 0C 2B           9781 	.dw	0,3115
+      000E58 14                    9782 	.uleb128	20
+      000E59 05                    9783 	.db	5
+      000E5A 03                    9784 	.db	3
+      000E5B 00 00 00 A3           9785 	.dw	0,(_BODCON0)
+      000E5F 42 4F 44 43 4F 4E 30  9786 	.ascii "BODCON0"
+      000E66 00                    9787 	.db	0
+      000E67 01                    9788 	.db	1
+      000E68 00 00 0C 2B           9789 	.dw	0,3115
+      000E6C 14                    9790 	.uleb128	20
+      000E6D 05                    9791 	.db	5
+      000E6E 03                    9792 	.db	3
+      000E6F 00 00 00 A4           9793 	.dw	0,(_IAPTRG)
+      000E73 49 41 50 54 52 47     9794 	.ascii "IAPTRG"
+      000E79 00                    9795 	.db	0
+      000E7A 01                    9796 	.db	1
+      000E7B 00 00 0C 2B           9797 	.dw	0,3115
+      000E7F 14                    9798 	.uleb128	20
+      000E80 05                    9799 	.db	5
+      000E81 03                    9800 	.db	3
+      000E82 00 00 00 A5           9801 	.dw	0,(_IAPUEN)
+      000E86 49 41 50 55 45 4E     9802 	.ascii "IAPUEN"
+      000E8C 00                    9803 	.db	0
+      000E8D 01                    9804 	.db	1
+      000E8E 00 00 0C 2B           9805 	.dw	0,3115
+      000E92 14                    9806 	.uleb128	20
+      000E93 05                    9807 	.db	5
+      000E94 03                    9808 	.db	3
+      000E95 00 00 00 A6           9809 	.dw	0,(_IAPAL)
+      000E99 49 41 50 41 4C        9810 	.ascii "IAPAL"
+      000E9E 00                    9811 	.db	0
+      000E9F 01                    9812 	.db	1
+      000EA0 00 00 0C 2B           9813 	.dw	0,3115
+      000EA4 14                    9814 	.uleb128	20
+      000EA5 05                    9815 	.db	5
+      000EA6 03                    9816 	.db	3
+      000EA7 00 00 00 A7           9817 	.dw	0,(_IAPAH)
+      000EAB 49 41 50 41 48        9818 	.ascii "IAPAH"
+      000EB0 00                    9819 	.db	0
+      000EB1 01                    9820 	.db	1
+      000EB2 00 00 0C 2B           9821 	.dw	0,3115
+      000EB6 14                    9822 	.uleb128	20
+      000EB7 05                    9823 	.db	5
+      000EB8 03                    9824 	.db	3
+      000EB9 00 00 00 A8           9825 	.dw	0,(_IE)
+      000EBD 49 45                 9826 	.ascii "IE"
+      000EBF 00                    9827 	.db	0
+      000EC0 01                    9828 	.db	1
+      000EC1 00 00 0C 2B           9829 	.dw	0,3115
+      000EC5 14                    9830 	.uleb128	20
+      000EC6 05                    9831 	.db	5
+      000EC7 03                    9832 	.db	3
+      000EC8 00 00 00 A9           9833 	.dw	0,(_SADDR)
+      000ECC 53 41 44 44 52        9834 	.ascii "SADDR"
+      000ED1 00                    9835 	.db	0
+      000ED2 01                    9836 	.db	1
+      000ED3 00 00 0C 2B           9837 	.dw	0,3115
+      000ED7 14                    9838 	.uleb128	20
+      000ED8 05                    9839 	.db	5
+      000ED9 03                    9840 	.db	3
+      000EDA 00 00 00 AA           9841 	.dw	0,(_WDCON)
+      000EDE 57 44 43 4F 4E        9842 	.ascii "WDCON"
+      000EE3 00                    9843 	.db	0
+      000EE4 01                    9844 	.db	1
+      000EE5 00 00 0C 2B           9845 	.dw	0,3115
+      000EE9 14                    9846 	.uleb128	20
+      000EEA 05                    9847 	.db	5
+      000EEB 03                    9848 	.db	3
+      000EEC 00 00 00 AB           9849 	.dw	0,(_BODCON1)
+      000EF0 42 4F 44 43 4F 4E 31  9850 	.ascii "BODCON1"
+      000EF7 00                    9851 	.db	0
+      000EF8 01                    9852 	.db	1
+      000EF9 00 00 0C 2B           9853 	.dw	0,3115
+      000EFD 14                    9854 	.uleb128	20
+      000EFE 05                    9855 	.db	5
+      000EFF 03                    9856 	.db	3
+      000F00 00 00 00 AC           9857 	.dw	0,(_P3M1)
+      000F04 50 33 4D 31           9858 	.ascii "P3M1"
+      000F08 00                    9859 	.db	0
+      000F09 01                    9860 	.db	1
+      000F0A 00 00 0C 2B           9861 	.dw	0,3115
+      000F0E 14                    9862 	.uleb128	20
+      000F0F 05                    9863 	.db	5
+      000F10 03                    9864 	.db	3
+      000F11 00 00 00 AC           9865 	.dw	0,(_P3S)
+      000F15 50 33 53              9866 	.ascii "P3S"
+      000F18 00                    9867 	.db	0
+      000F19 01                    9868 	.db	1
+      000F1A 00 00 0C 2B           9869 	.dw	0,3115
+      000F1E 14                    9870 	.uleb128	20
+      000F1F 05                    9871 	.db	5
+      000F20 03                    9872 	.db	3
+      000F21 00 00 00 AD           9873 	.dw	0,(_P3M2)
+      000F25 50 33 4D 32           9874 	.ascii "P3M2"
+      000F29 00                    9875 	.db	0
+      000F2A 01                    9876 	.db	1
+      000F2B 00 00 0C 2B           9877 	.dw	0,3115
+      000F2F 14                    9878 	.uleb128	20
+      000F30 05                    9879 	.db	5
+      000F31 03                    9880 	.db	3
+      000F32 00 00 00 AD           9881 	.dw	0,(_P3SR)
+      000F36 50 33 53 52           9882 	.ascii "P3SR"
+      000F3A 00                    9883 	.db	0
+      000F3B 01                    9884 	.db	1
+      000F3C 00 00 0C 2B           9885 	.dw	0,3115
+      000F40 14                    9886 	.uleb128	20
+      000F41 05                    9887 	.db	5
+      000F42 03                    9888 	.db	3
+      000F43 00 00 00 AE           9889 	.dw	0,(_IAPFD)
+      000F47 49 41 50 46 44        9890 	.ascii "IAPFD"
+      000F4C 00                    9891 	.db	0
+      000F4D 01                    9892 	.db	1
+      000F4E 00 00 0C 2B           9893 	.dw	0,3115
+      000F52 14                    9894 	.uleb128	20
+      000F53 05                    9895 	.db	5
+      000F54 03                    9896 	.db	3
+      000F55 00 00 00 AF           9897 	.dw	0,(_IAPCN)
+      000F59 49 41 50 43 4E        9898 	.ascii "IAPCN"
+      000F5E 00                    9899 	.db	0
+      000F5F 01                    9900 	.db	1
+      000F60 00 00 0C 2B           9901 	.dw	0,3115
+      000F64 14                    9902 	.uleb128	20
+      000F65 05                    9903 	.db	5
+      000F66 03                    9904 	.db	3
+      000F67 00 00 00 B0           9905 	.dw	0,(_P3)
+      000F6B 50 33                 9906 	.ascii "P3"
+      000F6D 00                    9907 	.db	0
+      000F6E 01                    9908 	.db	1
+      000F6F 00 00 0C 2B           9909 	.dw	0,3115
+      000F73 14                    9910 	.uleb128	20
+      000F74 05                    9911 	.db	5
+      000F75 03                    9912 	.db	3
+      000F76 00 00 00 B1           9913 	.dw	0,(_P0M1)
+      000F7A 50 30 4D 31           9914 	.ascii "P0M1"
+      000F7E 00                    9915 	.db	0
+      000F7F 01                    9916 	.db	1
+      000F80 00 00 0C 2B           9917 	.dw	0,3115
+      000F84 14                    9918 	.uleb128	20
+      000F85 05                    9919 	.db	5
+      000F86 03                    9920 	.db	3
+      000F87 00 00 00 B1           9921 	.dw	0,(_P0S)
+      000F8B 50 30 53              9922 	.ascii "P0S"
+      000F8E 00                    9923 	.db	0
+      000F8F 01                    9924 	.db	1
+      000F90 00 00 0C 2B           9925 	.dw	0,3115
+      000F94 14                    9926 	.uleb128	20
+      000F95 05                    9927 	.db	5
+      000F96 03                    9928 	.db	3
+      000F97 00 00 00 B2           9929 	.dw	0,(_P0M2)
+      000F9B 50 30 4D 32           9930 	.ascii "P0M2"
+      000F9F 00                    9931 	.db	0
+      000FA0 01                    9932 	.db	1
+      000FA1 00 00 0C 2B           9933 	.dw	0,3115
+      000FA5 14                    9934 	.uleb128	20
+      000FA6 05                    9935 	.db	5
+      000FA7 03                    9936 	.db	3
+      000FA8 00 00 00 B2           9937 	.dw	0,(_P0SR)
+      000FAC 50 30 53 52           9938 	.ascii "P0SR"
+      000FB0 00                    9939 	.db	0
+      000FB1 01                    9940 	.db	1
+      000FB2 00 00 0C 2B           9941 	.dw	0,3115
+      000FB6 14                    9942 	.uleb128	20
+      000FB7 05                    9943 	.db	5
+      000FB8 03                    9944 	.db	3
+      000FB9 00 00 00 B3           9945 	.dw	0,(_P1M1)
+      000FBD 50 31 4D 31           9946 	.ascii "P1M1"
+      000FC1 00                    9947 	.db	0
+      000FC2 01                    9948 	.db	1
+      000FC3 00 00 0C 2B           9949 	.dw	0,3115
+      000FC7 14                    9950 	.uleb128	20
+      000FC8 05                    9951 	.db	5
+      000FC9 03                    9952 	.db	3
+      000FCA 00 00 00 B3           9953 	.dw	0,(_P1S)
+      000FCE 50 31 53              9954 	.ascii "P1S"
+      000FD1 00                    9955 	.db	0
+      000FD2 01                    9956 	.db	1
+      000FD3 00 00 0C 2B           9957 	.dw	0,3115
+      000FD7 14                    9958 	.uleb128	20
+      000FD8 05                    9959 	.db	5
+      000FD9 03                    9960 	.db	3
+      000FDA 00 00 00 B4           9961 	.dw	0,(_P1M2)
+      000FDE 50 31 4D 32           9962 	.ascii "P1M2"
+      000FE2 00                    9963 	.db	0
+      000FE3 01                    9964 	.db	1
+      000FE4 00 00 0C 2B           9965 	.dw	0,3115
+      000FE8 14                    9966 	.uleb128	20
+      000FE9 05                    9967 	.db	5
+      000FEA 03                    9968 	.db	3
+      000FEB 00 00 00 B4           9969 	.dw	0,(_P1SR)
+      000FEF 50 31 53 52           9970 	.ascii "P1SR"
+      000FF3 00                    9971 	.db	0
+      000FF4 01                    9972 	.db	1
+      000FF5 00 00 0C 2B           9973 	.dw	0,3115
+      000FF9 14                    9974 	.uleb128	20
+      000FFA 05                    9975 	.db	5
+      000FFB 03                    9976 	.db	3
+      000FFC 00 00 00 B5           9977 	.dw	0,(_P2S)
+      001000 50 32 53              9978 	.ascii "P2S"
+      001003 00                    9979 	.db	0
+      001004 01                    9980 	.db	1
+      001005 00 00 0C 2B           9981 	.dw	0,3115
+      001009 14                    9982 	.uleb128	20
+      00100A 05                    9983 	.db	5
+      00100B 03                    9984 	.db	3
+      00100C 00 00 00 B7           9985 	.dw	0,(_IPH)
+      001010 49 50 48              9986 	.ascii "IPH"
+      001013 00                    9987 	.db	0
+      001014 01                    9988 	.db	1
+      001015 00 00 0C 2B           9989 	.dw	0,3115
+      001019 14                    9990 	.uleb128	20
+      00101A 05                    9991 	.db	5
+      00101B 03                    9992 	.db	3
+      00101C 00 00 00 B7           9993 	.dw	0,(_PWMINTC)
+      001020 50 57 4D 49 4E 54 43  9994 	.ascii "PWMINTC"
+      001027 00                    9995 	.db	0
+      001028 01                    9996 	.db	1
+      001029 00 00 0C 2B           9997 	.dw	0,3115
+      00102D 14                    9998 	.uleb128	20
+      00102E 05                    9999 	.db	5
+      00102F 03                   10000 	.db	3
+      001030 00 00 00 B8          10001 	.dw	0,(_IP)
+      001034 49 50                10002 	.ascii "IP"
+      001036 00                   10003 	.db	0
+      001037 01                   10004 	.db	1
+      001038 00 00 0C 2B          10005 	.dw	0,3115
+      00103C 14                   10006 	.uleb128	20
+      00103D 05                   10007 	.db	5
+      00103E 03                   10008 	.db	3
+      00103F 00 00 00 B9          10009 	.dw	0,(_SADEN)
+      001043 53 41 44 45 4E       10010 	.ascii "SADEN"
+      001048 00                   10011 	.db	0
+      001049 01                   10012 	.db	1
+      00104A 00 00 0C 2B          10013 	.dw	0,3115
+      00104E 14                   10014 	.uleb128	20
+      00104F 05                   10015 	.db	5
+      001050 03                   10016 	.db	3
+      001051 00 00 00 BA          10017 	.dw	0,(_SADEN_1)
+      001055 53 41 44 45 4E 5F 31 10018 	.ascii "SADEN_1"
+      00105C 00                   10019 	.db	0
+      00105D 01                   10020 	.db	1
+      00105E 00 00 0C 2B          10021 	.dw	0,3115
+      001062 14                   10022 	.uleb128	20
+      001063 05                   10023 	.db	5
+      001064 03                   10024 	.db	3
+      001065 00 00 00 BB          10025 	.dw	0,(_SADDR_1)
+      001069 53 41 44 44 52 5F 31 10026 	.ascii "SADDR_1"
+      001070 00                   10027 	.db	0
+      001071 01                   10028 	.db	1
+      001072 00 00 0C 2B          10029 	.dw	0,3115
+      001076 14                   10030 	.uleb128	20
+      001077 05                   10031 	.db	5
+      001078 03                   10032 	.db	3
+      001079 00 00 00 BC          10033 	.dw	0,(_I2DAT)
+      00107D 49 32 44 41 54       10034 	.ascii "I2DAT"
+      001082 00                   10035 	.db	0
+      001083 01                   10036 	.db	1
+      001084 00 00 0C 2B          10037 	.dw	0,3115
+      001088 14                   10038 	.uleb128	20
+      001089 05                   10039 	.db	5
+      00108A 03                   10040 	.db	3
+      00108B 00 00 00 BD          10041 	.dw	0,(_I2STAT)
+      00108F 49 32 53 54 41 54    10042 	.ascii "I2STAT"
+      001095 00                   10043 	.db	0
+      001096 01                   10044 	.db	1
+      001097 00 00 0C 2B          10045 	.dw	0,3115
+      00109B 14                   10046 	.uleb128	20
+      00109C 05                   10047 	.db	5
+      00109D 03                   10048 	.db	3
+      00109E 00 00 00 BE          10049 	.dw	0,(_I2CLK)
+      0010A2 49 32 43 4C 4B       10050 	.ascii "I2CLK"
+      0010A7 00                   10051 	.db	0
+      0010A8 01                   10052 	.db	1
+      0010A9 00 00 0C 2B          10053 	.dw	0,3115
+      0010AD 14                   10054 	.uleb128	20
+      0010AE 05                   10055 	.db	5
+      0010AF 03                   10056 	.db	3
+      0010B0 00 00 00 BF          10057 	.dw	0,(_I2TOC)
+      0010B4 49 32 54 4F 43       10058 	.ascii "I2TOC"
+      0010B9 00                   10059 	.db	0
+      0010BA 01                   10060 	.db	1
+      0010BB 00 00 0C 2B          10061 	.dw	0,3115
+      0010BF 14                   10062 	.uleb128	20
+      0010C0 05                   10063 	.db	5
+      0010C1 03                   10064 	.db	3
+      0010C2 00 00 00 C0          10065 	.dw	0,(_I2CON)
+      0010C6 49 32 43 4F 4E       10066 	.ascii "I2CON"
+      0010CB 00                   10067 	.db	0
+      0010CC 01                   10068 	.db	1
+      0010CD 00 00 0C 2B          10069 	.dw	0,3115
+      0010D1 14                   10070 	.uleb128	20
+      0010D2 05                   10071 	.db	5
+      0010D3 03                   10072 	.db	3
+      0010D4 00 00 00 C1          10073 	.dw	0,(_I2ADDR)
+      0010D8 49 32 41 44 44 52    10074 	.ascii "I2ADDR"
+      0010DE 00                   10075 	.db	0
+      0010DF 01                   10076 	.db	1
+      0010E0 00 00 0C 2B          10077 	.dw	0,3115
+      0010E4 14                   10078 	.uleb128	20
+      0010E5 05                   10079 	.db	5
+      0010E6 03                   10080 	.db	3
+      0010E7 00 00 00 C2          10081 	.dw	0,(_ADCRL)
+      0010EB 41 44 43 52 4C       10082 	.ascii "ADCRL"
+      0010F0 00                   10083 	.db	0
+      0010F1 01                   10084 	.db	1
+      0010F2 00 00 0C 2B          10085 	.dw	0,3115
+      0010F6 14                   10086 	.uleb128	20
+      0010F7 05                   10087 	.db	5
+      0010F8 03                   10088 	.db	3
+      0010F9 00 00 00 C3          10089 	.dw	0,(_ADCRH)
+      0010FD 41 44 43 52 48       10090 	.ascii "ADCRH"
+      001102 00                   10091 	.db	0
+      001103 01                   10092 	.db	1
+      001104 00 00 0C 2B          10093 	.dw	0,3115
+      001108 14                   10094 	.uleb128	20
+      001109 05                   10095 	.db	5
+      00110A 03                   10096 	.db	3
+      00110B 00 00 00 C4          10097 	.dw	0,(_T3CON)
+      00110F 54 33 43 4F 4E       10098 	.ascii "T3CON"
+      001114 00                   10099 	.db	0
+      001115 01                   10100 	.db	1
+      001116 00 00 0C 2B          10101 	.dw	0,3115
+      00111A 14                   10102 	.uleb128	20
+      00111B 05                   10103 	.db	5
+      00111C 03                   10104 	.db	3
+      00111D 00 00 00 C4          10105 	.dw	0,(_PWM4H)
+      001121 50 57 4D 34 48       10106 	.ascii "PWM4H"
+      001126 00                   10107 	.db	0
+      001127 01                   10108 	.db	1
+      001128 00 00 0C 2B          10109 	.dw	0,3115
+      00112C 14                   10110 	.uleb128	20
+      00112D 05                   10111 	.db	5
+      00112E 03                   10112 	.db	3
+      00112F 00 00 00 C5          10113 	.dw	0,(_RL3)
+      001133 52 4C 33             10114 	.ascii "RL3"
+      001136 00                   10115 	.db	0
+      001137 01                   10116 	.db	1
+      001138 00 00 0C 2B          10117 	.dw	0,3115
+      00113C 14                   10118 	.uleb128	20
+      00113D 05                   10119 	.db	5
+      00113E 03                   10120 	.db	3
+      00113F 00 00 00 C5          10121 	.dw	0,(_PWM5H)
+      001143 50 57 4D 35 48       10122 	.ascii "PWM5H"
+      001148 00                   10123 	.db	0
+      001149 01                   10124 	.db	1
+      00114A 00 00 0C 2B          10125 	.dw	0,3115
+      00114E 14                   10126 	.uleb128	20
+      00114F 05                   10127 	.db	5
+      001150 03                   10128 	.db	3
+      001151 00 00 00 C6          10129 	.dw	0,(_RH3)
+      001155 52 48 33             10130 	.ascii "RH3"
+      001158 00                   10131 	.db	0
+      001159 01                   10132 	.db	1
+      00115A 00 00 0C 2B          10133 	.dw	0,3115
+      00115E 14                   10134 	.uleb128	20
+      00115F 05                   10135 	.db	5
+      001160 03                   10136 	.db	3
+      001161 00 00 00 C6          10137 	.dw	0,(_PIOCON1)
+      001165 50 49 4F 43 4F 4E 31 10138 	.ascii "PIOCON1"
+      00116C 00                   10139 	.db	0
+      00116D 01                   10140 	.db	1
+      00116E 00 00 0C 2B          10141 	.dw	0,3115
+      001172 14                   10142 	.uleb128	20
+      001173 05                   10143 	.db	5
+      001174 03                   10144 	.db	3
+      001175 00 00 00 C7          10145 	.dw	0,(_TA)
+      001179 54 41                10146 	.ascii "TA"
+      00117B 00                   10147 	.db	0
+      00117C 01                   10148 	.db	1
+      00117D 00 00 0C 2B          10149 	.dw	0,3115
+      001181 14                   10150 	.uleb128	20
+      001182 05                   10151 	.db	5
+      001183 03                   10152 	.db	3
+      001184 00 00 00 C8          10153 	.dw	0,(_T2CON)
+      001188 54 32 43 4F 4E       10154 	.ascii "T2CON"
+      00118D 00                   10155 	.db	0
+      00118E 01                   10156 	.db	1
+      00118F 00 00 0C 2B          10157 	.dw	0,3115
+      001193 14                   10158 	.uleb128	20
+      001194 05                   10159 	.db	5
+      001195 03                   10160 	.db	3
+      001196 00 00 00 C9          10161 	.dw	0,(_T2MOD)
+      00119A 54 32 4D 4F 44       10162 	.ascii "T2MOD"
+      00119F 00                   10163 	.db	0
+      0011A0 01                   10164 	.db	1
+      0011A1 00 00 0C 2B          10165 	.dw	0,3115
+      0011A5 14                   10166 	.uleb128	20
+      0011A6 05                   10167 	.db	5
+      0011A7 03                   10168 	.db	3
+      0011A8 00 00 00 CA          10169 	.dw	0,(_RCMP2L)
+      0011AC 52 43 4D 50 32 4C    10170 	.ascii "RCMP2L"
+      0011B2 00                   10171 	.db	0
+      0011B3 01                   10172 	.db	1
+      0011B4 00 00 0C 2B          10173 	.dw	0,3115
+      0011B8 14                   10174 	.uleb128	20
+      0011B9 05                   10175 	.db	5
+      0011BA 03                   10176 	.db	3
+      0011BB 00 00 00 CB          10177 	.dw	0,(_RCMP2H)
+      0011BF 52 43 4D 50 32 48    10178 	.ascii "RCMP2H"
+      0011C5 00                   10179 	.db	0
+      0011C6 01                   10180 	.db	1
+      0011C7 00 00 0C 2B          10181 	.dw	0,3115
+      0011CB 14                   10182 	.uleb128	20
+      0011CC 05                   10183 	.db	5
+      0011CD 03                   10184 	.db	3
+      0011CE 00 00 00 CC          10185 	.dw	0,(_TL2)
+      0011D2 54 4C 32             10186 	.ascii "TL2"
+      0011D5 00                   10187 	.db	0
+      0011D6 01                   10188 	.db	1
+      0011D7 00 00 0C 2B          10189 	.dw	0,3115
+      0011DB 14                   10190 	.uleb128	20
+      0011DC 05                   10191 	.db	5
+      0011DD 03                   10192 	.db	3
+      0011DE 00 00 00 CC          10193 	.dw	0,(_PWM4L)
+      0011E2 50 57 4D 34 4C       10194 	.ascii "PWM4L"
+      0011E7 00                   10195 	.db	0
+      0011E8 01                   10196 	.db	1
+      0011E9 00 00 0C 2B          10197 	.dw	0,3115
+      0011ED 14                   10198 	.uleb128	20
+      0011EE 05                   10199 	.db	5
+      0011EF 03                   10200 	.db	3
+      0011F0 00 00 00 CD          10201 	.dw	0,(_TH2)
+      0011F4 54 48 32             10202 	.ascii "TH2"
+      0011F7 00                   10203 	.db	0
+      0011F8 01                   10204 	.db	1
+      0011F9 00 00 0C 2B          10205 	.dw	0,3115
+      0011FD 14                   10206 	.uleb128	20
+      0011FE 05                   10207 	.db	5
+      0011FF 03                   10208 	.db	3
+      001200 00 00 00 CD          10209 	.dw	0,(_PWM5L)
+      001204 50 57 4D 35 4C       10210 	.ascii "PWM5L"
+      001209 00                   10211 	.db	0
+      00120A 01                   10212 	.db	1
+      00120B 00 00 0C 2B          10213 	.dw	0,3115
+      00120F 14                   10214 	.uleb128	20
+      001210 05                   10215 	.db	5
+      001211 03                   10216 	.db	3
+      001212 00 00 00 CE          10217 	.dw	0,(_ADCMPL)
+      001216 41 44 43 4D 50 4C    10218 	.ascii "ADCMPL"
+      00121C 00                   10219 	.db	0
+      00121D 01                   10220 	.db	1
+      00121E 00 00 0C 2B          10221 	.dw	0,3115
+      001222 14                   10222 	.uleb128	20
+      001223 05                   10223 	.db	5
+      001224 03                   10224 	.db	3
+      001225 00 00 00 CF          10225 	.dw	0,(_ADCMPH)
+      001229 41 44 43 4D 50 48    10226 	.ascii "ADCMPH"
+      00122F 00                   10227 	.db	0
+      001230 01                   10228 	.db	1
+      001231 00 00 0C 2B          10229 	.dw	0,3115
+      001235 14                   10230 	.uleb128	20
+      001236 05                   10231 	.db	5
+      001237 03                   10232 	.db	3
+      001238 00 00 00 D0          10233 	.dw	0,(_PSW)
+      00123C 50 53 57             10234 	.ascii "PSW"
+      00123F 00                   10235 	.db	0
+      001240 01                   10236 	.db	1
+      001241 00 00 0C 2B          10237 	.dw	0,3115
+      001245 14                   10238 	.uleb128	20
+      001246 05                   10239 	.db	5
+      001247 03                   10240 	.db	3
+      001248 00 00 00 D1          10241 	.dw	0,(_PWMPH)
+      00124C 50 57 4D 50 48       10242 	.ascii "PWMPH"
+      001251 00                   10243 	.db	0
+      001252 01                   10244 	.db	1
+      001253 00 00 0C 2B          10245 	.dw	0,3115
+      001257 14                   10246 	.uleb128	20
+      001258 05                   10247 	.db	5
+      001259 03                   10248 	.db	3
+      00125A 00 00 00 D2          10249 	.dw	0,(_PWM0H)
+      00125E 50 57 4D 30 48       10250 	.ascii "PWM0H"
+      001263 00                   10251 	.db	0
+      001264 01                   10252 	.db	1
+      001265 00 00 0C 2B          10253 	.dw	0,3115
+      001269 14                   10254 	.uleb128	20
+      00126A 05                   10255 	.db	5
+      00126B 03                   10256 	.db	3
+      00126C 00 00 00 D3          10257 	.dw	0,(_PWM1H)
+      001270 50 57 4D 31 48       10258 	.ascii "PWM1H"
+      001275 00                   10259 	.db	0
+      001276 01                   10260 	.db	1
+      001277 00 00 0C 2B          10261 	.dw	0,3115
+      00127B 14                   10262 	.uleb128	20
+      00127C 05                   10263 	.db	5
+      00127D 03                   10264 	.db	3
+      00127E 00 00 00 D4          10265 	.dw	0,(_PWM2H)
+      001282 50 57 4D 32 48       10266 	.ascii "PWM2H"
+      001287 00                   10267 	.db	0
+      001288 01                   10268 	.db	1
+      001289 00 00 0C 2B          10269 	.dw	0,3115
+      00128D 14                   10270 	.uleb128	20
+      00128E 05                   10271 	.db	5
+      00128F 03                   10272 	.db	3
+      001290 00 00 00 D5          10273 	.dw	0,(_PWM3H)
+      001294 50 57 4D 33 48       10274 	.ascii "PWM3H"
+      001299 00                   10275 	.db	0
+      00129A 01                   10276 	.db	1
+      00129B 00 00 0C 2B          10277 	.dw	0,3115
+      00129F 14                   10278 	.uleb128	20
+      0012A0 05                   10279 	.db	5
+      0012A1 03                   10280 	.db	3
+      0012A2 00 00 00 D6          10281 	.dw	0,(_PNP)
+      0012A6 50 4E 50             10282 	.ascii "PNP"
+      0012A9 00                   10283 	.db	0
+      0012AA 01                   10284 	.db	1
+      0012AB 00 00 0C 2B          10285 	.dw	0,3115
+      0012AF 14                   10286 	.uleb128	20
+      0012B0 05                   10287 	.db	5
+      0012B1 03                   10288 	.db	3
+      0012B2 00 00 00 D7          10289 	.dw	0,(_FBD)
+      0012B6 46 42 44             10290 	.ascii "FBD"
+      0012B9 00                   10291 	.db	0
+      0012BA 01                   10292 	.db	1
+      0012BB 00 00 0C 2B          10293 	.dw	0,3115
+      0012BF 14                   10294 	.uleb128	20
+      0012C0 05                   10295 	.db	5
+      0012C1 03                   10296 	.db	3
+      0012C2 00 00 00 D8          10297 	.dw	0,(_PWMCON0)
+      0012C6 50 57 4D 43 4F 4E 30 10298 	.ascii "PWMCON0"
+      0012CD 00                   10299 	.db	0
+      0012CE 01                   10300 	.db	1
+      0012CF 00 00 0C 2B          10301 	.dw	0,3115
+      0012D3 14                   10302 	.uleb128	20
+      0012D4 05                   10303 	.db	5
+      0012D5 03                   10304 	.db	3
+      0012D6 00 00 00 D9          10305 	.dw	0,(_PWMPL)
+      0012DA 50 57 4D 50 4C       10306 	.ascii "PWMPL"
+      0012DF 00                   10307 	.db	0
+      0012E0 01                   10308 	.db	1
+      0012E1 00 00 0C 2B          10309 	.dw	0,3115
+      0012E5 14                   10310 	.uleb128	20
+      0012E6 05                   10311 	.db	5
+      0012E7 03                   10312 	.db	3
+      0012E8 00 00 00 DA          10313 	.dw	0,(_PWM0L)
+      0012EC 50 57 4D 30 4C       10314 	.ascii "PWM0L"
+      0012F1 00                   10315 	.db	0
+      0012F2 01                   10316 	.db	1
+      0012F3 00 00 0C 2B          10317 	.dw	0,3115
+      0012F7 14                   10318 	.uleb128	20
+      0012F8 05                   10319 	.db	5
+      0012F9 03                   10320 	.db	3
+      0012FA 00 00 00 DB          10321 	.dw	0,(_PWM1L)
+      0012FE 50 57 4D 31 4C       10322 	.ascii "PWM1L"
+      001303 00                   10323 	.db	0
+      001304 01                   10324 	.db	1
+      001305 00 00 0C 2B          10325 	.dw	0,3115
+      001309 14                   10326 	.uleb128	20
+      00130A 05                   10327 	.db	5
+      00130B 03                   10328 	.db	3
+      00130C 00 00 00 DC          10329 	.dw	0,(_PWM2L)
+      001310 50 57 4D 32 4C       10330 	.ascii "PWM2L"
+      001315 00                   10331 	.db	0
+      001316 01                   10332 	.db	1
+      001317 00 00 0C 2B          10333 	.dw	0,3115
+      00131B 14                   10334 	.uleb128	20
+      00131C 05                   10335 	.db	5
+      00131D 03                   10336 	.db	3
+      00131E 00 00 00 DD          10337 	.dw	0,(_PWM3L)
+      001322 50 57 4D 33 4C       10338 	.ascii "PWM3L"
+      001327 00                   10339 	.db	0
+      001328 01                   10340 	.db	1
+      001329 00 00 0C 2B          10341 	.dw	0,3115
+      00132D 14                   10342 	.uleb128	20
+      00132E 05                   10343 	.db	5
+      00132F 03                   10344 	.db	3
+      001330 00 00 00 DE          10345 	.dw	0,(_PIOCON0)
+      001334 50 49 4F 43 4F 4E 30 10346 	.ascii "PIOCON0"
+      00133B 00                   10347 	.db	0
+      00133C 01                   10348 	.db	1
+      00133D 00 00 0C 2B          10349 	.dw	0,3115
+      001341 14                   10350 	.uleb128	20
+      001342 05                   10351 	.db	5
+      001343 03                   10352 	.db	3
+      001344 00 00 00 DF          10353 	.dw	0,(_PWMCON1)
+      001348 50 57 4D 43 4F 4E 31 10354 	.ascii "PWMCON1"
+      00134F 00                   10355 	.db	0
+      001350 01                   10356 	.db	1
+      001351 00 00 0C 2B          10357 	.dw	0,3115
+      001355 14                   10358 	.uleb128	20
+      001356 05                   10359 	.db	5
+      001357 03                   10360 	.db	3
+      001358 00 00 00 E0          10361 	.dw	0,(_ACC)
+      00135C 41 43 43             10362 	.ascii "ACC"
+      00135F 00                   10363 	.db	0
+      001360 01                   10364 	.db	1
+      001361 00 00 0C 2B          10365 	.dw	0,3115
+      001365 14                   10366 	.uleb128	20
+      001366 05                   10367 	.db	5
+      001367 03                   10368 	.db	3
+      001368 00 00 00 E1          10369 	.dw	0,(_ADCCON1)
+      00136C 41 44 43 43 4F 4E 31 10370 	.ascii "ADCCON1"
+      001373 00                   10371 	.db	0
+      001374 01                   10372 	.db	1
+      001375 00 00 0C 2B          10373 	.dw	0,3115
+      001379 14                   10374 	.uleb128	20
+      00137A 05                   10375 	.db	5
+      00137B 03                   10376 	.db	3
+      00137C 00 00 00 E2          10377 	.dw	0,(_ADCCON2)
+      001380 41 44 43 43 4F 4E 32 10378 	.ascii "ADCCON2"
+      001387 00                   10379 	.db	0
+      001388 01                   10380 	.db	1
+      001389 00 00 0C 2B          10381 	.dw	0,3115
+      00138D 14                   10382 	.uleb128	20
+      00138E 05                   10383 	.db	5
+      00138F 03                   10384 	.db	3
+      001390 00 00 00 E3          10385 	.dw	0,(_ADCDLY)
+      001394 41 44 43 44 4C 59    10386 	.ascii "ADCDLY"
+      00139A 00                   10387 	.db	0
+      00139B 01                   10388 	.db	1
+      00139C 00 00 0C 2B          10389 	.dw	0,3115
+      0013A0 14                   10390 	.uleb128	20
+      0013A1 05                   10391 	.db	5
+      0013A2 03                   10392 	.db	3
+      0013A3 00 00 00 E4          10393 	.dw	0,(_C0L)
+      0013A7 43 30 4C             10394 	.ascii "C0L"
+      0013AA 00                   10395 	.db	0
+      0013AB 01                   10396 	.db	1
+      0013AC 00 00 0C 2B          10397 	.dw	0,3115
+      0013B0 14                   10398 	.uleb128	20
+      0013B1 05                   10399 	.db	5
+      0013B2 03                   10400 	.db	3
+      0013B3 00 00 00 E5          10401 	.dw	0,(_C0H)
+      0013B7 43 30 48             10402 	.ascii "C0H"
+      0013BA 00                   10403 	.db	0
+      0013BB 01                   10404 	.db	1
+      0013BC 00 00 0C 2B          10405 	.dw	0,3115
+      0013C0 14                   10406 	.uleb128	20
+      0013C1 05                   10407 	.db	5
+      0013C2 03                   10408 	.db	3
+      0013C3 00 00 00 E6          10409 	.dw	0,(_C1L)
+      0013C7 43 31 4C             10410 	.ascii "C1L"
+      0013CA 00                   10411 	.db	0
+      0013CB 01                   10412 	.db	1
+      0013CC 00 00 0C 2B          10413 	.dw	0,3115
+      0013D0 14                   10414 	.uleb128	20
+      0013D1 05                   10415 	.db	5
+      0013D2 03                   10416 	.db	3
+      0013D3 00 00 00 E7          10417 	.dw	0,(_C1H)
+      0013D7 43 31 48             10418 	.ascii "C1H"
+      0013DA 00                   10419 	.db	0
+      0013DB 01                   10420 	.db	1
+      0013DC 00 00 0C 2B          10421 	.dw	0,3115
+      0013E0 14                   10422 	.uleb128	20
+      0013E1 05                   10423 	.db	5
+      0013E2 03                   10424 	.db	3
+      0013E3 00 00 00 E8          10425 	.dw	0,(_ADCCON0)
+      0013E7 41 44 43 43 4F 4E 30 10426 	.ascii "ADCCON0"
+      0013EE 00                   10427 	.db	0
+      0013EF 01                   10428 	.db	1
+      0013F0 00 00 0C 2B          10429 	.dw	0,3115
+      0013F4 14                   10430 	.uleb128	20
+      0013F5 05                   10431 	.db	5
+      0013F6 03                   10432 	.db	3
+      0013F7 00 00 00 E9          10433 	.dw	0,(_PICON)
+      0013FB 50 49 43 4F 4E       10434 	.ascii "PICON"
+      001400 00                   10435 	.db	0
+      001401 01                   10436 	.db	1
+      001402 00 00 0C 2B          10437 	.dw	0,3115
+      001406 14                   10438 	.uleb128	20
+      001407 05                   10439 	.db	5
+      001408 03                   10440 	.db	3
+      001409 00 00 00 EA          10441 	.dw	0,(_PINEN)
+      00140D 50 49 4E 45 4E       10442 	.ascii "PINEN"
+      001412 00                   10443 	.db	0
+      001413 01                   10444 	.db	1
+      001414 00 00 0C 2B          10445 	.dw	0,3115
+      001418 14                   10446 	.uleb128	20
+      001419 05                   10447 	.db	5
+      00141A 03                   10448 	.db	3
+      00141B 00 00 00 EB          10449 	.dw	0,(_PIPEN)
+      00141F 50 49 50 45 4E       10450 	.ascii "PIPEN"
+      001424 00                   10451 	.db	0
+      001425 01                   10452 	.db	1
+      001426 00 00 0C 2B          10453 	.dw	0,3115
+      00142A 14                   10454 	.uleb128	20
+      00142B 05                   10455 	.db	5
+      00142C 03                   10456 	.db	3
+      00142D 00 00 00 EC          10457 	.dw	0,(_PIF)
+      001431 50 49 46             10458 	.ascii "PIF"
+      001434 00                   10459 	.db	0
+      001435 01                   10460 	.db	1
+      001436 00 00 0C 2B          10461 	.dw	0,3115
+      00143A 14                   10462 	.uleb128	20
+      00143B 05                   10463 	.db	5
+      00143C 03                   10464 	.db	3
+      00143D 00 00 00 ED          10465 	.dw	0,(_C2L)
+      001441 43 32 4C             10466 	.ascii "C2L"
+      001444 00                   10467 	.db	0
+      001445 01                   10468 	.db	1
+      001446 00 00 0C 2B          10469 	.dw	0,3115
+      00144A 14                   10470 	.uleb128	20
+      00144B 05                   10471 	.db	5
+      00144C 03                   10472 	.db	3
+      00144D 00 00 00 EE          10473 	.dw	0,(_C2H)
+      001451 43 32 48             10474 	.ascii "C2H"
+      001454 00                   10475 	.db	0
+      001455 01                   10476 	.db	1
+      001456 00 00 0C 2B          10477 	.dw	0,3115
+      00145A 14                   10478 	.uleb128	20
+      00145B 05                   10479 	.db	5
+      00145C 03                   10480 	.db	3
+      00145D 00 00 00 EF          10481 	.dw	0,(_EIP)
+      001461 45 49 50             10482 	.ascii "EIP"
+      001464 00                   10483 	.db	0
+      001465 01                   10484 	.db	1
+      001466 00 00 0C 2B          10485 	.dw	0,3115
+      00146A 14                   10486 	.uleb128	20
+      00146B 05                   10487 	.db	5
+      00146C 03                   10488 	.db	3
+      00146D 00 00 00 F0          10489 	.dw	0,(_B)
+      001471 42                   10490 	.ascii "B"
+      001472 00                   10491 	.db	0
+      001473 01                   10492 	.db	1
+      001474 00 00 0C 2B          10493 	.dw	0,3115
+      001478 14                   10494 	.uleb128	20
+      001479 05                   10495 	.db	5
+      00147A 03                   10496 	.db	3
+      00147B 00 00 00 F1          10497 	.dw	0,(_CAPCON3)
+      00147F 43 41 50 43 4F 4E 33 10498 	.ascii "CAPCON3"
+      001486 00                   10499 	.db	0
+      001487 01                   10500 	.db	1
+      001488 00 00 0C 2B          10501 	.dw	0,3115
+      00148C 14                   10502 	.uleb128	20
+      00148D 05                   10503 	.db	5
+      00148E 03                   10504 	.db	3
+      00148F 00 00 00 F2          10505 	.dw	0,(_CAPCON4)
+      001493 43 41 50 43 4F 4E 34 10506 	.ascii "CAPCON4"
+      00149A 00                   10507 	.db	0
+      00149B 01                   10508 	.db	1
+      00149C 00 00 0C 2B          10509 	.dw	0,3115
+      0014A0 14                   10510 	.uleb128	20
+      0014A1 05                   10511 	.db	5
+      0014A2 03                   10512 	.db	3
+      0014A3 00 00 00 F3          10513 	.dw	0,(_SPCR)
+      0014A7 53 50 43 52          10514 	.ascii "SPCR"
+      0014AB 00                   10515 	.db	0
+      0014AC 01                   10516 	.db	1
+      0014AD 00 00 0C 2B          10517 	.dw	0,3115
+      0014B1 14                   10518 	.uleb128	20
+      0014B2 05                   10519 	.db	5
+      0014B3 03                   10520 	.db	3
+      0014B4 00 00 00 F3          10521 	.dw	0,(_SPCR2)
+      0014B8 53 50 43 52 32       10522 	.ascii "SPCR2"
+      0014BD 00                   10523 	.db	0
+      0014BE 01                   10524 	.db	1
+      0014BF 00 00 0C 2B          10525 	.dw	0,3115
+      0014C3 14                   10526 	.uleb128	20
+      0014C4 05                   10527 	.db	5
+      0014C5 03                   10528 	.db	3
+      0014C6 00 00 00 F4          10529 	.dw	0,(_SPSR)
+      0014CA 53 50 53 52          10530 	.ascii "SPSR"
+      0014CE 00                   10531 	.db	0
+      0014CF 01                   10532 	.db	1
+      0014D0 00 00 0C 2B          10533 	.dw	0,3115
+      0014D4 14                   10534 	.uleb128	20
+      0014D5 05                   10535 	.db	5
+      0014D6 03                   10536 	.db	3
+      0014D7 00 00 00 F5          10537 	.dw	0,(_SPDR)
+      0014DB 53 50 44 52          10538 	.ascii "SPDR"
+      0014DF 00                   10539 	.db	0
+      0014E0 01                   10540 	.db	1
+      0014E1 00 00 0C 2B          10541 	.dw	0,3115
+      0014E5 14                   10542 	.uleb128	20
+      0014E6 05                   10543 	.db	5
+      0014E7 03                   10544 	.db	3
+      0014E8 00 00 00 F6          10545 	.dw	0,(_AINDIDS)
+      0014EC 41 49 4E 44 49 44 53 10546 	.ascii "AINDIDS"
+      0014F3 00                   10547 	.db	0
+      0014F4 01                   10548 	.db	1
+      0014F5 00 00 0C 2B          10549 	.dw	0,3115
+      0014F9 14                   10550 	.uleb128	20
+      0014FA 05                   10551 	.db	5
+      0014FB 03                   10552 	.db	3
+      0014FC 00 00 00 F7          10553 	.dw	0,(_EIPH)
+      001500 45 49 50 48          10554 	.ascii "EIPH"
+      001504 00                   10555 	.db	0
+      001505 01                   10556 	.db	1
+      001506 00 00 0C 2B          10557 	.dw	0,3115
+      00150A 14                   10558 	.uleb128	20
+      00150B 05                   10559 	.db	5
+      00150C 03                   10560 	.db	3
+      00150D 00 00 00 F8          10561 	.dw	0,(_SCON_1)
+      001511 53 43 4F 4E 5F 31    10562 	.ascii "SCON_1"
+      001517 00                   10563 	.db	0
+      001518 01                   10564 	.db	1
+      001519 00 00 0C 2B          10565 	.dw	0,3115
+      00151D 14                   10566 	.uleb128	20
+      00151E 05                   10567 	.db	5
+      00151F 03                   10568 	.db	3
+      001520 00 00 00 F9          10569 	.dw	0,(_PDTEN)
+      001524 50 44 54 45 4E       10570 	.ascii "PDTEN"
+      001529 00                   10571 	.db	0
+      00152A 01                   10572 	.db	1
+      00152B 00 00 0C 2B          10573 	.dw	0,3115
+      00152F 14                   10574 	.uleb128	20
+      001530 05                   10575 	.db	5
+      001531 03                   10576 	.db	3
+      001532 00 00 00 FA          10577 	.dw	0,(_PDTCNT)
+      001536 50 44 54 43 4E 54    10578 	.ascii "PDTCNT"
+      00153C 00                   10579 	.db	0
+      00153D 01                   10580 	.db	1
+      00153E 00 00 0C 2B          10581 	.dw	0,3115
+      001542 14                   10582 	.uleb128	20
+      001543 05                   10583 	.db	5
+      001544 03                   10584 	.db	3
+      001545 00 00 00 FB          10585 	.dw	0,(_PMEN)
+      001549 50 4D 45 4E          10586 	.ascii "PMEN"
+      00154D 00                   10587 	.db	0
+      00154E 01                   10588 	.db	1
+      00154F 00 00 0C 2B          10589 	.dw	0,3115
+      001553 14                   10590 	.uleb128	20
+      001554 05                   10591 	.db	5
+      001555 03                   10592 	.db	3
+      001556 00 00 00 FC          10593 	.dw	0,(_PMD)
+      00155A 50 4D 44             10594 	.ascii "PMD"
+      00155D 00                   10595 	.db	0
+      00155E 01                   10596 	.db	1
+      00155F 00 00 0C 2B          10597 	.dw	0,3115
+      001563 14                   10598 	.uleb128	20
+      001564 05                   10599 	.db	5
+      001565 03                   10600 	.db	3
+      001566 00 00 00 FE          10601 	.dw	0,(_EIP1)
+      00156A 45 49 50 31          10602 	.ascii "EIP1"
+      00156E 00                   10603 	.db	0
+      00156F 01                   10604 	.db	1
+      001570 00 00 0C 2B          10605 	.dw	0,3115
+      001574 14                   10606 	.uleb128	20
+      001575 05                   10607 	.db	5
+      001576 03                   10608 	.db	3
+      001577 00 00 00 FF          10609 	.dw	0,(_EIPH1)
+      00157B 45 49 50 48 31       10610 	.ascii "EIPH1"
+      001580 00                   10611 	.db	0
+      001581 01                   10612 	.db	1
+      001582 00 00 0C 2B          10613 	.dw	0,3115
+      001586 07                   10614 	.uleb128	7
+      001587 5F 73 62 69 74       10615 	.ascii "_sbit"
+      00158C 00                   10616 	.db	0
+      00158D 01                   10617 	.db	1
+      00158E 08                   10618 	.db	8
+      00158F 15                   10619 	.uleb128	21
+      001590 00 00 15 86          10620 	.dw	0,5510
+      001594 14                   10621 	.uleb128	20
+      001595 05                   10622 	.db	5
+      001596 03                   10623 	.db	3
+      001597 00 00 00 FF          10624 	.dw	0,(_SM0_1)
+      00159B 53 4D 30 5F 31       10625 	.ascii "SM0_1"
+      0015A0 00                   10626 	.db	0
+      0015A1 01                   10627 	.db	1
+      0015A2 00 00 15 8F          10628 	.dw	0,5519
+      0015A6 14                   10629 	.uleb128	20
+      0015A7 05                   10630 	.db	5
+      0015A8 03                   10631 	.db	3
+      0015A9 00 00 00 FF          10632 	.dw	0,(_FE_1)
+      0015AD 46 45 5F 31          10633 	.ascii "FE_1"
+      0015B1 00                   10634 	.db	0
+      0015B2 01                   10635 	.db	1
+      0015B3 00 00 15 8F          10636 	.dw	0,5519
+      0015B7 14                   10637 	.uleb128	20
+      0015B8 05                   10638 	.db	5
+      0015B9 03                   10639 	.db	3
+      0015BA 00 00 00 FE          10640 	.dw	0,(_SM1_1)
+      0015BE 53 4D 31 5F 31       10641 	.ascii "SM1_1"
+      0015C3 00                   10642 	.db	0
+      0015C4 01                   10643 	.db	1
+      0015C5 00 00 15 8F          10644 	.dw	0,5519
+      0015C9 14                   10645 	.uleb128	20
+      0015CA 05                   10646 	.db	5
+      0015CB 03                   10647 	.db	3
+      0015CC 00 00 00 FD          10648 	.dw	0,(_SM2_1)
+      0015D0 53 4D 32 5F 31       10649 	.ascii "SM2_1"
+      0015D5 00                   10650 	.db	0
+      0015D6 01                   10651 	.db	1
+      0015D7 00 00 15 8F          10652 	.dw	0,5519
+      0015DB 14                   10653 	.uleb128	20
+      0015DC 05                   10654 	.db	5
+      0015DD 03                   10655 	.db	3
+      0015DE 00 00 00 FC          10656 	.dw	0,(_REN_1)
+      0015E2 52 45 4E 5F 31       10657 	.ascii "REN_1"
+      0015E7 00                   10658 	.db	0
+      0015E8 01                   10659 	.db	1
+      0015E9 00 00 15 8F          10660 	.dw	0,5519
+      0015ED 14                   10661 	.uleb128	20
+      0015EE 05                   10662 	.db	5
+      0015EF 03                   10663 	.db	3
+      0015F0 00 00 00 FB          10664 	.dw	0,(_TB8_1)
+      0015F4 54 42 38 5F 31       10665 	.ascii "TB8_1"
+      0015F9 00                   10666 	.db	0
+      0015FA 01                   10667 	.db	1
+      0015FB 00 00 15 8F          10668 	.dw	0,5519
+      0015FF 14                   10669 	.uleb128	20
+      001600 05                   10670 	.db	5
+      001601 03                   10671 	.db	3
+      001602 00 00 00 FA          10672 	.dw	0,(_RB8_1)
+      001606 52 42 38 5F 31       10673 	.ascii "RB8_1"
+      00160B 00                   10674 	.db	0
+      00160C 01                   10675 	.db	1
+      00160D 00 00 15 8F          10676 	.dw	0,5519
+      001611 14                   10677 	.uleb128	20
+      001612 05                   10678 	.db	5
+      001613 03                   10679 	.db	3
+      001614 00 00 00 F9          10680 	.dw	0,(_TI_1)
+      001618 54 49 5F 31          10681 	.ascii "TI_1"
+      00161C 00                   10682 	.db	0
+      00161D 01                   10683 	.db	1
+      00161E 00 00 15 8F          10684 	.dw	0,5519
+      001622 14                   10685 	.uleb128	20
+      001623 05                   10686 	.db	5
+      001624 03                   10687 	.db	3
+      001625 00 00 00 F8          10688 	.dw	0,(_RI_1)
+      001629 52 49 5F 31          10689 	.ascii "RI_1"
+      00162D 00                   10690 	.db	0
+      00162E 01                   10691 	.db	1
+      00162F 00 00 15 8F          10692 	.dw	0,5519
+      001633 14                   10693 	.uleb128	20
+      001634 05                   10694 	.db	5
+      001635 03                   10695 	.db	3
+      001636 00 00 00 EF          10696 	.dw	0,(_ADCF)
+      00163A 41 44 43 46          10697 	.ascii "ADCF"
+      00163E 00                   10698 	.db	0
+      00163F 01                   10699 	.db	1
+      001640 00 00 15 8F          10700 	.dw	0,5519
+      001644 14                   10701 	.uleb128	20
+      001645 05                   10702 	.db	5
+      001646 03                   10703 	.db	3
+      001647 00 00 00 EE          10704 	.dw	0,(_ADCS)
+      00164B 41 44 43 53          10705 	.ascii "ADCS"
+      00164F 00                   10706 	.db	0
+      001650 01                   10707 	.db	1
+      001651 00 00 15 8F          10708 	.dw	0,5519
+      001655 14                   10709 	.uleb128	20
+      001656 05                   10710 	.db	5
+      001657 03                   10711 	.db	3
+      001658 00 00 00 ED          10712 	.dw	0,(_ETGSEL1)
+      00165C 45 54 47 53 45 4C 31 10713 	.ascii "ETGSEL1"
+      001663 00                   10714 	.db	0
+      001664 01                   10715 	.db	1
+      001665 00 00 15 8F          10716 	.dw	0,5519
+      001669 14                   10717 	.uleb128	20
+      00166A 05                   10718 	.db	5
+      00166B 03                   10719 	.db	3
+      00166C 00 00 00 EC          10720 	.dw	0,(_ETGSEL0)
+      001670 45 54 47 53 45 4C 30 10721 	.ascii "ETGSEL0"
+      001677 00                   10722 	.db	0
+      001678 01                   10723 	.db	1
+      001679 00 00 15 8F          10724 	.dw	0,5519
+      00167D 14                   10725 	.uleb128	20
+      00167E 05                   10726 	.db	5
+      00167F 03                   10727 	.db	3
+      001680 00 00 00 EB          10728 	.dw	0,(_ADCHS3)
+      001684 41 44 43 48 53 33    10729 	.ascii "ADCHS3"
+      00168A 00                   10730 	.db	0
+      00168B 01                   10731 	.db	1
+      00168C 00 00 15 8F          10732 	.dw	0,5519
+      001690 14                   10733 	.uleb128	20
+      001691 05                   10734 	.db	5
+      001692 03                   10735 	.db	3
+      001693 00 00 00 EA          10736 	.dw	0,(_ADCHS2)
+      001697 41 44 43 48 53 32    10737 	.ascii "ADCHS2"
+      00169D 00                   10738 	.db	0
+      00169E 01                   10739 	.db	1
+      00169F 00 00 15 8F          10740 	.dw	0,5519
+      0016A3 14                   10741 	.uleb128	20
+      0016A4 05                   10742 	.db	5
+      0016A5 03                   10743 	.db	3
+      0016A6 00 00 00 E9          10744 	.dw	0,(_ADCHS1)
+      0016AA 41 44 43 48 53 31    10745 	.ascii "ADCHS1"
+      0016B0 00                   10746 	.db	0
+      0016B1 01                   10747 	.db	1
+      0016B2 00 00 15 8F          10748 	.dw	0,5519
+      0016B6 14                   10749 	.uleb128	20
+      0016B7 05                   10750 	.db	5
+      0016B8 03                   10751 	.db	3
+      0016B9 00 00 00 E8          10752 	.dw	0,(_ADCHS0)
+      0016BD 41 44 43 48 53 30    10753 	.ascii "ADCHS0"
+      0016C3 00                   10754 	.db	0
+      0016C4 01                   10755 	.db	1
+      0016C5 00 00 15 8F          10756 	.dw	0,5519
+      0016C9 14                   10757 	.uleb128	20
+      0016CA 05                   10758 	.db	5
+      0016CB 03                   10759 	.db	3
+      0016CC 00 00 00 DF          10760 	.dw	0,(_PWMRUN)
+      0016D0 50 57 4D 52 55 4E    10761 	.ascii "PWMRUN"
+      0016D6 00                   10762 	.db	0
+      0016D7 01                   10763 	.db	1
+      0016D8 00 00 15 8F          10764 	.dw	0,5519
+      0016DC 14                   10765 	.uleb128	20
+      0016DD 05                   10766 	.db	5
+      0016DE 03                   10767 	.db	3
+      0016DF 00 00 00 DE          10768 	.dw	0,(_LOAD)
+      0016E3 4C 4F 41 44          10769 	.ascii "LOAD"
+      0016E7 00                   10770 	.db	0
+      0016E8 01                   10771 	.db	1
+      0016E9 00 00 15 8F          10772 	.dw	0,5519
+      0016ED 14                   10773 	.uleb128	20
+      0016EE 05                   10774 	.db	5
+      0016EF 03                   10775 	.db	3
+      0016F0 00 00 00 DD          10776 	.dw	0,(_PWMF)
+      0016F4 50 57 4D 46          10777 	.ascii "PWMF"
+      0016F8 00                   10778 	.db	0
+      0016F9 01                   10779 	.db	1
+      0016FA 00 00 15 8F          10780 	.dw	0,5519
+      0016FE 14                   10781 	.uleb128	20
+      0016FF 05                   10782 	.db	5
+      001700 03                   10783 	.db	3
+      001701 00 00 00 DC          10784 	.dw	0,(_CLRPWM)
+      001705 43 4C 52 50 57 4D    10785 	.ascii "CLRPWM"
+      00170B 00                   10786 	.db	0
+      00170C 01                   10787 	.db	1
+      00170D 00 00 15 8F          10788 	.dw	0,5519
+      001711 14                   10789 	.uleb128	20
+      001712 05                   10790 	.db	5
+      001713 03                   10791 	.db	3
+      001714 00 00 00 D7          10792 	.dw	0,(_CY)
+      001718 43 59                10793 	.ascii "CY"
+      00171A 00                   10794 	.db	0
+      00171B 01                   10795 	.db	1
+      00171C 00 00 15 8F          10796 	.dw	0,5519
+      001720 14                   10797 	.uleb128	20
+      001721 05                   10798 	.db	5
+      001722 03                   10799 	.db	3
+      001723 00 00 00 D6          10800 	.dw	0,(_AC)
+      001727 41 43                10801 	.ascii "AC"
+      001729 00                   10802 	.db	0
+      00172A 01                   10803 	.db	1
+      00172B 00 00 15 8F          10804 	.dw	0,5519
+      00172F 14                   10805 	.uleb128	20
+      001730 05                   10806 	.db	5
+      001731 03                   10807 	.db	3
+      001732 00 00 00 D5          10808 	.dw	0,(_F0)
+      001736 46 30                10809 	.ascii "F0"
+      001738 00                   10810 	.db	0
+      001739 01                   10811 	.db	1
+      00173A 00 00 15 8F          10812 	.dw	0,5519
+      00173E 14                   10813 	.uleb128	20
+      00173F 05                   10814 	.db	5
+      001740 03                   10815 	.db	3
+      001741 00 00 00 D4          10816 	.dw	0,(_RS1)
+      001745 52 53 31             10817 	.ascii "RS1"
+      001748 00                   10818 	.db	0
+      001749 01                   10819 	.db	1
+      00174A 00 00 15 8F          10820 	.dw	0,5519
+      00174E 14                   10821 	.uleb128	20
+      00174F 05                   10822 	.db	5
+      001750 03                   10823 	.db	3
+      001751 00 00 00 D3          10824 	.dw	0,(_RS0)
+      001755 52 53 30             10825 	.ascii "RS0"
+      001758 00                   10826 	.db	0
+      001759 01                   10827 	.db	1
+      00175A 00 00 15 8F          10828 	.dw	0,5519
+      00175E 14                   10829 	.uleb128	20
+      00175F 05                   10830 	.db	5
+      001760 03                   10831 	.db	3
+      001761 00 00 00 D2          10832 	.dw	0,(_OV)
+      001765 4F 56                10833 	.ascii "OV"
+      001767 00                   10834 	.db	0
+      001768 01                   10835 	.db	1
+      001769 00 00 15 8F          10836 	.dw	0,5519
+      00176D 14                   10837 	.uleb128	20
+      00176E 05                   10838 	.db	5
+      00176F 03                   10839 	.db	3
+      001770 00 00 00 D0          10840 	.dw	0,(_P)
+      001774 50                   10841 	.ascii "P"
+      001775 00                   10842 	.db	0
+      001776 01                   10843 	.db	1
+      001777 00 00 15 8F          10844 	.dw	0,5519
+      00177B 14                   10845 	.uleb128	20
+      00177C 05                   10846 	.db	5
+      00177D 03                   10847 	.db	3
+      00177E 00 00 00 CF          10848 	.dw	0,(_TF2)
+      001782 54 46 32             10849 	.ascii "TF2"
+      001785 00                   10850 	.db	0
+      001786 01                   10851 	.db	1
+      001787 00 00 15 8F          10852 	.dw	0,5519
+      00178B 14                   10853 	.uleb128	20
+      00178C 05                   10854 	.db	5
+      00178D 03                   10855 	.db	3
+      00178E 00 00 00 CA          10856 	.dw	0,(_TR2)
+      001792 54 52 32             10857 	.ascii "TR2"
+      001795 00                   10858 	.db	0
+      001796 01                   10859 	.db	1
+      001797 00 00 15 8F          10860 	.dw	0,5519
+      00179B 14                   10861 	.uleb128	20
+      00179C 05                   10862 	.db	5
+      00179D 03                   10863 	.db	3
+      00179E 00 00 00 C8          10864 	.dw	0,(_CM_RL2)
+      0017A2 43 4D 5F 52 4C 32    10865 	.ascii "CM_RL2"
+      0017A8 00                   10866 	.db	0
+      0017A9 01                   10867 	.db	1
+      0017AA 00 00 15 8F          10868 	.dw	0,5519
+      0017AE 14                   10869 	.uleb128	20
+      0017AF 05                   10870 	.db	5
+      0017B0 03                   10871 	.db	3
+      0017B1 00 00 00 C6          10872 	.dw	0,(_I2CEN)
+      0017B5 49 32 43 45 4E       10873 	.ascii "I2CEN"
+      0017BA 00                   10874 	.db	0
+      0017BB 01                   10875 	.db	1
+      0017BC 00 00 15 8F          10876 	.dw	0,5519
+      0017C0 14                   10877 	.uleb128	20
+      0017C1 05                   10878 	.db	5
+      0017C2 03                   10879 	.db	3
+      0017C3 00 00 00 C5          10880 	.dw	0,(_STA)
+      0017C7 53 54 41             10881 	.ascii "STA"
+      0017CA 00                   10882 	.db	0
+      0017CB 01                   10883 	.db	1
+      0017CC 00 00 15 8F          10884 	.dw	0,5519
+      0017D0 14                   10885 	.uleb128	20
+      0017D1 05                   10886 	.db	5
+      0017D2 03                   10887 	.db	3
+      0017D3 00 00 00 C4          10888 	.dw	0,(_STO)
+      0017D7 53 54 4F             10889 	.ascii "STO"
+      0017DA 00                   10890 	.db	0
+      0017DB 01                   10891 	.db	1
+      0017DC 00 00 15 8F          10892 	.dw	0,5519
+      0017E0 14                   10893 	.uleb128	20
+      0017E1 05                   10894 	.db	5
+      0017E2 03                   10895 	.db	3
+      0017E3 00 00 00 C3          10896 	.dw	0,(_SI)
+      0017E7 53 49                10897 	.ascii "SI"
+      0017E9 00                   10898 	.db	0
+      0017EA 01                   10899 	.db	1
+      0017EB 00 00 15 8F          10900 	.dw	0,5519
+      0017EF 14                   10901 	.uleb128	20
+      0017F0 05                   10902 	.db	5
+      0017F1 03                   10903 	.db	3
+      0017F2 00 00 00 C2          10904 	.dw	0,(_AA)
+      0017F6 41 41                10905 	.ascii "AA"
+      0017F8 00                   10906 	.db	0
+      0017F9 01                   10907 	.db	1
+      0017FA 00 00 15 8F          10908 	.dw	0,5519
+      0017FE 14                   10909 	.uleb128	20
+      0017FF 05                   10910 	.db	5
+      001800 03                   10911 	.db	3
+      001801 00 00 00 C0          10912 	.dw	0,(_I2CPX)
+      001805 49 32 43 50 58       10913 	.ascii "I2CPX"
+      00180A 00                   10914 	.db	0
+      00180B 01                   10915 	.db	1
+      00180C 00 00 15 8F          10916 	.dw	0,5519
+      001810 14                   10917 	.uleb128	20
+      001811 05                   10918 	.db	5
+      001812 03                   10919 	.db	3
+      001813 00 00 00 BE          10920 	.dw	0,(_PADC)
+      001817 50 41 44 43          10921 	.ascii "PADC"
+      00181B 00                   10922 	.db	0
+      00181C 01                   10923 	.db	1
+      00181D 00 00 15 8F          10924 	.dw	0,5519
+      001821 14                   10925 	.uleb128	20
+      001822 05                   10926 	.db	5
+      001823 03                   10927 	.db	3
+      001824 00 00 00 BD          10928 	.dw	0,(_PBOD)
+      001828 50 42 4F 44          10929 	.ascii "PBOD"
+      00182C 00                   10930 	.db	0
+      00182D 01                   10931 	.db	1
+      00182E 00 00 15 8F          10932 	.dw	0,5519
+      001832 14                   10933 	.uleb128	20
+      001833 05                   10934 	.db	5
+      001834 03                   10935 	.db	3
+      001835 00 00 00 BC          10936 	.dw	0,(_PS)
+      001839 50 53                10937 	.ascii "PS"
+      00183B 00                   10938 	.db	0
+      00183C 01                   10939 	.db	1
+      00183D 00 00 15 8F          10940 	.dw	0,5519
+      001841 14                   10941 	.uleb128	20
+      001842 05                   10942 	.db	5
+      001843 03                   10943 	.db	3
+      001844 00 00 00 BB          10944 	.dw	0,(_PT1)
+      001848 50 54 31             10945 	.ascii "PT1"
+      00184B 00                   10946 	.db	0
+      00184C 01                   10947 	.db	1
+      00184D 00 00 15 8F          10948 	.dw	0,5519
+      001851 14                   10949 	.uleb128	20
+      001852 05                   10950 	.db	5
+      001853 03                   10951 	.db	3
+      001854 00 00 00 BA          10952 	.dw	0,(_PX1)
+      001858 50 58 31             10953 	.ascii "PX1"
+      00185B 00                   10954 	.db	0
+      00185C 01                   10955 	.db	1
+      00185D 00 00 15 8F          10956 	.dw	0,5519
+      001861 14                   10957 	.uleb128	20
+      001862 05                   10958 	.db	5
+      001863 03                   10959 	.db	3
+      001864 00 00 00 B9          10960 	.dw	0,(_PT0)
+      001868 50 54 30             10961 	.ascii "PT0"
+      00186B 00                   10962 	.db	0
+      00186C 01                   10963 	.db	1
+      00186D 00 00 15 8F          10964 	.dw	0,5519
+      001871 14                   10965 	.uleb128	20
+      001872 05                   10966 	.db	5
+      001873 03                   10967 	.db	3
+      001874 00 00 00 B8          10968 	.dw	0,(_PX0)
+      001878 50 58 30             10969 	.ascii "PX0"
+      00187B 00                   10970 	.db	0
+      00187C 01                   10971 	.db	1
+      00187D 00 00 15 8F          10972 	.dw	0,5519
+      001881 14                   10973 	.uleb128	20
+      001882 05                   10974 	.db	5
+      001883 03                   10975 	.db	3
+      001884 00 00 00 B0          10976 	.dw	0,(_P30)
+      001888 50 33 30             10977 	.ascii "P30"
+      00188B 00                   10978 	.db	0
+      00188C 01                   10979 	.db	1
+      00188D 00 00 15 8F          10980 	.dw	0,5519
+      001891 14                   10981 	.uleb128	20
+      001892 05                   10982 	.db	5
+      001893 03                   10983 	.db	3
+      001894 00 00 00 AF          10984 	.dw	0,(_EA)
+      001898 45 41                10985 	.ascii "EA"
+      00189A 00                   10986 	.db	0
+      00189B 01                   10987 	.db	1
+      00189C 00 00 15 8F          10988 	.dw	0,5519
+      0018A0 14                   10989 	.uleb128	20
+      0018A1 05                   10990 	.db	5
+      0018A2 03                   10991 	.db	3
+      0018A3 00 00 00 AE          10992 	.dw	0,(_EADC)
+      0018A7 45 41 44 43          10993 	.ascii "EADC"
+      0018AB 00                   10994 	.db	0
+      0018AC 01                   10995 	.db	1
+      0018AD 00 00 15 8F          10996 	.dw	0,5519
+      0018B1 14                   10997 	.uleb128	20
+      0018B2 05                   10998 	.db	5
+      0018B3 03                   10999 	.db	3
+      0018B4 00 00 00 AD          11000 	.dw	0,(_EBOD)
+      0018B8 45 42 4F 44          11001 	.ascii "EBOD"
+      0018BC 00                   11002 	.db	0
+      0018BD 01                   11003 	.db	1
+      0018BE 00 00 15 8F          11004 	.dw	0,5519
+      0018C2 14                   11005 	.uleb128	20
+      0018C3 05                   11006 	.db	5
+      0018C4 03                   11007 	.db	3
+      0018C5 00 00 00 AC          11008 	.dw	0,(_ES)
+      0018C9 45 53                11009 	.ascii "ES"
+      0018CB 00                   11010 	.db	0
+      0018CC 01                   11011 	.db	1
+      0018CD 00 00 15 8F          11012 	.dw	0,5519
+      0018D1 14                   11013 	.uleb128	20
+      0018D2 05                   11014 	.db	5
+      0018D3 03                   11015 	.db	3
+      0018D4 00 00 00 AB          11016 	.dw	0,(_ET1)
+      0018D8 45 54 31             11017 	.ascii "ET1"
+      0018DB 00                   11018 	.db	0
+      0018DC 01                   11019 	.db	1
+      0018DD 00 00 15 8F          11020 	.dw	0,5519
+      0018E1 14                   11021 	.uleb128	20
+      0018E2 05                   11022 	.db	5
+      0018E3 03                   11023 	.db	3
+      0018E4 00 00 00 AA          11024 	.dw	0,(_EX1)
+      0018E8 45 58 31             11025 	.ascii "EX1"
+      0018EB 00                   11026 	.db	0
+      0018EC 01                   11027 	.db	1
+      0018ED 00 00 15 8F          11028 	.dw	0,5519
+      0018F1 14                   11029 	.uleb128	20
+      0018F2 05                   11030 	.db	5
+      0018F3 03                   11031 	.db	3
+      0018F4 00 00 00 A9          11032 	.dw	0,(_ET0)
+      0018F8 45 54 30             11033 	.ascii "ET0"
+      0018FB 00                   11034 	.db	0
+      0018FC 01                   11035 	.db	1
+      0018FD 00 00 15 8F          11036 	.dw	0,5519
+      001901 14                   11037 	.uleb128	20
+      001902 05                   11038 	.db	5
+      001903 03                   11039 	.db	3
+      001904 00 00 00 A8          11040 	.dw	0,(_EX0)
+      001908 45 58 30             11041 	.ascii "EX0"
+      00190B 00                   11042 	.db	0
+      00190C 01                   11043 	.db	1
+      00190D 00 00 15 8F          11044 	.dw	0,5519
+      001911 14                   11045 	.uleb128	20
+      001912 05                   11046 	.db	5
+      001913 03                   11047 	.db	3
+      001914 00 00 00 A0          11048 	.dw	0,(_P20)
+      001918 50 32 30             11049 	.ascii "P20"
+      00191B 00                   11050 	.db	0
+      00191C 01                   11051 	.db	1
+      00191D 00 00 15 8F          11052 	.dw	0,5519
+      001921 14                   11053 	.uleb128	20
+      001922 05                   11054 	.db	5
+      001923 03                   11055 	.db	3
+      001924 00 00 00 9F          11056 	.dw	0,(_SM0)
+      001928 53 4D 30             11057 	.ascii "SM0"
+      00192B 00                   11058 	.db	0
+      00192C 01                   11059 	.db	1
+      00192D 00 00 15 8F          11060 	.dw	0,5519
+      001931 14                   11061 	.uleb128	20
+      001932 05                   11062 	.db	5
+      001933 03                   11063 	.db	3
+      001934 00 00 00 9F          11064 	.dw	0,(_FE)
+      001938 46 45                11065 	.ascii "FE"
+      00193A 00                   11066 	.db	0
+      00193B 01                   11067 	.db	1
+      00193C 00 00 15 8F          11068 	.dw	0,5519
+      001940 14                   11069 	.uleb128	20
+      001941 05                   11070 	.db	5
+      001942 03                   11071 	.db	3
+      001943 00 00 00 9E          11072 	.dw	0,(_SM1)
+      001947 53 4D 31             11073 	.ascii "SM1"
+      00194A 00                   11074 	.db	0
+      00194B 01                   11075 	.db	1
+      00194C 00 00 15 8F          11076 	.dw	0,5519
+      001950 14                   11077 	.uleb128	20
+      001951 05                   11078 	.db	5
+      001952 03                   11079 	.db	3
+      001953 00 00 00 9D          11080 	.dw	0,(_SM2)
+      001957 53 4D 32             11081 	.ascii "SM2"
+      00195A 00                   11082 	.db	0
+      00195B 01                   11083 	.db	1
+      00195C 00 00 15 8F          11084 	.dw	0,5519
+      001960 14                   11085 	.uleb128	20
+      001961 05                   11086 	.db	5
+      001962 03                   11087 	.db	3
+      001963 00 00 00 9C          11088 	.dw	0,(_REN)
+      001967 52 45 4E             11089 	.ascii "REN"
+      00196A 00                   11090 	.db	0
+      00196B 01                   11091 	.db	1
+      00196C 00 00 15 8F          11092 	.dw	0,5519
+      001970 14                   11093 	.uleb128	20
+      001971 05                   11094 	.db	5
+      001972 03                   11095 	.db	3
+      001973 00 00 00 9B          11096 	.dw	0,(_TB8)
+      001977 54 42 38             11097 	.ascii "TB8"
+      00197A 00                   11098 	.db	0
+      00197B 01                   11099 	.db	1
+      00197C 00 00 15 8F          11100 	.dw	0,5519
+      001980 14                   11101 	.uleb128	20
+      001981 05                   11102 	.db	5
+      001982 03                   11103 	.db	3
+      001983 00 00 00 9A          11104 	.dw	0,(_RB8)
+      001987 52 42 38             11105 	.ascii "RB8"
+      00198A 00                   11106 	.db	0
+      00198B 01                   11107 	.db	1
+      00198C 00 00 15 8F          11108 	.dw	0,5519
+      001990 14                   11109 	.uleb128	20
+      001991 05                   11110 	.db	5
+      001992 03                   11111 	.db	3
+      001993 00 00 00 99          11112 	.dw	0,(_TI)
+      001997 54 49                11113 	.ascii "TI"
+      001999 00                   11114 	.db	0
+      00199A 01                   11115 	.db	1
+      00199B 00 00 15 8F          11116 	.dw	0,5519
+      00199F 14                   11117 	.uleb128	20
+      0019A0 05                   11118 	.db	5
+      0019A1 03                   11119 	.db	3
+      0019A2 00 00 00 98          11120 	.dw	0,(_RI)
+      0019A6 52 49                11121 	.ascii "RI"
+      0019A8 00                   11122 	.db	0
+      0019A9 01                   11123 	.db	1
+      0019AA 00 00 15 8F          11124 	.dw	0,5519
+      0019AE 14                   11125 	.uleb128	20
+      0019AF 05                   11126 	.db	5
+      0019B0 03                   11127 	.db	3
+      0019B1 00 00 00 97          11128 	.dw	0,(_P17)
+      0019B5 50 31 37             11129 	.ascii "P17"
+      0019B8 00                   11130 	.db	0
+      0019B9 01                   11131 	.db	1
+      0019BA 00 00 15 8F          11132 	.dw	0,5519
+      0019BE 14                   11133 	.uleb128	20
+      0019BF 05                   11134 	.db	5
+      0019C0 03                   11135 	.db	3
+      0019C1 00 00 00 96          11136 	.dw	0,(_P16)
+      0019C5 50 31 36             11137 	.ascii "P16"
+      0019C8 00                   11138 	.db	0
+      0019C9 01                   11139 	.db	1
+      0019CA 00 00 15 8F          11140 	.dw	0,5519
+      0019CE 14                   11141 	.uleb128	20
+      0019CF 05                   11142 	.db	5
+      0019D0 03                   11143 	.db	3
+      0019D1 00 00 00 96          11144 	.dw	0,(_TXD_1)
+      0019D5 54 58 44 5F 31       11145 	.ascii "TXD_1"
+      0019DA 00                   11146 	.db	0
+      0019DB 01                   11147 	.db	1
+      0019DC 00 00 15 8F          11148 	.dw	0,5519
+      0019E0 14                   11149 	.uleb128	20
+      0019E1 05                   11150 	.db	5
+      0019E2 03                   11151 	.db	3
+      0019E3 00 00 00 95          11152 	.dw	0,(_P15)
+      0019E7 50 31 35             11153 	.ascii "P15"
+      0019EA 00                   11154 	.db	0
+      0019EB 01                   11155 	.db	1
+      0019EC 00 00 15 8F          11156 	.dw	0,5519
+      0019F0 14                   11157 	.uleb128	20
+      0019F1 05                   11158 	.db	5
+      0019F2 03                   11159 	.db	3
+      0019F3 00 00 00 94          11160 	.dw	0,(_P14)
+      0019F7 50 31 34             11161 	.ascii "P14"
+      0019FA 00                   11162 	.db	0
+      0019FB 01                   11163 	.db	1
+      0019FC 00 00 15 8F          11164 	.dw	0,5519
+      001A00 14                   11165 	.uleb128	20
+      001A01 05                   11166 	.db	5
+      001A02 03                   11167 	.db	3
+      001A03 00 00 00 94          11168 	.dw	0,(_SDA)
+      001A07 53 44 41             11169 	.ascii "SDA"
+      001A0A 00                   11170 	.db	0
+      001A0B 01                   11171 	.db	1
+      001A0C 00 00 15 8F          11172 	.dw	0,5519
+      001A10 14                   11173 	.uleb128	20
+      001A11 05                   11174 	.db	5
+      001A12 03                   11175 	.db	3
+      001A13 00 00 00 93          11176 	.dw	0,(_P13)
+      001A17 50 31 33             11177 	.ascii "P13"
+      001A1A 00                   11178 	.db	0
+      001A1B 01                   11179 	.db	1
+      001A1C 00 00 15 8F          11180 	.dw	0,5519
+      001A20 14                   11181 	.uleb128	20
+      001A21 05                   11182 	.db	5
+      001A22 03                   11183 	.db	3
+      001A23 00 00 00 93          11184 	.dw	0,(_SCL)
+      001A27 53 43 4C             11185 	.ascii "SCL"
+      001A2A 00                   11186 	.db	0
+      001A2B 01                   11187 	.db	1
+      001A2C 00 00 15 8F          11188 	.dw	0,5519
+      001A30 14                   11189 	.uleb128	20
+      001A31 05                   11190 	.db	5
+      001A32 03                   11191 	.db	3
+      001A33 00 00 00 92          11192 	.dw	0,(_P12)
+      001A37 50 31 32             11193 	.ascii "P12"
+      001A3A 00                   11194 	.db	0
+      001A3B 01                   11195 	.db	1
+      001A3C 00 00 15 8F          11196 	.dw	0,5519
+      001A40 14                   11197 	.uleb128	20
+      001A41 05                   11198 	.db	5
+      001A42 03                   11199 	.db	3
+      001A43 00 00 00 91          11200 	.dw	0,(_P11)
+      001A47 50 31 31             11201 	.ascii "P11"
+      001A4A 00                   11202 	.db	0
+      001A4B 01                   11203 	.db	1
+      001A4C 00 00 15 8F          11204 	.dw	0,5519
+      001A50 14                   11205 	.uleb128	20
+      001A51 05                   11206 	.db	5
+      001A52 03                   11207 	.db	3
+      001A53 00 00 00 90          11208 	.dw	0,(_P10)
+      001A57 50 31 30             11209 	.ascii "P10"
+      001A5A 00                   11210 	.db	0
+      001A5B 01                   11211 	.db	1
+      001A5C 00 00 15 8F          11212 	.dw	0,5519
+      001A60 14                   11213 	.uleb128	20
+      001A61 05                   11214 	.db	5
+      001A62 03                   11215 	.db	3
+      001A63 00 00 00 8F          11216 	.dw	0,(_TF1)
+      001A67 54 46 31             11217 	.ascii "TF1"
+      001A6A 00                   11218 	.db	0
+      001A6B 01                   11219 	.db	1
+      001A6C 00 00 15 8F          11220 	.dw	0,5519
+      001A70 14                   11221 	.uleb128	20
+      001A71 05                   11222 	.db	5
+      001A72 03                   11223 	.db	3
+      001A73 00 00 00 8E          11224 	.dw	0,(_TR1)
+      001A77 54 52 31             11225 	.ascii "TR1"
+      001A7A 00                   11226 	.db	0
+      001A7B 01                   11227 	.db	1
+      001A7C 00 00 15 8F          11228 	.dw	0,5519
+      001A80 14                   11229 	.uleb128	20
+      001A81 05                   11230 	.db	5
+      001A82 03                   11231 	.db	3
+      001A83 00 00 00 8D          11232 	.dw	0,(_TF0)
+      001A87 54 46 30             11233 	.ascii "TF0"
+      001A8A 00                   11234 	.db	0
+      001A8B 01                   11235 	.db	1
+      001A8C 00 00 15 8F          11236 	.dw	0,5519
+      001A90 14                   11237 	.uleb128	20
+      001A91 05                   11238 	.db	5
+      001A92 03                   11239 	.db	3
+      001A93 00 00 00 8C          11240 	.dw	0,(_TR0)
+      001A97 54 52 30             11241 	.ascii "TR0"
+      001A9A 00                   11242 	.db	0
+      001A9B 01                   11243 	.db	1
+      001A9C 00 00 15 8F          11244 	.dw	0,5519
+      001AA0 14                   11245 	.uleb128	20
+      001AA1 05                   11246 	.db	5
+      001AA2 03                   11247 	.db	3
+      001AA3 00 00 00 8B          11248 	.dw	0,(_IE1)
+      001AA7 49 45 31             11249 	.ascii "IE1"
+      001AAA 00                   11250 	.db	0
+      001AAB 01                   11251 	.db	1
+      001AAC 00 00 15 8F          11252 	.dw	0,5519
+      001AB0 14                   11253 	.uleb128	20
+      001AB1 05                   11254 	.db	5
+      001AB2 03                   11255 	.db	3
+      001AB3 00 00 00 8A          11256 	.dw	0,(_IT1)
+      001AB7 49 54 31             11257 	.ascii "IT1"
+      001ABA 00                   11258 	.db	0
+      001ABB 01                   11259 	.db	1
+      001ABC 00 00 15 8F          11260 	.dw	0,5519
+      001AC0 14                   11261 	.uleb128	20
+      001AC1 05                   11262 	.db	5
+      001AC2 03                   11263 	.db	3
+      001AC3 00 00 00 89          11264 	.dw	0,(_IE0)
+      001AC7 49 45 30             11265 	.ascii "IE0"
+      001ACA 00                   11266 	.db	0
+      001ACB 01                   11267 	.db	1
+      001ACC 00 00 15 8F          11268 	.dw	0,5519
+      001AD0 14                   11269 	.uleb128	20
+      001AD1 05                   11270 	.db	5
+      001AD2 03                   11271 	.db	3
+      001AD3 00 00 00 88          11272 	.dw	0,(_IT0)
+      001AD7 49 54 30             11273 	.ascii "IT0"
+      001ADA 00                   11274 	.db	0
+      001ADB 01                   11275 	.db	1
+      001ADC 00 00 15 8F          11276 	.dw	0,5519
+      001AE0 14                   11277 	.uleb128	20
+      001AE1 05                   11278 	.db	5
+      001AE2 03                   11279 	.db	3
+      001AE3 00 00 00 87          11280 	.dw	0,(_P07)
+      001AE7 50 30 37             11281 	.ascii "P07"
+      001AEA 00                   11282 	.db	0
+      001AEB 01                   11283 	.db	1
+      001AEC 00 00 15 8F          11284 	.dw	0,5519
+      001AF0 14                   11285 	.uleb128	20
+      001AF1 05                   11286 	.db	5
+      001AF2 03                   11287 	.db	3
+      001AF3 00 00 00 87          11288 	.dw	0,(_RXD)
+      001AF7 52 58 44             11289 	.ascii "RXD"
+      001AFA 00                   11290 	.db	0
+      001AFB 01                   11291 	.db	1
+      001AFC 00 00 15 8F          11292 	.dw	0,5519
+      001B00 14                   11293 	.uleb128	20
+      001B01 05                   11294 	.db	5
+      001B02 03                   11295 	.db	3
+      001B03 00 00 00 86          11296 	.dw	0,(_P06)
+      001B07 50 30 36             11297 	.ascii "P06"
+      001B0A 00                   11298 	.db	0
+      001B0B 01                   11299 	.db	1
+      001B0C 00 00 15 8F          11300 	.dw	0,5519
+      001B10 14                   11301 	.uleb128	20
+      001B11 05                   11302 	.db	5
+      001B12 03                   11303 	.db	3
+      001B13 00 00 00 86          11304 	.dw	0,(_TXD)
+      001B17 54 58 44             11305 	.ascii "TXD"
+      001B1A 00                   11306 	.db	0
+      001B1B 01                   11307 	.db	1
+      001B1C 00 00 15 8F          11308 	.dw	0,5519
+      001B20 14                   11309 	.uleb128	20
+      001B21 05                   11310 	.db	5
+      001B22 03                   11311 	.db	3
+      001B23 00 00 00 85          11312 	.dw	0,(_P05)
+      001B27 50 30 35             11313 	.ascii "P05"
+      001B2A 00                   11314 	.db	0
+      001B2B 01                   11315 	.db	1
+      001B2C 00 00 15 8F          11316 	.dw	0,5519
+      001B30 14                   11317 	.uleb128	20
+      001B31 05                   11318 	.db	5
+      001B32 03                   11319 	.db	3
+      001B33 00 00 00 84          11320 	.dw	0,(_P04)
+      001B37 50 30 34             11321 	.ascii "P04"
+      001B3A 00                   11322 	.db	0
+      001B3B 01                   11323 	.db	1
+      001B3C 00 00 15 8F          11324 	.dw	0,5519
+      001B40 14                   11325 	.uleb128	20
+      001B41 05                   11326 	.db	5
+      001B42 03                   11327 	.db	3
+      001B43 00 00 00 84          11328 	.dw	0,(_STADC)
+      001B47 53 54 41 44 43       11329 	.ascii "STADC"
+      001B4C 00                   11330 	.db	0
+      001B4D 01                   11331 	.db	1
+      001B4E 00 00 15 8F          11332 	.dw	0,5519
+      001B52 14                   11333 	.uleb128	20
+      001B53 05                   11334 	.db	5
+      001B54 03                   11335 	.db	3
+      001B55 00 00 00 83          11336 	.dw	0,(_P03)
+      001B59 50 30 33             11337 	.ascii "P03"
+      001B5C 00                   11338 	.db	0
+      001B5D 01                   11339 	.db	1
+      001B5E 00 00 15 8F          11340 	.dw	0,5519
+      001B62 14                   11341 	.uleb128	20
+      001B63 05                   11342 	.db	5
+      001B64 03                   11343 	.db	3
+      001B65 00 00 00 82          11344 	.dw	0,(_P02)
+      001B69 50 30 32             11345 	.ascii "P02"
+      001B6C 00                   11346 	.db	0
+      001B6D 01                   11347 	.db	1
+      001B6E 00 00 15 8F          11348 	.dw	0,5519
+      001B72 14                   11349 	.uleb128	20
+      001B73 05                   11350 	.db	5
+      001B74 03                   11351 	.db	3
+      001B75 00 00 00 82          11352 	.dw	0,(_RXD_1)
+      001B79 52 58 44 5F 31       11353 	.ascii "RXD_1"
+      001B7E 00                   11354 	.db	0
+      001B7F 01                   11355 	.db	1
+      001B80 00 00 15 8F          11356 	.dw	0,5519
+      001B84 14                   11357 	.uleb128	20
+      001B85 05                   11358 	.db	5
+      001B86 03                   11359 	.db	3
+      001B87 00 00 00 81          11360 	.dw	0,(_P01)
+      001B8B 50 30 31             11361 	.ascii "P01"
+      001B8E 00                   11362 	.db	0
+      001B8F 01                   11363 	.db	1
+      001B90 00 00 15 8F          11364 	.dw	0,5519
+      001B94 14                   11365 	.uleb128	20
+      001B95 05                   11366 	.db	5
+      001B96 03                   11367 	.db	3
+      001B97 00 00 00 81          11368 	.dw	0,(_MISO)
+      001B9B 4D 49 53 4F          11369 	.ascii "MISO"
+      001B9F 00                   11370 	.db	0
+      001BA0 01                   11371 	.db	1
+      001BA1 00 00 15 8F          11372 	.dw	0,5519
+      001BA5 14                   11373 	.uleb128	20
+      001BA6 05                   11374 	.db	5
+      001BA7 03                   11375 	.db	3
+      001BA8 00 00 00 80          11376 	.dw	0,(_P00)
+      001BAC 50 30 30             11377 	.ascii "P00"
+      001BAF 00                   11378 	.db	0
+      001BB0 01                   11379 	.db	1
+      001BB1 00 00 15 8F          11380 	.dw	0,5519
+      001BB5 14                   11381 	.uleb128	20
+      001BB6 05                   11382 	.db	5
+      001BB7 03                   11383 	.db	3
+      001BB8 00 00 00 80          11384 	.dw	0,(_MOSI)
+      001BBC 4D 4F 53 49          11385 	.ascii "MOSI"
+      001BC0 00                   11386 	.db	0
+      001BC1 01                   11387 	.db	1
+      001BC2 00 00 15 8F          11388 	.dw	0,5519
+      001BC6 16                   11389 	.uleb128	22
+      001BC7 00 00 01 68          11390 	.dw	0,360
+      001BCB 12                   11391 	.uleb128	18
+      001BCC 00 00 1B D8          11392 	.dw	0,7128
+      001BD0 02                   11393 	.db	2
+      001BD1 00 00 1B C6          11394 	.dw	0,7110
+      001BD5 13                   11395 	.uleb128	19
+      001BD6 01                   11396 	.db	1
+      001BD7 00                   11397 	.uleb128	0
+      001BD8 12                   11398 	.uleb128	18
+      001BD9 00 00 1B E5          11399 	.dw	0,7141
+      001BDD 14                   11400 	.db	20
+      001BDE 00 00 1B CB          11401 	.dw	0,7115
+      001BE2 13                   11402 	.uleb128	19
+      001BE3 09                   11403 	.db	9
+      001BE4 00                   11404 	.uleb128	0
+      001BE5 14                   11405 	.uleb128	20
+      001BE6 05                   11406 	.db	5
+      001BE7 03                   11407 	.db	3
+      001BE8 00 00 1D D9          11408 	.dw	0,(_max_amp)
+      001BEC 6D 61 78 5F 61 6D 70 11409 	.ascii "max_amp"
+      001BF3 00                   11410 	.db	0
+      001BF4 01                   11411 	.db	1
+      001BF5 00 00 1B D8          11412 	.dw	0,7128
+      001BF9 14                   11413 	.uleb128	20
+      001BFA 05                   11414 	.db	5
+      001BFB 03                   11415 	.db	3
+      001BFC 00 00 1D ED          11416 	.dw	0,(_min_amp)
+      001C00 6D 69 6E 5F 61 6D 70 11417 	.ascii "min_amp"
+      001C07 00                   11418 	.db	0
+      001C08 01                   11419 	.db	1
+      001C09 00 00 1B CB          11420 	.dw	0,7115
+      001C0D 12                   11421 	.uleb128	18
+      001C0E 00 00 1C 1A          11422 	.dw	0,7194
+      001C12 0A                   11423 	.db	10
+      001C13 00 00 1B C6          11424 	.dw	0,7110
+      001C17 13                   11425 	.uleb128	19
+      001C18 09                   11426 	.db	9
+      001C19 00                   11427 	.uleb128	0
+      001C1A 14                   11428 	.uleb128	20
+      001C1B 05                   11429 	.db	5
+      001C1C 03                   11430 	.db	3
+      001C1D 00 00 1D EF          11431 	.dw	0,(_flashing)
+      001C21 66 6C 61 73 68 69 6E 11432 	.ascii "flashing"
+             67
+      001C29 00                   11433 	.db	0
+      001C2A 01                   11434 	.db	1
+      001C2B 00 00 1C 0D          11435 	.dw	0,7181
+      001C2F 14                   11436 	.uleb128	20
+      001C30 05                   11437 	.db	5
+      001C31 03                   11438 	.db	3
+      001C32 00 00 1D F9          11439 	.dw	0,(_temp_controlling)
+      001C36 74 65 6D 70 5F 63 6F 11440 	.ascii "temp_controlling"
+             6E 74 72 6F 6C 6C 69
+             6E 67
+      001C46 00                   11441 	.db	0
+      001C47 01                   11442 	.db	1
+      001C48 00 00 1C 0D          11443 	.dw	0,7181
+      001C4C 14                   11444 	.uleb128	20
+      001C4D 05                   11445 	.db	5
+      001C4E 03                   11446 	.db	3
+      001C4F 00 00 1E 03          11447 	.dw	0,(_next_mode)
+      001C53 6E 65 78 74 5F 6D 6F 11448 	.ascii "next_mode"
+             64 65
+      001C5C 00                   11449 	.db	0
+      001C5D 01                   11450 	.db	1
+      001C5E 00 00 1C 0D          11451 	.dw	0,7181
+      001C62 0A                   11452 	.uleb128	10
+      001C63 05                   11453 	.db	5
+      001C64 03                   11454 	.db	3
+      001C65 00 00 1E 0D          11455 	.dw	0,(__xinit__light_mode)
+      001C69 5F 5F 78 69 6E 69 74 11456 	.ascii "__xinit_light_mode"
+             5F 6C 69 67 68 74 5F
+             6D 6F 64 65
+      001C7B 00                   11457 	.db	0
+      001C7C 00 00 1B C6          11458 	.dw	0,7110
+      001C80 16                   11459 	.uleb128	22
+      001C81 00 00 05 63          11460 	.dw	0,1379
+      001C85 0A                   11461 	.uleb128	10
+      001C86 05                   11462 	.db	5
+      001C87 03                   11463 	.db	3
+      001C88 00 00 1E 0E          11464 	.dw	0,(__xinit__is_uart_mode)
+      001C8C 5F 5F 78 69 6E 69 74 11465 	.ascii "__xinit_is_uart_mode"
+             5F 69 73 5F 75 61 72
+             74 5F 6D 6F 64 65
+      001CA0 00                   11466 	.db	0
+      001CA1 00 00 1C 80          11467 	.dw	0,7296
+      001CA5 0A                   11468 	.uleb128	10
+      001CA6 05                   11469 	.db	5
+      001CA7 03                   11470 	.db	3
+      001CA8 00 00 1E 0F          11471 	.dw	0,(__xinit__flashing_on)
+      001CAC 5F 5F 78 69 6E 69 74 11472 	.ascii "__xinit_flashing_on"
+             5F 66 6C 61 73 68 69
+             6E 67 5F 6F 6E
+      001CBF 00                   11473 	.db	0
+      001CC0 00 00 1C 80          11474 	.dw	0,7296
+      001CC4 16                   11475 	.uleb128	22
+      001CC5 00 00 03 CB          11476 	.dw	0,971
+      001CC9 0A                   11477 	.uleb128	10
+      001CCA 05                   11478 	.db	5
+      001CCB 03                   11479 	.db	3
+      001CCC 00 00 1E 10          11480 	.dw	0,(__xinit__flashing_count)
+      001CD0 5F 5F 78 69 6E 69 74 11481 	.ascii "__xinit_flashing_count"
+             5F 66 6C 61 73 68 69
+             6E 67 5F 63 6F 75 6E
+             74
+      001CE6 00                   11482 	.db	0
+      001CE7 00 00 1C C4          11483 	.dw	0,7364
+      001CEB 12                   11484 	.uleb128	18
+      001CEC 00 00 1C F8          11485 	.dw	0,7416
+      001CF0 04                   11486 	.db	4
+      001CF1 00 00 1C C4          11487 	.dw	0,7364
+      001CF5 13                   11488 	.uleb128	19
+      001CF6 01                   11489 	.db	1
+      001CF7 00                   11490 	.uleb128	0
+      001CF8 0A                   11491 	.uleb128	10
+      001CF9 05                   11492 	.db	5
+      001CFA 03                   11493 	.db	3
+      001CFB 00 00 1E 12          11494 	.dw	0,(__xinit__pwm)
+      001CFF 5F 5F 78 69 6E 69 74 11495 	.ascii "__xinit_pwm"
+             5F 70 77 6D
+      001D0A 00                   11496 	.db	0
+      001D0B 00 00 1C EB          11497 	.dw	0,7403
+      001D0F 16                   11498 	.uleb128	22
+      001D10 00 00 03 87          11499 	.dw	0,903
+      001D14 12                   11500 	.uleb128	18
+      001D15 00 00 1D 21          11501 	.dw	0,7457
+      001D19 02                   11502 	.db	2
+      001D1A 00 00 1D 0F          11503 	.dw	0,7439
+      001D1E 13                   11504 	.uleb128	19
+      001D1F 01                   11505 	.db	1
+      001D20 00                   11506 	.uleb128	0
+      001D21 0A                   11507 	.uleb128	10
+      001D22 05                   11508 	.db	5
+      001D23 03                   11509 	.db	3
+      001D24 00 00 1E 16          11510 	.dw	0,(__xinit__light_control_mode)
+      001D28 5F 5F 78 69 6E 69 74 11511 	.ascii "__xinit_light_control_mode"
+             5F 6C 69 67 68 74 5F
+             63 6F 6E 74 72 6F 6C
+             5F 6D 6F 64 65
+      001D42 00                   11512 	.db	0
+      001D43 00 00 1D 14          11513 	.dw	0,7444
+      001D47 0A                   11514 	.uleb128	10
+      001D48 05                   11515 	.db	5
+      001D49 03                   11516 	.db	3
+      001D4A 00 00 1E 18          11517 	.dw	0,(__xinit__sample_count)
+      001D4E 5F 5F 78 69 6E 69 74 11518 	.ascii "__xinit_sample_count"
+             5F 73 61 6D 70 6C 65
+             5F 63 6F 75 6E 74
+      001D62 00                   11519 	.db	0
+      001D63 00 00 1B C6          11520 	.dw	0,7110
+      001D67 16                   11521 	.uleb128	22
+      001D68 00 00 01 1E          11522 	.dw	0,286
+      001D6C 12                   11523 	.uleb128	18
+      001D6D 00 00 1D 79          11524 	.dw	0,7545
+      001D71 08                   11525 	.db	8
+      001D72 00 00 1D 67          11526 	.dw	0,7527
+      001D76 13                   11527 	.uleb128	19
+      001D77 01                   11528 	.db	1
+      001D78 00                   11529 	.uleb128	0
+      001D79 0A                   11530 	.uleb128	10
+      001D7A 05                   11531 	.db	5
+      001D7B 03                   11532 	.db	3
+      001D7C 00 00 1E 19          11533 	.dw	0,(__xinit__acc_amp)
+      001D80 5F 5F 78 69 6E 69 74 11534 	.ascii "__xinit_acc_amp"
+             5F 61 63 63 5F 61 6D
+             70
+      001D8F 00                   11535 	.db	0
+      001D90 00 00 1D 6C          11536 	.dw	0,7532
+      001D94 0A                   11537 	.uleb128	10
+      001D95 05                   11538 	.db	5
+      001D96 03                   11539 	.db	3
+      001D97 00 00 1E 21          11540 	.dw	0,(__xinit__acc_temp)
+      001D9B 5F 5F 78 69 6E 69 74 11541 	.ascii "__xinit_acc_temp"
+             5F 61 63 63 5F 74 65
+             6D 70
+      001DAB 00                   11542 	.db	0
+      001DAC 00 00 1D 67          11543 	.dw	0,7527
+      001DB0 0A                   11544 	.uleb128	10
+      001DB1 05                   11545 	.db	5
+      001DB2 03                   11546 	.db	3
+      001DB3 00 00 1E 25          11547 	.dw	0,(__xinit__cur_amp)
+      001DB7 5F 5F 78 69 6E 69 74 11548 	.ascii "__xinit_cur_amp"
+             5F 63 75 72 5F 61 6D
+             70
+      001DC6 00                   11549 	.db	0
+      001DC7 00 00 1C EB          11550 	.dw	0,7403
+      001DCB 0A                   11551 	.uleb128	10
+      001DCC 05                   11552 	.db	5
+      001DCD 03                   11553 	.db	3
+      001DCE 00 00 1E 29          11554 	.dw	0,(__xinit__cur_temp)
+      001DD2 5F 5F 78 69 6E 69 74 11555 	.ascii "__xinit_cur_temp"
+             5F 63 75 72 5F 74 65
+             6D 70
+      001DE2 00                   11556 	.db	0
+      001DE3 00 00 1C C4          11557 	.dw	0,7364
+      001DE7 0A                   11558 	.uleb128	10
+      001DE8 05                   11559 	.db	5
+      001DE9 03                   11560 	.db	3
+      001DEA 00 00 1E 2B          11561 	.dw	0,(__xinit__good_amp_count)
+      001DEE 5F 5F 78 69 6E 69 74 11562 	.ascii "__xinit_good_amp_count"
+             5F 67 6F 6F 64 5F 61
+             6D 70 5F 63 6F 75 6E
+             74
+      001E04 00                   11563 	.db	0
+      001E05 00 00 1B CB          11564 	.dw	0,7115
+      001E09 0A                   11565 	.uleb128	10
+      001E0A 05                   11566 	.db	5
+      001E0B 03                   11567 	.db	3
+      001E0C 00 00 1E 2D          11568 	.dw	0,(__xinit__uart1_next_idx)
+      001E10 5F 5F 78 69 6E 69 74 11569 	.ascii "__xinit_uart1_next_idx"
+             5F 75 61 72 74 31 5F
+             6E 65 78 74 5F 69 64
+             78
+      001E26 00                   11570 	.db	0
+      001E27 00 00 1B C6          11571 	.dw	0,7110
+      001E2B 0A                   11572 	.uleb128	10
+      001E2C 05                   11573 	.db	5
+      001E2D 03                   11574 	.db	3
+      001E2E 00 00 1E 2E          11575 	.dw	0,(__xinit__uart1_read_idx)
+      001E32 5F 5F 78 69 6E 69 74 11576 	.ascii "__xinit_uart1_read_idx"
+             5F 75 61 72 74 31 5F
+             72 65 61 64 5F 69 64
+             78
+      001E48 00                   11577 	.db	0
+      001E49 00 00 1B C6          11578 	.dw	0,7110
+      001E4D 0A                   11579 	.uleb128	10
+      001E4E 05                   11580 	.db	5
+      001E4F 03                   11581 	.db	3
+      001E50 00 00 1E 2F          11582 	.dw	0,(__xinit__uart_flag)
+      001E54 5F 5F 78 69 6E 69 74 11583 	.ascii "__xinit_uart_flag"
+             5F 75 61 72 74 5F 66
+             6C 61 67
+      001E65 00                   11584 	.db	0
+      001E66 00 00 1D 0F          11585 	.dw	0,7439
+      001E6A 0A                   11586 	.uleb128	10
+      001E6B 05                   11587 	.db	5
+      001E6C 03                   11588 	.db	3
+      001E6D 00 00 1E 30          11589 	.dw	0,(__xinit__button_pressed)
+      001E71 5F 5F 78 69 6E 69 74 11590 	.ascii "__xinit_button_pressed"
+             5F 62 75 74 74 6F 6E
+             5F 70 72 65 73 73 65
+             64
+      001E87 00                   11591 	.db	0
+      001E88 00 00 1D 67          11592 	.dw	0,7527
+      001E8C 0A                   11593 	.uleb128	10
+      001E8D 05                   11594 	.db	5
+      001E8E 03                   11595 	.db	3
+      001E8F 00 00 1E 34          11596 	.dw	0,(__xinit__button_unpressed)
+      001E93 5F 5F 78 69 6E 69 74 11597 	.ascii "__xinit_button_unpressed"
+             5F 62 75 74 74 6F 6E
+             5F 75 6E 70 72 65 73
+             73 65 64
+      001EAB 00                   11598 	.db	0
+      001EAC 00 00 1D 67          11599 	.dw	0,7527
+      001EB0 0A                   11600 	.uleb128	10
+      001EB1 05                   11601 	.db	5
+      001EB2 03                   11602 	.db	3
+      001EB3 00 00 1E 38          11603 	.dw	0,(__xinit__uart_counter)
+      001EB7 5F 5F 78 69 6E 69 74 11604 	.ascii "__xinit_uart_counter"
+             5F 75 61 72 74 5F 63
+             6F 75 6E 74 65 72
+      001ECB 00                   11605 	.db	0
+      001ECC 00 00 1D 67          11606 	.dw	0,7527
+      001ED0 0A                   11607 	.uleb128	10
+      001ED1 05                   11608 	.db	5
+      001ED2 03                   11609 	.db	3
+      001ED3 00 00 1E 3C          11610 	.dw	0,(__xinit__uart_rx_state)
+      001ED7 5F 5F 78 69 6E 69 74 11611 	.ascii "__xinit_uart_rx_state"
+             5F 75 61 72 74 5F 72
+             78 5F 73 74 61 74 65
+      001EEC 00                   11612 	.db	0
+      001EED 00 00 1B C6          11613 	.dw	0,7110
+      001EF1 0A                   11614 	.uleb128	10
+      001EF2 05                   11615 	.db	5
+      001EF3 03                   11616 	.db	3
+      001EF4 00 00 1E 3D          11617 	.dw	0,(__xinit__lamp_state)
+      001EF8 5F 5F 78 69 6E 69 74 11618 	.ascii "__xinit_lamp_state"
+             5F 6C 61 6D 70 5F 73
+             74 61 74 65
+      001F0A 00                   11619 	.db	0
+      001F0B 00 00 1B C6          11620 	.dw	0,7110
+      001F0F 0A                   11621 	.uleb128	10
+      001F10 05                   11622 	.db	5
+      001F11 03                   11623 	.db	3
+      001F12 00 00 1E 3E          11624 	.dw	0,(__xinit__log_counter)
+      001F16 5F 5F 78 69 6E 69 74 11625 	.ascii "__xinit_log_counter"
+             5F 6C 6F 67 5F 63 6F
+             75 6E 74 65 72
+      001F29 00                   11626 	.db	0
+      001F2A 00 00 1D 67          11627 	.dw	0,7527
+      001F2E 0A                   11628 	.uleb128	10
+      001F2F 05                   11629 	.db	5
+      001F30 03                   11630 	.db	3
+      001F31 00 00 1E 42          11631 	.dw	0,(__xinit__wdt_flag)
+      001F35 5F 5F 78 69 6E 69 74 11632 	.ascii "__xinit_wdt_flag"
+             5F 77 64 74 5F 66 6C
+             61 67
+      001F45 00                   11633 	.db	0
+      001F46 00 00 1C 80          11634 	.dw	0,7296
+      001F4A 00                   11635 	.uleb128	0
+      001F4B                      11636 Ldebug_info_end:
+                                  11637 
+                                  11638 	.area .debug_pubnames (NOLOAD)
+      000000 00 00 0C 36          11639 	.dw	0,Ldebug_pubnames_end-Ldebug_pubnames_start
+      000004                      11640 Ldebug_pubnames_start:
+      000004 00 02                11641 	.dw	2
+      000006 00 00 00 00          11642 	.dw	0,(Ldebug_info_start-4)
+      00000A 00 00 1F 4B          11643 	.dw	0,4+Ldebug_info_end-Ldebug_info_start
+      00000E 00 00 00 AC          11644 	.dw	0,172
+      000012 54 69 6D 65 72 30 5F 11645 	.ascii "Timer0_Delay"
+             44 65 6C 61 79
+      00001E 00                   11646 	.db	0
+      00001F 00 00 01 3F          11647 	.dw	0,319
+      000023 75 61 72 74 5F 6C 6F 11648 	.ascii "uart_log"
+             67
+      00002B 00                   11649 	.db	0
+      00002C 00 00 01 79          11650 	.dw	0,377
+      000030 75 61 72 74 5F 6C 6F 11651 	.ascii "uart_logn"
+             67 6E
+      000039 00                   11652 	.db	0
+      00003A 00 00 01 E0          11653 	.dw	0,480
+      00003E 6C 6F 67 5F 69 6E 69 11654 	.ascii "log_init"
+             74
+      000046 00                   11655 	.db	0
+      000047 00 00 02 05          11656 	.dw	0,517
+      00004B 53 65 72 69 61 6C 50 11657 	.ascii "SerialPort1_ISR"
+             6F 72 74 31 5F 49 53
+             52
+      00005A 00                   11658 	.db	0
+      00005B 00 00 02 3B          11659 	.dw	0,571
+      00005F 75 61 72 74 5F 69 6E 11660 	.ascii "uart_interrupt_init"
+             74 65 72 72 75 70 74
+             5F 69 6E 69 74
+      000072 00                   11661 	.db	0
+      000073 00 00 02 5D          11662 	.dw	0,605
+      000077 50 69 6E 49 6E 74 65 11663 	.ascii "PinInterrupt_ISR"
+             72 72 75 70 74 5F 49
+             53 52
+      000087 00                   11664 	.db	0
+      000088 00 00 02 8B          11665 	.dw	0,651
+      00008C 62 75 74 74 6F 6E 5F 11666 	.ascii "button_interrupt_init"
+             69 6E 74 65 72 72 75
+             70 74 5F 69 6E 69 74
+      0000A1 00                   11667 	.db	0
+      0000A2 00 00 02 AF          11668 	.dw	0,687
+      0000A6 65 6E 61 62 6C 65 5F 11669 	.ascii "enable_ntc"
+             6E 74 63
+      0000B0 00                   11670 	.db	0
+      0000B1 00 00 02 C8          11671 	.dw	0,712
+      0000B5 64 69 73 61 62 6C 65 11672 	.ascii "disable_ntc"
+             5F 6E 74 63
+      0000C0 00                   11673 	.db	0
+      0000C1 00 00 02 E2          11674 	.dw	0,738
+      0000C5 69 6E 69 74 5F 73 61 11675 	.ascii "init_sample"
+             6D 70 6C 65
+      0000D0 00                   11676 	.db	0
+      0000D1 00 00 03 1B          11677 	.dw	0,795
+      0000D5 69 6E 69 74 5F 70 65 11678 	.ascii "init_peripherals_but_button_n_uart"
+             72 69 70 68 65 72 61
+             6C 73 5F 62 75 74 5F
+             62 75 74 74 6F 6E 5F
+             6E 5F 75 61 72 74
+      0000F7 00                   11679 	.db	0
+      0000F8 00 00 03 4C          11680 	.dw	0,844
+      0000FC 73 61 6D 70 6C 65 5F 11681 	.ascii "sample_amps"
+             61 6D 70 73
+      000107 00                   11682 	.db	0
+      000108 00 00 03 66          11683 	.dw	0,870
+      00010C 73 61 6D 70 6C 65 5F 11684 	.ascii "sample_temperature"
+             74 65 6D 70 65 72 61
+             74 75 72 65
+      00011E 00                   11685 	.db	0
+      00011F 00 00 03 96          11686 	.dw	0,918
+      000123 68 61 73 5F 68 69 67 11687 	.ascii "has_high_beam"
+             68 5F 62 65 61 6D
+      000130 00                   11688 	.db	0
+      000131 00 00 03 DB          11689 	.dw	0,987
+      000135 61 76 67 5F 61 6D 70 11690 	.ascii "avg_amp"
+      00013C 00                   11691 	.db	0
+      00013D 00 00 04 1B          11692 	.dw	0,1051
+      000141 74 61 72 67 65 74 5F 11693 	.ascii "target_amp"
+             61 6D 70
+      00014B 00                   11694 	.db	0
+      00014C 00 00 04 8A          11695 	.dw	0,1162
+      000150 63 68 61 6E 67 65 4D 11696 	.ascii "changeMode"
+             6F 64 65
+      00015A 00                   11697 	.db	0
+      00015B 00 00 05 4A          11698 	.dw	0,1354
+      00015F 74 6F 4E 65 78 74 4D 11699 	.ascii "toNextMode"
+             6F 64 65
+      000169 00                   11700 	.db	0
+      00016A 00 00 05 6C          11701 	.dw	0,1388
+      00016E 70 72 6F 63 65 73 73 11702 	.ascii "process_uart"
+             5F 75 61 72 74
+      00017A 00                   11703 	.db	0
+      00017B 00 00 05 CA          11704 	.dw	0,1482
+      00017F 70 72 6F 63 65 73 73 11705 	.ascii "process_button"
+             5F 62 75 74 74 6F 6E
+      00018D 00                   11706 	.db	0
+      00018E 00 00 06 3A          11707 	.dw	0,1594
+      000192 73 74 6F 70 5F 6C 65 11708 	.ascii "stop_leds"
+             64 73
+      00019B 00                   11709 	.db	0
+      00019C 00 00 06 52          11710 	.dw	0,1618
+      0001A0 61 63 74 69 76 61 74 11711 	.ascii "activate_leds"
+             65 5F 6C 65 64 73
+      0001AD 00                   11712 	.db	0
+      0001AE 00 00 06 6E          11713 	.dw	0,1646
+      0001B2 6D 6F 64 65 5F 63 68 11714 	.ascii "mode_changing_control"
+             61 6E 67 69 6E 67 5F
+             63 6F 6E 74 72 6F 6C
+      0001C7 00                   11715 	.db	0
+      0001C8 00 00 07 70          11716 	.dw	0,1904
+      0001CC 69 73 5F 73 74 61 62 11717 	.ascii "is_stable"
+             6C 65
+      0001D5 00                   11718 	.db	0
+      0001D6 00 00 07 AB          11719 	.dw	0,1963
+      0001DA 6D 6F 64 65 5F 73 74 11720 	.ascii "mode_stable_control"
+             61 62 6C 65 5F 63 6F
+             6E 74 72 6F 6C
+      0001ED 00                   11721 	.db	0
+      0001EE 00 00 08 3F          11722 	.dw	0,2111
+      0001F2 63 6F 6E 74 72 6F 6C 11723 	.ascii "control_loop"
+             5F 6C 6F 6F 70
+      0001FE 00                   11724 	.db	0
+      0001FF 00 00 08 D0          11725 	.dw	0,2256
+      000203 77 64 74 5F 69 6E 69 11726 	.ascii "wdt_init"
+             74
+      00020B 00                   11727 	.db	0
+      00020C 00 00 08 E7          11728 	.dw	0,2279
+      000210 77 64 74 5F 63 6C 65 11729 	.ascii "wdt_clear"
+             61 72
+      000219 00                   11730 	.db	0
+      00021A 00 00 08 FF          11731 	.dw	0,2303
+      00021E 6D 61 69 6E          11732 	.ascii "main"
+      000222 00                   11733 	.db	0
+      000223 00 00 09 98          11734 	.dw	0,2456
+      000227 42 49 54 5F 54 4D 50 11735 	.ascii "BIT_TMP"
+      00022E 00                   11736 	.db	0
+      00022F 00 00 09 BA          11737 	.dw	0,2490
+      000233 75 61 72 74 31 5F 72 11738 	.ascii "uart1_rx_buffer"
+             78 5F 62 75 66 66 65
+             72
+      000242 00                   11739 	.db	0
+      000243 00 00 09 E4          11740 	.dw	0,2532
+      000247 6C 69 67 68 74 5F 6D 11741 	.ascii "light_mode"
+             6F 64 65
+      000251 00                   11742 	.db	0
+      000252 00 00 09 FB          11743 	.dw	0,2555
+      000256 69 73 5F 75 61 72 74 11744 	.ascii "is_uart_mode"
+             5F 6D 6F 64 65
+      000262 00                   11745 	.db	0
+      000263 00 00 0A 14          11746 	.dw	0,2580
+      000267 66 6C 61 73 68 69 6E 11747 	.ascii "flashing_on"
+             67 5F 6F 6E
+      000272 00                   11748 	.db	0
+      000273 00 00 0A 2C          11749 	.dw	0,2604
+      000277 66 6C 61 73 68 69 6E 11750 	.ascii "flashing_count"
+             67 5F 63 6F 75 6E 74
+      000285 00                   11751 	.db	0
+      000286 00 00 0A 54          11752 	.dw	0,2644
+      00028A 70 77 6D             11753 	.ascii "pwm"
+      00028D 00                   11754 	.db	0
+      00028E 00 00 0A 71          11755 	.dw	0,2673
+      000292 6C 69 67 68 74 5F 63 11756 	.ascii "light_control_mode"
+             6F 6E 74 72 6F 6C 5F
+             6D 6F 64 65
+      0002A4 00                   11757 	.db	0
+      0002A5 00 00 0A 90          11758 	.dw	0,2704
+      0002A9 73 61 6D 70 6C 65 5F 11759 	.ascii "sample_count"
+             63 6F 75 6E 74
+      0002B5 00                   11760 	.db	0
+      0002B6 00 00 0A B6          11761 	.dw	0,2742
+      0002BA 61 63 63 5F 61 6D 70 11762 	.ascii "acc_amp"
+      0002C1 00                   11763 	.db	0
+      0002C2 00 00 0A CA          11764 	.dw	0,2762
+      0002C6 61 63 63 5F 74 65 6D 11765 	.ascii "acc_temp"
+             70
+      0002CE 00                   11766 	.db	0
+      0002CF 00 00 0A DF          11767 	.dw	0,2783
+      0002D3 63 75 72 5F 61 6D 70 11768 	.ascii "cur_amp"
+      0002DA 00                   11769 	.db	0
+      0002DB 00 00 0A F3          11770 	.dw	0,2803
+      0002DF 63 75 72 5F 74 65 6D 11771 	.ascii "cur_temp"
+             70
+      0002E7 00                   11772 	.db	0
+      0002E8 00 00 0B 15          11773 	.dw	0,2837
+      0002EC 67 6F 6F 64 5F 61 6D 11774 	.ascii "good_amp_count"
+             70 5F 63 6F 75 6E 74
+      0002FA 00                   11775 	.db	0
+      0002FB 00 00 0B 30          11776 	.dw	0,2864
+      0002FF 75 61 72 74 31 5F 6E 11777 	.ascii "uart1_next_idx"
+             65 78 74 5F 69 64 78
+      00030D 00                   11778 	.db	0
+      00030E 00 00 0B 4B          11779 	.dw	0,2891
+      000312 75 61 72 74 31 5F 72 11780 	.ascii "uart1_read_idx"
+             65 61 64 5F 69 64 78
+      000320 00                   11781 	.db	0
+      000321 00 00 0B 66          11782 	.dw	0,2918
+      000325 75 61 72 74 5F 66 6C 11783 	.ascii "uart_flag"
+             61 67
+      00032E 00                   11784 	.db	0
+      00032F 00 00 0B 7C          11785 	.dw	0,2940
+      000333 62 75 74 74 6F 6E 5F 11786 	.ascii "button_pressed"
+             70 72 65 73 73 65 64
+      000341 00                   11787 	.db	0
+      000342 00 00 0B 97          11788 	.dw	0,2967
+      000346 62 75 74 74 6F 6E 5F 11789 	.ascii "button_unpressed"
+             75 6E 70 72 65 73 73
+             65 64
+      000356 00                   11790 	.db	0
+      000357 00 00 0B B4          11791 	.dw	0,2996
+      00035B 75 61 72 74 5F 63 6F 11792 	.ascii "uart_counter"
+             75 6E 74 65 72
+      000367 00                   11793 	.db	0
+      000368 00 00 0B CD          11794 	.dw	0,3021
+      00036C 75 61 72 74 5F 72 78 11795 	.ascii "uart_rx_state"
+             5F 73 74 61 74 65
+      000379 00                   11796 	.db	0
+      00037A 00 00 0B E7          11797 	.dw	0,3047
+      00037E 6C 61 6D 70 5F 73 74 11798 	.ascii "lamp_state"
+             61 74 65
+      000388 00                   11799 	.db	0
+      000389 00 00 0B FE          11800 	.dw	0,3070
+      00038D 6C 6F 67 5F 63 6F 75 11801 	.ascii "log_counter"
+             6E 74 65 72
+      000398 00                   11802 	.db	0
+      000399 00 00 0C 16          11803 	.dw	0,3094
+      00039D 77 64 74 5F 66 6C 61 11804 	.ascii "wdt_flag"
+             67
+      0003A5 00                   11805 	.db	0
+      0003A6 00 00 0C 30          11806 	.dw	0,3120
+      0003AA 50 30                11807 	.ascii "P0"
+      0003AC 00                   11808 	.db	0
+      0003AD 00 00 0C 3F          11809 	.dw	0,3135
+      0003B1 53 50                11810 	.ascii "SP"
+      0003B3 00                   11811 	.db	0
+      0003B4 00 00 0C 4E          11812 	.dw	0,3150
+      0003B8 44 50 4C             11813 	.ascii "DPL"
+      0003BB 00                   11814 	.db	0
+      0003BC 00 00 0C 5E          11815 	.dw	0,3166
+      0003C0 44 50 48             11816 	.ascii "DPH"
+      0003C3 00                   11817 	.db	0
+      0003C4 00 00 0C 6E          11818 	.dw	0,3182
+      0003C8 52 43 54 52 49 4D 30 11819 	.ascii "RCTRIM0"
+      0003CF 00                   11820 	.db	0
+      0003D0 00 00 0C 82          11821 	.dw	0,3202
+      0003D4 52 43 54 52 49 4D 31 11822 	.ascii "RCTRIM1"
+      0003DB 00                   11823 	.db	0
+      0003DC 00 00 0C 96          11824 	.dw	0,3222
+      0003E0 52 57 4B             11825 	.ascii "RWK"
+      0003E3 00                   11826 	.db	0
+      0003E4 00 00 0C A6          11827 	.dw	0,3238
+      0003E8 50 43 4F 4E          11828 	.ascii "PCON"
+      0003EC 00                   11829 	.db	0
+      0003ED 00 00 0C B7          11830 	.dw	0,3255
+      0003F1 54 43 4F 4E          11831 	.ascii "TCON"
+      0003F5 00                   11832 	.db	0
+      0003F6 00 00 0C C8          11833 	.dw	0,3272
+      0003FA 54 4D 4F 44          11834 	.ascii "TMOD"
+      0003FE 00                   11835 	.db	0
+      0003FF 00 00 0C D9          11836 	.dw	0,3289
+      000403 54 4C 30             11837 	.ascii "TL0"
+      000406 00                   11838 	.db	0
+      000407 00 00 0C E9          11839 	.dw	0,3305
+      00040B 54 4C 31             11840 	.ascii "TL1"
+      00040E 00                   11841 	.db	0
+      00040F 00 00 0C F9          11842 	.dw	0,3321
+      000413 54 48 30             11843 	.ascii "TH0"
+      000416 00                   11844 	.db	0
+      000417 00 00 0D 09          11845 	.dw	0,3337
+      00041B 54 48 31             11846 	.ascii "TH1"
+      00041E 00                   11847 	.db	0
+      00041F 00 00 0D 19          11848 	.dw	0,3353
+      000423 43 4B 43 4F 4E       11849 	.ascii "CKCON"
+      000428 00                   11850 	.db	0
+      000429 00 00 0D 2B          11851 	.dw	0,3371
+      00042D 57 4B 43 4F 4E       11852 	.ascii "WKCON"
+      000432 00                   11853 	.db	0
+      000433 00 00 0D 3D          11854 	.dw	0,3389
+      000437 50 31                11855 	.ascii "P1"
+      000439 00                   11856 	.db	0
+      00043A 00 00 0D 4C          11857 	.dw	0,3404
+      00043E 53 46 52 53          11858 	.ascii "SFRS"
+      000442 00                   11859 	.db	0
+      000443 00 00 0D 5D          11860 	.dw	0,3421
+      000447 43 41 50 43 4F 4E 30 11861 	.ascii "CAPCON0"
+      00044E 00                   11862 	.db	0
+      00044F 00 00 0D 71          11863 	.dw	0,3441
+      000453 43 41 50 43 4F 4E 31 11864 	.ascii "CAPCON1"
+      00045A 00                   11865 	.db	0
+      00045B 00 00 0D 85          11866 	.dw	0,3461
+      00045F 43 41 50 43 4F 4E 32 11867 	.ascii "CAPCON2"
+      000466 00                   11868 	.db	0
+      000467 00 00 0D 99          11869 	.dw	0,3481
+      00046B 43 4B 44 49 56       11870 	.ascii "CKDIV"
+      000470 00                   11871 	.db	0
+      000471 00 00 0D AB          11872 	.dw	0,3499
+      000475 43 4B 53 57 54       11873 	.ascii "CKSWT"
+      00047A 00                   11874 	.db	0
+      00047B 00 00 0D BD          11875 	.dw	0,3517
+      00047F 43 4B 45 4E          11876 	.ascii "CKEN"
+      000483 00                   11877 	.db	0
+      000484 00 00 0D CE          11878 	.dw	0,3534
+      000488 53 43 4F 4E          11879 	.ascii "SCON"
+      00048C 00                   11880 	.db	0
+      00048D 00 00 0D DF          11881 	.dw	0,3551
+      000491 53 42 55 46          11882 	.ascii "SBUF"
+      000495 00                   11883 	.db	0
+      000496 00 00 0D F0          11884 	.dw	0,3568
+      00049A 53 42 55 46 5F 31    11885 	.ascii "SBUF_1"
+      0004A0 00                   11886 	.db	0
+      0004A1 00 00 0E 03          11887 	.dw	0,3587
+      0004A5 45 49 45             11888 	.ascii "EIE"
+      0004A8 00                   11889 	.db	0
+      0004A9 00 00 0E 13          11890 	.dw	0,3603
+      0004AD 45 49 45 31          11891 	.ascii "EIE1"
+      0004B1 00                   11892 	.db	0
+      0004B2 00 00 0E 24          11893 	.dw	0,3620
+      0004B6 43 48 50 43 4F 4E    11894 	.ascii "CHPCON"
+      0004BC 00                   11895 	.db	0
+      0004BD 00 00 0E 37          11896 	.dw	0,3639
+      0004C1 50 32                11897 	.ascii "P2"
+      0004C3 00                   11898 	.db	0
+      0004C4 00 00 0E 46          11899 	.dw	0,3654
+      0004C8 41 55 58 52 31       11900 	.ascii "AUXR1"
+      0004CD 00                   11901 	.db	0
+      0004CE 00 00 0E 58          11902 	.dw	0,3672
+      0004D2 42 4F 44 43 4F 4E 30 11903 	.ascii "BODCON0"
+      0004D9 00                   11904 	.db	0
+      0004DA 00 00 0E 6C          11905 	.dw	0,3692
+      0004DE 49 41 50 54 52 47    11906 	.ascii "IAPTRG"
+      0004E4 00                   11907 	.db	0
+      0004E5 00 00 0E 7F          11908 	.dw	0,3711
+      0004E9 49 41 50 55 45 4E    11909 	.ascii "IAPUEN"
+      0004EF 00                   11910 	.db	0
+      0004F0 00 00 0E 92          11911 	.dw	0,3730
+      0004F4 49 41 50 41 4C       11912 	.ascii "IAPAL"
+      0004F9 00                   11913 	.db	0
+      0004FA 00 00 0E A4          11914 	.dw	0,3748
+      0004FE 49 41 50 41 48       11915 	.ascii "IAPAH"
+      000503 00                   11916 	.db	0
+      000504 00 00 0E B6          11917 	.dw	0,3766
+      000508 49 45                11918 	.ascii "IE"
+      00050A 00                   11919 	.db	0
+      00050B 00 00 0E C5          11920 	.dw	0,3781
+      00050F 53 41 44 44 52       11921 	.ascii "SADDR"
+      000514 00                   11922 	.db	0
+      000515 00 00 0E D7          11923 	.dw	0,3799
+      000519 57 44 43 4F 4E       11924 	.ascii "WDCON"
+      00051E 00                   11925 	.db	0
+      00051F 00 00 0E E9          11926 	.dw	0,3817
+      000523 42 4F 44 43 4F 4E 31 11927 	.ascii "BODCON1"
+      00052A 00                   11928 	.db	0
+      00052B 00 00 0E FD          11929 	.dw	0,3837
+      00052F 50 33 4D 31          11930 	.ascii "P3M1"
+      000533 00                   11931 	.db	0
+      000534 00 00 0F 0E          11932 	.dw	0,3854
+      000538 50 33 53             11933 	.ascii "P3S"
+      00053B 00                   11934 	.db	0
+      00053C 00 00 0F 1E          11935 	.dw	0,3870
+      000540 50 33 4D 32          11936 	.ascii "P3M2"
+      000544 00                   11937 	.db	0
+      000545 00 00 0F 2F          11938 	.dw	0,3887
+      000549 50 33 53 52          11939 	.ascii "P3SR"
+      00054D 00                   11940 	.db	0
+      00054E 00 00 0F 40          11941 	.dw	0,3904
+      000552 49 41 50 46 44       11942 	.ascii "IAPFD"
+      000557 00                   11943 	.db	0
+      000558 00 00 0F 52          11944 	.dw	0,3922
+      00055C 49 41 50 43 4E       11945 	.ascii "IAPCN"
+      000561 00                   11946 	.db	0
+      000562 00 00 0F 64          11947 	.dw	0,3940
+      000566 50 33                11948 	.ascii "P3"
+      000568 00                   11949 	.db	0
+      000569 00 00 0F 73          11950 	.dw	0,3955
+      00056D 50 30 4D 31          11951 	.ascii "P0M1"
+      000571 00                   11952 	.db	0
+      000572 00 00 0F 84          11953 	.dw	0,3972
+      000576 50 30 53             11954 	.ascii "P0S"
+      000579 00                   11955 	.db	0
+      00057A 00 00 0F 94          11956 	.dw	0,3988
+      00057E 50 30 4D 32          11957 	.ascii "P0M2"
+      000582 00                   11958 	.db	0
+      000583 00 00 0F A5          11959 	.dw	0,4005
+      000587 50 30 53 52          11960 	.ascii "P0SR"
+      00058B 00                   11961 	.db	0
+      00058C 00 00 0F B6          11962 	.dw	0,4022
+      000590 50 31 4D 31          11963 	.ascii "P1M1"
+      000594 00                   11964 	.db	0
+      000595 00 00 0F C7          11965 	.dw	0,4039
+      000599 50 31 53             11966 	.ascii "P1S"
+      00059C 00                   11967 	.db	0
+      00059D 00 00 0F D7          11968 	.dw	0,4055
+      0005A1 50 31 4D 32          11969 	.ascii "P1M2"
+      0005A5 00                   11970 	.db	0
+      0005A6 00 00 0F E8          11971 	.dw	0,4072
+      0005AA 50 31 53 52          11972 	.ascii "P1SR"
+      0005AE 00                   11973 	.db	0
+      0005AF 00 00 0F F9          11974 	.dw	0,4089
+      0005B3 50 32 53             11975 	.ascii "P2S"
+      0005B6 00                   11976 	.db	0
+      0005B7 00 00 10 09          11977 	.dw	0,4105
+      0005BB 49 50 48             11978 	.ascii "IPH"
+      0005BE 00                   11979 	.db	0
+      0005BF 00 00 10 19          11980 	.dw	0,4121
+      0005C3 50 57 4D 49 4E 54 43 11981 	.ascii "PWMINTC"
+      0005CA 00                   11982 	.db	0
+      0005CB 00 00 10 2D          11983 	.dw	0,4141
+      0005CF 49 50                11984 	.ascii "IP"
+      0005D1 00                   11985 	.db	0
+      0005D2 00 00 10 3C          11986 	.dw	0,4156
+      0005D6 53 41 44 45 4E       11987 	.ascii "SADEN"
+      0005DB 00                   11988 	.db	0
+      0005DC 00 00 10 4E          11989 	.dw	0,4174
+      0005E0 53 41 44 45 4E 5F 31 11990 	.ascii "SADEN_1"
+      0005E7 00                   11991 	.db	0
+      0005E8 00 00 10 62          11992 	.dw	0,4194
+      0005EC 53 41 44 44 52 5F 31 11993 	.ascii "SADDR_1"
+      0005F3 00                   11994 	.db	0
+      0005F4 00 00 10 76          11995 	.dw	0,4214
+      0005F8 49 32 44 41 54       11996 	.ascii "I2DAT"
+      0005FD 00                   11997 	.db	0
+      0005FE 00 00 10 88          11998 	.dw	0,4232
+      000602 49 32 53 54 41 54    11999 	.ascii "I2STAT"
+      000608 00                   12000 	.db	0
+      000609 00 00 10 9B          12001 	.dw	0,4251
+      00060D 49 32 43 4C 4B       12002 	.ascii "I2CLK"
+      000612 00                   12003 	.db	0
+      000613 00 00 10 AD          12004 	.dw	0,4269
+      000617 49 32 54 4F 43       12005 	.ascii "I2TOC"
+      00061C 00                   12006 	.db	0
+      00061D 00 00 10 BF          12007 	.dw	0,4287
+      000621 49 32 43 4F 4E       12008 	.ascii "I2CON"
+      000626 00                   12009 	.db	0
+      000627 00 00 10 D1          12010 	.dw	0,4305
+      00062B 49 32 41 44 44 52    12011 	.ascii "I2ADDR"
+      000631 00                   12012 	.db	0
+      000632 00 00 10 E4          12013 	.dw	0,4324
+      000636 41 44 43 52 4C       12014 	.ascii "ADCRL"
+      00063B 00                   12015 	.db	0
+      00063C 00 00 10 F6          12016 	.dw	0,4342
+      000640 41 44 43 52 48       12017 	.ascii "ADCRH"
+      000645 00                   12018 	.db	0
+      000646 00 00 11 08          12019 	.dw	0,4360
+      00064A 54 33 43 4F 4E       12020 	.ascii "T3CON"
+      00064F 00                   12021 	.db	0
+      000650 00 00 11 1A          12022 	.dw	0,4378
+      000654 50 57 4D 34 48       12023 	.ascii "PWM4H"
+      000659 00                   12024 	.db	0
+      00065A 00 00 11 2C          12025 	.dw	0,4396
+      00065E 52 4C 33             12026 	.ascii "RL3"
+      000661 00                   12027 	.db	0
+      000662 00 00 11 3C          12028 	.dw	0,4412
+      000666 50 57 4D 35 48       12029 	.ascii "PWM5H"
+      00066B 00                   12030 	.db	0
+      00066C 00 00 11 4E          12031 	.dw	0,4430
+      000670 52 48 33             12032 	.ascii "RH3"
+      000673 00                   12033 	.db	0
+      000674 00 00 11 5E          12034 	.dw	0,4446
+      000678 50 49 4F 43 4F 4E 31 12035 	.ascii "PIOCON1"
+      00067F 00                   12036 	.db	0
+      000680 00 00 11 72          12037 	.dw	0,4466
+      000684 54 41                12038 	.ascii "TA"
+      000686 00                   12039 	.db	0
+      000687 00 00 11 81          12040 	.dw	0,4481
+      00068B 54 32 43 4F 4E       12041 	.ascii "T2CON"
+      000690 00                   12042 	.db	0
+      000691 00 00 11 93          12043 	.dw	0,4499
+      000695 54 32 4D 4F 44       12044 	.ascii "T2MOD"
+      00069A 00                   12045 	.db	0
+      00069B 00 00 11 A5          12046 	.dw	0,4517
+      00069F 52 43 4D 50 32 4C    12047 	.ascii "RCMP2L"
+      0006A5 00                   12048 	.db	0
+      0006A6 00 00 11 B8          12049 	.dw	0,4536
+      0006AA 52 43 4D 50 32 48    12050 	.ascii "RCMP2H"
+      0006B0 00                   12051 	.db	0
+      0006B1 00 00 11 CB          12052 	.dw	0,4555
+      0006B5 54 4C 32             12053 	.ascii "TL2"
+      0006B8 00                   12054 	.db	0
+      0006B9 00 00 11 DB          12055 	.dw	0,4571
+      0006BD 50 57 4D 34 4C       12056 	.ascii "PWM4L"
+      0006C2 00                   12057 	.db	0
+      0006C3 00 00 11 ED          12058 	.dw	0,4589
+      0006C7 54 48 32             12059 	.ascii "TH2"
+      0006CA 00                   12060 	.db	0
+      0006CB 00 00 11 FD          12061 	.dw	0,4605
+      0006CF 50 57 4D 35 4C       12062 	.ascii "PWM5L"
+      0006D4 00                   12063 	.db	0
+      0006D5 00 00 12 0F          12064 	.dw	0,4623
+      0006D9 41 44 43 4D 50 4C    12065 	.ascii "ADCMPL"
+      0006DF 00                   12066 	.db	0
+      0006E0 00 00 12 22          12067 	.dw	0,4642
+      0006E4 41 44 43 4D 50 48    12068 	.ascii "ADCMPH"
+      0006EA 00                   12069 	.db	0
+      0006EB 00 00 12 35          12070 	.dw	0,4661
+      0006EF 50 53 57             12071 	.ascii "PSW"
+      0006F2 00                   12072 	.db	0
+      0006F3 00 00 12 45          12073 	.dw	0,4677
+      0006F7 50 57 4D 50 48       12074 	.ascii "PWMPH"
+      0006FC 00                   12075 	.db	0
+      0006FD 00 00 12 57          12076 	.dw	0,4695
+      000701 50 57 4D 30 48       12077 	.ascii "PWM0H"
+      000706 00                   12078 	.db	0
+      000707 00 00 12 69          12079 	.dw	0,4713
+      00070B 50 57 4D 31 48       12080 	.ascii "PWM1H"
+      000710 00                   12081 	.db	0
+      000711 00 00 12 7B          12082 	.dw	0,4731
+      000715 50 57 4D 32 48       12083 	.ascii "PWM2H"
+      00071A 00                   12084 	.db	0
+      00071B 00 00 12 8D          12085 	.dw	0,4749
+      00071F 50 57 4D 33 48       12086 	.ascii "PWM3H"
+      000724 00                   12087 	.db	0
+      000725 00 00 12 9F          12088 	.dw	0,4767
+      000729 50 4E 50             12089 	.ascii "PNP"
+      00072C 00                   12090 	.db	0
+      00072D 00 00 12 AF          12091 	.dw	0,4783
+      000731 46 42 44             12092 	.ascii "FBD"
+      000734 00                   12093 	.db	0
+      000735 00 00 12 BF          12094 	.dw	0,4799
+      000739 50 57 4D 43 4F 4E 30 12095 	.ascii "PWMCON0"
+      000740 00                   12096 	.db	0
+      000741 00 00 12 D3          12097 	.dw	0,4819
+      000745 50 57 4D 50 4C       12098 	.ascii "PWMPL"
+      00074A 00                   12099 	.db	0
+      00074B 00 00 12 E5          12100 	.dw	0,4837
+      00074F 50 57 4D 30 4C       12101 	.ascii "PWM0L"
+      000754 00                   12102 	.db	0
+      000755 00 00 12 F7          12103 	.dw	0,4855
+      000759 50 57 4D 31 4C       12104 	.ascii "PWM1L"
+      00075E 00                   12105 	.db	0
+      00075F 00 00 13 09          12106 	.dw	0,4873
+      000763 50 57 4D 32 4C       12107 	.ascii "PWM2L"
+      000768 00                   12108 	.db	0
+      000769 00 00 13 1B          12109 	.dw	0,4891
+      00076D 50 57 4D 33 4C       12110 	.ascii "PWM3L"
+      000772 00                   12111 	.db	0
+      000773 00 00 13 2D          12112 	.dw	0,4909
+      000777 50 49 4F 43 4F 4E 30 12113 	.ascii "PIOCON0"
+      00077E 00                   12114 	.db	0
+      00077F 00 00 13 41          12115 	.dw	0,4929
+      000783 50 57 4D 43 4F 4E 31 12116 	.ascii "PWMCON1"
+      00078A 00                   12117 	.db	0
+      00078B 00 00 13 55          12118 	.dw	0,4949
+      00078F 41 43 43             12119 	.ascii "ACC"
+      000792 00                   12120 	.db	0
+      000793 00 00 13 65          12121 	.dw	0,4965
+      000797 41 44 43 43 4F 4E 31 12122 	.ascii "ADCCON1"
+      00079E 00                   12123 	.db	0
+      00079F 00 00 13 79          12124 	.dw	0,4985
+      0007A3 41 44 43 43 4F 4E 32 12125 	.ascii "ADCCON2"
+      0007AA 00                   12126 	.db	0
+      0007AB 00 00 13 8D          12127 	.dw	0,5005
+      0007AF 41 44 43 44 4C 59    12128 	.ascii "ADCDLY"
+      0007B5 00                   12129 	.db	0
+      0007B6 00 00 13 A0          12130 	.dw	0,5024
+      0007BA 43 30 4C             12131 	.ascii "C0L"
+      0007BD 00                   12132 	.db	0
+      0007BE 00 00 13 B0          12133 	.dw	0,5040
+      0007C2 43 30 48             12134 	.ascii "C0H"
+      0007C5 00                   12135 	.db	0
+      0007C6 00 00 13 C0          12136 	.dw	0,5056
+      0007CA 43 31 4C             12137 	.ascii "C1L"
+      0007CD 00                   12138 	.db	0
+      0007CE 00 00 13 D0          12139 	.dw	0,5072
+      0007D2 43 31 48             12140 	.ascii "C1H"
+      0007D5 00                   12141 	.db	0
+      0007D6 00 00 13 E0          12142 	.dw	0,5088
+      0007DA 41 44 43 43 4F 4E 30 12143 	.ascii "ADCCON0"
+      0007E1 00                   12144 	.db	0
+      0007E2 00 00 13 F4          12145 	.dw	0,5108
+      0007E6 50 49 43 4F 4E       12146 	.ascii "PICON"
+      0007EB 00                   12147 	.db	0
+      0007EC 00 00 14 06          12148 	.dw	0,5126
+      0007F0 50 49 4E 45 4E       12149 	.ascii "PINEN"
+      0007F5 00                   12150 	.db	0
+      0007F6 00 00 14 18          12151 	.dw	0,5144
+      0007FA 50 49 50 45 4E       12152 	.ascii "PIPEN"
+      0007FF 00                   12153 	.db	0
+      000800 00 00 14 2A          12154 	.dw	0,5162
+      000804 50 49 46             12155 	.ascii "PIF"
+      000807 00                   12156 	.db	0
+      000808 00 00 14 3A          12157 	.dw	0,5178
+      00080C 43 32 4C             12158 	.ascii "C2L"
+      00080F 00                   12159 	.db	0
+      000810 00 00 14 4A          12160 	.dw	0,5194
+      000814 43 32 48             12161 	.ascii "C2H"
+      000817 00                   12162 	.db	0
+      000818 00 00 14 5A          12163 	.dw	0,5210
+      00081C 45 49 50             12164 	.ascii "EIP"
+      00081F 00                   12165 	.db	0
+      000820 00 00 14 6A          12166 	.dw	0,5226
+      000824 42                   12167 	.ascii "B"
+      000825 00                   12168 	.db	0
+      000826 00 00 14 78          12169 	.dw	0,5240
+      00082A 43 41 50 43 4F 4E 33 12170 	.ascii "CAPCON3"
+      000831 00                   12171 	.db	0
+      000832 00 00 14 8C          12172 	.dw	0,5260
+      000836 43 41 50 43 4F 4E 34 12173 	.ascii "CAPCON4"
+      00083D 00                   12174 	.db	0
+      00083E 00 00 14 A0          12175 	.dw	0,5280
+      000842 53 50 43 52          12176 	.ascii "SPCR"
+      000846 00                   12177 	.db	0
+      000847 00 00 14 B1          12178 	.dw	0,5297
+      00084B 53 50 43 52 32       12179 	.ascii "SPCR2"
+      000850 00                   12180 	.db	0
+      000851 00 00 14 C3          12181 	.dw	0,5315
+      000855 53 50 53 52          12182 	.ascii "SPSR"
+      000859 00                   12183 	.db	0
+      00085A 00 00 14 D4          12184 	.dw	0,5332
+      00085E 53 50 44 52          12185 	.ascii "SPDR"
+      000862 00                   12186 	.db	0
+      000863 00 00 14 E5          12187 	.dw	0,5349
+      000867 41 49 4E 44 49 44 53 12188 	.ascii "AINDIDS"
+      00086E 00                   12189 	.db	0
+      00086F 00 00 14 F9          12190 	.dw	0,5369
+      000873 45 49 50 48          12191 	.ascii "EIPH"
+      000877 00                   12192 	.db	0
+      000878 00 00 15 0A          12193 	.dw	0,5386
+      00087C 53 43 4F 4E 5F 31    12194 	.ascii "SCON_1"
+      000882 00                   12195 	.db	0
+      000883 00 00 15 1D          12196 	.dw	0,5405
+      000887 50 44 54 45 4E       12197 	.ascii "PDTEN"
+      00088C 00                   12198 	.db	0
+      00088D 00 00 15 2F          12199 	.dw	0,5423
+      000891 50 44 54 43 4E 54    12200 	.ascii "PDTCNT"
+      000897 00                   12201 	.db	0
+      000898 00 00 15 42          12202 	.dw	0,5442
+      00089C 50 4D 45 4E          12203 	.ascii "PMEN"
+      0008A0 00                   12204 	.db	0
+      0008A1 00 00 15 53          12205 	.dw	0,5459
+      0008A5 50 4D 44             12206 	.ascii "PMD"
+      0008A8 00                   12207 	.db	0
+      0008A9 00 00 15 63          12208 	.dw	0,5475
+      0008AD 45 49 50 31          12209 	.ascii "EIP1"
+      0008B1 00                   12210 	.db	0
+      0008B2 00 00 15 74          12211 	.dw	0,5492
+      0008B6 45 49 50 48 31       12212 	.ascii "EIPH1"
+      0008BB 00                   12213 	.db	0
+      0008BC 00 00 15 94          12214 	.dw	0,5524
+      0008C0 53 4D 30 5F 31       12215 	.ascii "SM0_1"
+      0008C5 00                   12216 	.db	0
+      0008C6 00 00 15 A6          12217 	.dw	0,5542
+      0008CA 46 45 5F 31          12218 	.ascii "FE_1"
+      0008CE 00                   12219 	.db	0
+      0008CF 00 00 15 B7          12220 	.dw	0,5559
+      0008D3 53 4D 31 5F 31       12221 	.ascii "SM1_1"
+      0008D8 00                   12222 	.db	0
+      0008D9 00 00 15 C9          12223 	.dw	0,5577
+      0008DD 53 4D 32 5F 31       12224 	.ascii "SM2_1"
+      0008E2 00                   12225 	.db	0
+      0008E3 00 00 15 DB          12226 	.dw	0,5595
+      0008E7 52 45 4E 5F 31       12227 	.ascii "REN_1"
+      0008EC 00                   12228 	.db	0
+      0008ED 00 00 15 ED          12229 	.dw	0,5613
+      0008F1 54 42 38 5F 31       12230 	.ascii "TB8_1"
+      0008F6 00                   12231 	.db	0
+      0008F7 00 00 15 FF          12232 	.dw	0,5631
+      0008FB 52 42 38 5F 31       12233 	.ascii "RB8_1"
+      000900 00                   12234 	.db	0
+      000901 00 00 16 11          12235 	.dw	0,5649
+      000905 54 49 5F 31          12236 	.ascii "TI_1"
+      000909 00                   12237 	.db	0
+      00090A 00 00 16 22          12238 	.dw	0,5666
+      00090E 52 49 5F 31          12239 	.ascii "RI_1"
+      000912 00                   12240 	.db	0
+      000913 00 00 16 33          12241 	.dw	0,5683
+      000917 41 44 43 46          12242 	.ascii "ADCF"
+      00091B 00                   12243 	.db	0
+      00091C 00 00 16 44          12244 	.dw	0,5700
+      000920 41 44 43 53          12245 	.ascii "ADCS"
+      000924 00                   12246 	.db	0
+      000925 00 00 16 55          12247 	.dw	0,5717
+      000929 45 54 47 53 45 4C 31 12248 	.ascii "ETGSEL1"
+      000930 00                   12249 	.db	0
+      000931 00 00 16 69          12250 	.dw	0,5737
+      000935 45 54 47 53 45 4C 30 12251 	.ascii "ETGSEL0"
+      00093C 00                   12252 	.db	0
+      00093D 00 00 16 7D          12253 	.dw	0,5757
+      000941 41 44 43 48 53 33    12254 	.ascii "ADCHS3"
+      000947 00                   12255 	.db	0
+      000948 00 00 16 90          12256 	.dw	0,5776
+      00094C 41 44 43 48 53 32    12257 	.ascii "ADCHS2"
+      000952 00                   12258 	.db	0
+      000953 00 00 16 A3          12259 	.dw	0,5795
+      000957 41 44 43 48 53 31    12260 	.ascii "ADCHS1"
+      00095D 00                   12261 	.db	0
+      00095E 00 00 16 B6          12262 	.dw	0,5814
+      000962 41 44 43 48 53 30    12263 	.ascii "ADCHS0"
+      000968 00                   12264 	.db	0
+      000969 00 00 16 C9          12265 	.dw	0,5833
+      00096D 50 57 4D 52 55 4E    12266 	.ascii "PWMRUN"
+      000973 00                   12267 	.db	0
+      000974 00 00 16 DC          12268 	.dw	0,5852
+      000978 4C 4F 41 44          12269 	.ascii "LOAD"
+      00097C 00                   12270 	.db	0
+      00097D 00 00 16 ED          12271 	.dw	0,5869
+      000981 50 57 4D 46          12272 	.ascii "PWMF"
+      000985 00                   12273 	.db	0
+      000986 00 00 16 FE          12274 	.dw	0,5886
+      00098A 43 4C 52 50 57 4D    12275 	.ascii "CLRPWM"
+      000990 00                   12276 	.db	0
+      000991 00 00 17 11          12277 	.dw	0,5905
+      000995 43 59                12278 	.ascii "CY"
+      000997 00                   12279 	.db	0
+      000998 00 00 17 20          12280 	.dw	0,5920
+      00099C 41 43                12281 	.ascii "AC"
+      00099E 00                   12282 	.db	0
+      00099F 00 00 17 2F          12283 	.dw	0,5935
+      0009A3 46 30                12284 	.ascii "F0"
+      0009A5 00                   12285 	.db	0
+      0009A6 00 00 17 3E          12286 	.dw	0,5950
+      0009AA 52 53 31             12287 	.ascii "RS1"
+      0009AD 00                   12288 	.db	0
+      0009AE 00 00 17 4E          12289 	.dw	0,5966
+      0009B2 52 53 30             12290 	.ascii "RS0"
+      0009B5 00                   12291 	.db	0
+      0009B6 00 00 17 5E          12292 	.dw	0,5982
+      0009BA 4F 56                12293 	.ascii "OV"
+      0009BC 00                   12294 	.db	0
+      0009BD 00 00 17 6D          12295 	.dw	0,5997
+      0009C1 50                   12296 	.ascii "P"
+      0009C2 00                   12297 	.db	0
+      0009C3 00 00 17 7B          12298 	.dw	0,6011
+      0009C7 54 46 32             12299 	.ascii "TF2"
+      0009CA 00                   12300 	.db	0
+      0009CB 00 00 17 8B          12301 	.dw	0,6027
+      0009CF 54 52 32             12302 	.ascii "TR2"
+      0009D2 00                   12303 	.db	0
+      0009D3 00 00 17 9B          12304 	.dw	0,6043
+      0009D7 43 4D 5F 52 4C 32    12305 	.ascii "CM_RL2"
+      0009DD 00                   12306 	.db	0
+      0009DE 00 00 17 AE          12307 	.dw	0,6062
+      0009E2 49 32 43 45 4E       12308 	.ascii "I2CEN"
+      0009E7 00                   12309 	.db	0
+      0009E8 00 00 17 C0          12310 	.dw	0,6080
+      0009EC 53 54 41             12311 	.ascii "STA"
+      0009EF 00                   12312 	.db	0
+      0009F0 00 00 17 D0          12313 	.dw	0,6096
+      0009F4 53 54 4F             12314 	.ascii "STO"
+      0009F7 00                   12315 	.db	0
+      0009F8 00 00 17 E0          12316 	.dw	0,6112
+      0009FC 53 49                12317 	.ascii "SI"
+      0009FE 00                   12318 	.db	0
+      0009FF 00 00 17 EF          12319 	.dw	0,6127
+      000A03 41 41                12320 	.ascii "AA"
+      000A05 00                   12321 	.db	0
+      000A06 00 00 17 FE          12322 	.dw	0,6142
+      000A0A 49 32 43 50 58       12323 	.ascii "I2CPX"
+      000A0F 00                   12324 	.db	0
+      000A10 00 00 18 10          12325 	.dw	0,6160
+      000A14 50 41 44 43          12326 	.ascii "PADC"
+      000A18 00                   12327 	.db	0
+      000A19 00 00 18 21          12328 	.dw	0,6177
+      000A1D 50 42 4F 44          12329 	.ascii "PBOD"
+      000A21 00                   12330 	.db	0
+      000A22 00 00 18 32          12331 	.dw	0,6194
+      000A26 50 53                12332 	.ascii "PS"
+      000A28 00                   12333 	.db	0
+      000A29 00 00 18 41          12334 	.dw	0,6209
+      000A2D 50 54 31             12335 	.ascii "PT1"
+      000A30 00                   12336 	.db	0
+      000A31 00 00 18 51          12337 	.dw	0,6225
+      000A35 50 58 31             12338 	.ascii "PX1"
+      000A38 00                   12339 	.db	0
+      000A39 00 00 18 61          12340 	.dw	0,6241
+      000A3D 50 54 30             12341 	.ascii "PT0"
+      000A40 00                   12342 	.db	0
+      000A41 00 00 18 71          12343 	.dw	0,6257
+      000A45 50 58 30             12344 	.ascii "PX0"
+      000A48 00                   12345 	.db	0
+      000A49 00 00 18 81          12346 	.dw	0,6273
+      000A4D 50 33 30             12347 	.ascii "P30"
+      000A50 00                   12348 	.db	0
+      000A51 00 00 18 91          12349 	.dw	0,6289
+      000A55 45 41                12350 	.ascii "EA"
+      000A57 00                   12351 	.db	0
+      000A58 00 00 18 A0          12352 	.dw	0,6304
+      000A5C 45 41 44 43          12353 	.ascii "EADC"
+      000A60 00                   12354 	.db	0
+      000A61 00 00 18 B1          12355 	.dw	0,6321
+      000A65 45 42 4F 44          12356 	.ascii "EBOD"
+      000A69 00                   12357 	.db	0
+      000A6A 00 00 18 C2          12358 	.dw	0,6338
+      000A6E 45 53                12359 	.ascii "ES"
+      000A70 00                   12360 	.db	0
+      000A71 00 00 18 D1          12361 	.dw	0,6353
+      000A75 45 54 31             12362 	.ascii "ET1"
+      000A78 00                   12363 	.db	0
+      000A79 00 00 18 E1          12364 	.dw	0,6369
+      000A7D 45 58 31             12365 	.ascii "EX1"
+      000A80 00                   12366 	.db	0
+      000A81 00 00 18 F1          12367 	.dw	0,6385
+      000A85 45 54 30             12368 	.ascii "ET0"
+      000A88 00                   12369 	.db	0
+      000A89 00 00 19 01          12370 	.dw	0,6401
+      000A8D 45 58 30             12371 	.ascii "EX0"
+      000A90 00                   12372 	.db	0
+      000A91 00 00 19 11          12373 	.dw	0,6417
+      000A95 50 32 30             12374 	.ascii "P20"
+      000A98 00                   12375 	.db	0
+      000A99 00 00 19 21          12376 	.dw	0,6433
+      000A9D 53 4D 30             12377 	.ascii "SM0"
+      000AA0 00                   12378 	.db	0
+      000AA1 00 00 19 31          12379 	.dw	0,6449
+      000AA5 46 45                12380 	.ascii "FE"
+      000AA7 00                   12381 	.db	0
+      000AA8 00 00 19 40          12382 	.dw	0,6464
+      000AAC 53 4D 31             12383 	.ascii "SM1"
+      000AAF 00                   12384 	.db	0
+      000AB0 00 00 19 50          12385 	.dw	0,6480
+      000AB4 53 4D 32             12386 	.ascii "SM2"
+      000AB7 00                   12387 	.db	0
+      000AB8 00 00 19 60          12388 	.dw	0,6496
+      000ABC 52 45 4E             12389 	.ascii "REN"
+      000ABF 00                   12390 	.db	0
+      000AC0 00 00 19 70          12391 	.dw	0,6512
+      000AC4 54 42 38             12392 	.ascii "TB8"
+      000AC7 00                   12393 	.db	0
+      000AC8 00 00 19 80          12394 	.dw	0,6528
+      000ACC 52 42 38             12395 	.ascii "RB8"
+      000ACF 00                   12396 	.db	0
+      000AD0 00 00 19 90          12397 	.dw	0,6544
+      000AD4 54 49                12398 	.ascii "TI"
+      000AD6 00                   12399 	.db	0
+      000AD7 00 00 19 9F          12400 	.dw	0,6559
+      000ADB 52 49                12401 	.ascii "RI"
+      000ADD 00                   12402 	.db	0
+      000ADE 00 00 19 AE          12403 	.dw	0,6574
+      000AE2 50 31 37             12404 	.ascii "P17"
+      000AE5 00                   12405 	.db	0
+      000AE6 00 00 19 BE          12406 	.dw	0,6590
+      000AEA 50 31 36             12407 	.ascii "P16"
+      000AED 00                   12408 	.db	0
+      000AEE 00 00 19 CE          12409 	.dw	0,6606
+      000AF2 54 58 44 5F 31       12410 	.ascii "TXD_1"
+      000AF7 00                   12411 	.db	0
+      000AF8 00 00 19 E0          12412 	.dw	0,6624
+      000AFC 50 31 35             12413 	.ascii "P15"
+      000AFF 00                   12414 	.db	0
+      000B00 00 00 19 F0          12415 	.dw	0,6640
+      000B04 50 31 34             12416 	.ascii "P14"
+      000B07 00                   12417 	.db	0
+      000B08 00 00 1A 00          12418 	.dw	0,6656
+      000B0C 53 44 41             12419 	.ascii "SDA"
+      000B0F 00                   12420 	.db	0
+      000B10 00 00 1A 10          12421 	.dw	0,6672
+      000B14 50 31 33             12422 	.ascii "P13"
+      000B17 00                   12423 	.db	0
+      000B18 00 00 1A 20          12424 	.dw	0,6688
+      000B1C 53 43 4C             12425 	.ascii "SCL"
+      000B1F 00                   12426 	.db	0
+      000B20 00 00 1A 30          12427 	.dw	0,6704
+      000B24 50 31 32             12428 	.ascii "P12"
+      000B27 00                   12429 	.db	0
+      000B28 00 00 1A 40          12430 	.dw	0,6720
+      000B2C 50 31 31             12431 	.ascii "P11"
+      000B2F 00                   12432 	.db	0
+      000B30 00 00 1A 50          12433 	.dw	0,6736
+      000B34 50 31 30             12434 	.ascii "P10"
+      000B37 00                   12435 	.db	0
+      000B38 00 00 1A 60          12436 	.dw	0,6752
+      000B3C 54 46 31             12437 	.ascii "TF1"
+      000B3F 00                   12438 	.db	0
+      000B40 00 00 1A 70          12439 	.dw	0,6768
+      000B44 54 52 31             12440 	.ascii "TR1"
+      000B47 00                   12441 	.db	0
+      000B48 00 00 1A 80          12442 	.dw	0,6784
+      000B4C 54 46 30             12443 	.ascii "TF0"
+      000B4F 00                   12444 	.db	0
+      000B50 00 00 1A 90          12445 	.dw	0,6800
+      000B54 54 52 30             12446 	.ascii "TR0"
+      000B57 00                   12447 	.db	0
+      000B58 00 00 1A A0          12448 	.dw	0,6816
+      000B5C 49 45 31             12449 	.ascii "IE1"
+      000B5F 00                   12450 	.db	0
+      000B60 00 00 1A B0          12451 	.dw	0,6832
+      000B64 49 54 31             12452 	.ascii "IT1"
+      000B67 00                   12453 	.db	0
+      000B68 00 00 1A C0          12454 	.dw	0,6848
+      000B6C 49 45 30             12455 	.ascii "IE0"
+      000B6F 00                   12456 	.db	0
+      000B70 00 00 1A D0          12457 	.dw	0,6864
+      000B74 49 54 30             12458 	.ascii "IT0"
+      000B77 00                   12459 	.db	0
+      000B78 00 00 1A E0          12460 	.dw	0,6880
+      000B7C 50 30 37             12461 	.ascii "P07"
+      000B7F 00                   12462 	.db	0
+      000B80 00 00 1A F0          12463 	.dw	0,6896
+      000B84 52 58 44             12464 	.ascii "RXD"
+      000B87 00                   12465 	.db	0
+      000B88 00 00 1B 00          12466 	.dw	0,6912
+      000B8C 50 30 36             12467 	.ascii "P06"
+      000B8F 00                   12468 	.db	0
+      000B90 00 00 1B 10          12469 	.dw	0,6928
+      000B94 54 58 44             12470 	.ascii "TXD"
+      000B97 00                   12471 	.db	0
+      000B98 00 00 1B 20          12472 	.dw	0,6944
+      000B9C 50 30 35             12473 	.ascii "P05"
+      000B9F 00                   12474 	.db	0
+      000BA0 00 00 1B 30          12475 	.dw	0,6960
+      000BA4 50 30 34             12476 	.ascii "P04"
+      000BA7 00                   12477 	.db	0
+      000BA8 00 00 1B 40          12478 	.dw	0,6976
+      000BAC 53 54 41 44 43       12479 	.ascii "STADC"
+      000BB1 00                   12480 	.db	0
+      000BB2 00 00 1B 52          12481 	.dw	0,6994
+      000BB6 50 30 33             12482 	.ascii "P03"
+      000BB9 00                   12483 	.db	0
+      000BBA 00 00 1B 62          12484 	.dw	0,7010
+      000BBE 50 30 32             12485 	.ascii "P02"
+      000BC1 00                   12486 	.db	0
+      000BC2 00 00 1B 72          12487 	.dw	0,7026
+      000BC6 52 58 44 5F 31       12488 	.ascii "RXD_1"
+      000BCB 00                   12489 	.db	0
+      000BCC 00 00 1B 84          12490 	.dw	0,7044
+      000BD0 50 30 31             12491 	.ascii "P01"
+      000BD3 00                   12492 	.db	0
+      000BD4 00 00 1B 94          12493 	.dw	0,7060
+      000BD8 4D 49 53 4F          12494 	.ascii "MISO"
+      000BDC 00                   12495 	.db	0
+      000BDD 00 00 1B A5          12496 	.dw	0,7077
+      000BE1 50 30 30             12497 	.ascii "P00"
+      000BE4 00                   12498 	.db	0
+      000BE5 00 00 1B B5          12499 	.dw	0,7093
+      000BE9 4D 4F 53 49          12500 	.ascii "MOSI"
+      000BED 00                   12501 	.db	0
+      000BEE 00 00 1B E5          12502 	.dw	0,7141
+      000BF2 6D 61 78 5F 61 6D 70 12503 	.ascii "max_amp"
+      000BF9 00                   12504 	.db	0
+      000BFA 00 00 1B F9          12505 	.dw	0,7161
+      000BFE 6D 69 6E 5F 61 6D 70 12506 	.ascii "min_amp"
+      000C05 00                   12507 	.db	0
+      000C06 00 00 1C 1A          12508 	.dw	0,7194
+      000C0A 66 6C 61 73 68 69 6E 12509 	.ascii "flashing"
+             67
+      000C12 00                   12510 	.db	0
+      000C13 00 00 1C 2F          12511 	.dw	0,7215
+      000C17 74 65 6D 70 5F 63 6F 12512 	.ascii "temp_controlling"
+             6E 74 72 6F 6C 6C 69
+             6E 67
+      000C27 00                   12513 	.db	0
+      000C28 00 00 1C 4C          12514 	.dw	0,7244
+      000C2C 6E 65 78 74 5F 6D 6F 12515 	.ascii "next_mode"
+             64 65
+      000C35 00                   12516 	.db	0
+      000C36 00 00 00 00          12517 	.dw	0,0
+      000C3A                      12518 Ldebug_pubnames_end:
+                                  12519 
+                                  12520 	.area .debug_frame (NOLOAD)
+      000000 00 00                12521 	.dw	0
+      000002 00 10                12522 	.dw	Ldebug_CIE0_end-Ldebug_CIE0_start
+      000004                      12523 Ldebug_CIE0_start:
+      000004 FF FF                12524 	.dw	0xffff
+      000006 FF FF                12525 	.dw	0xffff
+      000008 01                   12526 	.db	1
+      000009 00                   12527 	.db	0
+      00000A 01                   12528 	.uleb128	1
+      00000B 01                   12529 	.sleb128	1
+      00000C 09                   12530 	.db	9
+      00000D 0C                   12531 	.db	12
+      00000E 16                   12532 	.uleb128	22
+      00000F 02                   12533 	.uleb128	2
+      000010 89                   12534 	.db	137
+      000011 01                   12535 	.uleb128	1
+      000012 00                   12536 	.db	0
+      000013 00                   12537 	.db	0
+      000014                      12538 Ldebug_CIE0_end:
+      000014 00 00 00 14          12539 	.dw	0,20
+      000018 00 00 00 00          12540 	.dw	0,(Ldebug_CIE0_start-4)
+      00001C 00 00 12 BC          12541 	.dw	0,(Smain$main$586)	;initial loc
+      000020 00 00 01 BD          12542 	.dw	0,Smain$main$659-Smain$main$586
+      000024 01                   12543 	.db	1
+      000025 00 00 12 BC          12544 	.dw	0,(Smain$main$586)
+      000029 0E                   12545 	.db	14
+      00002A 02                   12546 	.uleb128	2
+      00002B 00                   12547 	.db	0
+                                  12548 
+                                  12549 	.area .debug_frame (NOLOAD)
+      00002C 00 00                12550 	.dw	0
+      00002E 00 10                12551 	.dw	Ldebug_CIE1_end-Ldebug_CIE1_start
+      000030                      12552 Ldebug_CIE1_start:
+      000030 FF FF                12553 	.dw	0xffff
+      000032 FF FF                12554 	.dw	0xffff
+      000034 01                   12555 	.db	1
+      000035 00                   12556 	.db	0
+      000036 01                   12557 	.uleb128	1
+      000037 01                   12558 	.sleb128	1
+      000038 09                   12559 	.db	9
+      000039 0C                   12560 	.db	12
+      00003A 16                   12561 	.uleb128	22
+      00003B 02                   12562 	.uleb128	2
+      00003C 89                   12563 	.db	137
+      00003D 01                   12564 	.uleb128	1
+      00003E 00                   12565 	.db	0
+      00003F 00                   12566 	.db	0
+      000040                      12567 Ldebug_CIE1_end:
+      000040 00 00 00 14          12568 	.dw	0,20
+      000044 00 00 00 2C          12569 	.dw	0,(Ldebug_CIE1_start-4)
+      000048 00 00 12 A3          12570 	.dw	0,(Smain$wdt_clear$574)	;initial loc
+      00004C 00 00 00 19          12571 	.dw	0,Smain$wdt_clear$584-Smain$wdt_clear$574
+      000050 01                   12572 	.db	1
+      000051 00 00 12 A3          12573 	.dw	0,(Smain$wdt_clear$574)
+      000055 0E                   12574 	.db	14
+      000056 02                   12575 	.uleb128	2
+      000057 00                   12576 	.db	0
+                                  12577 
+                                  12578 	.area .debug_frame (NOLOAD)
+      000058 00 00                12579 	.dw	0
+      00005A 00 10                12580 	.dw	Ldebug_CIE2_end-Ldebug_CIE2_start
+      00005C                      12581 Ldebug_CIE2_start:
+      00005C FF FF                12582 	.dw	0xffff
+      00005E FF FF                12583 	.dw	0xffff
+      000060 01                   12584 	.db	1
+      000061 00                   12585 	.db	0
+      000062 01                   12586 	.uleb128	1
+      000063 01                   12587 	.sleb128	1
+      000064 09                   12588 	.db	9
+      000065 0C                   12589 	.db	12
+      000066 16                   12590 	.uleb128	22
+      000067 02                   12591 	.uleb128	2
+      000068 89                   12592 	.db	137
+      000069 01                   12593 	.uleb128	1
+      00006A 00                   12594 	.db	0
+      00006B 00                   12595 	.db	0
+      00006C                      12596 Ldebug_CIE2_end:
+      00006C 00 00 00 14          12597 	.dw	0,20
+      000070 00 00 00 58          12598 	.dw	0,(Ldebug_CIE2_start-4)
+      000074 00 00 12 5A          12599 	.dw	0,(Smain$wdt_init$556)	;initial loc
+      000078 00 00 00 49          12600 	.dw	0,Smain$wdt_init$572-Smain$wdt_init$556
+      00007C 01                   12601 	.db	1
+      00007D 00 00 12 5A          12602 	.dw	0,(Smain$wdt_init$556)
+      000081 0E                   12603 	.db	14
+      000082 02                   12604 	.uleb128	2
+      000083 00                   12605 	.db	0
+                                  12606 
+                                  12607 	.area .debug_frame (NOLOAD)
+      000084 00 00                12608 	.dw	0
+      000086 00 10                12609 	.dw	Ldebug_CIE3_end-Ldebug_CIE3_start
+      000088                      12610 Ldebug_CIE3_start:
+      000088 FF FF                12611 	.dw	0xffff
+      00008A FF FF                12612 	.dw	0xffff
+      00008C 01                   12613 	.db	1
+      00008D 00                   12614 	.db	0
+      00008E 01                   12615 	.uleb128	1
+      00008F 01                   12616 	.sleb128	1
+      000090 09                   12617 	.db	9
+      000091 0C                   12618 	.db	12
+      000092 16                   12619 	.uleb128	22
+      000093 02                   12620 	.uleb128	2
+      000094 89                   12621 	.db	137
+      000095 01                   12622 	.uleb128	1
+      000096 00                   12623 	.db	0
+      000097 00                   12624 	.db	0
+      000098                      12625 Ldebug_CIE3_end:
+      000098 00 00 00 14          12626 	.dw	0,20
+      00009C 00 00 00 84          12627 	.dw	0,(Ldebug_CIE3_start-4)
+      0000A0 00 00 11 69          12628 	.dw	0,(Smain$control_loop$518)	;initial loc
+      0000A4 00 00 00 F1          12629 	.dw	0,Smain$control_loop$554-Smain$control_loop$518
+      0000A8 01                   12630 	.db	1
+      0000A9 00 00 11 69          12631 	.dw	0,(Smain$control_loop$518)
+      0000AD 0E                   12632 	.db	14
+      0000AE 02                   12633 	.uleb128	2
+      0000AF 00                   12634 	.db	0
+                                  12635 
+                                  12636 	.area .debug_frame (NOLOAD)
+      0000B0 00 00                12637 	.dw	0
+      0000B2 00 10                12638 	.dw	Ldebug_CIE4_end-Ldebug_CIE4_start
+      0000B4                      12639 Ldebug_CIE4_start:
+      0000B4 FF FF                12640 	.dw	0xffff
+      0000B6 FF FF                12641 	.dw	0xffff
+      0000B8 01                   12642 	.db	1
+      0000B9 00                   12643 	.db	0
+      0000BA 01                   12644 	.uleb128	1
+      0000BB 01                   12645 	.sleb128	1
+      0000BC 09                   12646 	.db	9
+      0000BD 0C                   12647 	.db	12
+      0000BE 16                   12648 	.uleb128	22
+      0000BF 02                   12649 	.uleb128	2
+      0000C0 89                   12650 	.db	137
+      0000C1 01                   12651 	.uleb128	1
+      0000C2 00                   12652 	.db	0
+      0000C3 00                   12653 	.db	0
+      0000C4                      12654 Ldebug_CIE4_end:
+      0000C4 00 00 00 14          12655 	.dw	0,20
+      0000C8 00 00 00 B0          12656 	.dw	0,(Ldebug_CIE4_start-4)
+      0000CC 00 00 10 46          12657 	.dw	0,(Smain$mode_stable_control$492)	;initial loc
+      0000D0 00 00 01 23          12658 	.dw	0,Smain$mode_stable_control$516-Smain$mode_stable_control$492
+      0000D4 01                   12659 	.db	1
+      0000D5 00 00 10 46          12660 	.dw	0,(Smain$mode_stable_control$492)
+      0000D9 0E                   12661 	.db	14
+      0000DA 02                   12662 	.uleb128	2
+      0000DB 00                   12663 	.db	0
+                                  12664 
+                                  12665 	.area .debug_frame (NOLOAD)
+      0000DC 00 00                12666 	.dw	0
+      0000DE 00 10                12667 	.dw	Ldebug_CIE5_end-Ldebug_CIE5_start
+      0000E0                      12668 Ldebug_CIE5_start:
+      0000E0 FF FF                12669 	.dw	0xffff
+      0000E2 FF FF                12670 	.dw	0xffff
+      0000E4 01                   12671 	.db	1
+      0000E5 00                   12672 	.db	0
+      0000E6 01                   12673 	.uleb128	1
+      0000E7 01                   12674 	.sleb128	1
+      0000E8 09                   12675 	.db	9
+      0000E9 0C                   12676 	.db	12
+      0000EA 16                   12677 	.uleb128	22
+      0000EB 02                   12678 	.uleb128	2
+      0000EC 89                   12679 	.db	137
+      0000ED 01                   12680 	.uleb128	1
+      0000EE 00                   12681 	.db	0
+      0000EF 00                   12682 	.db	0
+      0000F0                      12683 Ldebug_CIE5_end:
+      0000F0 00 00 00 14          12684 	.dw	0,20
+      0000F4 00 00 00 DC          12685 	.dw	0,(Ldebug_CIE5_start-4)
+      0000F8 00 00 10 18          12686 	.dw	0,(Smain$is_stable$478)	;initial loc
+      0000FC 00 00 00 2E          12687 	.dw	0,Smain$is_stable$490-Smain$is_stable$478
+      000100 01                   12688 	.db	1
+      000101 00 00 10 18          12689 	.dw	0,(Smain$is_stable$478)
+      000105 0E                   12690 	.db	14
+      000106 02                   12691 	.uleb128	2
+      000107 00                   12692 	.db	0
+                                  12693 
+                                  12694 	.area .debug_frame (NOLOAD)
+      000108 00 00                12695 	.dw	0
+      00010A 00 10                12696 	.dw	Ldebug_CIE6_end-Ldebug_CIE6_start
+      00010C                      12697 Ldebug_CIE6_start:
+      00010C FF FF                12698 	.dw	0xffff
+      00010E FF FF                12699 	.dw	0xffff
+      000110 01                   12700 	.db	1
+      000111 00                   12701 	.db	0
+      000112 01                   12702 	.uleb128	1
+      000113 01                   12703 	.sleb128	1
+      000114 09                   12704 	.db	9
+      000115 0C                   12705 	.db	12
+      000116 16                   12706 	.uleb128	22
+      000117 02                   12707 	.uleb128	2
+      000118 89                   12708 	.db	137
+      000119 01                   12709 	.uleb128	1
+      00011A 00                   12710 	.db	0
+      00011B 00                   12711 	.db	0
+      00011C                      12712 Ldebug_CIE6_end:
+      00011C 00 00 00 14          12713 	.dw	0,20
+      000120 00 00 01 08          12714 	.dw	0,(Ldebug_CIE6_start-4)
+      000124 00 00 0D FB          12715 	.dw	0,(Smain$mode_changing_control$400)	;initial loc
+      000128 00 00 02 1D          12716 	.dw	0,Smain$mode_changing_control$476-Smain$mode_changing_control$400
+      00012C 01                   12717 	.db	1
+      00012D 00 00 0D FB          12718 	.dw	0,(Smain$mode_changing_control$400)
+      000131 0E                   12719 	.db	14
+      000132 02                   12720 	.uleb128	2
+      000133 00                   12721 	.db	0
+                                  12722 
+                                  12723 	.area .debug_frame (NOLOAD)
+      000134 00 00                12724 	.dw	0
+      000136 00 10                12725 	.dw	Ldebug_CIE7_end-Ldebug_CIE7_start
+      000138                      12726 Ldebug_CIE7_start:
+      000138 FF FF                12727 	.dw	0xffff
+      00013A FF FF                12728 	.dw	0xffff
+      00013C 01                   12729 	.db	1
+      00013D 00                   12730 	.db	0
+      00013E 01                   12731 	.uleb128	1
+      00013F 01                   12732 	.sleb128	1
+      000140 09                   12733 	.db	9
+      000141 0C                   12734 	.db	12
+      000142 16                   12735 	.uleb128	22
+      000143 02                   12736 	.uleb128	2
+      000144 89                   12737 	.db	137
+      000145 01                   12738 	.uleb128	1
+      000146 00                   12739 	.db	0
+      000147 00                   12740 	.db	0
+      000148                      12741 Ldebug_CIE7_end:
+      000148 00 00 00 14          12742 	.dw	0,20
+      00014C 00 00 01 34          12743 	.dw	0,(Ldebug_CIE7_start-4)
+      000150 00 00 0D C4          12744 	.dw	0,(Smain$activate_leds$389)	;initial loc
+      000154 00 00 00 37          12745 	.dw	0,Smain$activate_leds$398-Smain$activate_leds$389
+      000158 01                   12746 	.db	1
+      000159 00 00 0D C4          12747 	.dw	0,(Smain$activate_leds$389)
+      00015D 0E                   12748 	.db	14
+      00015E 02                   12749 	.uleb128	2
+      00015F 00                   12750 	.db	0
+                                  12751 
+                                  12752 	.area .debug_frame (NOLOAD)
+      000160 00 00                12753 	.dw	0
+      000162 00 10                12754 	.dw	Ldebug_CIE8_end-Ldebug_CIE8_start
+      000164                      12755 Ldebug_CIE8_start:
+      000164 FF FF                12756 	.dw	0xffff
+      000166 FF FF                12757 	.dw	0xffff
+      000168 01                   12758 	.db	1
+      000169 00                   12759 	.db	0
+      00016A 01                   12760 	.uleb128	1
+      00016B 01                   12761 	.sleb128	1
+      00016C 09                   12762 	.db	9
+      00016D 0C                   12763 	.db	12
+      00016E 16                   12764 	.uleb128	22
+      00016F 02                   12765 	.uleb128	2
+      000170 89                   12766 	.db	137
+      000171 01                   12767 	.uleb128	1
+      000172 00                   12768 	.db	0
+      000173 00                   12769 	.db	0
+      000174                      12770 Ldebug_CIE8_end:
+      000174 00 00 00 14          12771 	.dw	0,20
+      000178 00 00 01 60          12772 	.dw	0,(Ldebug_CIE8_start-4)
+      00017C 00 00 0D 8D          12773 	.dw	0,(Smain$stop_leds$376)	;initial loc
+      000180 00 00 00 37          12774 	.dw	0,Smain$stop_leds$387-Smain$stop_leds$376
+      000184 01                   12775 	.db	1
+      000185 00 00 0D 8D          12776 	.dw	0,(Smain$stop_leds$376)
+      000189 0E                   12777 	.db	14
+      00018A 02                   12778 	.uleb128	2
+      00018B 00                   12779 	.db	0
+                                  12780 
+                                  12781 	.area .debug_frame (NOLOAD)
+      00018C 00 00                12782 	.dw	0
+      00018E 00 10                12783 	.dw	Ldebug_CIE9_end-Ldebug_CIE9_start
+      000190                      12784 Ldebug_CIE9_start:
+      000190 FF FF                12785 	.dw	0xffff
+      000192 FF FF                12786 	.dw	0xffff
+      000194 01                   12787 	.db	1
+      000195 00                   12788 	.db	0
+      000196 01                   12789 	.uleb128	1
+      000197 01                   12790 	.sleb128	1
+      000198 09                   12791 	.db	9
+      000199 0C                   12792 	.db	12
+      00019A 16                   12793 	.uleb128	22
+      00019B 02                   12794 	.uleb128	2
+      00019C 89                   12795 	.db	137
+      00019D 01                   12796 	.uleb128	1
+      00019E 00                   12797 	.db	0
+      00019F 00                   12798 	.db	0
+      0001A0                      12799 Ldebug_CIE9_end:
+      0001A0 00 00 00 14          12800 	.dw	0,20
+      0001A4 00 00 01 8C          12801 	.dw	0,(Ldebug_CIE9_start-4)
+      0001A8 00 00 0C 60          12802 	.dw	0,(Smain$process_button$336)	;initial loc
+      0001AC 00 00 01 2D          12803 	.dw	0,Smain$process_button$374-Smain$process_button$336
+      0001B0 01                   12804 	.db	1
+      0001B1 00 00 0C 60          12805 	.dw	0,(Smain$process_button$336)
+      0001B5 0E                   12806 	.db	14
+      0001B6 02                   12807 	.uleb128	2
+      0001B7 00                   12808 	.db	0
+                                  12809 
+                                  12810 	.area .debug_frame (NOLOAD)
+      0001B8 00 00                12811 	.dw	0
+      0001BA 00 10                12812 	.dw	Ldebug_CIE10_end-Ldebug_CIE10_start
+      0001BC                      12813 Ldebug_CIE10_start:
+      0001BC FF FF                12814 	.dw	0xffff
+      0001BE FF FF                12815 	.dw	0xffff
+      0001C0 01                   12816 	.db	1
+      0001C1 00                   12817 	.db	0
+      0001C2 01                   12818 	.uleb128	1
+      0001C3 01                   12819 	.sleb128	1
+      0001C4 09                   12820 	.db	9
+      0001C5 0C                   12821 	.db	12
+      0001C6 16                   12822 	.uleb128	22
+      0001C7 02                   12823 	.uleb128	2
+      0001C8 89                   12824 	.db	137
+      0001C9 01                   12825 	.uleb128	1
+      0001CA 00                   12826 	.db	0
+      0001CB 00                   12827 	.db	0
+      0001CC                      12828 Ldebug_CIE10_end:
+      0001CC 00 00 00 14          12829 	.dw	0,20
+      0001D0 00 00 01 B8          12830 	.dw	0,(Ldebug_CIE10_start-4)
+      0001D4 00 00 0A F7          12831 	.dw	0,(Smain$process_uart$280)	;initial loc
+      0001D8 00 00 01 69          12832 	.dw	0,Smain$process_uart$334-Smain$process_uart$280
+      0001DC 01                   12833 	.db	1
+      0001DD 00 00 0A F7          12834 	.dw	0,(Smain$process_uart$280)
+      0001E1 0E                   12835 	.db	14
+      0001E2 02                   12836 	.uleb128	2
+      0001E3 00                   12837 	.db	0
+                                  12838 
+                                  12839 	.area .debug_frame (NOLOAD)
+      0001E4 00 00                12840 	.dw	0
+      0001E6 00 10                12841 	.dw	Ldebug_CIE11_end-Ldebug_CIE11_start
+      0001E8                      12842 Ldebug_CIE11_start:
+      0001E8 FF FF                12843 	.dw	0xffff
+      0001EA FF FF                12844 	.dw	0xffff
+      0001EC 01                   12845 	.db	1
+      0001ED 00                   12846 	.db	0
+      0001EE 01                   12847 	.uleb128	1
+      0001EF 01                   12848 	.sleb128	1
+      0001F0 09                   12849 	.db	9
+      0001F1 0C                   12850 	.db	12
+      0001F2 16                   12851 	.uleb128	22
+      0001F3 02                   12852 	.uleb128	2
+      0001F4 89                   12853 	.db	137
+      0001F5 01                   12854 	.uleb128	1
+      0001F6 00                   12855 	.db	0
+      0001F7 00                   12856 	.db	0
+      0001F8                      12857 Ldebug_CIE11_end:
+      0001F8 00 00 00 14          12858 	.dw	0,20
+      0001FC 00 00 01 E4          12859 	.dw	0,(Ldebug_CIE11_start-4)
+      000200 00 00 0A E9          12860 	.dw	0,(Smain$toNextMode$274)	;initial loc
+      000204 00 00 00 0E          12861 	.dw	0,Smain$toNextMode$278-Smain$toNextMode$274
+      000208 01                   12862 	.db	1
+      000209 00 00 0A E9          12863 	.dw	0,(Smain$toNextMode$274)
+      00020D 0E                   12864 	.db	14
+      00020E 02                   12865 	.uleb128	2
+      00020F 00                   12866 	.db	0
+                                  12867 
+                                  12868 	.area .debug_frame (NOLOAD)
+      000210 00 00                12869 	.dw	0
+      000212 00 10                12870 	.dw	Ldebug_CIE12_end-Ldebug_CIE12_start
+      000214                      12871 Ldebug_CIE12_start:
+      000214 FF FF                12872 	.dw	0xffff
+      000216 FF FF                12873 	.dw	0xffff
+      000218 01                   12874 	.db	1
+      000219 00                   12875 	.db	0
+      00021A 01                   12876 	.uleb128	1
+      00021B 01                   12877 	.sleb128	1
+      00021C 09                   12878 	.db	9
+      00021D 0C                   12879 	.db	12
+      00021E 16                   12880 	.uleb128	22
+      00021F 02                   12881 	.uleb128	2
+      000220 89                   12882 	.db	137
+      000221 01                   12883 	.uleb128	1
+      000222 00                   12884 	.db	0
+      000223 00                   12885 	.db	0
+      000224                      12886 Ldebug_CIE12_end:
+      000224 00 00 00 14          12887 	.dw	0,20
+      000228 00 00 02 10          12888 	.dw	0,(Ldebug_CIE12_start-4)
+      00022C 00 00 09 31          12889 	.dw	0,(Smain$changeMode$226)	;initial loc
+      000230 00 00 01 B8          12890 	.dw	0,Smain$changeMode$272-Smain$changeMode$226
+      000234 01                   12891 	.db	1
+      000235 00 00 09 31          12892 	.dw	0,(Smain$changeMode$226)
+      000239 0E                   12893 	.db	14
+      00023A 02                   12894 	.uleb128	2
+      00023B 00                   12895 	.db	0
+                                  12896 
+                                  12897 	.area .debug_frame (NOLOAD)
+      00023C 00 00                12898 	.dw	0
+      00023E 00 10                12899 	.dw	Ldebug_CIE13_end-Ldebug_CIE13_start
+      000240                      12900 Ldebug_CIE13_start:
+      000240 FF FF                12901 	.dw	0xffff
+      000242 FF FF                12902 	.dw	0xffff
+      000244 01                   12903 	.db	1
+      000245 00                   12904 	.db	0
+      000246 01                   12905 	.uleb128	1
+      000247 01                   12906 	.sleb128	1
+      000248 09                   12907 	.db	9
+      000249 0C                   12908 	.db	12
+      00024A 16                   12909 	.uleb128	22
+      00024B 02                   12910 	.uleb128	2
+      00024C 89                   12911 	.db	137
+      00024D 01                   12912 	.uleb128	1
+      00024E 00                   12913 	.db	0
+      00024F 00                   12914 	.db	0
+      000250                      12915 Ldebug_CIE13_end:
+      000250 00 00 00 14          12916 	.dw	0,20
+      000254 00 00 02 3C          12917 	.dw	0,(Ldebug_CIE13_start-4)
+      000258 00 00 08 14          12918 	.dw	0,(Smain$target_amp$207)	;initial loc
+      00025C 00 00 01 1D          12919 	.dw	0,Smain$target_amp$224-Smain$target_amp$207
+      000260 01                   12920 	.db	1
+      000261 00 00 08 14          12921 	.dw	0,(Smain$target_amp$207)
+      000265 0E                   12922 	.db	14
+      000266 02                   12923 	.uleb128	2
+      000267 00                   12924 	.db	0
+                                  12925 
+                                  12926 	.area .debug_frame (NOLOAD)
+      000268 00 00                12927 	.dw	0
+      00026A 00 10                12928 	.dw	Ldebug_CIE14_end-Ldebug_CIE14_start
+      00026C                      12929 Ldebug_CIE14_start:
+      00026C FF FF                12930 	.dw	0xffff
+      00026E FF FF                12931 	.dw	0xffff
+      000270 01                   12932 	.db	1
+      000271 00                   12933 	.db	0
+      000272 01                   12934 	.uleb128	1
+      000273 01                   12935 	.sleb128	1
+      000274 09                   12936 	.db	9
+      000275 0C                   12937 	.db	12
+      000276 16                   12938 	.uleb128	22
+      000277 02                   12939 	.uleb128	2
+      000278 89                   12940 	.db	137
+      000279 01                   12941 	.uleb128	1
+      00027A 00                   12942 	.db	0
+      00027B 00                   12943 	.db	0
+      00027C                      12944 Ldebug_CIE14_end:
+      00027C 00 00 00 14          12945 	.dw	0,20
+      000280 00 00 02 68          12946 	.dw	0,(Ldebug_CIE14_start-4)
+      000284 00 00 07 AF          12947 	.dw	0,(Smain$avg_amp$195)	;initial loc
+      000288 00 00 00 65          12948 	.dw	0,Smain$avg_amp$205-Smain$avg_amp$195
+      00028C 01                   12949 	.db	1
+      00028D 00 00 07 AF          12950 	.dw	0,(Smain$avg_amp$195)
+      000291 0E                   12951 	.db	14
+      000292 02                   12952 	.uleb128	2
+      000293 00                   12953 	.db	0
+                                  12954 
+                                  12955 	.area .debug_frame (NOLOAD)
+      000294 00 00                12956 	.dw	0
+      000296 00 10                12957 	.dw	Ldebug_CIE15_end-Ldebug_CIE15_start
+      000298                      12958 Ldebug_CIE15_start:
+      000298 FF FF                12959 	.dw	0xffff
+      00029A FF FF                12960 	.dw	0xffff
+      00029C 01                   12961 	.db	1
+      00029D 00                   12962 	.db	0
+      00029E 01                   12963 	.uleb128	1
+      00029F 01                   12964 	.sleb128	1
+      0002A0 09                   12965 	.db	9
+      0002A1 0C                   12966 	.db	12
+      0002A2 16                   12967 	.uleb128	22
+      0002A3 02                   12968 	.uleb128	2
+      0002A4 89                   12969 	.db	137
+      0002A5 01                   12970 	.uleb128	1
+      0002A6 00                   12971 	.db	0
+      0002A7 00                   12972 	.db	0
+      0002A8                      12973 Ldebug_CIE15_end:
+      0002A8 00 00 00 14          12974 	.dw	0,20
+      0002AC 00 00 02 94          12975 	.dw	0,(Ldebug_CIE15_start-4)
+      0002B0 00 00 07 6F          12976 	.dw	0,(Smain$has_high_beam$189)	;initial loc
+      0002B4 00 00 00 40          12977 	.dw	0,Smain$has_high_beam$193-Smain$has_high_beam$189
+      0002B8 01                   12978 	.db	1
+      0002B9 00 00 07 6F          12979 	.dw	0,(Smain$has_high_beam$189)
+      0002BD 0E                   12980 	.db	14
+      0002BE 02                   12981 	.uleb128	2
+      0002BF 00                   12982 	.db	0
+                                  12983 
+                                  12984 	.area .debug_frame (NOLOAD)
+      0002C0 00 00                12985 	.dw	0
+      0002C2 00 10                12986 	.dw	Ldebug_CIE16_end-Ldebug_CIE16_start
+      0002C4                      12987 Ldebug_CIE16_start:
+      0002C4 FF FF                12988 	.dw	0xffff
+      0002C6 FF FF                12989 	.dw	0xffff
+      0002C8 01                   12990 	.db	1
+      0002C9 00                   12991 	.db	0
+      0002CA 01                   12992 	.uleb128	1
+      0002CB 01                   12993 	.sleb128	1
+      0002CC 09                   12994 	.db	9
+      0002CD 0C                   12995 	.db	12
+      0002CE 16                   12996 	.uleb128	22
+      0002CF 02                   12997 	.uleb128	2
+      0002D0 89                   12998 	.db	137
+      0002D1 01                   12999 	.uleb128	1
+      0002D2 00                   13000 	.db	0
+      0002D3 00                   13001 	.db	0
+      0002D4                      13002 Ldebug_CIE16_end:
+      0002D4 00 00 00 14          13003 	.dw	0,20
+      0002D8 00 00 02 C0          13004 	.dw	0,(Ldebug_CIE16_start-4)
+      0002DC 00 00 06 A8          13005 	.dw	0,(Smain$sample_temperature$178)	;initial loc
+      0002E0 00 00 00 C7          13006 	.dw	0,Smain$sample_temperature$187-Smain$sample_temperature$178
+      0002E4 01                   13007 	.db	1
+      0002E5 00 00 06 A8          13008 	.dw	0,(Smain$sample_temperature$178)
+      0002E9 0E                   13009 	.db	14
+      0002EA 02                   13010 	.uleb128	2
+      0002EB 00                   13011 	.db	0
+                                  13012 
+                                  13013 	.area .debug_frame (NOLOAD)
+      0002EC 00 00                13014 	.dw	0
+      0002EE 00 10                13015 	.dw	Ldebug_CIE17_end-Ldebug_CIE17_start
+      0002F0                      13016 Ldebug_CIE17_start:
+      0002F0 FF FF                13017 	.dw	0xffff
+      0002F2 FF FF                13018 	.dw	0xffff
+      0002F4 01                   13019 	.db	1
+      0002F5 00                   13020 	.db	0
+      0002F6 01                   13021 	.uleb128	1
+      0002F7 01                   13022 	.sleb128	1
+      0002F8 09                   13023 	.db	9
+      0002F9 0C                   13024 	.db	12
+      0002FA 16                   13025 	.uleb128	22
+      0002FB 02                   13026 	.uleb128	2
+      0002FC 89                   13027 	.db	137
+      0002FD 01                   13028 	.uleb128	1
+      0002FE 00                   13029 	.db	0
+      0002FF 00                   13030 	.db	0
+      000300                      13031 Ldebug_CIE17_end:
+      000300 00 00 00 14          13032 	.dw	0,20
+      000304 00 00 02 EC          13033 	.dw	0,(Ldebug_CIE17_start-4)
+      000308 00 00 05 5B          13034 	.dw	0,(Smain$sample_amps$161)	;initial loc
+      00030C 00 00 01 4D          13035 	.dw	0,Smain$sample_amps$176-Smain$sample_amps$161
+      000310 01                   13036 	.db	1
+      000311 00 00 05 5B          13037 	.dw	0,(Smain$sample_amps$161)
+      000315 0E                   13038 	.db	14
+      000316 02                   13039 	.uleb128	2
+      000317 00                   13040 	.db	0
+                                  13041 
+                                  13042 	.area .debug_frame (NOLOAD)
+      000318 00 00                13043 	.dw	0
+      00031A 00 10                13044 	.dw	Ldebug_CIE18_end-Ldebug_CIE18_start
+      00031C                      13045 Ldebug_CIE18_start:
+      00031C FF FF                13046 	.dw	0xffff
+      00031E FF FF                13047 	.dw	0xffff
+      000320 01                   13048 	.db	1
+      000321 00                   13049 	.db	0
+      000322 01                   13050 	.uleb128	1
+      000323 01                   13051 	.sleb128	1
+      000324 09                   13052 	.db	9
+      000325 0C                   13053 	.db	12
+      000326 16                   13054 	.uleb128	22
+      000327 02                   13055 	.uleb128	2
+      000328 89                   13056 	.db	137
+      000329 01                   13057 	.uleb128	1
+      00032A 00                   13058 	.db	0
+      00032B 00                   13059 	.db	0
+      00032C                      13060 Ldebug_CIE18_end:
+      00032C 00 00 00 14          13061 	.dw	0,20
+      000330 00 00 03 18          13062 	.dw	0,(Ldebug_CIE18_start-4)
+      000334 00 00 04 B9          13063 	.dw	0,(Smain$init_peripherals_but_button_n_uart$131)	;initial loc
+      000338 00 00 00 A2          13064 	.dw	0,Smain$init_peripherals_but_button_n_uart$159-Smain$init_peripherals_but_button_n_uart$131
+      00033C 01                   13065 	.db	1
+      00033D 00 00 04 B9          13066 	.dw	0,(Smain$init_peripherals_but_button_n_uart$131)
+      000341 0E                   13067 	.db	14
+      000342 02                   13068 	.uleb128	2
+      000343 00                   13069 	.db	0
+                                  13070 
+                                  13071 	.area .debug_frame (NOLOAD)
+      000344 00 00                13072 	.dw	0
+      000346 00 10                13073 	.dw	Ldebug_CIE19_end-Ldebug_CIE19_start
+      000348                      13074 Ldebug_CIE19_start:
+      000348 FF FF                13075 	.dw	0xffff
+      00034A FF FF                13076 	.dw	0xffff
+      00034C 01                   13077 	.db	1
+      00034D 00                   13078 	.db	0
+      00034E 01                   13079 	.uleb128	1
+      00034F 01                   13080 	.sleb128	1
+      000350 09                   13081 	.db	9
+      000351 0C                   13082 	.db	12
+      000352 16                   13083 	.uleb128	22
+      000353 02                   13084 	.uleb128	2
+      000354 89                   13085 	.db	137
+      000355 01                   13086 	.uleb128	1
+      000356 00                   13087 	.db	0
+      000357 00                   13088 	.db	0
+      000358                      13089 Ldebug_CIE19_end:
+      000358 00 00 00 14          13090 	.dw	0,20
+      00035C 00 00 03 44          13091 	.dw	0,(Ldebug_CIE19_start-4)
+      000360 00 00 04 6F          13092 	.dw	0,(Smain$init_sample$115)	;initial loc
+      000364 00 00 00 4A          13093 	.dw	0,Smain$init_sample$129-Smain$init_sample$115
+      000368 01                   13094 	.db	1
+      000369 00 00 04 6F          13095 	.dw	0,(Smain$init_sample$115)
+      00036D 0E                   13096 	.db	14
+      00036E 02                   13097 	.uleb128	2
+      00036F 00                   13098 	.db	0
+                                  13099 
+                                  13100 	.area .debug_frame (NOLOAD)
+      000370 00 00                13101 	.dw	0
+      000372 00 10                13102 	.dw	Ldebug_CIE20_end-Ldebug_CIE20_start
+      000374                      13103 Ldebug_CIE20_start:
+      000374 FF FF                13104 	.dw	0xffff
+      000376 FF FF                13105 	.dw	0xffff
+      000378 01                   13106 	.db	1
+      000379 00                   13107 	.db	0
+      00037A 01                   13108 	.uleb128	1
+      00037B 01                   13109 	.sleb128	1
+      00037C 09                   13110 	.db	9
+      00037D 0C                   13111 	.db	12
+      00037E 16                   13112 	.uleb128	22
+      00037F 02                   13113 	.uleb128	2
+      000380 89                   13114 	.db	137
+      000381 01                   13115 	.uleb128	1
+      000382 00                   13116 	.db	0
+      000383 00                   13117 	.db	0
+      000384                      13118 Ldebug_CIE20_end:
+      000384 00 00 00 14          13119 	.dw	0,20
+      000388 00 00 03 70          13120 	.dw	0,(Ldebug_CIE20_start-4)
+      00038C 00 00 04 6E          13121 	.dw	0,(Smain$disable_ntc$110)	;initial loc
+      000390 00 00 00 01          13122 	.dw	0,Smain$disable_ntc$113-Smain$disable_ntc$110
+      000394 01                   13123 	.db	1
+      000395 00 00 04 6E          13124 	.dw	0,(Smain$disable_ntc$110)
+      000399 0E                   13125 	.db	14
+      00039A 02                   13126 	.uleb128	2
+      00039B 00                   13127 	.db	0
+                                  13128 
+                                  13129 	.area .debug_frame (NOLOAD)
+      00039C 00 00                13130 	.dw	0
+      00039E 00 10                13131 	.dw	Ldebug_CIE21_end-Ldebug_CIE21_start
+      0003A0                      13132 Ldebug_CIE21_start:
+      0003A0 FF FF                13133 	.dw	0xffff
+      0003A2 FF FF                13134 	.dw	0xffff
+      0003A4 01                   13135 	.db	1
+      0003A5 00                   13136 	.db	0
+      0003A6 01                   13137 	.uleb128	1
+      0003A7 01                   13138 	.sleb128	1
+      0003A8 09                   13139 	.db	9
+      0003A9 0C                   13140 	.db	12
+      0003AA 16                   13141 	.uleb128	22
+      0003AB 02                   13142 	.uleb128	2
+      0003AC 89                   13143 	.db	137
+      0003AD 01                   13144 	.uleb128	1
+      0003AE 00                   13145 	.db	0
+      0003AF 00                   13146 	.db	0
+      0003B0                      13147 Ldebug_CIE21_end:
+      0003B0 00 00 00 14          13148 	.dw	0,20
+      0003B4 00 00 03 9C          13149 	.dw	0,(Ldebug_CIE21_start-4)
+      0003B8 00 00 04 6D          13150 	.dw	0,(Smain$enable_ntc$105)	;initial loc
+      0003BC 00 00 00 01          13151 	.dw	0,Smain$enable_ntc$108-Smain$enable_ntc$105
+      0003C0 01                   13152 	.db	1
+      0003C1 00 00 04 6D          13153 	.dw	0,(Smain$enable_ntc$105)
+      0003C5 0E                   13154 	.db	14
+      0003C6 02                   13155 	.uleb128	2
+      0003C7 00                   13156 	.db	0
+                                  13157 
+                                  13158 	.area .debug_frame (NOLOAD)
+      0003C8 00 00                13159 	.dw	0
+      0003CA 00 10                13160 	.dw	Ldebug_CIE22_end-Ldebug_CIE22_start
+      0003CC                      13161 Ldebug_CIE22_start:
+      0003CC FF FF                13162 	.dw	0xffff
+      0003CE FF FF                13163 	.dw	0xffff
+      0003D0 01                   13164 	.db	1
+      0003D1 00                   13165 	.db	0
+      0003D2 01                   13166 	.uleb128	1
+      0003D3 01                   13167 	.sleb128	1
+      0003D4 09                   13168 	.db	9
+      0003D5 0C                   13169 	.db	12
+      0003D6 16                   13170 	.uleb128	22
+      0003D7 02                   13171 	.uleb128	2
+      0003D8 89                   13172 	.db	137
+      0003D9 01                   13173 	.uleb128	1
+      0003DA 00                   13174 	.db	0
+      0003DB 00                   13175 	.db	0
+      0003DC                      13176 Ldebug_CIE22_end:
+      0003DC 00 00 00 14          13177 	.dw	0,20
+      0003E0 00 00 03 C8          13178 	.dw	0,(Ldebug_CIE22_start-4)
+      0003E4 00 00 04 55          13179 	.dw	0,(Smain$button_interrupt_init$96)	;initial loc
+      0003E8 00 00 00 18          13180 	.dw	0,Smain$button_interrupt_init$103-Smain$button_interrupt_init$96
+      0003EC 01                   13181 	.db	1
+      0003ED 00 00 04 55          13182 	.dw	0,(Smain$button_interrupt_init$96)
+      0003F1 0E                   13183 	.db	14
+      0003F2 02                   13184 	.uleb128	2
+      0003F3 00                   13185 	.db	0
+                                  13186 
+                                  13187 	.area .debug_frame (NOLOAD)
+      0003F4 00 00                13188 	.dw	0
+      0003F6 00 10                13189 	.dw	Ldebug_CIE23_end-Ldebug_CIE23_start
+      0003F8                      13190 Ldebug_CIE23_start:
+      0003F8 FF FF                13191 	.dw	0xffff
+      0003FA FF FF                13192 	.dw	0xffff
+      0003FC 01                   13193 	.db	1
+      0003FD 00                   13194 	.db	0
+      0003FE 01                   13195 	.uleb128	1
+      0003FF 01                   13196 	.sleb128	1
+      000400 09                   13197 	.db	9
+      000401 0C                   13198 	.db	12
+      000402 16                   13199 	.uleb128	22
+      000403 06                   13200 	.uleb128	6
+      000404 89                   13201 	.db	137
+      000405 01                   13202 	.uleb128	1
+      000406 00                   13203 	.db	0
+      000407 00                   13204 	.db	0
+      000408                      13205 Ldebug_CIE23_end:
+      000408 00 00 00 14          13206 	.dw	0,20
+      00040C 00 00 03 F4          13207 	.dw	0,(Ldebug_CIE23_start-4)
+      000410 00 00 04 24          13208 	.dw	0,(Smain$PinInterrupt_ISR$84)	;initial loc
+      000414 00 00 00 31          13209 	.dw	0,Smain$PinInterrupt_ISR$94-Smain$PinInterrupt_ISR$84
+      000418 01                   13210 	.db	1
+      000419 00 00 04 24          13211 	.dw	0,(Smain$PinInterrupt_ISR$84)
+      00041D 0E                   13212 	.db	14
+      00041E 06                   13213 	.uleb128	6
+      00041F 00                   13214 	.db	0
+                                  13215 
+                                  13216 	.area .debug_frame (NOLOAD)
+      000420 00 00                13217 	.dw	0
+      000422 00 10                13218 	.dw	Ldebug_CIE24_end-Ldebug_CIE24_start
+      000424                      13219 Ldebug_CIE24_start:
+      000424 FF FF                13220 	.dw	0xffff
+      000426 FF FF                13221 	.dw	0xffff
+      000428 01                   13222 	.db	1
+      000429 00                   13223 	.db	0
+      00042A 01                   13224 	.uleb128	1
+      00042B 01                   13225 	.sleb128	1
+      00042C 09                   13226 	.db	9
+      00042D 0C                   13227 	.db	12
+      00042E 16                   13228 	.uleb128	22
+      00042F 02                   13229 	.uleb128	2
+      000430 89                   13230 	.db	137
+      000431 01                   13231 	.uleb128	1
+      000432 00                   13232 	.db	0
+      000433 00                   13233 	.db	0
+      000434                      13234 Ldebug_CIE24_end:
+      000434 00 00 00 14          13235 	.dw	0,20
+      000438 00 00 04 20          13236 	.dw	0,(Ldebug_CIE24_start-4)
+      00043C 00 00 03 F8          13237 	.dw	0,(Smain$uart_interrupt_init$77)	;initial loc
+      000440 00 00 00 24          13238 	.dw	0,Smain$uart_interrupt_init$82-Smain$uart_interrupt_init$77
+      000444 01                   13239 	.db	1
+      000445 00 00 03 F8          13240 	.dw	0,(Smain$uart_interrupt_init$77)
+      000449 0E                   13241 	.db	14
+      00044A 02                   13242 	.uleb128	2
+      00044B 00                   13243 	.db	0
+                                  13244 
+                                  13245 	.area .debug_frame (NOLOAD)
+      00044C 00 00                13246 	.dw	0
+      00044E 00 10                13247 	.dw	Ldebug_CIE25_end-Ldebug_CIE25_start
+      000450                      13248 Ldebug_CIE25_start:
+      000450 FF FF                13249 	.dw	0xffff
+      000452 FF FF                13250 	.dw	0xffff
+      000454 01                   13251 	.db	1
+      000455 00                   13252 	.db	0
+      000456 01                   13253 	.uleb128	1
+      000457 01                   13254 	.sleb128	1
+      000458 09                   13255 	.db	9
+      000459 0C                   13256 	.db	12
+      00045A 16                   13257 	.uleb128	22
+      00045B 06                   13258 	.uleb128	6
+      00045C 89                   13259 	.db	137
+      00045D 01                   13260 	.uleb128	1
+      00045E 00                   13261 	.db	0
+      00045F 00                   13262 	.db	0
+      000460                      13263 Ldebug_CIE25_end:
+      000460 00 00 00 14          13264 	.dw	0,20
+      000464 00 00 04 4C          13265 	.dw	0,(Ldebug_CIE25_start-4)
+      000468 00 00 03 98          13266 	.dw	0,(Smain$SerialPort1_ISR$60)	;initial loc
+      00046C 00 00 00 60          13267 	.dw	0,Smain$SerialPort1_ISR$75-Smain$SerialPort1_ISR$60
+      000470 01                   13268 	.db	1
+      000471 00 00 03 98          13269 	.dw	0,(Smain$SerialPort1_ISR$60)
+      000475 0E                   13270 	.db	14
+      000476 06                   13271 	.uleb128	6
+      000477 00                   13272 	.db	0
+                                  13273 
+                                  13274 	.area .debug_frame (NOLOAD)
+      000478 00 00                13275 	.dw	0
+      00047A 00 10                13276 	.dw	Ldebug_CIE26_end-Ldebug_CIE26_start
+      00047C                      13277 Ldebug_CIE26_start:
+      00047C FF FF                13278 	.dw	0xffff
+      00047E FF FF                13279 	.dw	0xffff
+      000480 01                   13280 	.db	1
+      000481 00                   13281 	.db	0
+      000482 01                   13282 	.uleb128	1
+      000483 01                   13283 	.sleb128	1
+      000484 09                   13284 	.db	9
+      000485 0C                   13285 	.db	12
+      000486 16                   13286 	.uleb128	22
+      000487 02                   13287 	.uleb128	2
+      000488 89                   13288 	.db	137
+      000489 01                   13289 	.uleb128	1
+      00048A 00                   13290 	.db	0
+      00048B 00                   13291 	.db	0
+      00048C                      13292 Ldebug_CIE26_end:
+      00048C 00 00 00 14          13293 	.dw	0,20
+      000490 00 00 04 78          13294 	.dw	0,(Ldebug_CIE26_start-4)
+      000494 00 00 03 4C          13295 	.dw	0,(Smain$log_init$50)	;initial loc
+      000498 00 00 00 2D          13296 	.dw	0,Smain$log_init$58-Smain$log_init$50
+      00049C 01                   13297 	.db	1
+      00049D 00 00 03 4C          13298 	.dw	0,(Smain$log_init$50)
+      0004A1 0E                   13299 	.db	14
+      0004A2 02                   13300 	.uleb128	2
+      0004A3 00                   13301 	.db	0
+                                  13302 
+                                  13303 	.area .debug_frame (NOLOAD)
+      0004A4 00 00                13304 	.dw	0
+      0004A6 00 10                13305 	.dw	Ldebug_CIE27_end-Ldebug_CIE27_start
+      0004A8                      13306 Ldebug_CIE27_start:
+      0004A8 FF FF                13307 	.dw	0xffff
+      0004AA FF FF                13308 	.dw	0xffff
+      0004AC 01                   13309 	.db	1
+      0004AD 00                   13310 	.db	0
+      0004AE 01                   13311 	.uleb128	1
+      0004AF 01                   13312 	.sleb128	1
+      0004B0 09                   13313 	.db	9
+      0004B1 0C                   13314 	.db	12
+      0004B2 16                   13315 	.uleb128	22
+      0004B3 02                   13316 	.uleb128	2
+      0004B4 89                   13317 	.db	137
+      0004B5 01                   13318 	.uleb128	1
+      0004B6 00                   13319 	.db	0
+      0004B7 00                   13320 	.db	0
+      0004B8                      13321 Ldebug_CIE27_end:
+      0004B8 00 00 00 14          13322 	.dw	0,20
+      0004BC 00 00 04 A4          13323 	.dw	0,(Ldebug_CIE27_start-4)
+      0004C0 00 00 01 D4          13324 	.dw	0,(Smain$uart_logn$27)	;initial loc
+      0004C4 00 00 01 78          13325 	.dw	0,Smain$uart_logn$48-Smain$uart_logn$27
+      0004C8 01                   13326 	.db	1
+      0004C9 00 00 01 D4          13327 	.dw	0,(Smain$uart_logn$27)
+      0004CD 0E                   13328 	.db	14
+      0004CE 02                   13329 	.uleb128	2
+      0004CF 00                   13330 	.db	0
+                                  13331 
+                                  13332 	.area .debug_frame (NOLOAD)
+      0004D0 00 00                13333 	.dw	0
+      0004D2 00 10                13334 	.dw	Ldebug_CIE28_end-Ldebug_CIE28_start
+      0004D4                      13335 Ldebug_CIE28_start:
+      0004D4 FF FF                13336 	.dw	0xffff
+      0004D6 FF FF                13337 	.dw	0xffff
+      0004D8 01                   13338 	.db	1
+      0004D9 00                   13339 	.db	0
+      0004DA 01                   13340 	.uleb128	1
+      0004DB 01                   13341 	.sleb128	1
+      0004DC 09                   13342 	.db	9
+      0004DD 0C                   13343 	.db	12
+      0004DE 16                   13344 	.uleb128	22
+      0004DF 02                   13345 	.uleb128	2
+      0004E0 89                   13346 	.db	137
+      0004E1 01                   13347 	.uleb128	1
+      0004E2 00                   13348 	.db	0
+      0004E3 00                   13349 	.db	0
+      0004E4                      13350 Ldebug_CIE28_end:
+      0004E4 00 00 00 14          13351 	.dw	0,20
+      0004E8 00 00 04 D0          13352 	.dw	0,(Ldebug_CIE28_start-4)
+      0004EC 00 00 01 A5          13353 	.dw	0,(Smain$uart_log$20)	;initial loc
+      0004F0 00 00 00 2F          13354 	.dw	0,Smain$uart_log$25-Smain$uart_log$20
+      0004F4 01                   13355 	.db	1
+      0004F5 00 00 01 A5          13356 	.dw	0,(Smain$uart_log$20)
+      0004F9 0E                   13357 	.db	14
+      0004FA 02                   13358 	.uleb128	2
+      0004FB 00                   13359 	.db	0
+                                  13360 
+                                  13361 	.area .debug_frame (NOLOAD)
+      0004FC 00 00                13362 	.dw	0
+      0004FE 00 10                13363 	.dw	Ldebug_CIE29_end-Ldebug_CIE29_start
+      000500                      13364 Ldebug_CIE29_start:
+      000500 FF FF                13365 	.dw	0xffff
+      000502 FF FF                13366 	.dw	0xffff
+      000504 01                   13367 	.db	1
+      000505 00                   13368 	.db	0
+      000506 01                   13369 	.uleb128	1
+      000507 01                   13370 	.sleb128	1
+      000508 09                   13371 	.db	9
+      000509 0C                   13372 	.db	12
+      00050A 16                   13373 	.uleb128	22
+      00050B 02                   13374 	.uleb128	2
+      00050C 89                   13375 	.db	137
+      00050D 01                   13376 	.uleb128	1
+      00050E 00                   13377 	.db	0
+      00050F 00                   13378 	.db	0
+      000510                      13379 Ldebug_CIE29_end:
+      000510 00 00 00 14          13380 	.dw	0,20
+      000514 00 00 04 FC          13381 	.dw	0,(Ldebug_CIE29_start-4)
+      000518 00 00 00 DD          13382 	.dw	0,(Smain$Timer0_Delay$1)	;initial loc
+      00051C 00 00 00 C8          13383 	.dw	0,Smain$Timer0_Delay$18-Smain$Timer0_Delay$1
+      000520 01                   13384 	.db	1
+      000521 00 00 00 DD          13385 	.dw	0,(Smain$Timer0_Delay$1)
+      000525 0E                   13386 	.db	14
+      000526 02                   13387 	.uleb128	2
+      000527 00                   13388 	.db	0
