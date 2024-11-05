@@ -4618,8 +4618,8 @@ _wdt_init:
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:815: TA=0x55;
 	mov	_TA,#0x55
 	Smain$wdt_init$513 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:817: WDCON&=0xFF;
-	mov	_WDCON,_WDCON
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:817: WDCON&=0xF8;
+	anl	_WDCON,#0xf8
 	Smain$wdt_init$514 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:818: WDCON|= 0x97; // 1001 0111
 	orl	_WDCON,#0x97

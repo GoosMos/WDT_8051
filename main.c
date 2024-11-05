@@ -814,7 +814,7 @@ void wdt_init(void)
     TA=0xAA;
     TA=0x55;
 //    WDCON&=0xF8;
-    WDCON&=0xFF;
+    WDCON&=0xF8;
     WDCON|= 0x97; // 1001 0111
 
 //    TA=0xAA;
