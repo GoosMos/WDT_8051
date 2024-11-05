@@ -39,11 +39,7 @@
 	.globl _PinInterrupt_ISR
 	.globl _uart_interrupt_init
 	.globl _SerialPort1_ISR
-	.globl _log_init
-	.globl _uart_logn
-	.globl _uart_log
 	.globl _Timer0_Delay
-	.globl _UART_Send_Data
 	.globl _UART_Open
 	.globl _MODIFY_HIRC
 	.globl _MOSI
@@ -278,7 +274,6 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
-	.globl _wdt_flag
 	.globl _log_counter
 	.globl _lamp_state
 	.globl _uart_rx_state
@@ -801,9 +796,6 @@ bits:
 ; internal ram data
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
-Lmain.uart_logn$sloc0$0_1$0==.
-_uart_logn_sloc0_1_0:
-	.ds 4
 Lmain.control_loop$sloc0$0_1$0==.
 _control_loop_sloc0_1_0:
 	.ds 4
@@ -851,44 +843,35 @@ _Timer0_Delay_PARM_3:
 Lmain.Timer0_Delay$u32SYSCLK$1_0$145==.
 _Timer0_Delay_u32SYSCLK_65536_145:
 	.ds 4
-Lmain.uart_log$c$1_0$148==.
-_uart_log_c_65536_148:
-	.ds 1
-Lmain.uart_logn$n$1_0$150==.
-_uart_logn_n_65536_150:
-	.ds 4
-Lmain.uart_logn$e$1_1$153==.
-_uart_logn_e_65537_153:
-	.ds 4
 G$uart1_rx_buffer$0_0$0==.
 _uart1_rx_buffer::
 	.ds 16
-Lmain.has_high_beam$mode$1_0$186==.
-_has_high_beam_mode_65536_186:
+Lmain.has_high_beam$mode$1_0$173==.
+_has_high_beam_mode_65536_173:
 	.ds 1
-Lmain.avg_amp$idx$1_0$188==.
-_avg_amp_idx_65536_188:
+Lmain.avg_amp$idx$1_0$175==.
+_avg_amp_idx_65536_175:
 	.ds 1
-Lmain.target_amp$idx$1_0$192==.
+Lmain.target_amp$idx$1_0$179==.
 _target_amp_PARM_2:
 	.ds 1
-Lmain.target_amp$mode$1_0$192==.
-_target_amp_mode_65536_192:
+Lmain.target_amp$mode$1_0$179==.
+_target_amp_mode_65536_179:
 	.ds 1
-Lmain.changeMode$new_mode$1_0$198==.
-_changeMode_new_mode_65536_198:
+Lmain.changeMode$new_mode$1_0$185==.
+_changeMode_new_mode_65536_185:
 	.ds 1
-Lmain.process_uart$ch$2_0$216==.
-_process_uart_ch_131072_216:
+Lmain.process_uart$ch$2_0$203==.
+_process_uart_ch_131072_203:
 	.ds 1
-Lmain.mode_changing_control$light_changing$1_0$236==.
-_mode_changing_control_light_changing_65536_236:
+Lmain.mode_changing_control$light_changing$1_0$223==.
+_mode_changing_control_light_changing_65536_223:
 	.ds 1
-Lmain.mode_stable_control$light_changing$1_0$259==.
-_mode_stable_control_light_changing_65536_259:
+Lmain.mode_stable_control$light_changing$1_0$246==.
+_mode_stable_control_light_changing_65536_246:
 	.ds 1
-Lmain.control_loop$light_changing$1_0$266==.
-_control_loop_light_changing_65536_266:
+Lmain.control_loop$light_changing$1_0$253==.
+_control_loop_light_changing_65536_253:
 	.ds 1
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -961,9 +944,6 @@ _lamp_state::
 G$log_counter$0_0$0==.
 _log_counter::
 	.ds 4
-G$wdt_flag$0_0$0==.
-_wdt_flag::
-	.ds 1
 	.area HOME    (CODE)
 	.area GSINIT0 (CODE)
 	.area GSINIT1 (CODE)
@@ -1048,7 +1028,7 @@ __sdcc_program_startup:
 ;TH0TMP                    Allocated with name '_Timer0_Delay_TH0TMP_65536_146'
 ;------------------------------------------------------------
 	Smain$Timer0_Delay$0 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:215: void Timer0_Delay(unsigned long u32SYSCLK, unsigned int u16CNT, unsigned int u16DLYUnit)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:254: void Timer0_Delay(unsigned long u32SYSCLK, unsigned int u16CNT, unsigned int u16DLYUnit)
 ;	-----------------------------------------
 ;	 function Timer0_Delay
 ;	-----------------------------------------
@@ -1079,14 +1059,14 @@ _Timer0_Delay:
 	inc	dptr
 	movx	@dptr,a
 	Smain$Timer0_Delay$2 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:219: TIMER0_FSYS_DIV12;                                  //T0M=0, Timer0 Clock = Fsys/12
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:258: TIMER0_FSYS_DIV12;                                  //T0M=0, Timer0 Clock = Fsys/12
 	anl	_CKCON,#0xf7
 	Smain$Timer0_Delay$3 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:220: ENABLE_TIMER0_MODE1;                                   //Timer0 is 16-bit mode
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:259: ENABLE_TIMER0_MODE1;                                   //Timer0 is 16-bit mode
 	anl	_TMOD,#0xf0
 	orl	_TMOD,#0x01
 	Smain$Timer0_Delay$4 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:221: TL0TMP = LOBYTE(65535-((u32SYSCLK/1000000)*u16DLYUnit/12));
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:260: TL0TMP = LOBYTE(65535-((u32SYSCLK/1000000)*u16DLYUnit/12));
 	mov	dptr,#_Timer0_Delay_u32SYSCLK_65536_145
 	movx	a,@dptr
 	mov	r4,a
@@ -1171,7 +1151,7 @@ _Timer0_Delay:
 	subb	a,r3
 	mov	r3,a
 	Smain$Timer0_Delay$5 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:222: TH0TMP = HIBYTE(65535-((u32SYSCLK/1000000)*u16DLYUnit/12));
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:261: TH0TMP = HIBYTE(65535-((u32SYSCLK/1000000)*u16DLYUnit/12));
 	mov	a,#0xff
 	clr	c
 	subb	a,r4
@@ -1184,7 +1164,7 @@ _Timer0_Delay:
 	subb	a,r7
 	mov	ar7,r5
 	Smain$Timer0_Delay$6 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:224: while (u16CNT != 0)
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:263: while (u16CNT != 0)
 	mov	dptr,#_Timer0_Delay_PARM_2
 	movx	a,@dptr
 	mov	r5,a
@@ -1197,30 +1177,30 @@ _Timer0_Delay:
 	jz	00107$
 	Smain$Timer0_Delay$7 ==.
 	Smain$Timer0_Delay$8 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:226: TL0=TL0TMP;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:265: TL0=TL0TMP;
 	mov	_TL0,r3
 	Smain$Timer0_Delay$9 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:227: TH0=TH0TMP;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:266: TH0=TH0TMP;
 	mov	_TH0,r7
 	Smain$Timer0_Delay$10 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:228: set_TCON_TR0;                                    //Start Timer0
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:267: set_TCON_TR0;                                    //Start Timer0
 ;	assignBit
 	setb	_TR0
 	Smain$Timer0_Delay$11 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:229: while (!TF0);                       //Check Timer0 Time-Out Flag
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:268: while (!TF0);                       //Check Timer0 Time-Out Flag
 00101$:
 	Smain$Timer0_Delay$12 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:230: clr_TCON_TF0;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:269: clr_TCON_TF0;
 ;	assignBit
 	jbc	_TF0,00127$
 	sjmp	00101$
 00127$:
 	Smain$Timer0_Delay$13 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:231: clr_TCON_TR0;                       //Stop Timer0
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:270: clr_TCON_TR0;                       //Stop Timer0
 ;	assignBit
 	clr	_TR0
 	Smain$Timer0_Delay$14 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:232: u16CNT --;
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:271: u16CNT --;
 	dec	r5
 	cjne	r5,#0xff,00128$
 	dec	r6
@@ -1229,422 +1209,15 @@ _Timer0_Delay:
 	sjmp	00104$
 00107$:
 	Smain$Timer0_Delay$16 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:235: }
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:274: }
 	Smain$Timer0_Delay$17 ==.
 	XG$Timer0_Delay$0$0 ==.
 	ret
 	Smain$Timer0_Delay$18 ==.
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'uart_log'
-;------------------------------------------------------------
-;c                         Allocated with name '_uart_log_c_65536_148'
-;------------------------------------------------------------
-	Smain$uart_log$19 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:238: void uart_log(char c)
-;	-----------------------------------------
-;	 function uart_log
-;	-----------------------------------------
-_uart_log:
-	Smain$uart_log$20 ==.
-	mov	a,dpl
-	mov	dptr,#_uart_log_c_65536_148
-	movx	@dptr,a
-	Smain$uart_log$21 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:240: UART_Send_Data(UART1,c);
-	movx	a,@dptr
-	mov	dptr,#_UART_Send_Data_PARM_2
-	movx	@dptr,a
-	mov	dpl,#0x01
-	lcall	_UART_Send_Data
-	Smain$uart_log$22 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:241: Timer0_Delay(24000000, 10, 10);
-	mov	dptr,#_Timer0_Delay_PARM_2
-	mov	a,#0x0a
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	mov	dptr,#_Timer0_Delay_PARM_3
-	mov	a,#0x0a
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	mov	dptr,#0x3600
-	mov	b,#0x6e
-	mov	a,#0x01
-	lcall	_Timer0_Delay
-	Smain$uart_log$23 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:243: }
-	Smain$uart_log$24 ==.
-	XG$uart_log$0$0 ==.
-	ret
-	Smain$uart_log$25 ==.
-;------------------------------------------------------------
-;Allocation info for local variables in function 'uart_logn'
-;------------------------------------------------------------
-;sloc0                     Allocated with name '_uart_logn_sloc0_1_0'
-;n                         Allocated with name '_uart_logn_n_65536_150'
-;e                         Allocated with name '_uart_logn_e_65537_153'
-;res                       Allocated with name '_uart_logn_res_131074_155'
-;------------------------------------------------------------
-	Smain$uart_logn$26 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:245: void uart_logn(uint32_t n)
-;	-----------------------------------------
-;	 function uart_logn
-;	-----------------------------------------
-_uart_logn:
-	Smain$uart_logn$27 ==.
-	mov	r7,dpl
-	mov	r6,dph
-	mov	r5,b
-	mov	r4,a
-	mov	dptr,#_uart_logn_n_65536_150
-	mov	a,r7
-	movx	@dptr,a
-	mov	a,r6
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r5
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r4
-	inc	dptr
-	movx	@dptr,a
-	Smain$uart_logn$28 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:247: if( n == 0 ) {
-	mov	dptr,#_uart_logn_n_65536_150
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	mov	dptr,#_uart_logn_n_65536_150
-	movx	a,@dptr
-	mov	b,a
-	inc	dptr
-	movx	a,@dptr
-	orl	b,a
-	inc	dptr
-	movx	a,@dptr
-	orl	b,a
-	inc	dptr
-	movx	a,@dptr
-	orl	a,b
-	jnz	00102$
-	Smain$uart_logn$29 ==.
-	Smain$uart_logn$30 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:248: uart_log('0');
-	mov	dpl,#0x30
-	lcall	_uart_log
-	Smain$uart_logn$31 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:249: return;
-	ljmp	00109$
-	Smain$uart_logn$32 ==.
-00102$:
-	Smain$uart_logn$33 ==.
-	Smain$uart_logn$34 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:252: uint32_t e = 10;
-	mov	dptr,#_uart_logn_e_65537_153
-	mov	a,#0x0a
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	Smain$uart_logn$35 ==.
-	Smain$uart_logn$36 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:254: while( e <= n ) e *= 10;
-00103$:
-	mov	dptr,#_uart_logn_e_65537_153
-	movx	a,@dptr
-	mov	r0,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r1,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r2,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r3,a
-	clr	c
-	mov	a,r4
-	subb	a,r0
-	mov	a,r5
-	subb	a,r1
-	mov	a,r6
-	subb	a,r2
-	mov	a,r7
-	subb	a,r3
-	jc	00106$
-	Smain$uart_logn$37 ==.
-	mov	dptr,#__mullong_PARM_2
-	mov	a,r0
-	movx	@dptr,a
-	mov	a,r1
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r2
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r3
-	inc	dptr
-	movx	@dptr,a
-	mov	dptr,#(0x0a&0x00ff)
-	clr	a
-	mov	b,a
-	push	ar7
-	push	ar6
-	push	ar5
-	push	ar4
-	lcall	__mullong
-	mov	r0,dpl
-	mov	r1,dph
-	mov	r2,b
-	mov	r3,a
-	pop	ar4
-	pop	ar5
-	pop	ar6
-	pop	ar7
-	mov	dptr,#_uart_logn_e_65537_153
-	mov	a,r0
-	movx	@dptr,a
-	mov	a,r1
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r2
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r3
-	inc	dptr
-	movx	@dptr,a
-	Smain$uart_logn$38 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:256: while( e > 1 ) {
-	sjmp	00103$
-00106$:
-	mov	dptr,#_uart_logn_e_65537_153
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	clr	c
-	mov	a,#0x01
-	subb	a,r4
-	clr	a
-	subb	a,r5
-	clr	a
-	subb	a,r6
-	clr	a
-	subb	a,r7
-	jc	00133$
-	ljmp	00109$
-00133$:
-	Smain$uart_logn$39 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:257: e /= 10;
-	mov	dptr,#__divulong_PARM_2
-	mov	a,#0x0a
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	mov	dpl,r4
-	mov	dph,r5
-	mov	b,r6
-	mov	a,r7
-	lcall	__divulong
-	mov	r4,dpl
-	mov	r5,dph
-	mov	r6,b
-	mov	r7,a
-	Smain$uart_logn$40 ==.
-	mov	dptr,#_uart_logn_e_65537_153
-	mov	a,r4
-	movx	@dptr,a
-	mov	a,r5
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r6
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r7
-	inc	dptr
-	movx	@dptr,a
-	Smain$uart_logn$41 ==.
-	Smain$uart_logn$42 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:258: uint32_t res = n / e;
-	mov	dptr,#_uart_logn_e_65537_153
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	mov	dptr,#_uart_logn_n_65536_150
-	movx	a,@dptr
-	mov	_uart_logn_sloc0_1_0,a
-	inc	dptr
-	movx	a,@dptr
-	mov	(_uart_logn_sloc0_1_0 + 1),a
-	inc	dptr
-	movx	a,@dptr
-	mov	(_uart_logn_sloc0_1_0 + 2),a
-	inc	dptr
-	movx	a,@dptr
-	mov	(_uart_logn_sloc0_1_0 + 3),a
-	Smain$uart_logn$43 ==.
-	mov	dptr,#__divulong_PARM_2
-	mov	a,r4
-	movx	@dptr,a
-	mov	a,r5
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r6
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r7
-	inc	dptr
-	movx	@dptr,a
-	Smain$uart_logn$44 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:259: uart_log(res + '0');
-	mov	dpl,_uart_logn_sloc0_1_0
-	mov	dph,(_uart_logn_sloc0_1_0 + 1)
-	mov	b,(_uart_logn_sloc0_1_0 + 2)
-	mov	a,(_uart_logn_sloc0_1_0 + 3)
-	push	ar7
-	push	ar6
-	push	ar5
-	push	ar4
-	lcall	__divulong
-	mov	r0,dpl
-	mov	a,#0x30
-	add	a,r0
-	mov	dpl,a
-	lcall	_uart_log
-	pop	ar4
-	pop	ar5
-	pop	ar6
-	pop	ar7
-	Smain$uart_logn$45 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:260: n = n % e;
-	mov	dptr,#__modulong_PARM_2
-	mov	a,r4
-	movx	@dptr,a
-	mov	a,r5
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r6
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r7
-	inc	dptr
-	movx	@dptr,a
-	mov	dpl,_uart_logn_sloc0_1_0
-	mov	dph,(_uart_logn_sloc0_1_0 + 1)
-	mov	b,(_uart_logn_sloc0_1_0 + 2)
-	mov	a,(_uart_logn_sloc0_1_0 + 3)
-	lcall	__modulong
-	mov	r4,dpl
-	mov	r5,dph
-	mov	r6,b
-	mov	r7,a
-	mov	dptr,#_uart_logn_n_65536_150
-	mov	a,r4
-	movx	@dptr,a
-	mov	a,r5
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r6
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r7
-	inc	dptr
-	movx	@dptr,a
-	ljmp	00106$
-00109$:
-	Smain$uart_logn$46 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:262: }
-	Smain$uart_logn$47 ==.
-	XG$uart_logn$0$0 ==.
-	ret
-	Smain$uart_logn$48 ==.
-;------------------------------------------------------------
-;Allocation info for local variables in function 'log_init'
-;------------------------------------------------------------
-	Smain$log_init$49 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:266: void log_init(void)
-;	-----------------------------------------
-;	 function log_init
-;	-----------------------------------------
-_log_init:
-	Smain$log_init$50 ==.
-	Smain$log_init$51 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:268: P16_QUASI_MODE;
-	anl	_P1M1,#0xbf
-	anl	_P1M2,#0xbf
-	Smain$log_init$52 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:269: if( !is_uart_mode ) {
-	mov	dptr,#_is_uart_mode
-	movx	a,@dptr
-	jnz	00103$
-	Smain$log_init$53 ==.
-	Smain$log_init$54 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:270: UART_Open(24000000,UART1_Timer3,9600);
-	mov	dptr,#_UART_Open_PARM_2
-	mov	a,#0x02
-	movx	@dptr,a
-	mov	dptr,#_UART_Open_PARM_3
-	mov	a,#0x80
-	movx	@dptr,a
-	mov	a,#0x25
-	inc	dptr
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	mov	dptr,#0x3600
-	mov	b,#0x6e
-	mov	a,#0x01
-	lcall	_UART_Open
-	Smain$log_init$55 ==.
-00103$:
-	Smain$log_init$56 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:272: }
-	Smain$log_init$57 ==.
-	XG$log_init$0$0 ==.
-	ret
-	Smain$log_init$58 ==.
-;------------------------------------------------------------
 ;Allocation info for local variables in function 'SerialPort1_ISR'
 ;------------------------------------------------------------
-	Smain$SerialPort1_ISR$59 ==.
+	Smain$SerialPort1_ISR$19 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:292: void SerialPort1_ISR(void) __interrupt (15)
 ;	-----------------------------------------
 ;	 function SerialPort1_ISR
@@ -1665,15 +1238,15 @@ _SerialPort1_ISR:
 	push	(0+0)
 	push	psw
 	mov	psw,#0x00
-	Smain$SerialPort1_ISR$60 ==.
-	Smain$SerialPort1_ISR$61 ==.
+	Smain$SerialPort1_ISR$20 ==.
+	Smain$SerialPort1_ISR$21 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:294: PUSH_SFRS;
 	PUSH	0x91;
-	Smain$SerialPort1_ISR$62 ==.
+	Smain$SerialPort1_ISR$22 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:296: if (RI_1)
 	jnb	_RI_1,00102$
-	Smain$SerialPort1_ISR$63 ==.
-	Smain$SerialPort1_ISR$64 ==.
+	Smain$SerialPort1_ISR$23 ==.
+	Smain$SerialPort1_ISR$24 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:298: uart1_rx_buffer[uart1_next_idx] = SBUF_1;
 	mov	dptr,#_uart1_next_idx
 	movx	a,@dptr
@@ -1684,7 +1257,7 @@ _SerialPort1_ISR:
 	mov	dph,a
 	mov	a,_SBUF_1
 	movx	@dptr,a
-	Smain$SerialPort1_ISR$65 ==.
+	Smain$SerialPort1_ISR$25 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:299: uart1_next_idx = (uart1_next_idx + 1) % UART_BUFFER_LENGTH;
 	mov	dptr,#_uart1_next_idx
 	movx	a,@dptr
@@ -1694,7 +1267,7 @@ _SerialPort1_ISR:
 	cjne	r7,#0x00,00116$
 	inc	r6
 00116$:
-	Smain$SerialPort1_ISR$66 ==.
+	Smain$SerialPort1_ISR$26 ==.
 	mov	dptr,#__modsint_PARM_2
 	mov	a,#0x10
 	movx	@dptr,a
@@ -1709,26 +1282,26 @@ _SerialPort1_ISR:
 	mov	dptr,#_uart1_next_idx
 	mov	a,r6
 	movx	@dptr,a
-	Smain$SerialPort1_ISR$67 ==.
+	Smain$SerialPort1_ISR$27 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:300: clr_SCON_1_RI_1;                             /* clear reception flag for next reception */
 ;	assignBit
 	clr	_RI_1
 00102$:
-	Smain$SerialPort1_ISR$68 ==.
+	Smain$SerialPort1_ISR$28 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:303: if (TI_1 )
-	Smain$SerialPort1_ISR$69 ==.
-	Smain$SerialPort1_ISR$70 ==.
+	Smain$SerialPort1_ISR$29 ==.
+	Smain$SerialPort1_ISR$30 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:305: clr_SCON_1_TI_1;                             // if emission occur
 ;	assignBit
 	jbc	_TI_1,00117$
 	sjmp	00104$
 00117$:
-	Smain$SerialPort1_ISR$71 ==.
+	Smain$SerialPort1_ISR$31 ==.
 00104$:
-	Smain$SerialPort1_ISR$72 ==.
+	Smain$SerialPort1_ISR$32 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:309: POP_SFRS;
 	POP	0x91;
-	Smain$SerialPort1_ISR$73 ==.
+	Smain$SerialPort1_ISR$33 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:310: }
 	pop	psw
 	pop	(0+0)
@@ -1744,21 +1317,21 @@ _SerialPort1_ISR:
 	pop	b
 	pop	acc
 	pop	bits
-	Smain$SerialPort1_ISR$74 ==.
+	Smain$SerialPort1_ISR$34 ==.
 	XG$SerialPort1_ISR$0$0 ==.
 	reti
-	Smain$SerialPort1_ISR$75 ==.
+	Smain$SerialPort1_ISR$35 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'uart_interrupt_init'
 ;------------------------------------------------------------
-	Smain$uart_interrupt_init$76 ==.
+	Smain$uart_interrupt_init$36 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:314: void uart_interrupt_init(void)
 ;	-----------------------------------------
 ;	 function uart_interrupt_init
 ;	-----------------------------------------
 _uart_interrupt_init:
-	Smain$uart_interrupt_init$77 ==.
-	Smain$uart_interrupt_init$78 ==.
+	Smain$uart_interrupt_init$37 ==.
+	Smain$uart_interrupt_init$38 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:316: UART_Open(24000000,UART1_Timer3,9600);
 	mov	dptr,#_UART_Open_PARM_2
 	mov	a,#0x02
@@ -1778,19 +1351,19 @@ _uart_interrupt_init:
 	mov	b,#0x6e
 	mov	a,#0x01
 	lcall	_UART_Open
-	Smain$uart_interrupt_init$79 ==.
+	Smain$uart_interrupt_init$39 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:318: ENABLE_UART1_INTERRUPT;
 	orl	_EIE1,#0x01
-	Smain$uart_interrupt_init$80 ==.
+	Smain$uart_interrupt_init$40 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:319: }
-	Smain$uart_interrupt_init$81 ==.
+	Smain$uart_interrupt_init$41 ==.
 	XG$uart_interrupt_init$0$0 ==.
 	ret
-	Smain$uart_interrupt_init$82 ==.
+	Smain$uart_interrupt_init$42 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'PinInterrupt_ISR'
 ;------------------------------------------------------------
-	Smain$PinInterrupt_ISR$83 ==.
+	Smain$PinInterrupt_ISR$43 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:332: void PinInterrupt_ISR(void) __interrupt (7)
 ;	-----------------------------------------
 ;	 function PinInterrupt_ISR
@@ -1800,11 +1373,11 @@ _PinInterrupt_ISR:
 	push	b
 	push	dpl
 	push	dph
-	Smain$PinInterrupt_ISR$84 ==.
-	Smain$PinInterrupt_ISR$85 ==.
+	Smain$PinInterrupt_ISR$44 ==.
+	Smain$PinInterrupt_ISR$45 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:334: PUSH_SFRS;
 	PUSH	0x91;
-	Smain$PinInterrupt_ISR$86 ==.
+	Smain$PinInterrupt_ISR$46 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:336: if( !button_pressed ) {
 	mov	dptr,#_button_pressed
 	movx	a,@dptr
@@ -1819,8 +1392,8 @@ _PinInterrupt_ISR:
 	movx	a,@dptr
 	orl	a,b
 	jnz	00102$
-	Smain$PinInterrupt_ISR$87 ==.
-	Smain$PinInterrupt_ISR$88 ==.
+	Smain$PinInterrupt_ISR$47 ==.
+	Smain$PinInterrupt_ISR$48 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:337: button_pressed = 1;
 	mov	dptr,#_button_pressed
 	mov	a,#0x01
@@ -1832,110 +1405,126 @@ _PinInterrupt_ISR:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$PinInterrupt_ISR$89 ==.
+	Smain$PinInterrupt_ISR$49 ==.
 00102$:
-	Smain$PinInterrupt_ISR$90 ==.
+	Smain$PinInterrupt_ISR$50 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:340: PIF &= CLR_BUTTON_PIN;
 	anl	_PIF,#0xfb
-	Smain$PinInterrupt_ISR$91 ==.
+	Smain$PinInterrupt_ISR$51 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:342: POP_SFRS;
 	POP	0x91;
-	Smain$PinInterrupt_ISR$92 ==.
+	Smain$PinInterrupt_ISR$52 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:343: }
 	pop	dph
 	pop	dpl
 	pop	b
 	pop	acc
-	Smain$PinInterrupt_ISR$93 ==.
+	Smain$PinInterrupt_ISR$53 ==.
 	XG$PinInterrupt_ISR$0$0 ==.
 	reti
 ;	eliminated unneeded mov psw,# (no regs used in bank)
 ;	eliminated unneeded push/pop not_psw
-	Smain$PinInterrupt_ISR$94 ==.
+	Smain$PinInterrupt_ISR$54 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'button_interrupt_init'
 ;------------------------------------------------------------
-	Smain$button_interrupt_init$95 ==.
+	Smain$button_interrupt_init$55 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:347: void button_interrupt_init(void)
 ;	-----------------------------------------
 ;	 function button_interrupt_init
 ;	-----------------------------------------
 _button_interrupt_init:
-	Smain$button_interrupt_init$96 ==.
-	Smain$button_interrupt_init$97 ==.
+	Smain$button_interrupt_init$56 ==.
+	Smain$button_interrupt_init$57 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:350: BUTTON_INPUT_MODE;
 	orl	_P0M1,#0x04
 	anl	_P0M2,#0xfb
-	Smain$button_interrupt_init$98 ==.
+	Smain$button_interrupt_init$58 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:352: BUTTON_PIN = 1;
 ;	assignBit
 	setb	_P02
-	Smain$button_interrupt_init$99 ==.
+	Smain$button_interrupt_init$59 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:354: BUTTON_INITIALIZE_EDGE_TRIGGER;
 	mov	_PICON,#0x00
 	orl	_PICON,#0x10
 	orl	_PINEN,#0x04
 	orl	_PIPEN,#0x04
-	Smain$button_interrupt_init$100 ==.
+	Smain$button_interrupt_init$60 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:355: ENABLE_PIN_INTERRUPT;
 	orl	_EIE,#0x02
-	Smain$button_interrupt_init$101 ==.
+	Smain$button_interrupt_init$61 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:356: }
-	Smain$button_interrupt_init$102 ==.
+	Smain$button_interrupt_init$62 ==.
 	XG$button_interrupt_init$0$0 ==.
 	ret
-	Smain$button_interrupt_init$103 ==.
+	Smain$button_interrupt_init$63 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'enable_ntc'
 ;------------------------------------------------------------
-	Smain$enable_ntc$104 ==.
+	Smain$enable_ntc$64 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:358: void enable_ntc( void )
 ;	-----------------------------------------
 ;	 function enable_ntc
 ;	-----------------------------------------
 _enable_ntc:
-	Smain$enable_ntc$105 ==.
-	Smain$enable_ntc$106 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:365: }
-	Smain$enable_ntc$107 ==.
+	Smain$enable_ntc$65 ==.
+	Smain$enable_ntc$66 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:361: NTC_EN_PUSHPULL_MODE;
+	anl	_P1M1,#0xbf
+	orl	_P1M2,#0x40
+	Smain$enable_ntc$67 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:362: NTC_EN_PIN = 0;
+;	assignBit
+	clr	_P16
+	Smain$enable_ntc$68 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:364: }
+	Smain$enable_ntc$69 ==.
 	XG$enable_ntc$0$0 ==.
 	ret
-	Smain$enable_ntc$108 ==.
+	Smain$enable_ntc$70 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'disable_ntc'
 ;------------------------------------------------------------
-	Smain$disable_ntc$109 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:367: void disable_ntc( void )
+	Smain$disable_ntc$71 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:366: void disable_ntc( void )
 ;	-----------------------------------------
 ;	 function disable_ntc
 ;	-----------------------------------------
 _disable_ntc:
-	Smain$disable_ntc$110 ==.
-	Smain$disable_ntc$111 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:374: }
-	Smain$disable_ntc$112 ==.
+	Smain$disable_ntc$72 ==.
+	Smain$disable_ntc$73 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:369: NTC_EN_PUSHPULL_MODE;
+	anl	_P1M1,#0xbf
+	orl	_P1M2,#0x40
+	Smain$disable_ntc$74 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:370: NTC_EN_PIN = 1;
+;	assignBit
+	setb	_P16
+	Smain$disable_ntc$75 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:372: }
+	Smain$disable_ntc$76 ==.
 	XG$disable_ntc$0$0 ==.
 	ret
-	Smain$disable_ntc$113 ==.
+	Smain$disable_ntc$77 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'init_sample'
 ;------------------------------------------------------------
-;i                         Allocated with name '_init_sample_i_131072_178'
+;i                         Allocated with name '_init_sample_i_131072_165'
 ;------------------------------------------------------------
-	Smain$init_sample$114 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:376: void init_sample( void )
+	Smain$init_sample$78 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:374: void init_sample( void )
 ;	-----------------------------------------
 ;	 function init_sample
 ;	-----------------------------------------
 _init_sample:
-	Smain$init_sample$115 ==.
-	Smain$init_sample$116 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:378: sample_count = 0;
+	Smain$init_sample$79 ==.
+	Smain$init_sample$80 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:376: sample_count = 0;
 	mov	dptr,#_sample_count
 	clr	a
 	movx	@dptr,a
-	Smain$init_sample$117 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:379: acc_temp = 0;
+	Smain$init_sample$81 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:377: acc_temp = 0;
 	mov	dptr,#_acc_temp
 	movx	@dptr,a
 	inc	dptr
@@ -1944,13 +1533,13 @@ _init_sample:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$init_sample$118 ==.
-	Smain$init_sample$119 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:381: for( int i = 0; i < NUM_LEDS; i++ ) {
-	Smain$init_sample$120 ==.
+	Smain$init_sample$82 ==.
+	Smain$init_sample$83 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:379: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$init_sample$84 ==.
 	mov	r6,#0x00
 	mov	r7,#0x00
-	Smain$init_sample$121 ==.
+	Smain$init_sample$85 ==.
 00103$:
 	clr	c
 	mov	a,r6
@@ -1959,8 +1548,8 @@ _init_sample:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00101$
-	Smain$init_sample$122 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:382: acc_amp[i] = 0;
+	Smain$init_sample$86 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:380: acc_amp[i] = 0;
 	mov	a,r6
 	add	a,r6
 	mov	r4,a
@@ -1987,66 +1576,66 @@ _init_sample:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$init_sample$123 ==.
-	Smain$init_sample$124 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:381: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$init_sample$87 ==.
+	Smain$init_sample$88 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:379: for( int i = 0; i < NUM_LEDS; i++ ) {
 	inc	r6
 	cjne	r6,#0x00,00103$
 	inc	r7
 	sjmp	00103$
 00101$:
-	Smain$init_sample$125 ==.
-	Smain$init_sample$126 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:385: flashing_on = true;
+	Smain$init_sample$89 ==.
+	Smain$init_sample$90 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:383: flashing_on = true;
 	mov	dptr,#_flashing_on
 	mov	a,#0x01
 	movx	@dptr,a
-	Smain$init_sample$127 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:386: }
-	Smain$init_sample$128 ==.
+	Smain$init_sample$91 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:384: }
+	Smain$init_sample$92 ==.
 	XG$init_sample$0$0 ==.
 	ret
-	Smain$init_sample$129 ==.
+	Smain$init_sample$93 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'init_peripherals_but_button_n_uart'
 ;------------------------------------------------------------
-	Smain$init_peripherals_but_button_n_uart$130 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:390: void init_peripherals_but_button_n_uart(void)
+	Smain$init_peripherals_but_button_n_uart$94 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:388: void init_peripherals_but_button_n_uart(void)
 ;	-----------------------------------------
 ;	 function init_peripherals_but_button_n_uart
 ;	-----------------------------------------
 _init_peripherals_but_button_n_uart:
-	Smain$init_peripherals_but_button_n_uart$131 ==.
-	Smain$init_peripherals_but_button_n_uart$132 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:392: ENABLE_GLOBAL_INTERRUPT;
+	Smain$init_peripherals_but_button_n_uart$95 ==.
+	Smain$init_peripherals_but_button_n_uart$96 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:390: ENABLE_GLOBAL_INTERRUPT;
 ;	assignBit
 	setb	_EA
-	Smain$init_peripherals_but_button_n_uart$133 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:395: ADCCON1 |= 0X30;  // ADC clock src = Fsys / 8
+	Smain$init_peripherals_but_button_n_uart$97 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:393: ADCCON1 |= 0X30;  // ADC clock src = Fsys / 8
 	orl	_ADCCON1,#0x30
-	Smain$init_peripherals_but_button_n_uart$134 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:396: ADCCON2 |= 0x0E;  // ADC sample time = 32 (max)
+	Smain$init_peripherals_but_button_n_uart$98 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:394: ADCCON2 |= 0x0E;  // ADC sample time = 32 (max)
 	orl	_ADCCON2,#0x0e
-	Smain$init_peripherals_but_button_n_uart$135 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:398: NTC_INPUT_MODE; // check point
+	Smain$init_peripherals_but_button_n_uart$99 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:396: NTC_INPUT_MODE;
 	orl	_P0M1,#0x40
 	anl	_P0M2,#0xbf
-	Smain$init_peripherals_but_button_n_uart$136 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:402: clr_CKCON_PWMCKS; // PWM in FSYS freq.
+	Smain$init_peripherals_but_button_n_uart$100 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:400: clr_CKCON_PWMCKS; // PWM in FSYS freq.
 	anl	_CKCON,#0xbf
-	Smain$init_peripherals_but_button_n_uart$137 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:403: PWM0_CLOCK_DIV_1; // PWM div = 1
+	Smain$init_peripherals_but_button_n_uart$101 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:401: PWM0_CLOCK_DIV_1; // PWM div = 1
 	anl	_PWMCON1,#0xf8
 	mov	_PWMCON1,_PWMCON1
-	Smain$init_peripherals_but_button_n_uart$138 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:405: ENABLE_PWM0_CH4_P01_OUTPUT; // LED2
+	Smain$init_peripherals_but_button_n_uart$102 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:403: ENABLE_PWM0_CH4_P01_OUTPUT; // LED2
 	orl	_PIOCON0,#0x10
-	Smain$init_peripherals_but_button_n_uart$139 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:406: P01_PUSHPULL_MODE;
+	Smain$init_peripherals_but_button_n_uart$103 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:404: P01_PUSHPULL_MODE;
 	anl	_P0M1,#0xfd
 	orl	_P0M2,#0x02
-	Smain$init_peripherals_but_button_n_uart$140 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:408: ENABLE_PWM0_CH2_P05_OUTPUT; // LED1/3
+	Smain$init_peripherals_but_button_n_uart$104 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:406: ENABLE_PWM0_CH2_P05_OUTPUT; // LED1/3
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2070,16 +1659,16 @@ _init_peripherals_but_button_n_uart:
 ;	assignBit
 	mov	c,_BIT_TMP
 	mov	_EA,c
-	Smain$init_peripherals_but_button_n_uart$141 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:409: P05_PUSHPULL_MODE;
+	Smain$init_peripherals_but_button_n_uart$105 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:407: P05_PUSHPULL_MODE;
 	anl	_P0M1,#0xdf
 	orl	_P0M2,#0x20
-	Smain$init_peripherals_but_button_n_uart$142 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:411: clr_PWMCON0_PWMRUN;
+	Smain$init_peripherals_but_button_n_uart$106 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:409: clr_PWMCON0_PWMRUN;
 ;	assignBit
 	clr	_PWMRUN
-	Smain$init_peripherals_but_button_n_uart$143 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:412: set_SFRS_SFRPAGE;
+	Smain$init_peripherals_but_button_n_uart$107 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:410: set_SFRS_SFRPAGE;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2091,26 +1680,26 @@ _init_peripherals_but_button_n_uart:
 ;	assignBit
 	mov	c,_BIT_TMP
 	mov	_EA,c
-	Smain$init_peripherals_but_button_n_uart$144 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:414: PWMPH = 0;
+	Smain$init_peripherals_but_button_n_uart$108 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:412: PWMPH = 0;
 	mov	_PWMPH,#0x00
-	Smain$init_peripherals_but_button_n_uart$145 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:415: PWMPL = MAX_PWM; // 255 bit PWM
+	Smain$init_peripherals_but_button_n_uart$109 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:413: PWMPL = MAX_PWM; // 255 bit PWM
 	mov	_PWMPL,#0xff
-	Smain$init_peripherals_but_button_n_uart$146 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:417: PWM2L = 0;
+	Smain$init_peripherals_but_button_n_uart$110 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:415: PWM2L = 0;
 	mov	_PWM2L,#0x00
-	Smain$init_peripherals_but_button_n_uart$147 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:418: PWM2H = 0;
+	Smain$init_peripherals_but_button_n_uart$111 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:416: PWM2H = 0;
 	mov	_PWM2H,#0x00
-	Smain$init_peripherals_but_button_n_uart$148 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:419: PWM4L = 0;
+	Smain$init_peripherals_but_button_n_uart$112 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:417: PWM4L = 0;
 	mov	_PWM4L,#0x00
-	Smain$init_peripherals_but_button_n_uart$149 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:420: PWM4H = 0;
+	Smain$init_peripherals_but_button_n_uart$113 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:418: PWM4H = 0;
 	mov	_PWM4H,#0x00
-	Smain$init_peripherals_but_button_n_uart$150 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:422: clr_SFRS_SFRPAGE;
+	Smain$init_peripherals_but_button_n_uart$114 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:420: clr_SFRS_SFRPAGE;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2122,50 +1711,50 @@ _init_peripherals_but_button_n_uart:
 ;	assignBit
 	mov	c,_BIT_TMP
 	mov	_EA,c
-	Smain$init_peripherals_but_button_n_uart$151 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:423: set_PWMCON0_PWMRUN;
+	Smain$init_peripherals_but_button_n_uart$115 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:421: set_PWMCON0_PWMRUN;
 ;	assignBit
 	setb	_PWMRUN
-	Smain$init_peripherals_but_button_n_uart$152 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:425: light_control_mode[0] = MODE_STABLE;
+	Smain$init_peripherals_but_button_n_uart$116 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:423: light_control_mode[0] = MODE_STABLE;
 	mov	dptr,#_light_control_mode
 	clr	a
 	movx	@dptr,a
-	Smain$init_peripherals_but_button_n_uart$153 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:426: light_control_mode[1] = MODE_STABLE;
+	Smain$init_peripherals_but_button_n_uart$117 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:424: light_control_mode[1] = MODE_STABLE;
 	mov	dptr,#(_light_control_mode + 0x0001)
 	movx	@dptr,a
-	Smain$init_peripherals_but_button_n_uart$154 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:428: enable_ntc();
+	Smain$init_peripherals_but_button_n_uart$118 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:426: enable_ntc();
 	lcall	_enable_ntc
-	Smain$init_peripherals_but_button_n_uart$155 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:430: init_sample();
+	Smain$init_peripherals_but_button_n_uart$119 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:428: init_sample();
 	lcall	_init_sample
-	Smain$init_peripherals_but_button_n_uart$156 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:431: flashing_count = 0;
+	Smain$init_peripherals_but_button_n_uart$120 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:429: flashing_count = 0;
 	mov	dptr,#_flashing_count
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$init_peripherals_but_button_n_uart$157 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:432: }
-	Smain$init_peripherals_but_button_n_uart$158 ==.
+	Smain$init_peripherals_but_button_n_uart$121 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:430: }
+	Smain$init_peripherals_but_button_n_uart$122 ==.
 	XG$init_peripherals_but_button_n_uart$0$0 ==.
 	ret
-	Smain$init_peripherals_but_button_n_uart$159 ==.
+	Smain$init_peripherals_but_button_n_uart$123 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'sample_amps'
 ;------------------------------------------------------------
-	Smain$sample_amps$160 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:434: void sample_amps( void )
+	Smain$sample_amps$124 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:432: void sample_amps( void )
 ;	-----------------------------------------
 ;	 function sample_amps
 ;	-----------------------------------------
 _sample_amps:
-	Smain$sample_amps$161 ==.
-	Smain$sample_amps$162 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:437: ENABLE_ADC_LED1;
+	Smain$sample_amps$125 ==.
+	Smain$sample_amps$126 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:435: ENABLE_ADC_LED1;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2196,8 +1785,8 @@ _sample_amps:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	orl	_ADCCON1,#0x01
-	Smain$sample_amps$163 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:439: clr_ADCCON0_ADCF;
+	Smain$sample_amps$127 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:437: clr_ADCCON0_ADCF;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2211,8 +1800,8 @@ _sample_amps:
 	mov	_EA,c
 ;	assignBit
 	clr	_ADCF
-	Smain$sample_amps$164 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:440: set_ADCCON0_ADCS;
+	Smain$sample_amps$128 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:438: set_ADCCON0_ADCS;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2226,12 +1815,12 @@ _sample_amps:
 	mov	_EA,c
 ;	assignBit
 	setb	_ADCS
-	Smain$sample_amps$165 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:442: while( ADCF == 0 );
+	Smain$sample_amps$129 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:440: while( ADCF == 0 );
 00101$:
 	jnb	_ADCF,00101$
-	Smain$sample_amps$166 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:443: cur_amp[LED1_IDX] = (((uint16_t)ADCRH) << 4 ) | (ADCRL & 0xF);
+	Smain$sample_amps$130 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:441: cur_amp[LED1_IDX] = (((uint16_t)ADCRH) << 4 ) | (ADCRL & 0xF);
 	mov	r6,_ADCRH
 	clr	a
 	swap	a
@@ -2258,8 +1847,8 @@ _sample_amps:
 	mov	a,r5
 	inc	dptr
 	movx	@dptr,a
-	Smain$sample_amps$167 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:445: DISABLE_ADC;
+	Smain$sample_amps$131 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:443: DISABLE_ADC;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2272,8 +1861,8 @@ _sample_amps:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	anl	_ADCCON1,#0xfe
-	Smain$sample_amps$168 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:448: ENABLE_ADC_LED2;
+	Smain$sample_amps$132 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:446: ENABLE_ADC_LED2;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2304,8 +1893,8 @@ _sample_amps:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	orl	_ADCCON1,#0x01
-	Smain$sample_amps$169 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:450: clr_ADCCON0_ADCF;
+	Smain$sample_amps$133 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:448: clr_ADCCON0_ADCF;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2319,8 +1908,8 @@ _sample_amps:
 	mov	_EA,c
 ;	assignBit
 	clr	_ADCF
-	Smain$sample_amps$170 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:451: set_ADCCON0_ADCS;
+	Smain$sample_amps$134 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:449: set_ADCCON0_ADCS;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2334,12 +1923,12 @@ _sample_amps:
 	mov	_EA,c
 ;	assignBit
 	setb	_ADCS
-	Smain$sample_amps$171 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:453: while( ADCF == 0 );
+	Smain$sample_amps$135 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:451: while( ADCF == 0 );
 00104$:
 	jnb	_ADCF,00104$
-	Smain$sample_amps$172 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:454: cur_amp[LED2_IDX] = (((uint16_t)ADCRH) << 4 ) | (ADCRL & 0xF);
+	Smain$sample_amps$136 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:452: cur_amp[LED2_IDX] = (((uint16_t)ADCRH) << 4 ) | (ADCRL & 0xF);
 	mov	r6,_ADCRH
 	clr	a
 	swap	a
@@ -2366,8 +1955,8 @@ _sample_amps:
 	mov	a,r5
 	inc	dptr
 	movx	@dptr,a
-	Smain$sample_amps$173 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:456: DISABLE_ADC;
+	Smain$sample_amps$137 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:454: DISABLE_ADC;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2380,24 +1969,24 @@ _sample_amps:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	anl	_ADCCON1,#0xfe
-	Smain$sample_amps$174 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:457: }
-	Smain$sample_amps$175 ==.
+	Smain$sample_amps$138 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:455: }
+	Smain$sample_amps$139 ==.
 	XG$sample_amps$0$0 ==.
 	ret
-	Smain$sample_amps$176 ==.
+	Smain$sample_amps$140 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'sample_temperature'
 ;------------------------------------------------------------
-	Smain$sample_temperature$177 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:459: void sample_temperature( void )
+	Smain$sample_temperature$141 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:457: void sample_temperature( void )
 ;	-----------------------------------------
 ;	 function sample_temperature
 ;	-----------------------------------------
 _sample_temperature:
-	Smain$sample_temperature$178 ==.
-	Smain$sample_temperature$179 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:462: ENABLE_ADC_NTC;
+	Smain$sample_temperature$142 ==.
+	Smain$sample_temperature$143 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:460: ENABLE_ADC_NTC;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2428,8 +2017,8 @@ _sample_temperature:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	orl	_ADCCON1,#0x01
-	Smain$sample_temperature$180 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:464: clr_ADCCON0_ADCF;
+	Smain$sample_temperature$144 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:462: clr_ADCCON0_ADCF;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2443,8 +2032,8 @@ _sample_temperature:
 	mov	_EA,c
 ;	assignBit
 	clr	_ADCF
-	Smain$sample_temperature$181 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:465: set_ADCCON0_ADCS;
+	Smain$sample_temperature$145 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:463: set_ADCCON0_ADCS;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2458,12 +2047,12 @@ _sample_temperature:
 	mov	_EA,c
 ;	assignBit
 	setb	_ADCS
-	Smain$sample_temperature$182 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:467: while( ADCF == 0 );
+	Smain$sample_temperature$146 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:465: while( ADCF == 0 );
 00101$:
 	jnb	_ADCF,00101$
-	Smain$sample_temperature$183 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:468: acc_temp += (((uint16_t)ADCRH) << 4 ) | (ADCRL & 0xF);
+	Smain$sample_temperature$147 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:466: acc_temp += (((uint16_t)ADCRH) << 4 ) | (ADCRL & 0xF);
 	mov	r6,_ADCRH
 	clr	a
 	swap	a
@@ -2516,8 +2105,8 @@ _sample_temperature:
 	addc	a,r7
 	inc	dptr
 	movx	@dptr,a
-	Smain$sample_temperature$184 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:470: DISABLE_ADC;
+	Smain$sample_temperature$148 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:468: DISABLE_ADC;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -2530,29 +2119,29 @@ _sample_temperature:
 	mov	c,_BIT_TMP
 	mov	_EA,c
 	anl	_ADCCON1,#0xfe
-	Smain$sample_temperature$185 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:472: }
-	Smain$sample_temperature$186 ==.
+	Smain$sample_temperature$149 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:470: }
+	Smain$sample_temperature$150 ==.
 	XG$sample_temperature$0$0 ==.
 	ret
-	Smain$sample_temperature$187 ==.
+	Smain$sample_temperature$151 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'has_high_beam'
 ;------------------------------------------------------------
-;mode                      Allocated with name '_has_high_beam_mode_65536_186'
+;mode                      Allocated with name '_has_high_beam_mode_65536_173'
 ;------------------------------------------------------------
-	Smain$has_high_beam$188 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:474: int8_t has_high_beam( int8_t mode )
+	Smain$has_high_beam$152 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:472: int8_t has_high_beam( int8_t mode )
 ;	-----------------------------------------
 ;	 function has_high_beam
 ;	-----------------------------------------
 _has_high_beam:
-	Smain$has_high_beam$189 ==.
+	Smain$has_high_beam$153 ==.
 	mov	a,dpl
-	mov	dptr,#_has_high_beam_mode_65536_186
+	mov	dptr,#_has_high_beam_mode_65536_173
 	movx	@dptr,a
-	Smain$has_high_beam$190 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:476: return (max_amp[mode][0] > 0);
+	Smain$has_high_beam$154 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:474: return (max_amp[mode][0] > 0);
 	movx	a,@dptr
 	mov	r7,a
 	clr	F0
@@ -2590,38 +2179,38 @@ _has_high_beam:
 	mov	r7,#0x00
 00104$:
 	mov	dpl,r6
-	Smain$has_high_beam$191 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:477: }
-	Smain$has_high_beam$192 ==.
+	Smain$has_high_beam$155 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:475: }
+	Smain$has_high_beam$156 ==.
 	XG$has_high_beam$0$0 ==.
 	ret
-	Smain$has_high_beam$193 ==.
+	Smain$has_high_beam$157 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'avg_amp'
 ;------------------------------------------------------------
-;idx                       Allocated with name '_avg_amp_idx_65536_188'
+;idx                       Allocated with name '_avg_amp_idx_65536_175'
 ;------------------------------------------------------------
-	Smain$avg_amp$194 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:479: uint16_t avg_amp( uint8_t idx ) {
+	Smain$avg_amp$158 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:477: uint16_t avg_amp( uint8_t idx ) {
 ;	-----------------------------------------
 ;	 function avg_amp
 ;	-----------------------------------------
 _avg_amp:
-	Smain$avg_amp$195 ==.
+	Smain$avg_amp$159 ==.
 	mov	a,dpl
-	mov	dptr,#_avg_amp_idx_65536_188
+	mov	dptr,#_avg_amp_idx_65536_175
 	movx	@dptr,a
-	Smain$avg_amp$196 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:480: if( sample_count > 0 ) {
+	Smain$avg_amp$160 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:478: if( sample_count > 0 ) {
 	mov	dptr,#_sample_count
 	movx	a,@dptr
 	mov	r7,a
 	movx	a,@dptr
 	jz	00102$
-	Smain$avg_amp$197 ==.
-	Smain$avg_amp$198 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:481: return acc_amp[idx] / sample_count;
-	mov	dptr,#_avg_amp_idx_65536_188
+	Smain$avg_amp$161 ==.
+	Smain$avg_amp$162 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:479: return acc_amp[idx] / sample_count;
+	mov	dptr,#_avg_amp_idx_65536_175
 	movx	a,@dptr
 	mov	b,#0x04
 	mul	ab
@@ -2651,7 +2240,7 @@ _avg_amp:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$avg_amp$199 ==.
+	Smain$avg_amp$163 ==.
 	mov	dpl,r3
 	mov	dph,r4
 	mov	b,r5
@@ -2663,10 +2252,10 @@ _avg_amp:
 	mov	r7,a
 	sjmp	00104$
 00102$:
-	Smain$avg_amp$200 ==.
-	Smain$avg_amp$201 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:483: return cur_amp[idx];
-	mov	dptr,#_avg_amp_idx_65536_188
+	Smain$avg_amp$164 ==.
+	Smain$avg_amp$165 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:481: return cur_amp[idx];
+	mov	dptr,#_avg_amp_idx_65536_175
 	movx	a,@dptr
 	mov	b,#0x02
 	mul	ab
@@ -2679,36 +2268,36 @@ _avg_amp:
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
-	Smain$avg_amp$202 ==.
-	Smain$avg_amp$203 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:485: }
-	Smain$avg_amp$204 ==.
+	Smain$avg_amp$166 ==.
+	Smain$avg_amp$167 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:483: }
+	Smain$avg_amp$168 ==.
 	XG$avg_amp$0$0 ==.
 	mov	dpl,r6
 	mov	dph,a
 00104$:
 	ret
-	Smain$avg_amp$205 ==.
+	Smain$avg_amp$169 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'target_amp'
 ;------------------------------------------------------------
 ;idx                       Allocated with name '_target_amp_PARM_2'
-;mode                      Allocated with name '_target_amp_mode_65536_192'
-;m                         Allocated with name '_target_amp_m_196608_196'
-;a                         Allocated with name '_target_amp_a_196608_196'
+;mode                      Allocated with name '_target_amp_mode_65536_179'
+;m                         Allocated with name '_target_amp_m_196608_183'
+;a                         Allocated with name '_target_amp_a_196608_183'
 ;------------------------------------------------------------
-	Smain$target_amp$206 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:487: uint8_t target_amp( uint8_t mode, uint8_t idx ) {
+	Smain$target_amp$170 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:485: uint8_t target_amp( uint8_t mode, uint8_t idx ) {
 ;	-----------------------------------------
 ;	 function target_amp
 ;	-----------------------------------------
 _target_amp:
-	Smain$target_amp$207 ==.
+	Smain$target_amp$171 ==.
 	mov	a,dpl
-	mov	dptr,#_target_amp_mode_65536_192
+	mov	dptr,#_target_amp_mode_65536_179
 	movx	@dptr,a
-	Smain$target_amp$208 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:488: if( temp_controlling[mode] && cur_temp > MAX_TEMP ) {
+	Smain$target_amp$172 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:486: if( temp_controlling[mode] && cur_temp > MAX_TEMP ) {
 	movx	a,@dptr
 	mov	r7,a
 	add	a,#_temp_controlling
@@ -2739,18 +2328,18 @@ _target_amp:
 	jc	00123$
 	ljmp	00105$
 00123$:
-	Smain$target_amp$209 ==.
-	Smain$target_amp$210 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:489: if( cur_temp > ABS_MAX_TEMP ) {
+	Smain$target_amp$173 ==.
+	Smain$target_amp$174 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:487: if( cur_temp > ABS_MAX_TEMP ) {
 	clr	c
 	mov	a,#0x16
 	subb	a,r3
 	mov	a,#0x0d
 	subb	a,r4
 	jnc	00102$
-	Smain$target_amp$211 ==.
-	Smain$target_amp$212 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:490: return max_amp[mode][idx] >> 1;
+	Smain$target_amp$175 ==.
+	Smain$target_amp$176 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:488: return max_amp[mode][idx] >> 1;
 	mov	a,r7
 	mov	b,#0x02
 	mul	ab
@@ -2774,11 +2363,11 @@ _target_amp:
 	mov	r4,a
 	mov	dpl,a
 	ljmp	00108$
-	Smain$target_amp$213 ==.
+	Smain$target_amp$177 ==.
 00102$:
-	Smain$target_amp$214 ==.
-	Smain$target_amp$215 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:492: uint32_t m = max_amp[mode][idx];
+	Smain$target_amp$178 ==.
+	Smain$target_amp$179 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:490: uint32_t m = max_amp[mode][idx];
 	mov	a,r7
 	mov	b,#0x02
 	mul	ab
@@ -2797,8 +2386,8 @@ _target_amp:
 	clr	a
 	movc	a,@a+dptr
 	mov	r7,a
-	Smain$target_amp$216 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:493: uint32_t a = m * (ABS_MAX_TEMP - cur_temp) / (ABS_MAX_TEMP - MAX_TEMP);
+	Smain$target_amp$180 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:491: uint32_t a = m * (ABS_MAX_TEMP - cur_temp) / (ABS_MAX_TEMP - MAX_TEMP);
 	clr	a
 	mov	r4,a
 	mov	r3,a
@@ -2821,7 +2410,7 @@ _target_amp:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$target_amp$217 ==.
+	Smain$target_amp$181 ==.
 	mov	dpl,r7
 	mov	dph,r4
 	mov	b,r3
@@ -2845,8 +2434,8 @@ _target_amp:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$target_amp$218 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:494: return (m >> 1) + (a >> 2) + (a >> 4);
+	Smain$target_amp$182 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:492: return (m >> 1) + (a >> 2) + (a >> 4);
 	mov	dpl,r0
 	mov	dph,r1
 	mov	b,r5
@@ -2899,10 +2488,10 @@ _target_amp:
 	mov	dpl,a
 	sjmp	00108$
 00105$:
-	Smain$target_amp$219 ==.
-	Smain$target_amp$220 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:497: return max_amp[mode][idx];
-	mov	dptr,#_target_amp_mode_65536_192
+	Smain$target_amp$183 ==.
+	Smain$target_amp$184 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:495: return max_amp[mode][idx];
+	mov	dptr,#_target_amp_mode_65536_179
 	movx	a,@dptr
 	mov	b,#0x02
 	mul	ab
@@ -2921,36 +2510,36 @@ _target_amp:
 	mov	dph,a
 	clr	a
 	movc	a,@a+dptr
-	Smain$target_amp$221 ==.
-	Smain$target_amp$222 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:499: }
-	Smain$target_amp$223 ==.
+	Smain$target_amp$185 ==.
+	Smain$target_amp$186 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:497: }
+	Smain$target_amp$187 ==.
 	XG$target_amp$0$0 ==.
 	mov	dpl,a
 00108$:
 	ret
-	Smain$target_amp$224 ==.
+	Smain$target_amp$188 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'changeMode'
 ;------------------------------------------------------------
-;new_mode                  Allocated with name '_changeMode_new_mode_65536_198'
-;i                         Allocated with name '_changeMode_i_131072_200'
-;target                    Allocated with name '_changeMode_target_196608_201'
-;i                         Allocated with name '_changeMode_i_131072_205'
-;i                         Allocated with name '_changeMode_i_196608_208'
+;new_mode                  Allocated with name '_changeMode_new_mode_65536_185'
+;i                         Allocated with name '_changeMode_i_131072_187'
+;target                    Allocated with name '_changeMode_target_196608_188'
+;i                         Allocated with name '_changeMode_i_131072_192'
+;i                         Allocated with name '_changeMode_i_196608_195'
 ;------------------------------------------------------------
-	Smain$changeMode$225 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:512: void changeMode(uint8_t new_mode)
+	Smain$changeMode$189 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:510: void changeMode(uint8_t new_mode)
 ;	-----------------------------------------
 ;	 function changeMode
 ;	-----------------------------------------
 _changeMode:
-	Smain$changeMode$226 ==.
+	Smain$changeMode$190 ==.
 	mov	a,dpl
-	mov	dptr,#_changeMode_new_mode_65536_198
+	mov	dptr,#_changeMode_new_mode_65536_185
 	movx	@dptr,a
-	Smain$changeMode$227 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:514: if( new_mode == light_mode ) return;
+	Smain$changeMode$191 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:512: if( new_mode == light_mode ) return;
 	movx	a,@dptr
 	mov	r7,a
 	mov	dptr,#_light_mode
@@ -2960,15 +2549,15 @@ _changeMode:
 	cjne	a,ar6,00102$
 	ljmp	00134$
 00102$:
-	Smain$changeMode$228 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:515: if( new_mode > LIGHT_MODE_MAX ) return;
+	Smain$changeMode$192 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:513: if( new_mode > LIGHT_MODE_MAX ) return;
 	mov	a,r7
 	add	a,#0xff - 0x09
 	jnc	00104$
 	ljmp	00134$
 00104$:
-	Smain$changeMode$229 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:516: if( next_mode[new_mode] == 0 ) return;
+	Smain$changeMode$193 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:514: if( next_mode[new_mode] == 0 ) return;
 	mov	a,r7
 	add	a,#_next_mode
 	mov	r5,a
@@ -2981,19 +2570,19 @@ _changeMode:
 	movc	a,@a+dptr
 	jnz	00144$
 	ljmp	00134$
-	Smain$changeMode$230 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:518: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$changeMode$194 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:516: for( int i = 0; i < NUM_LEDS; i++ ) {
 00144$:
-	Smain$changeMode$231 ==.
-	Smain$changeMode$232 ==.
-	Smain$changeMode$233 ==.
-	Smain$changeMode$233 ==.
-	Smain$changeMode$234 ==.
-	Smain$changeMode$234 ==.
-	Smain$changeMode$235 ==.
+	Smain$changeMode$195 ==.
+	Smain$changeMode$196 ==.
+	Smain$changeMode$197 ==.
+	Smain$changeMode$197 ==.
+	Smain$changeMode$198 ==.
+	Smain$changeMode$198 ==.
+	Smain$changeMode$199 ==.
 	mov	r5,#0x00
 	mov	r6,#0x00
-	Smain$changeMode$236 ==.
+	Smain$changeMode$200 ==.
 00126$:
 	clr	c
 	mov	a,r5
@@ -3004,8 +2593,8 @@ _changeMode:
 	jc	00211$
 	ljmp	00116$
 00211$:
-	Smain$changeMode$237 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:519: int16_t target = target_amp(new_mode, i);
+	Smain$changeMode$201 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:517: int16_t target = target_amp(new_mode, i);
 	mov	dptr,#_target_amp_PARM_2
 	mov	a,r5
 	movx	@dptr,a
@@ -3020,8 +2609,8 @@ _changeMode:
 	pop	ar7
 	mov	ar2,r4
 	mov	r3,#0x00
-	Smain$changeMode$238 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:520: if( target == 0 && pwm[i] > 0 ) { // 켜져있는 상태에서 끄고자할 때
+	Smain$changeMode$202 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:518: if( target == 0 && pwm[i] > 0 ) { // 켜져있는 상태에서 끄고자할 때
 	mov	a,r4
 	jnz	00113$
 	mov	a,r5
@@ -3043,8 +2632,8 @@ _changeMode:
 	mov	r4,a
 	orl	a,r1
 	jz	00113$
-	Smain$changeMode$239 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:521: light_control_mode[i] = MODE_CHANGING_OFF;
+	Smain$changeMode$203 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:519: light_control_mode[i] = MODE_CHANGING_OFF;
 	mov	a,r5
 	add	a,#_light_control_mode
 	mov	dpl,a
@@ -3055,8 +2644,8 @@ _changeMode:
 	movx	@dptr,a
 	sjmp	00127$
 00113$:
-	Smain$changeMode$240 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:522: } else if( target > avg_amp(i) ) {
+	Smain$changeMode$204 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:520: } else if( target > avg_amp(i) ) {
 	mov	ar4,r5
 	mov	dpl,r4
 	push	ar7
@@ -3080,8 +2669,8 @@ _changeMode:
 	mov	a,r1
 	subb	a,r3
 	jnc	00110$
-	Smain$changeMode$241 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:523: light_control_mode[i] = MODE_CHANGING_UP;
+	Smain$changeMode$205 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:521: light_control_mode[i] = MODE_CHANGING_UP;
 	mov	a,r5
 	add	a,#_light_control_mode
 	mov	dpl,a
@@ -3092,8 +2681,8 @@ _changeMode:
 	movx	@dptr,a
 	sjmp	00127$
 00110$:
-	Smain$changeMode$242 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:524: } else if( target < avg_amp(i) ) {
+	Smain$changeMode$206 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:522: } else if( target < avg_amp(i) ) {
 	mov	dpl,r4
 	push	ar7
 	push	ar6
@@ -3114,8 +2703,8 @@ _changeMode:
 	mov	a,r3
 	subb	a,r4
 	jnc	00127$
-	Smain$changeMode$243 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:525: light_control_mode[i] = MODE_CHANGING_DOWN;
+	Smain$changeMode$207 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:523: light_control_mode[i] = MODE_CHANGING_DOWN;
 	mov	a,r5
 	add	a,#_light_control_mode
 	mov	dpl,a
@@ -3125,26 +2714,26 @@ _changeMode:
 	mov	a,#0x03
 	movx	@dptr,a
 00127$:
-	Smain$changeMode$244 ==.
-	Smain$changeMode$245 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:518: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$changeMode$208 ==.
+	Smain$changeMode$209 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:516: for( int i = 0; i < NUM_LEDS; i++ ) {
 	inc	r5
 	cjne	r5,#0x00,00216$
 	inc	r6
 00216$:
 	ljmp	00126$
 00116$:
-	Smain$changeMode$246 ==.
-	Smain$changeMode$247 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:531: init_sample();
+	Smain$changeMode$210 ==.
+	Smain$changeMode$211 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:529: init_sample();
 	lcall	_init_sample
-	Smain$changeMode$248 ==.
-	Smain$changeMode$249 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:532: for( int i = 0; i < NUM_LEDS; i++ ) {
-	Smain$changeMode$250 ==.
+	Smain$changeMode$212 ==.
+	Smain$changeMode$213 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:530: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$changeMode$214 ==.
 	mov	r6,#0x00
 	mov	r7,#0x00
-	Smain$changeMode$251 ==.
+	Smain$changeMode$215 ==.
 00129$:
 	clr	c
 	mov	a,r6
@@ -3153,8 +2742,8 @@ _changeMode:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00117$
-	Smain$changeMode$252 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:533: good_amp_count[i] = 0;
+	Smain$changeMode$216 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:531: good_amp_count[i] = 0;
 	mov	a,r6
 	add	a,#_good_amp_count
 	mov	dpl,a
@@ -3163,39 +2752,39 @@ _changeMode:
 	mov	dph,a
 	clr	a
 	movx	@dptr,a
-	Smain$changeMode$253 ==.
-	Smain$changeMode$254 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:532: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$changeMode$217 ==.
+	Smain$changeMode$218 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:530: for( int i = 0; i < NUM_LEDS; i++ ) {
 	inc	r6
 	cjne	r6,#0x00,00129$
 	inc	r7
 	sjmp	00129$
 00117$:
-	Smain$changeMode$255 ==.
-	Smain$changeMode$256 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:536: if( light_mode != LIGHT_OFF && new_mode != LIGHT_OFF ) {
+	Smain$changeMode$219 ==.
+	Smain$changeMode$220 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:534: if( light_mode != LIGHT_OFF && new_mode != LIGHT_OFF ) {
 	mov	dptr,#_light_mode
 	movx	a,@dptr
 	jz	00123$
-	mov	dptr,#_changeMode_new_mode_65536_198
+	mov	dptr,#_changeMode_new_mode_65536_185
 	movx	a,@dptr
 	mov	r7,a
 	movx	a,@dptr
 	jz	00123$
-	Smain$changeMode$257 ==.
-	Smain$changeMode$258 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:537: for( int i = 0; i < NUM_LEDS; i++ ) {
-	Smain$changeMode$259 ==.
-	Smain$changeMode$259 ==.
+	Smain$changeMode$221 ==.
+	Smain$changeMode$222 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:535: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$changeMode$223 ==.
+	Smain$changeMode$223 ==.
 	mov	a,r7
 	mov	b,#0x02
 	mul	ab
 	mov	r6,a
 	mov	r7,b
-	Smain$changeMode$260 ==.
+	Smain$changeMode$224 ==.
 	mov	r4,#0x00
 	mov	r5,#0x00
-	Smain$changeMode$261 ==.
+	Smain$changeMode$225 ==.
 00132$:
 	clr	c
 	mov	a,r4
@@ -3204,8 +2793,8 @@ _changeMode:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00123$
-	Smain$changeMode$262 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:538: if( max_amp[light_mode][i] == 0 && max_amp[new_mode][i] > 0 ) {
+	Smain$changeMode$226 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:536: if( max_amp[light_mode][i] == 0 && max_amp[new_mode][i] > 0 ) {
 	mov	dptr,#_light_mode
 	movx	a,@dptr
 	mov	b,#0x02
@@ -3243,8 +2832,8 @@ _changeMode:
 	clr	a
 	movc	a,@a+dptr
 	jz	00133$
-	Smain$changeMode$263 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:539: pwm[i] = MIN_PWM_ON;
+	Smain$changeMode$227 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:537: pwm[i] = MIN_PWM_ON;
 	mov	a,r4
 	add	a,r4
 	mov	r2,a
@@ -3263,83 +2852,66 @@ _changeMode:
 	inc	dptr
 	movx	@dptr,a
 00133$:
-	Smain$changeMode$264 ==.
-	Smain$changeMode$265 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:537: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$changeMode$228 ==.
+	Smain$changeMode$229 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:535: for( int i = 0; i < NUM_LEDS; i++ ) {
 	inc	r4
-	Smain$changeMode$266 ==.
+	Smain$changeMode$230 ==.
 	cjne	r4,#0x00,00132$
 	inc	r5
 	sjmp	00132$
 00123$:
-	Smain$changeMode$267 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:543: light_mode = new_mode;
-	mov	dptr,#_changeMode_new_mode_65536_198
+	Smain$changeMode$231 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:541: light_mode = new_mode;
+	mov	dptr,#_changeMode_new_mode_65536_185
 	movx	a,@dptr
 	mov	dptr,#_light_mode
 	movx	@dptr,a
-	Smain$changeMode$268 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:545: LS_LOG('C');
-	mov	dpl,#0x43
-	lcall	_uart_log
-	Smain$changeMode$269 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:546: LS_LOGN(light_mode);
-	mov	dptr,#_light_mode
-	movx	a,@dptr
-	mov	r7,a
-	mov	r6,#0x00
-	mov	r5,#0x00
-	mov	r4,#0x00
-	mov	dpl,r7
-	mov	dph,r6
-	mov	b,r5
-	mov	a,r4
-	lcall	_uart_logn
 00134$:
-	Smain$changeMode$270 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:547: }
-	Smain$changeMode$271 ==.
+	Smain$changeMode$232 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:545: }
+	Smain$changeMode$233 ==.
 	XG$changeMode$0$0 ==.
 	ret
-	Smain$changeMode$272 ==.
+	Smain$changeMode$234 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'toNextMode'
 ;------------------------------------------------------------
-	Smain$toNextMode$273 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:552: void toNextMode(void)
+	Smain$toNextMode$235 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:550: void toNextMode(void)
 ;	-----------------------------------------
 ;	 function toNextMode
 ;	-----------------------------------------
 _toNextMode:
-	Smain$toNextMode$274 ==.
-	Smain$toNextMode$275 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:554: changeMode(next_mode[light_mode]);
+	Smain$toNextMode$236 ==.
+	Smain$toNextMode$237 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:552: changeMode(next_mode[light_mode]);
 	mov	dptr,#_light_mode
 	movx	a,@dptr
 	mov	dptr,#_next_mode
 	movc	a,@a+dptr
 	mov	dpl,a
 	lcall	_changeMode
-	Smain$toNextMode$276 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:555: }
-	Smain$toNextMode$277 ==.
+	Smain$toNextMode$238 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:553: }
+	Smain$toNextMode$239 ==.
 	XG$toNextMode$0$0 ==.
 	ret
-	Smain$toNextMode$278 ==.
+	Smain$toNextMode$240 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'process_uart'
 ;------------------------------------------------------------
-;ch                        Allocated with name '_process_uart_ch_131072_216'
+;ch                        Allocated with name '_process_uart_ch_131072_203'
 ;------------------------------------------------------------
-	Smain$process_uart$279 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:558: bool process_uart(void)
+	Smain$process_uart$241 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:556: bool process_uart(void)
 ;	-----------------------------------------
 ;	 function process_uart
 ;	-----------------------------------------
 _process_uart:
-	Smain$process_uart$280 ==.
-	Smain$process_uart$281 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:560: if( uart_flag > 0) {
+	Smain$process_uart$242 ==.
+	Smain$process_uart$243 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:558: if( uart_flag > 0) {
 	mov	dptr,#_uart_flag
 	movx	a,@dptr
 	mov	r7,a
@@ -3349,23 +2921,19 @@ _process_uart:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00146$
-	Smain$process_uart$282 ==.
-	Smain$process_uart$283 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:561: uart_flag = -1;
+	Smain$process_uart$244 ==.
+	Smain$process_uart$245 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:559: uart_flag = -1;
 	mov	dptr,#_uart_flag
 	mov	a,#0xff
 	movx	@dptr,a
-	Smain$process_uart$284 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:562: LS_LOG('!');
-	mov	dpl,#0x21
-	lcall	_uart_log
-	Smain$process_uart$285 ==.
-	Smain$process_uart$286 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:564: while( uart1_next_idx != uart1_read_idx ) {
+	Smain$process_uart$246 ==.
+	Smain$process_uart$247 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:562: while( uart1_next_idx != uart1_read_idx ) {
 00146$:
-	Smain$process_uart$287 ==.
-	Smain$process_uart$288 ==.
-	Smain$process_uart$289 ==.
+	Smain$process_uart$248 ==.
+	Smain$process_uart$249 ==.
+	Smain$process_uart$250 ==.
 00126$:
 	mov	dptr,#_uart1_next_idx
 	movx	a,@dptr
@@ -3377,8 +2945,8 @@ _process_uart:
 	cjne	a,ar6,00216$
 	ljmp	00128$
 00216$:
-	Smain$process_uart$290 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:565: uint8_t ch = uart1_rx_buffer[uart1_read_idx];
+	Smain$process_uart$251 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:563: uint8_t ch = uart1_rx_buffer[uart1_read_idx];
 	mov	a,r6
 	add	a,#_uart1_rx_buffer
 	mov	dpl,a
@@ -3386,10 +2954,10 @@ _process_uart:
 	addc	a,#(_uart1_rx_buffer >> 8)
 	mov	dph,a
 	movx	a,@dptr
-	mov	dptr,#_process_uart_ch_131072_216
+	mov	dptr,#_process_uart_ch_131072_203
 	movx	@dptr,a
-	Smain$process_uart$291 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:566: uart1_read_idx = (uart1_read_idx + 1) % UART_BUFFER_LENGTH;
+	Smain$process_uart$252 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:564: uart1_read_idx = (uart1_read_idx + 1) % UART_BUFFER_LENGTH;
 	mov	r7,#0x00
 	inc	r6
 	cjne	r6,#0x00,00217$
@@ -3408,8 +2976,8 @@ _process_uart:
 	mov	dptr,#_uart1_read_idx
 	mov	a,r6
 	movx	@dptr,a
-	Smain$process_uart$292 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:567: uart_counter = 0;
+	Smain$process_uart$253 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:565: uart_counter = 0;
 	mov	dptr,#_uart_counter
 	clr	a
 	movx	@dptr,a
@@ -3419,22 +2987,16 @@ _process_uart:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$process_uart$293 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:569: LS_LOG(ch);
-	mov	dptr,#_process_uart_ch_131072_216
+	Smain$process_uart$254 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:568: switch( ch ) {
+	mov	dptr,#_process_uart_ch_131072_203
 	movx	a,@dptr
 	mov	r7,a
-	mov	dpl,a
-	push	ar7
-	lcall	_uart_log
-	pop	ar7
-	Smain$process_uart$294 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:570: switch( ch ) {
 	cjne	r7,#0x0a,00218$
 	sjmp	00103$
 00218$:
 	cjne	r7,#0x30,00219$
-	ljmp	00108$
+	sjmp	00108$
 00219$:
 	cjne	r7,#0x31,00220$
 	ljmp	00119$
@@ -3470,74 +3032,67 @@ _process_uart:
 	sjmp	00107$
 00230$:
 	ljmp	00126$
-	Smain$process_uart$295 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:571: case '\n':
+	Smain$process_uart$255 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:569: case '\n':
 00103$:
-	Smain$process_uart$296 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:572: uart_rx_state = UART_INIT;
+	Smain$process_uart$256 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:570: uart_rx_state = UART_INIT;
 	mov	dptr,#_uart_rx_state
 	clr	a
 	movx	@dptr,a
-	Smain$process_uart$297 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:573: LS_LOG('a' + light_mode);
-	mov	dptr,#_light_mode
-	movx	a,@dptr
-	add	a,#0x61
-	mov	dpl,a
-	lcall	_uart_log
-	Smain$process_uart$298 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:574: break;
+	Smain$process_uart$257 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:572: break;
 	ljmp	00126$
-	Smain$process_uart$299 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:575: case 'a':
+	Smain$process_uart$258 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:573: case 'a':
 00104$:
-	Smain$process_uart$300 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:576: uart_rx_state = UART_POWER;
+	Smain$process_uart$259 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:574: uart_rx_state = UART_POWER;
 	mov	dptr,#_uart_rx_state
 	mov	a,#0x01
 	movx	@dptr,a
-	Smain$process_uart$301 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:577: break;
+	Smain$process_uart$260 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:575: break;
 	ljmp	00126$
-	Smain$process_uart$302 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:578: case 'i':
+	Smain$process_uart$261 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:576: case 'i':
 00105$:
-	Smain$process_uart$303 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:579: uart_rx_state = UART_INTL;
+	Smain$process_uart$262 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:577: uart_rx_state = UART_INTL;
 	mov	dptr,#_uart_rx_state
 	mov	a,#0x03
 	movx	@dptr,a
-	Smain$process_uart$304 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:580: break;
+	Smain$process_uart$263 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:578: break;
 	ljmp	00126$
-	Smain$process_uart$305 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:581: case 's':
+	Smain$process_uart$264 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:579: case 's':
 00106$:
-	Smain$process_uart$306 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:582: uart_rx_state = UART_GERMAN;
+	Smain$process_uart$265 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:580: uart_rx_state = UART_GERMAN;
 	mov	dptr,#_uart_rx_state
 	mov	a,#0x02
 	movx	@dptr,a
-	Smain$process_uart$307 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:583: break;
+	Smain$process_uart$266 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:581: break;
 	ljmp	00126$
-	Smain$process_uart$308 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:584: case 'u':
+	Smain$process_uart$267 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:582: case 'u':
 00107$:
-	Smain$process_uart$309 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:585: is_uart_mode = true;
+	Smain$process_uart$268 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:583: is_uart_mode = true;
 	mov	dptr,#_is_uart_mode
 	mov	a,#0x01
 	movx	@dptr,a
-	Smain$process_uart$310 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:586: return true;
+	Smain$process_uart$269 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:584: return true;
 	mov	dpl,#0x01
-	Smain$process_uart$311 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:587: case '0':
+	Smain$process_uart$270 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:585: case '0':
 	sjmp	00129$
 00108$:
-	Smain$process_uart$312 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:588: if( uart_rx_state == UART_POWER )
+	Smain$process_uart$271 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:586: if( uart_rx_state == UART_POWER )
 	mov	dptr,#_uart_rx_state
 	movx	a,@dptr
 	mov	r7,a
@@ -3546,21 +3101,21 @@ _process_uart:
 00231$:
 	ljmp	00126$
 00232$:
-	Smain$process_uart$313 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:589: changeMode(next_mode[LIGHT_OFF]);
+	Smain$process_uart$272 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:587: changeMode(next_mode[LIGHT_OFF]);
 	mov	dptr,#_next_mode
 	clr	a
 	movc	a,@a+dptr
 	mov	dpl,a
 	lcall	_changeMode
-	Smain$process_uart$314 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:590: break;
+	Smain$process_uart$273 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:588: break;
 	ljmp	00126$
-	Smain$process_uart$315 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:591: case '9':
+	Smain$process_uart$274 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:589: case '9':
 00111$:
-	Smain$process_uart$316 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:592: if( uart_rx_state == UART_POWER )
+	Smain$process_uart$275 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:590: if( uart_rx_state == UART_POWER )
 	mov	dptr,#_uart_rx_state
 	movx	a,@dptr
 	mov	r7,a
@@ -3569,23 +3124,23 @@ _process_uart:
 00233$:
 	ljmp	00126$
 00234$:
-	Smain$process_uart$317 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:593: changeMode(LIGHT_OFF);
+	Smain$process_uart$276 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:591: changeMode(LIGHT_OFF);
 	mov	dpl,#0x00
 	lcall	_changeMode
-	Smain$process_uart$318 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:594: break;
+	Smain$process_uart$277 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:592: break;
 	ljmp	00126$
-	Smain$process_uart$319 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:600: case '6':
+	Smain$process_uart$278 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:598: case '6':
 00119$:
-	Smain$process_uart$320 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:601: lamp_state = UART_INIT;
+	Smain$process_uart$279 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:599: lamp_state = UART_INIT;
 	mov	dptr,#_lamp_state
 	clr	a
 	movx	@dptr,a
-	Smain$process_uart$321 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:602: switch( uart_rx_state ) {
+	Smain$process_uart$280 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:600: switch( uart_rx_state ) {
 	mov	dptr,#_uart_rx_state
 	movx	a,@dptr
 	mov	r7,a
@@ -3597,23 +3152,23 @@ _process_uart:
 00236$:
 	ljmp	00126$
 00237$:
-	Smain$process_uart$322 ==.
-	Smain$process_uart$323 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:604: changeMode(ch - '0');
-	mov	dptr,#_process_uart_ch_131072_216
+	Smain$process_uart$281 ==.
+	Smain$process_uart$282 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:602: changeMode(ch - '0');
+	mov	dptr,#_process_uart_ch_131072_203
 	movx	a,@dptr
 	add	a,#0xd0
 	mov	dpl,a
 	lcall	_changeMode
-	Smain$process_uart$324 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:605: break;
+	Smain$process_uart$283 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:603: break;
 	ljmp	00126$
-	Smain$process_uart$325 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:606: case UART_GERMAN:
+	Smain$process_uart$284 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:604: case UART_GERMAN:
 00121$:
-	Smain$process_uart$326 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:607: if(ch < '4') {
-	mov	dptr,#_process_uart_ch_131072_216
+	Smain$process_uart$285 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:605: if(ch < '4') {
+	mov	dptr,#_process_uart_ch_131072_203
 	movx	a,@dptr
 	mov	r7,a
 	cjne	r7,#0x34,00238$
@@ -3621,48 +3176,44 @@ _process_uart:
 	jc	00239$
 	ljmp	00126$
 00239$:
-	Smain$process_uart$327 ==.
-	Smain$process_uart$328 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:608: changeMode(ch - '0' + 6);
+	Smain$process_uart$286 ==.
+	Smain$process_uart$287 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:606: changeMode(ch - '0' + 6);
 	mov	a,#0xd6
 	add	a,r7
 	mov	dpl,a
 	lcall	_changeMode
-	Smain$process_uart$329 ==.
-	Smain$process_uart$330 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:612: }
+	Smain$process_uart$288 ==.
+	Smain$process_uart$289 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:610: }
 	ljmp	00126$
 00128$:
-	Smain$process_uart$331 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:615: return false;
+	Smain$process_uart$290 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:613: return false;
 	mov	dpl,#0x00
 00129$:
-	Smain$process_uart$332 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:616: }
-	Smain$process_uart$333 ==.
+	Smain$process_uart$291 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:614: }
+	Smain$process_uart$292 ==.
 	XG$process_uart$0$0 ==.
 	ret
-	Smain$process_uart$334 ==.
+	Smain$process_uart$293 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'process_button'
 ;------------------------------------------------------------
-	Smain$process_button$335 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:618: void process_button(void)
+	Smain$process_button$294 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:616: void process_button(void)
 ;	-----------------------------------------
 ;	 function process_button
 ;	-----------------------------------------
 _process_button:
-	Smain$process_button$336 ==.
-	Smain$process_button$337 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:620: if( BUTTON_PIN == 0 ) {
+	Smain$process_button$295 ==.
+	Smain$process_button$296 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:618: if( BUTTON_PIN == 0 ) {
 	jb	_P02,00116$
-	Smain$process_button$338 ==.
-	Smain$process_button$339 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:621: LS_LOG('B');
-	mov	dpl,#0x42
-	lcall	_uart_log
-	Smain$process_button$340 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:622: button_pressed ++;
+	Smain$process_button$297 ==.
+	Smain$process_button$298 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:620: button_pressed ++;
 	mov	dptr,#_button_pressed
 	movx	a,@dptr
 	add	a,#0x01
@@ -3679,8 +3230,8 @@ _process_button:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-	Smain$process_button$341 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:623: button_unpressed = 0;
+	Smain$process_button$299 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:621: button_unpressed = 0;
 	mov	dptr,#_button_unpressed
 	clr	a
 	movx	@dptr,a
@@ -3690,8 +3241,8 @@ _process_button:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$process_button$342 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:625: if( button_pressed == LONG_PRESS ) { // 길게 눌려졌다면
+	Smain$process_button$300 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:623: if( button_pressed == LONG_PRESS ) { // 길게 눌려졌다면
 	mov	dptr,#_button_pressed
 	movx	a,@dptr
 	mov	r4,a
@@ -3712,37 +3263,45 @@ _process_button:
 00149$:
 	ljmp	00118$
 00150$:
-	Smain$process_button$343 ==.
-	Smain$process_button$344 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:626: LS_LOG('l');
-	mov	dpl,#0x6c
-	lcall	_uart_log
-	Smain$process_button$345 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:627: if( light_mode != LIGHT_OFF ) { // 전원 버튼의 역할을 한다.
+	Smain$process_button$301 ==.
+	Smain$process_button$302 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:625: if( light_mode != LIGHT_OFF ) { // 전원 버튼의 역할을 한다.
 	mov	dptr,#_light_mode
 	movx	a,@dptr
 	jz	00102$
-	Smain$process_button$346 ==.
-	Smain$process_button$347 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:628: changeMode(LIGHT_OFF);
+	Smain$process_button$303 ==.
+	Smain$process_button$304 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:626: changeMode(LIGHT_OFF);
 	mov	dpl,#0x00
 	lcall	_changeMode
-	Smain$process_button$348 ==.
+	Smain$process_button$305 ==.
 	ljmp	00118$
 00102$:
-	Smain$process_button$349 ==.
-	Smain$process_button$350 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:630: changeMode(next_mode[LIGHT_OFF]);
+	Smain$process_button$306 ==.
+	Smain$process_button$307 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:628: changeMode(next_mode[LIGHT_OFF]);
 	mov	dptr,#_next_mode
 	clr	a
 	movc	a,@a+dptr
 	mov	dpl,a
 	lcall	_changeMode
-	Smain$process_button$351 ==.
+	Smain$process_button$308 ==.
 	ljmp	00118$
 00116$:
-	Smain$process_button$352 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:633: } else if( button_pressed ) {
+	Smain$process_button$309 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:631: } else if( button_pressed ) {
+	mov	dptr,#_button_pressed
+	movx	a,@dptr
+	mov	r4,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r5,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
 	mov	dptr,#_button_pressed
 	movx	a,@dptr
 	mov	b,a
@@ -3755,16 +3314,10 @@ _process_button:
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-	jnz	00152$
-	ljmp	00118$
-00152$:
-	Smain$process_button$353 ==.
-	Smain$process_button$354 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:634: LS_LOG('U');
-	mov	dpl,#0x55
-	lcall	_uart_log
-	Smain$process_button$355 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:635: button_unpressed ++;
+	jz	00118$
+	Smain$process_button$310 ==.
+	Smain$process_button$311 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:633: button_unpressed ++;
 	mov	dptr,#_button_unpressed
 	movx	a,@dptr
 	add	a,#0x01
@@ -3781,45 +3334,33 @@ _process_button:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-	Smain$process_button$356 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:636: if( button_unpressed > 1 ) { // 두번이상 안눌려졌다고 판단했는데
+	Smain$process_button$312 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:634: if( button_unpressed > 1 ) { // 두번이상 안눌려졌다고 판단했는데
 	mov	dptr,#_button_unpressed
 	movx	a,@dptr
-	mov	r4,a
+	mov	r0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r5,a
+	mov	r1,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r6,a
+	mov	r2,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r7,a
+	mov	r3,a
 	clr	c
 	mov	a,#0x01
-	subb	a,r4
+	subb	a,r0
 	clr	a
-	subb	a,r5
+	subb	a,r1
 	clr	a
-	subb	a,r6
+	subb	a,r2
 	clr	a
-	subb	a,r7
+	subb	a,r3
 	jnc	00118$
-	Smain$process_button$357 ==.
-	Smain$process_button$358 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:637: if( button_pressed < LONG_PRESS ) { // 짧게 눌렀던 상태라면 다음상태로
-	mov	dptr,#_button_pressed
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
+	Smain$process_button$313 ==.
+	Smain$process_button$314 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:635: if( button_pressed < LONG_PRESS ) { // 짧게 눌렀던 상태라면 다음상태로
 	clr	c
 	mov	a,r4
 	subb	a,#0x90
@@ -3829,63 +3370,23 @@ _process_button:
 	subb	a,#0x00
 	mov	a,r7
 	subb	a,#0x00
-	jnc	00109$
-	Smain$process_button$359 ==.
-	Smain$process_button$360 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:638: if( light_mode > 0 ) {
+	jnc	00110$
+	Smain$process_button$315 ==.
+	Smain$process_button$316 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:636: if( light_mode > 0 ) {
 	mov	dptr,#_light_mode
 	movx	a,@dptr
 	jz	00110$
-	Smain$process_button$361 ==.
-	Smain$process_button$362 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:639: LS_LOG('N');
-	mov	dpl,#0x4e
-	lcall	_uart_log
-	Smain$process_button$363 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:640: LS_LOGN(light_mode);
-	mov	dptr,#_light_mode
-	movx	a,@dptr
-	mov	r7,a
-	mov	r6,#0x00
-	mov	r5,#0x00
-	mov	r4,#0x00
-	mov	dpl,r7
-	mov	dph,r6
-	mov	b,r5
-	mov	a,r4
-	lcall	_uart_logn
-	Smain$process_button$364 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:641: toNextMode();
+	Smain$process_button$317 ==.
+	Smain$process_button$318 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:639: toNextMode();
 	lcall	_toNextMode
-	Smain$process_button$365 ==.
-	sjmp	00110$
-00109$:
-	Smain$process_button$366 ==.
-	Smain$process_button$367 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:644: LS_LOG('M');
-	mov	dpl,#0x4d
-	lcall	_uart_log
-	Smain$process_button$368 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:645: LS_LOGN(button_pressed);
-	mov	dptr,#_button_pressed
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	dpl,r4
-	mov	dph,r5
-	mov	b,r6
-	lcall	_uart_logn
-	Smain$process_button$369 ==.
+	Smain$process_button$319 ==.
+	Smain$process_button$320 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:643: LS_LOGN(button_pressed);
 00110$:
-	Smain$process_button$370 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:647: button_pressed = button_unpressed = 0;
+	Smain$process_button$321 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:645: button_pressed = button_unpressed = 0;
 	mov	dptr,#_button_unpressed
 	clr	a
 	movx	@dptr,a
@@ -3903,30 +3404,30 @@ _process_button:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$process_button$371 ==.
+	Smain$process_button$322 ==.
 00118$:
-	Smain$process_button$372 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:650: }
-	Smain$process_button$373 ==.
+	Smain$process_button$323 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:648: }
+	Smain$process_button$324 ==.
 	XG$process_button$0$0 ==.
 	ret
-	Smain$process_button$374 ==.
+	Smain$process_button$325 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'stop_leds'
 ;------------------------------------------------------------
-	Smain$stop_leds$375 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:653: void stop_leds(void)
+	Smain$stop_leds$326 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:651: void stop_leds(void)
 ;	-----------------------------------------
 ;	 function stop_leds
 ;	-----------------------------------------
 _stop_leds:
-	Smain$stop_leds$376 ==.
-	Smain$stop_leds$377 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:656: clr_PWMCON0_PWMRUN;
+	Smain$stop_leds$327 ==.
+	Smain$stop_leds$328 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:654: clr_PWMCON0_PWMRUN;
 ;	assignBit
 	clr	_PWMRUN
-	Smain$stop_leds$378 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:657: set_SFRS_SFRPAGE;
+	Smain$stop_leds$329 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:655: set_SFRS_SFRPAGE;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -3938,20 +3439,20 @@ _stop_leds:
 ;	assignBit
 	mov	c,_BIT_TMP
 	mov	_EA,c
-	Smain$stop_leds$379 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:659: PWM2L = 0;
+	Smain$stop_leds$330 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:657: PWM2L = 0;
 	mov	_PWM2L,#0x00
-	Smain$stop_leds$380 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:660: PWM2H = 0;
+	Smain$stop_leds$331 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:658: PWM2H = 0;
 	mov	_PWM2H,#0x00
-	Smain$stop_leds$381 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:661: PWM4L = 0;
+	Smain$stop_leds$332 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:659: PWM4L = 0;
 	mov	_PWM4L,#0x00
-	Smain$stop_leds$382 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:662: PWM4H = 0;
+	Smain$stop_leds$333 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:660: PWM4H = 0;
 	mov	_PWM4H,#0x00
-	Smain$stop_leds$383 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:664: clr_SFRS_SFRPAGE;
+	Smain$stop_leds$334 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:662: clr_SFRS_SFRPAGE;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -3963,32 +3464,32 @@ _stop_leds:
 ;	assignBit
 	mov	c,_BIT_TMP
 	mov	_EA,c
-	Smain$stop_leds$384 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:665: set_PWMCON0_PWMRUN;
+	Smain$stop_leds$335 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:663: set_PWMCON0_PWMRUN;
 ;	assignBit
 	setb	_PWMRUN
-	Smain$stop_leds$385 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:666: }
-	Smain$stop_leds$386 ==.
+	Smain$stop_leds$336 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:664: }
+	Smain$stop_leds$337 ==.
 	XG$stop_leds$0$0 ==.
 	ret
-	Smain$stop_leds$387 ==.
+	Smain$stop_leds$338 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'activate_leds'
 ;------------------------------------------------------------
-	Smain$activate_leds$388 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:668: void activate_leds(void)
+	Smain$activate_leds$339 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:666: void activate_leds(void)
 ;	-----------------------------------------
 ;	 function activate_leds
 ;	-----------------------------------------
 _activate_leds:
-	Smain$activate_leds$389 ==.
-	Smain$activate_leds$390 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:670: clr_PWMCON0_PWMRUN;
+	Smain$activate_leds$340 ==.
+	Smain$activate_leds$341 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:668: clr_PWMCON0_PWMRUN;
 ;	assignBit
 	clr	_PWMRUN
-	Smain$activate_leds$391 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:671: set_SFRS_SFRPAGE;
+	Smain$activate_leds$342 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:669: set_SFRS_SFRPAGE;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -4000,18 +3501,18 @@ _activate_leds:
 ;	assignBit
 	mov	c,_BIT_TMP
 	mov	_EA,c
-	Smain$activate_leds$392 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:673: PWM2L = pwm[0];
+	Smain$activate_leds$343 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:671: PWM2L = pwm[0];
 	mov	dptr,#_pwm
 	movx	a,@dptr
 	mov	_PWM2L,a
-	Smain$activate_leds$393 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:674: PWM4L = pwm[1];
+	Smain$activate_leds$344 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:672: PWM4L = pwm[1];
 	mov	dptr,#(_pwm + 0x0002)
 	movx	a,@dptr
 	mov	_PWM4L,a
-	Smain$activate_leds$394 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:676: clr_SFRS_SFRPAGE;
+	Smain$activate_leds$345 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:674: clr_SFRS_SFRPAGE;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
@@ -4023,49 +3524,49 @@ _activate_leds:
 ;	assignBit
 	mov	c,_BIT_TMP
 	mov	_EA,c
-	Smain$activate_leds$395 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:677: set_PWMCON0_PWMRUN;
+	Smain$activate_leds$346 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:675: set_PWMCON0_PWMRUN;
 ;	assignBit
 	setb	_PWMRUN
-	Smain$activate_leds$396 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:678: }
-	Smain$activate_leds$397 ==.
+	Smain$activate_leds$347 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:676: }
+	Smain$activate_leds$348 ==.
 	XG$activate_leds$0$0 ==.
 	ret
-	Smain$activate_leds$398 ==.
+	Smain$activate_leds$349 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'mode_changing_control'
 ;------------------------------------------------------------
-;light_changing            Allocated with name '_mode_changing_control_light_changing_65536_236'
-;i                         Allocated with name '_mode_changing_control_i_131072_237'
+;light_changing            Allocated with name '_mode_changing_control_light_changing_65536_223'
+;i                         Allocated with name '_mode_changing_control_i_131072_224'
 ;------------------------------------------------------------
-	Smain$mode_changing_control$399 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:685: bool mode_changing_control( void )
+	Smain$mode_changing_control$350 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:683: bool mode_changing_control( void )
 ;	-----------------------------------------
 ;	 function mode_changing_control
 ;	-----------------------------------------
 _mode_changing_control:
-	Smain$mode_changing_control$400 ==.
-	Smain$mode_changing_control$401 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:687: bool light_changing = false;
-	mov	dptr,#_mode_changing_control_light_changing_65536_236
+	Smain$mode_changing_control$351 ==.
+	Smain$mode_changing_control$352 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:685: bool light_changing = false;
+	mov	dptr,#_mode_changing_control_light_changing_65536_223
 	clr	a
 	movx	@dptr,a
-	Smain$mode_changing_control$402 ==.
-	Smain$mode_changing_control$403 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:689: for( int i = 0; i < NUM_LEDS; i++ ) {
-	Smain$mode_changing_control$404 ==.
-	Smain$mode_changing_control$405 ==.
-	Smain$mode_changing_control$406 ==.
-	Smain$mode_changing_control$407 ==.
-	Smain$mode_changing_control$407 ==.
-	Smain$mode_changing_control$408 ==.
-	Smain$mode_changing_control$409 ==.
-	Smain$mode_changing_control$409 ==.
-	Smain$mode_changing_control$410 ==.
+	Smain$mode_changing_control$353 ==.
+	Smain$mode_changing_control$354 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:687: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$mode_changing_control$355 ==.
+	Smain$mode_changing_control$356 ==.
+	Smain$mode_changing_control$357 ==.
+	Smain$mode_changing_control$358 ==.
+	Smain$mode_changing_control$358 ==.
+	Smain$mode_changing_control$359 ==.
+	Smain$mode_changing_control$360 ==.
+	Smain$mode_changing_control$360 ==.
+	Smain$mode_changing_control$361 ==.
 	mov	r6,#0x00
 	mov	r7,#0x00
-	Smain$mode_changing_control$411 ==.
+	Smain$mode_changing_control$362 ==.
 00132$:
 	clr	c
 	mov	a,r6
@@ -4076,8 +3577,8 @@ _mode_changing_control:
 	jc	00193$
 	ljmp	00130$
 00193$:
-	Smain$mode_changing_control$412 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:690: switch( light_control_mode[i] ) {
+	Smain$mode_changing_control$363 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:688: switch( light_control_mode[i] ) {
 	mov	a,r6
 	add	a,#_light_control_mode
 	mov	r4,a
@@ -4098,11 +3599,11 @@ _mode_changing_control:
 	ljmp	00117$
 00196$:
 	ljmp	00133$
-	Smain$mode_changing_control$413 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:691: case MODE_CHANGING_OFF:
+	Smain$mode_changing_control$364 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:689: case MODE_CHANGING_OFF:
 00101$:
-	Smain$mode_changing_control$414 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:692: if( pwm[i] > 0) {
+	Smain$mode_changing_control$365 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:690: if( pwm[i] > 0) {
 	mov	a,r6
 	add	a,r6
 	mov	r2,a
@@ -4124,17 +3625,17 @@ _mode_changing_control:
 	mov	r1,a
 	orl	a,r0
 	jz	00106$
-	Smain$mode_changing_control$415 ==.
-	Smain$mode_changing_control$416 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:693: light_changing = true;
+	Smain$mode_changing_control$366 ==.
+	Smain$mode_changing_control$367 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:691: light_changing = true;
 	push	ar6
 	push	ar7
-	Smain$mode_changing_control$417 ==.
-	mov	dptr,#_mode_changing_control_light_changing_65536_236
+	Smain$mode_changing_control$368 ==.
+	mov	dptr,#_mode_changing_control_light_changing_65536_223
 	mov	a,#0x01
 	movx	@dptr,a
-	Smain$mode_changing_control$418 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:694: pwm[i] --;
+	Smain$mode_changing_control$369 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:692: pwm[i] --;
 	mov	a,r0
 	add	a,#0xff
 	mov	r6,a
@@ -4148,50 +3649,50 @@ _mode_changing_control:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-	Smain$mode_changing_control$419 ==.
+	Smain$mode_changing_control$370 ==.
 	pop	ar7
 	pop	ar6
 	ljmp	00133$
 00106$:
-	Smain$mode_changing_control$420 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:695: } else if( pwm[i] == 0 ){ // pwm은 unsigned이므로 0보다 작을수는 없음
+	Smain$mode_changing_control$371 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:693: } else if( pwm[i] == 0 ){ // pwm은 unsigned이므로 0보다 작을수는 없음
 	mov	a,r0
 	orl	a,r1
 	jnz	00103$
-	Smain$mode_changing_control$421 ==.
-	Smain$mode_changing_control$422 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:696: light_control_mode[i] = MODE_STABLE;
+	Smain$mode_changing_control$372 ==.
+	Smain$mode_changing_control$373 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:694: light_control_mode[i] = MODE_STABLE;
 	mov	dpl,r4
 	mov	dph,r5
 	clr	a
 	movx	@dptr,a
-	Smain$mode_changing_control$423 ==.
+	Smain$mode_changing_control$374 ==.
 	ljmp	00133$
 00103$:
-	Smain$mode_changing_control$424 ==.
-	Smain$mode_changing_control$425 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:698: light_changing = true;
-	mov	dptr,#_mode_changing_control_light_changing_65536_236
+	Smain$mode_changing_control$375 ==.
+	Smain$mode_changing_control$376 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:696: light_changing = true;
+	mov	dptr,#_mode_changing_control_light_changing_65536_223
 	mov	a,#0x01
 	movx	@dptr,a
-	Smain$mode_changing_control$426 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:699: pwm[i] = 0;
+	Smain$mode_changing_control$377 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:697: pwm[i] = 0;
 	mov	dpl,r2
 	mov	dph,r3
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$mode_changing_control$427 ==.
-	Smain$mode_changing_control$428 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:701: break;
+	Smain$mode_changing_control$378 ==.
+	Smain$mode_changing_control$379 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:699: break;
 	ljmp	00133$
-	Smain$mode_changing_control$429 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:702: case MODE_CHANGING_UP:
+	Smain$mode_changing_control$380 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:700: case MODE_CHANGING_UP:
 00108$:
-	Smain$mode_changing_control$430 ==.
-	Smain$mode_changing_control$431 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:703: if( cur_amp[i] < max_amp[light_mode][i] ) {
+	Smain$mode_changing_control$381 ==.
+	Smain$mode_changing_control$382 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:701: if( cur_amp[i] < max_amp[light_mode][i] ) {
 	push	ar4
 	push	ar5
 	mov	a,r6
@@ -4238,8 +3739,8 @@ _mode_changing_control:
 	pop	ar5
 	pop	ar4
 	jnc	00115$
-	Smain$mode_changing_control$432 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:704: good_amp_count[i] = 0;
+	Smain$mode_changing_control$383 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:702: good_amp_count[i] = 0;
 	mov	a,r6
 	add	a,#_good_amp_count
 	mov	dpl,a
@@ -4248,13 +3749,13 @@ _mode_changing_control:
 	mov	dph,a
 	clr	a
 	movx	@dptr,a
-	Smain$mode_changing_control$433 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:705: light_changing = true;
-	mov	dptr,#_mode_changing_control_light_changing_65536_236
+	Smain$mode_changing_control$384 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:703: light_changing = true;
+	mov	dptr,#_mode_changing_control_light_changing_65536_223
 	inc	a
 	movx	@dptr,a
-	Smain$mode_changing_control$434 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:706: if( pwm[i] < 190 ) {
+	Smain$mode_changing_control$385 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:704: if( pwm[i] < 190 ) {
 	mov	a,r2
 	add	a,#_pwm
 	mov	r2,a
@@ -4280,9 +3781,9 @@ _mode_changing_control:
 	pop	ar7
 	pop	ar6
 	jnc	00110$
-	Smain$mode_changing_control$435 ==.
-	Smain$mode_changing_control$436 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:707: pwm[i] ++;
+	Smain$mode_changing_control$386 ==.
+	Smain$mode_changing_control$387 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:705: pwm[i] ++;
 	inc	r0
 	cjne	r0,#0x00,00201$
 	inc	r1
@@ -4294,12 +3795,12 @@ _mode_changing_control:
 	mov	a,r1
 	inc	dptr
 	movx	@dptr,a
-	Smain$mode_changing_control$437 ==.
+	Smain$mode_changing_control$388 ==.
 	ljmp	00133$
 00110$:
-	Smain$mode_changing_control$438 ==.
-	Smain$mode_changing_control$439 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:709: pwm[i] = 190;
+	Smain$mode_changing_control$389 ==.
+	Smain$mode_changing_control$390 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:707: pwm[i] = 190;
 	mov	dpl,r2
 	mov	dph,r3
 	mov	a,#0xbe
@@ -4307,11 +3808,11 @@ _mode_changing_control:
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-	Smain$mode_changing_control$440 ==.
+	Smain$mode_changing_control$391 ==.
 	ljmp	00133$
 00115$:
-	Smain$mode_changing_control$441 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:712: good_amp_count[i]++;
+	Smain$mode_changing_control$392 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:710: good_amp_count[i]++;
 	mov	a,r6
 	add	a,#_good_amp_count
 	mov	r2,a
@@ -4327,30 +3828,30 @@ _mode_changing_control:
 	mov	dph,r3
 	mov	a,r1
 	movx	@dptr,a
-	Smain$mode_changing_control$442 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:713: if( good_amp_count[i] > 3 ) {
+	Smain$mode_changing_control$393 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:711: if( good_amp_count[i] > 10 ) {
 	mov	a,r1
-	add	a,#0xff - 0x03
+	add	a,#0xff - 0x0a
 	jc	00202$
 	ljmp	00133$
 00202$:
-	Smain$mode_changing_control$443 ==.
-	Smain$mode_changing_control$444 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:714: light_control_mode[i] = MODE_STABLE;
+	Smain$mode_changing_control$394 ==.
+	Smain$mode_changing_control$395 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:712: light_control_mode[i] = MODE_STABLE;
 	mov	dpl,r4
 	mov	dph,r5
 	clr	a
 	movx	@dptr,a
-	Smain$mode_changing_control$445 ==.
-	Smain$mode_changing_control$446 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:717: break;
+	Smain$mode_changing_control$396 ==.
+	Smain$mode_changing_control$397 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:715: break;
 	ljmp	00133$
-	Smain$mode_changing_control$447 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:718: case MODE_CHANGING_DOWN:
+	Smain$mode_changing_control$398 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:716: case MODE_CHANGING_DOWN:
 00117$:
-	Smain$mode_changing_control$448 ==.
-	Smain$mode_changing_control$449 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:719: if( cur_amp[i] > max_amp[light_mode][i] ) {
+	Smain$mode_changing_control$399 ==.
+	Smain$mode_changing_control$400 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:717: if( cur_amp[i] > max_amp[light_mode][i] ) {
 	push	ar4
 	push	ar5
 	mov	a,r6
@@ -4397,8 +3898,8 @@ _mode_changing_control:
 	pop	ar5
 	pop	ar4
 	jnc	00127$
-	Smain$mode_changing_control$450 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:720: good_amp_count[i] = 0;
+	Smain$mode_changing_control$401 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:718: good_amp_count[i] = 0;
 	mov	a,r6
 	add	a,#_good_amp_count
 	mov	dpl,a
@@ -4407,13 +3908,13 @@ _mode_changing_control:
 	mov	dph,a
 	clr	a
 	movx	@dptr,a
-	Smain$mode_changing_control$451 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:721: light_changing = true;
-	mov	dptr,#_mode_changing_control_light_changing_65536_236
+	Smain$mode_changing_control$402 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:719: light_changing = true;
+	mov	dptr,#_mode_changing_control_light_changing_65536_223
 	inc	a
 	movx	@dptr,a
-	Smain$mode_changing_control$452 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:722: if( pwm[i] <= 0) {
+	Smain$mode_changing_control$403 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:720: if( pwm[i] <= 0) {
 	mov	a,r2
 	add	a,#_pwm
 	mov	r2,a
@@ -4429,21 +3930,21 @@ _mode_changing_control:
 	mov	r1,a
 	orl	a,r0
 	jnz	00122$
-	Smain$mode_changing_control$453 ==.
-	Smain$mode_changing_control$454 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:723: pwm[i] = 0;
+	Smain$mode_changing_control$404 ==.
+	Smain$mode_changing_control$405 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:721: pwm[i] = 0;
 	mov	dpl,r2
 	mov	dph,r3
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	Smain$mode_changing_control$455 ==.
+	Smain$mode_changing_control$406 ==.
 	sjmp	00133$
 00122$:
-	Smain$mode_changing_control$456 ==.
-	Smain$mode_changing_control$457 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:724: } else if( pwm[i] > 190 ) {
+	Smain$mode_changing_control$407 ==.
+	Smain$mode_changing_control$408 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:722: } else if( pwm[i] > 190 ) {
 	push	ar2
 	push	ar3
 	mov	ar2,r0
@@ -4456,9 +3957,9 @@ _mode_changing_control:
 	pop	ar3
 	pop	ar2
 	jnc	00119$
-	Smain$mode_changing_control$458 ==.
-	Smain$mode_changing_control$459 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:725: pwm[i] = 190;
+	Smain$mode_changing_control$409 ==.
+	Smain$mode_changing_control$410 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:723: pwm[i] = 190;
 	mov	dpl,r2
 	mov	dph,r3
 	mov	a,#0xbe
@@ -4466,12 +3967,12 @@ _mode_changing_control:
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-	Smain$mode_changing_control$460 ==.
+	Smain$mode_changing_control$411 ==.
 	sjmp	00133$
 00119$:
-	Smain$mode_changing_control$461 ==.
-	Smain$mode_changing_control$462 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:727: pwm[i] --;
+	Smain$mode_changing_control$412 ==.
+	Smain$mode_changing_control$413 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:725: pwm[i] --;
 	dec	r0
 	cjne	r0,#0xff,00206$
 	dec	r1
@@ -4483,11 +3984,11 @@ _mode_changing_control:
 	mov	a,r1
 	inc	dptr
 	movx	@dptr,a
-	Smain$mode_changing_control$463 ==.
+	Smain$mode_changing_control$414 ==.
 	sjmp	00133$
 00127$:
-	Smain$mode_changing_control$464 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:730: good_amp_count[i]++;
+	Smain$mode_changing_control$415 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:728: good_amp_count[i]++;
 	mov	a,r6
 	add	a,#_good_amp_count
 	mov	r2,a
@@ -4503,62 +4004,62 @@ _mode_changing_control:
 	mov	dph,r3
 	mov	a,r1
 	movx	@dptr,a
-	Smain$mode_changing_control$465 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:731: if( good_amp_count[i] > 3 ) {
+	Smain$mode_changing_control$416 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:729: if( good_amp_count[i] > 2 ) {
 	mov	a,r1
-	add	a,#0xff - 0x03
+	add	a,#0xff - 0x02
 	jnc	00133$
-	Smain$mode_changing_control$466 ==.
-	Smain$mode_changing_control$467 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:732: light_control_mode[i] = MODE_STABLE;
+	Smain$mode_changing_control$417 ==.
+	Smain$mode_changing_control$418 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:730: light_control_mode[i] = MODE_STABLE;
 	mov	dpl,r4
 	mov	dph,r5
 	clr	a
 	movx	@dptr,a
-	Smain$mode_changing_control$468 ==.
-	Smain$mode_changing_control$469 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:736: }
+	Smain$mode_changing_control$419 ==.
+	Smain$mode_changing_control$420 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:734: }
 00133$:
-	Smain$mode_changing_control$470 ==.
-	Smain$mode_changing_control$471 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:689: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$mode_changing_control$421 ==.
+	Smain$mode_changing_control$422 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:687: for( int i = 0; i < NUM_LEDS; i++ ) {
 	inc	r6
 	cjne	r6,#0x00,00208$
 	inc	r7
 00208$:
 	ljmp	00132$
 00130$:
-	Smain$mode_changing_control$472 ==.
-	Smain$mode_changing_control$473 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:738: return light_changing;
-	mov	dptr,#_mode_changing_control_light_changing_65536_236
+	Smain$mode_changing_control$423 ==.
+	Smain$mode_changing_control$424 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:736: return light_changing;
+	mov	dptr,#_mode_changing_control_light_changing_65536_223
 	movx	a,@dptr
-	Smain$mode_changing_control$474 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:739: }
-	Smain$mode_changing_control$475 ==.
+	Smain$mode_changing_control$425 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:737: }
+	Smain$mode_changing_control$426 ==.
 	XG$mode_changing_control$0$0 ==.
 	mov	dpl,a
 	ret
-	Smain$mode_changing_control$476 ==.
+	Smain$mode_changing_control$427 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'is_stable'
 ;------------------------------------------------------------
-;i                         Allocated with name '_is_stable_i_131072_256'
+;i                         Allocated with name '_is_stable_i_131072_243'
 ;------------------------------------------------------------
-	Smain$is_stable$477 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:741: bool is_stable( void ) {
+	Smain$is_stable$428 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:739: bool is_stable( void ) {
 ;	-----------------------------------------
 ;	 function is_stable
 ;	-----------------------------------------
 _is_stable:
-	Smain$is_stable$478 ==.
-	Smain$is_stable$479 ==.
-	Smain$is_stable$480 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:742: for( int i = 0; i < NUM_LEDS; i++ ) {
-	Smain$is_stable$481 ==.
+	Smain$is_stable$429 ==.
+	Smain$is_stable$430 ==.
+	Smain$is_stable$431 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:740: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$is_stable$432 ==.
 	mov	r6,#0x00
 	mov	r7,#0x00
-	Smain$is_stable$482 ==.
+	Smain$is_stable$433 ==.
 00105$:
 	clr	c
 	mov	a,r6
@@ -4567,8 +4068,8 @@ _is_stable:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00103$
-	Smain$is_stable$483 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:743: if( light_control_mode[i] != MODE_STABLE ) return false;
+	Smain$is_stable$434 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:741: if( light_control_mode[i] != MODE_STABLE ) return false;
 	mov	a,r6
 	add	a,#_light_control_mode
 	mov	r4,a
@@ -4582,47 +4083,47 @@ _is_stable:
 	mov	dpl,#0x00
 	sjmp	00107$
 00106$:
-	Smain$is_stable$484 ==.
-	Smain$is_stable$485 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:742: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$is_stable$435 ==.
+	Smain$is_stable$436 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:740: for( int i = 0; i < NUM_LEDS; i++ ) {
 	inc	r6
 	cjne	r6,#0x00,00105$
 	inc	r7
 	sjmp	00105$
 00103$:
-	Smain$is_stable$486 ==.
-	Smain$is_stable$487 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:746: return true;
+	Smain$is_stable$437 ==.
+	Smain$is_stable$438 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:744: return true;
 	mov	dpl,#0x01
 00107$:
-	Smain$is_stable$488 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:747: }
-	Smain$is_stable$489 ==.
+	Smain$is_stable$439 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:745: }
+	Smain$is_stable$440 ==.
 	XG$is_stable$0$0 ==.
 	ret
-	Smain$is_stable$490 ==.
+	Smain$is_stable$441 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'mode_stable_control'
 ;------------------------------------------------------------
-;light_changing            Allocated with name '_mode_stable_control_light_changing_65536_259'
-;i                         Allocated with name '_mode_stable_control_i_131072_260'
-;t_amp                     Allocated with name '_mode_stable_control_t_amp_196608_261'
-;amp                       Allocated with name '_mode_stable_control_amp_196609_262'
+;light_changing            Allocated with name '_mode_stable_control_light_changing_65536_246'
+;i                         Allocated with name '_mode_stable_control_i_131072_247'
+;t_amp                     Allocated with name '_mode_stable_control_t_amp_196608_248'
+;amp                       Allocated with name '_mode_stable_control_amp_196609_249'
 ;------------------------------------------------------------
-	Smain$mode_stable_control$491 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:749: bool mode_stable_control( void )
+	Smain$mode_stable_control$442 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:747: bool mode_stable_control( void )
 ;	-----------------------------------------
 ;	 function mode_stable_control
 ;	-----------------------------------------
 _mode_stable_control:
-	Smain$mode_stable_control$492 ==.
-	Smain$mode_stable_control$493 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:751: bool light_changing = false;
-	mov	dptr,#_mode_stable_control_light_changing_65536_259
+	Smain$mode_stable_control$443 ==.
+	Smain$mode_stable_control$444 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:749: bool light_changing = false;
+	mov	dptr,#_mode_stable_control_light_changing_65536_246
 	clr	a
 	movx	@dptr,a
-	Smain$mode_stable_control$494 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:753: cur_temp = acc_temp / sample_count;
+	Smain$mode_stable_control$445 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:751: cur_temp = acc_temp / sample_count;
 	mov	dptr,#_sample_count
 	movx	a,@dptr
 	mov	r7,a
@@ -4661,15 +4162,15 @@ _mode_stable_control:
 	mov	a,r5
 	inc	dptr
 	movx	@dptr,a
-	Smain$mode_stable_control$495 ==.
-	Smain$mode_stable_control$496 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:755: for( int i = 0; i < NUM_LEDS; i++ ) {
-	Smain$mode_stable_control$497 ==.
-	Smain$mode_stable_control$497 ==.
-	Smain$mode_stable_control$498 ==.
+	Smain$mode_stable_control$446 ==.
+	Smain$mode_stable_control$447 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:753: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$mode_stable_control$448 ==.
+	Smain$mode_stable_control$448 ==.
+	Smain$mode_stable_control$449 ==.
 	mov	r6,#0x00
 	mov	r7,#0x00
-	Smain$mode_stable_control$499 ==.
+	Smain$mode_stable_control$450 ==.
 00111$:
 	clr	c
 	mov	a,r6
@@ -4680,9 +4181,9 @@ _mode_stable_control:
 	jc	00135$
 	ljmp	00109$
 00135$:
-	Smain$mode_stable_control$500 ==.
-	Smain$mode_stable_control$501 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:756: int16_t t_amp = target_amp(light_mode, i);
+	Smain$mode_stable_control$451 ==.
+	Smain$mode_stable_control$452 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:754: int16_t t_amp = target_amp(light_mode, i);
 	mov	dptr,#_light_mode
 	movx	a,@dptr
 	mov	r5,a
@@ -4700,8 +4201,8 @@ _mode_stable_control:
 	pop	ar6
 	pop	ar7
 	mov	r3,#0x00
-	Smain$mode_stable_control$502 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:757: if( t_amp <= 0 ) continue;
+	Smain$mode_stable_control$453 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:755: if( t_amp <= 0 ) continue;
 	clr	c
 	clr	a
 	subb	a,r5
@@ -4712,9 +4213,9 @@ _mode_stable_control:
 	jc	00136$
 	ljmp	00108$
 00136$:
-	Smain$mode_stable_control$503 ==.
-	Smain$mode_stable_control$504 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:759: uint16_t amp = avg_amp(i);
+	Smain$mode_stable_control$454 ==.
+	Smain$mode_stable_control$455 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:757: uint16_t amp = avg_amp(i);
 	mov	dpl,r4
 	push	ar7
 	push	ar6
@@ -4727,8 +4228,8 @@ _mode_stable_control:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-	Smain$mode_stable_control$505 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:760: if( amp < t_amp - AMP_MARGIN ) {
+	Smain$mode_stable_control$456 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:758: if( amp < t_amp - AMP_MARGIN ) {
 	mov	a,r5
 	add	a,#0xfe
 	mov	r0,a
@@ -4741,8 +4242,8 @@ _mode_stable_control:
 	mov	a,r4
 	subb	a,r1
 	jnc	00106$
-	Smain$mode_stable_control$506 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:761: pwm[i] ++;
+	Smain$mode_stable_control$457 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:759: pwm[i] ++;
 	mov	a,r6
 	add	a,r6
 	mov	r0,a
@@ -4755,7 +4256,7 @@ _mode_stable_control:
 	mov	a,r1
 	addc	a,#(_pwm >> 8)
 	mov	r1,a
-	Smain$mode_stable_control$507 ==.
+	Smain$mode_stable_control$458 ==.
 	push	ar6
 	push	ar7
 	mov	dpl,r0
@@ -4776,17 +4277,17 @@ _mode_stable_control:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-	Smain$mode_stable_control$508 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:762: light_changing = true;
-	mov	dptr,#_mode_stable_control_light_changing_65536_259
+	Smain$mode_stable_control$459 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:760: light_changing = true;
+	mov	dptr,#_mode_stable_control_light_changing_65536_246
 	mov	a,#0x01
 	movx	@dptr,a
 	pop	ar7
 	pop	ar6
 	sjmp	00108$
 00106$:
-	Smain$mode_stable_control$509 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:763: } else if( amp > t_amp + AMP_MARGIN ) {
+	Smain$mode_stable_control$460 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:761: } else if( amp > t_amp + AMP_MARGIN ) {
 	mov	a,#0x02
 	add	a,r5
 	mov	r5,a
@@ -4799,8 +4300,8 @@ _mode_stable_control:
 	mov	a,r3
 	subb	a,r4
 	jnc	00108$
-	Smain$mode_stable_control$510 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:764: pwm[i] --;
+	Smain$mode_stable_control$461 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:762: pwm[i] --;
 	mov	a,r6
 	add	a,r6
 	mov	r4,a
@@ -4831,72 +4332,72 @@ _mode_stable_control:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	Smain$mode_stable_control$511 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:765: light_changing = true;
-	mov	dptr,#_mode_stable_control_light_changing_65536_259
+	Smain$mode_stable_control$462 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:763: light_changing = true;
+	mov	dptr,#_mode_stable_control_light_changing_65536_246
 	mov	a,#0x01
 	movx	@dptr,a
 00108$:
-	Smain$mode_stable_control$512 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:755: for( int i = 0; i < NUM_LEDS; i++ ) {
+	Smain$mode_stable_control$463 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:753: for( int i = 0; i < NUM_LEDS; i++ ) {
 	inc	r6
 	cjne	r6,#0x00,00141$
 	inc	r7
 00141$:
 	ljmp	00111$
 00109$:
-	Smain$mode_stable_control$513 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:768: return light_changing;
-	mov	dptr,#_mode_stable_control_light_changing_65536_259
+	Smain$mode_stable_control$464 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:766: return light_changing;
+	mov	dptr,#_mode_stable_control_light_changing_65536_246
 	movx	a,@dptr
-	Smain$mode_stable_control$514 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:769: }
-	Smain$mode_stable_control$515 ==.
+	Smain$mode_stable_control$465 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:767: }
+	Smain$mode_stable_control$466 ==.
 	XG$mode_stable_control$0$0 ==.
 	mov	dpl,a
 	ret
-	Smain$mode_stable_control$516 ==.
+	Smain$mode_stable_control$467 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'control_loop'
 ;------------------------------------------------------------
 ;sloc0                     Allocated with name '_control_loop_sloc0_1_0'
-;light_changing            Allocated with name '_control_loop_light_changing_65536_266'
-;i                         Allocated with name '_control_loop_i_196608_268'
+;light_changing            Allocated with name '_control_loop_light_changing_65536_253'
+;i                         Allocated with name '_control_loop_i_196608_255'
 ;------------------------------------------------------------
-	Smain$control_loop$517 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:771: void control_loop( void )
+	Smain$control_loop$468 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:769: void control_loop( void )
 ;	-----------------------------------------
 ;	 function control_loop
 ;	-----------------------------------------
 _control_loop:
-	Smain$control_loop$518 ==.
-	Smain$control_loop$519 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:775: sample_amps();
+	Smain$control_loop$469 ==.
+	Smain$control_loop$470 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:773: sample_amps();
 	lcall	_sample_amps
-	Smain$control_loop$520 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:777: light_changing = mode_changing_control();
+	Smain$control_loop$471 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:775: light_changing = mode_changing_control();
 	lcall	_mode_changing_control
 	mov	a,dpl
-	mov	dptr,#_control_loop_light_changing_65536_266
+	mov	dptr,#_control_loop_light_changing_65536_253
 	movx	@dptr,a
-	Smain$control_loop$521 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:779: if( is_stable() ) {
+	Smain$control_loop$472 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:777: if( is_stable() ) {
 	lcall	_is_stable
 	mov	a,dpl
 	jnz	00159$
 	ljmp	00114$
 00159$:
-	Smain$control_loop$522 ==.
-	Smain$control_loop$523 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:780: sample_count++;
+	Smain$control_loop$473 ==.
+	Smain$control_loop$474 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:778: sample_count++;
 	mov	dptr,#_sample_count
 	movx	a,@dptr
 	add	a,#0x01
 	movx	@dptr,a
-	Smain$control_loop$524 ==.
-	Smain$control_loop$525 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:782: for( int i = 0; i < NUM_LEDS; i++ )
-	Smain$control_loop$526 ==.
+	Smain$control_loop$475 ==.
+	Smain$control_loop$476 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:780: for( int i = 0; i < NUM_LEDS; i++ )
+	Smain$control_loop$477 ==.
 	mov	r6,#0x00
 	mov	r7,#0x00
 00118$:
@@ -4907,8 +4408,8 @@ _control_loop:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00101$
-	Smain$control_loop$527 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:783: acc_amp[i] += cur_amp[i];
+	Smain$control_loop$478 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:781: acc_amp[i] += cur_amp[i];
 	mov	a,r6
 	add	a,r6
 	mov	r4,a
@@ -4987,18 +4488,18 @@ _control_loop:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	Smain$control_loop$528 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:782: for( int i = 0; i < NUM_LEDS; i++ )
+	Smain$control_loop$479 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:780: for( int i = 0; i < NUM_LEDS; i++ )
 	inc	r6
 	cjne	r6,#0x00,00118$
 	inc	r7
 	sjmp	00118$
 00101$:
-	Smain$control_loop$529 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:785: sample_temperature();
+	Smain$control_loop$480 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:783: sample_temperature();
 	lcall	_sample_temperature
-	Smain$control_loop$530 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:787: if( flashing[light_mode] ) {
+	Smain$control_loop$481 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:785: if( flashing[light_mode] ) {
 	mov	dptr,#_light_mode
 	movx	a,@dptr
 	add	a,#_flashing
@@ -5011,40 +4512,40 @@ _control_loop:
 	clr	a
 	movc	a,@a+dptr
 	jz	00108$
-	Smain$control_loop$531 ==.
-	Smain$control_loop$532 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:788: if( sample_count == 1 ) {
+	Smain$control_loop$482 ==.
+	Smain$control_loop$483 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:786: if( sample_count == 1 ) {
 	mov	dptr,#_sample_count
 	movx	a,@dptr
 	mov	r7,a
 	cjne	r7,#0x01,00105$
-	Smain$control_loop$533 ==.
-	Smain$control_loop$534 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:789: stop_leds();
+	Smain$control_loop$484 ==.
+	Smain$control_loop$485 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:787: stop_leds();
 	lcall	_stop_leds
-	Smain$control_loop$535 ==.
+	Smain$control_loop$486 ==.
 	sjmp	00108$
 00105$:
-	Smain$control_loop$536 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:790: } else if( sample_count == FLASHING_ON_COUNT ) {
+	Smain$control_loop$487 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:788: } else if( sample_count == FLASHING_ON_COUNT ) {
 	cjne	r7,#0x87,00108$
-	Smain$control_loop$537 ==.
-	Smain$control_loop$538 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:791: activate_leds();
+	Smain$control_loop$488 ==.
+	Smain$control_loop$489 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:789: activate_leds();
 	lcall	_activate_leds
-	Smain$control_loop$539 ==.
+	Smain$control_loop$490 ==.
 00108$:
-	Smain$control_loop$540 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:795: if( sample_count >= MAX_SAMPLE_COUNT ) {
+	Smain$control_loop$491 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:793: if( sample_count >= MAX_SAMPLE_COUNT ) {
 	mov	dptr,#_sample_count
 	movx	a,@dptr
 	mov	r7,a
 	cjne	r7,#0x96,00167$
 00167$:
 	jc	00114$
-	Smain$control_loop$541 ==.
-	Smain$control_loop$542 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:796: if( !flashing[light_mode] ) {
+	Smain$control_loop$492 ==.
+	Smain$control_loop$493 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:794: if( !flashing[light_mode] ) {
 	mov	dptr,#_light_mode
 	movx	a,@dptr
 	add	a,#_flashing
@@ -5057,186 +4558,146 @@ _control_loop:
 	clr	a
 	movc	a,@a+dptr
 	jnz	00110$
-	Smain$control_loop$543 ==.
-	Smain$control_loop$544 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:797: light_changing = mode_stable_control();
+	Smain$control_loop$494 ==.
+	Smain$control_loop$495 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:795: light_changing = mode_stable_control();
 	lcall	_mode_stable_control
 	mov	a,dpl
-	mov	dptr,#_control_loop_light_changing_65536_266
+	mov	dptr,#_control_loop_light_changing_65536_253
 	movx	@dptr,a
-	Smain$control_loop$545 ==.
+	Smain$control_loop$496 ==.
 00110$:
-	Smain$control_loop$546 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:799: init_sample();
+	Smain$control_loop$497 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:797: init_sample();
 	lcall	_init_sample
-	Smain$control_loop$547 ==.
+	Smain$control_loop$498 ==.
 00114$:
-	Smain$control_loop$548 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:803: if( light_changing ) {
-	mov	dptr,#_control_loop_light_changing_65536_266
+	Smain$control_loop$499 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:801: if( light_changing ) {
+	mov	dptr,#_control_loop_light_changing_65536_253
 	movx	a,@dptr
 	jz	00120$
-	Smain$control_loop$549 ==.
-	Smain$control_loop$550 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:804: activate_leds();
+	Smain$control_loop$500 ==.
+	Smain$control_loop$501 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:802: activate_leds();
 	lcall	_activate_leds
-	Smain$control_loop$551 ==.
+	Smain$control_loop$502 ==.
 00120$:
-	Smain$control_loop$552 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:807: }
-	Smain$control_loop$553 ==.
+	Smain$control_loop$503 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:805: }
+	Smain$control_loop$504 ==.
 	XG$control_loop$0$0 ==.
 	ret
-	Smain$control_loop$554 ==.
+	Smain$control_loop$505 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'wdt_init'
 ;------------------------------------------------------------
-	Smain$wdt_init$555 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:810: void wdt_init(void)
+	Smain$wdt_init$506 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:808: void wdt_init(void)
 ;	-----------------------------------------
 ;	 function wdt_init
 ;	-----------------------------------------
 _wdt_init:
-	Smain$wdt_init$556 ==.
-	Smain$wdt_init$557 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:812: SFRS=0;
+	Smain$wdt_init$507 ==.
+	Smain$wdt_init$508 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:810: SFRS=0;								/* Init WDT */
 	mov	_SFRS,#0x00
-	Smain$wdt_init$558 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:813: BIT_TMP=EA;
+	Smain$wdt_init$509 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:811: BIT_TMP=EA;
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
-	Smain$wdt_init$559 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:814: EA=0;
+	Smain$wdt_init$510 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:812: EA=0;
 ;	assignBit
 	clr	_EA
-	Smain$wdt_init$560 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:816: TA=0xAA;
+	Smain$wdt_init$511 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:814: TA=0xAA;
 	mov	_TA,#0xaa
-	Smain$wdt_init$561 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:817: TA=0x55;
+	Smain$wdt_init$512 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:815: TA=0x55;
 	mov	_TA,#0x55
-	Smain$wdt_init$562 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:818: WDCON&=0xF8;
-	anl	_WDCON,#0xf8
-	Smain$wdt_init$563 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:820: TA=0xAA;
-	mov	_TA,#0xaa
-	Smain$wdt_init$564 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:821: TA=0x55;
-	mov	_TA,#0x55
-	Smain$wdt_init$565 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:822: WDCON|=0x07;
-	orl	_WDCON,#0x07
-	Smain$wdt_init$566 ==.
+	Smain$wdt_init$513 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:817: WDCON&=0xFF;
+	mov	_WDCON,_WDCON
+	Smain$wdt_init$514 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:818: WDCON|= 0x97; // 1001 0111
+	orl	_WDCON,#0x97
+	Smain$wdt_init$515 ==.
 ;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:824: EA = BIT_TMP;
 ;	assignBit
 	mov	c,_BIT_TMP
 	mov	_EA,c
-	Smain$wdt_init$567 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:825: set_WDCON_WIDPD;
-;	assignBit
-	mov	c,_EA
-	mov	_BIT_TMP,c
-;	assignBit
-	clr	_EA
-	mov	_TA,#0xaa
-	mov	_TA,#0x55
-	orl	_WDCON,#0x10
-;	assignBit
-	mov	c,_BIT_TMP
-	mov	_EA,c
-	Smain$wdt_init$568 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:826: set_WDCON_WDTR;
-;	assignBit
-	mov	c,_EA
-	mov	_BIT_TMP,c
-;	assignBit
-	clr	_EA
-	mov	_TA,#0xaa
-	mov	_TA,#0x55
-	orl	_WDCON,#0x80
-;	assignBit
-	mov	c,_BIT_TMP
-	mov	_EA,c
-	Smain$wdt_init$569 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:829: set_EIE_EWDT;
+	Smain$wdt_init$516 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:840: EIE|=0x10;
 	orl	_EIE,#0x10
-	Smain$wdt_init$570 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:830: }
-	Smain$wdt_init$571 ==.
+	Smain$wdt_init$517 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:841: }
+	Smain$wdt_init$518 ==.
 	XG$wdt_init$0$0 ==.
 	ret
-	Smain$wdt_init$572 ==.
+	Smain$wdt_init$519 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'wdt_clear'
 ;------------------------------------------------------------
-	Smain$wdt_clear$573 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:833: void wdt_clear(void)
+	Smain$wdt_clear$520 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:844: void wdt_clear(void)
 ;	-----------------------------------------
 ;	 function wdt_clear
 ;	-----------------------------------------
 _wdt_clear:
-	Smain$wdt_clear$574 ==.
-	Smain$wdt_clear$575 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:836: BIT_TMP=EA;
+	Smain$wdt_clear$521 ==.
+	Smain$wdt_clear$522 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:846: BIT_TMP=EA;							/* Clear WDT counter */
 ;	assignBit
 	mov	c,_EA
 	mov	_BIT_TMP,c
-	Smain$wdt_clear$576 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:837: EA=0;
+	Smain$wdt_clear$523 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:847: EA=0;
 ;	assignBit
 	clr	_EA
-	Smain$wdt_clear$577 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:839: TA=0xAA;
+	Smain$wdt_clear$524 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:849: TA=0xAA;
 	mov	_TA,#0xaa
-	Smain$wdt_clear$578 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:840: TA=0x55;
+	Smain$wdt_clear$525 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:850: TA=0x55;
 	mov	_TA,#0x55
-	Smain$wdt_clear$579 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:842: WDCON|=0x40;
+	Smain$wdt_clear$526 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:852: WDCON|=0x40;
 	orl	_WDCON,#0x40
-	Smain$wdt_clear$580 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:843: EA=BIT_TMP;
+	Smain$wdt_clear$527 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:853: EA=BIT_TMP;
 ;	assignBit
 	mov	c,_BIT_TMP
 	mov	_EA,c
-	Smain$wdt_clear$581 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:845: while(WDCON&SET_BIT6);              /* Check for the WDT counter cleared */
-00101$:
-	mov	a,_WDCON
-	jb	acc.6,00101$
-	Smain$wdt_clear$582 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:846: }
-	Smain$wdt_clear$583 ==.
+	Smain$wdt_clear$528 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:856: }
+	Smain$wdt_clear$529 ==.
 	XG$wdt_clear$0$0 ==.
 	ret
-	Smain$wdt_clear$584 ==.
+	Smain$wdt_clear$530 ==.
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-	Smain$main$585 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:850: void main (void)
+	Smain$main$531 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:859: void main (void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-	Smain$main$586 ==.
-	Smain$main$587 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:853: MODIFY_HIRC(HIRC_24);
+	Smain$main$532 ==.
+	Smain$main$533 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:862: MODIFY_HIRC(HIRC_24);
 	mov	dpl,#0x06
 	lcall	_MODIFY_HIRC
-	Smain$main$588 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:857: log_init();
-	lcall	_log_init
-	Smain$main$589 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:859: init_peripherals_but_button_n_uart();
+	Smain$main$534 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:869: init_peripherals_but_button_n_uart();
 	lcall	_init_peripherals_but_button_n_uart
-	Smain$main$590 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:860: uart_interrupt_init();
+	Smain$main$535 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:870: uart_interrupt_init();
 	lcall	_uart_interrupt_init
-	Smain$main$591 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:866: for( uart_counter = 0; uart_counter < MAX_UART_INIT_COUNTER; uart_counter++ ) {
+	Smain$main$536 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:875: for( uart_counter = 0; uart_counter < MAX_UART_INIT_COUNTER; uart_counter++ ) {
 	mov	dptr,#_uart_counter
 	clr	a
 	movx	@dptr,a
@@ -5246,15 +4707,15 @@ _main:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-00132$:
-	Smain$main$592 ==.
-	Smain$main$593 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:867: if( process_uart() ) break;
+00124$:
+	Smain$main$537 ==.
+	Smain$main$538 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:876: if( process_uart() ) break;
 	lcall	_process_uart
 	mov	a,dpl
 	jnz	00103$
-	Smain$main$594 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:868: Timer0_Delay(24000000, 1, PERIOD_UNIT);
+	Smain$main$539 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:877: Timer0_Delay(24000000, 1, PERIOD_UNIT);
 	mov	dptr,#_Timer0_Delay_PARM_2
 	mov	a,#0x01
 	movx	@dptr,a
@@ -5271,9 +4732,9 @@ _main:
 	mov	b,#0x6e
 	mov	a,#0x01
 	lcall	_Timer0_Delay
-	Smain$main$595 ==.
-	Smain$main$596 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:866: for( uart_counter = 0; uart_counter < MAX_UART_INIT_COUNTER; uart_counter++ ) {
+	Smain$main$540 ==.
+	Smain$main$541 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:875: for( uart_counter = 0; uart_counter < MAX_UART_INIT_COUNTER; uart_counter++ ) {
 	mov	dptr,#_uart_counter
 	movx	a,@dptr
 	add	a,#0x01
@@ -5311,164 +4772,82 @@ _main:
 	subb	a,#0x00
 	mov	a,r7
 	subb	a,#0x00
-	jc	00132$
+	jc	00124$
 00103$:
-	Smain$main$597 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:871: LS_LOG(':');
-	mov	dpl,#0x3a
-	lcall	_uart_log
-	Smain$main$598 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:873: if( !is_uart_mode ) {
+	Smain$main$542 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:882: if( !is_uart_mode ) {
 	mov	dptr,#_is_uart_mode
 	movx	a,@dptr
 	jnz	00105$
-	Smain$main$599 ==.
-	Smain$main$600 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:874: button_interrupt_init();
+	Smain$main$543 ==.
+	Smain$main$544 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:883: button_interrupt_init();
 	lcall	_button_interrupt_init
-	Smain$main$601 ==.
+	Smain$main$545 ==.
 00105$:
-	Smain$main$602 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:877: LS_LOG('w'); /* wdt test */
-	mov	dpl,#0x77
-	lcall	_uart_log
-	Smain$main$603 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:878: wdt_init();
+	Smain$main$546 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:886: wdt_init();
 	lcall	_wdt_init
-	Smain$main$604 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:880: while(1)
-00130$:
-	Smain$main$605 ==.
-	Smain$main$606 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:884: if( log_counter % 200 == 0 ) {
-	mov	dptr,#_log_counter
+	Smain$main$547 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:888: while(1)
+00122$:
+	Smain$main$548 ==.
+	Smain$main$549 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:898: if( is_uart_mode ) {
+	mov	dptr,#_is_uart_mode
 	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
+	jz	00109$
+	Smain$main$550 ==.
+	Smain$main$551 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:899: if( light_mode == LIGHT_OFF ) {
+	mov	dptr,#_light_mode
 	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	Smain$main$607 ==.
-	mov	dptr,#__modulong_PARM_2
-	mov	a,#0xc8
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	mov	dpl,r4
-	mov	dph,r5
-	mov	b,r6
-	mov	a,r7
-	lcall	__modulong
-	mov	r4,dpl
-	mov	r5,dph
-	mov	r6,b
-	mov	r7,a
-	mov	a,r4
-	orl	a,r5
-	orl	a,r6
-	orl	a,r7
 	jnz	00107$
-	Smain$main$608 ==.
-	Smain$main$609 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:885: LS_LOG('T');
-	mov	dpl,#0x54
-	lcall	_uart_log
-	Smain$main$610 ==.
+	Smain$main$552 ==.
+	Smain$main$553 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:900: uart_counter ++;
+	mov	dptr,#_uart_counter
+	movx	a,@dptr
+	add	a,#0x01
+	movx	@dptr,a
+	inc	dptr
+	movx	a,@dptr
+	addc	a,#0x00
+	movx	@dptr,a
+	inc	dptr
+	movx	a,@dptr
+	addc	a,#0x00
+	movx	@dptr,a
+	inc	dptr
+	movx	a,@dptr
+	addc	a,#0x00
+	movx	@dptr,a
+	Smain$main$554 ==.
 00107$:
-	Smain$main$611 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:887: log_counter++;
-	mov	dptr,#_log_counter
-	movx	a,@dptr
-	add	a,#0x01
-	movx	@dptr,a
-	inc	dptr
-	movx	a,@dptr
-	addc	a,#0x00
-	movx	@dptr,a
-	inc	dptr
-	movx	a,@dptr
-	addc	a,#0x00
-	movx	@dptr,a
-	inc	dptr
-	movx	a,@dptr
-	addc	a,#0x00
-	movx	@dptr,a
-	Smain$main$612 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:889: if( is_uart_mode ) {
-	mov	dptr,#_is_uart_mode
-	movx	a,@dptr
-	jz	00111$
-	Smain$main$613 ==.
-	Smain$main$614 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:890: if( light_mode == LIGHT_OFF ) {
-	mov	dptr,#_light_mode
-	movx	a,@dptr
-	jnz	00109$
-	Smain$main$615 ==.
-	Smain$main$616 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:891: uart_counter ++;
-	mov	dptr,#_uart_counter
-	movx	a,@dptr
-	add	a,#0x01
-	movx	@dptr,a
-	inc	dptr
-	movx	a,@dptr
-	addc	a,#0x00
-	movx	@dptr,a
-	inc	dptr
-	movx	a,@dptr
-	addc	a,#0x00
-	movx	@dptr,a
-	inc	dptr
-	movx	a,@dptr
-	addc	a,#0x00
-	movx	@dptr,a
-	Smain$main$617 ==.
-00109$:
-	Smain$main$618 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:893: process_uart();
+	Smain$main$555 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:902: process_uart();
 	lcall	_process_uart
-	Smain$main$619 ==.
-	sjmp	00112$
-00111$:
-	Smain$main$620 ==.
-	Smain$main$621 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:896: process_button();
+	Smain$main$556 ==.
+	sjmp	00110$
+00109$:
+	Smain$main$557 ==.
+	Smain$main$558 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:904: process_button();
 	lcall	_process_button
-	Smain$main$622 ==.
-00112$:
-	Smain$main$623 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:900: if( light_mode == LIGHT_OFF ) {
+	Smain$main$559 ==.
+00110$:
+	Smain$main$560 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:907: if( light_mode == LIGHT_OFF ) {
 	mov	dptr,#_light_mode
 	movx	a,@dptr
-	mov	r7,a
-	movx	a,@dptr
-	jnz	00124$
-	Smain$main$624 ==.
-	Smain$main$625 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:901: wdt_flag = true; /* wdt test */
-	mov	dptr,#_wdt_flag
-	mov	a,#0x01
-	movx	@dptr,a
-	Smain$main$626 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:902: if( (is_uart_mode && uart_counter > MAX_UART_COUNTER) || (!is_uart_mode && button_pressed < 1) ) {
+	jnz	00120$
+	Smain$main$561 ==.
+	Smain$main$562 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:908: if( (is_uart_mode && uart_counter > MAX_UART_COUNTER) || (!is_uart_mode && button_pressed < 1) ) {
 	mov	dptr,#_is_uart_mode
 	movx	a,@dptr
-	jz	00120$
+	jz	00118$
 	mov	dptr,#_uart_counter
-	movx	a,@dptr
-	mov	r3,a
-	inc	dptr
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -5477,24 +4856,24 @@ _main:
 	inc	dptr
 	movx	a,@dptr
 	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
 	clr	c
 	mov	a,#0x88
-	subb	a,r3
-	mov	a,#0x13
 	subb	a,r4
-	clr	a
+	mov	a,#0x13
 	subb	a,r5
 	clr	a
 	subb	a,r6
-	jc	00116$
-00120$:
+	clr	a
+	subb	a,r7
+	jc	00114$
+00118$:
 	mov	dptr,#_is_uart_mode
 	movx	a,@dptr
-	jnz	00125$
+	jnz	00120$
 	mov	dptr,#_button_pressed
-	movx	a,@dptr
-	mov	r3,a
-	inc	dptr
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -5503,83 +4882,73 @@ _main:
 	inc	dptr
 	movx	a,@dptr
 	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
 	clr	c
-	mov	a,r3
-	subb	a,#0x01
 	mov	a,r4
-	subb	a,#0x00
+	subb	a,#0x01
 	mov	a,r5
 	subb	a,#0x00
 	mov	a,r6
 	subb	a,#0x00
-	jnc	00125$
-00116$:
-	Smain$main$627 ==.
-	Smain$main$628 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:903: stop_leds();
+	mov	a,r7
+	subb	a,#0x00
+	jnc	00120$
+00114$:
+	Smain$main$563 ==.
+	Smain$main$564 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:909: stop_leds();
 	lcall	_stop_leds
-	Smain$main$629 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:904: disable_ntc();
+	Smain$main$565 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:910: disable_ntc();
 	lcall	_disable_ntc
-	Smain$main$630 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:906: clr_SCON_1_TI_1;
+	Smain$main$566 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:912: clr_SCON_1_TI_1;
 ;	assignBit
 	clr	_TI_1
-	Smain$main$631 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:907: clr_SCON_1_RI_1;
+	Smain$main$567 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:913: clr_SCON_1_RI_1;
 ;	assignBit
 	clr	_RI_1
-	Smain$main$632 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:908: set_PCON_IDLE;
+	Smain$main$568 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:914: set_PCON_IDLE;
 	orl	_PCON,#0x01
-	Smain$main$633 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:909: CALL_NOP;
+	Smain$main$569 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:915: CALL_NOP;
 	nop;
-	Smain$main$634 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:910: CALL_NOP;
+	Smain$main$570 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:916: CALL_NOP;
 	nop;
-	Smain$main$635 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:911: clr_PCON_IDLE;
+	Smain$main$571 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:917: clr_PCON_IDLE;
 	anl	_PCON,#0xfe
-	Smain$main$636 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:913: init_peripherals_but_button_n_uart();
+	Smain$main$572 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:919: init_peripherals_but_button_n_uart();
 	lcall	_init_peripherals_but_button_n_uart
-	Smain$main$637 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:914: if( is_uart_mode ) {
+	Smain$main$573 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:920: if( is_uart_mode ) {
 	mov	dptr,#_is_uart_mode
 	movx	a,@dptr
-	jz	00114$
-	Smain$main$638 ==.
-	Smain$main$639 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:915: uart_interrupt_init();
+	jz	00112$
+	Smain$main$574 ==.
+	Smain$main$575 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:921: uart_interrupt_init();
 	lcall	_uart_interrupt_init
-	Smain$main$640 ==.
-	sjmp	00125$
-00114$:
-	Smain$main$641 ==.
-	Smain$main$642 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:917: button_interrupt_init();
+	Smain$main$576 ==.
+	sjmp	00120$
+00112$:
+	Smain$main$577 ==.
+	Smain$main$578 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:923: button_interrupt_init();
 	lcall	_button_interrupt_init
-	Smain$main$643 ==.
-	sjmp	00125$
-00124$:
-	Smain$main$644 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:921: else if ( light_mode != LIGHT_OFF ) { /* wdt test */
-	mov	a,r7
-	jz	00125$
-	Smain$main$645 ==.
-	Smain$main$646 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:922: wdt_flag = false;
-	mov	dptr,#_wdt_flag
-	clr	a
-	movx	@dptr,a
-	Smain$main$647 ==.
-00125$:
-	Smain$main$648 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:925: control_loop();
+	Smain$main$579 ==.
+00120$:
+	Smain$main$580 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:928: control_loop();
 	lcall	_control_loop
-	Smain$main$649 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:927: Timer0_Delay(24000000, 1, PERIOD_UNIT);
+	Smain$main$581 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:930: Timer0_Delay(24000000, 1, PERIOD_UNIT);
 	mov	dptr,#_Timer0_Delay_PARM_2
 	mov	a,#0x01
 	movx	@dptr,a
@@ -5596,35 +4965,17 @@ _main:
 	mov	b,#0x6e
 	mov	a,#0x01
 	lcall	_Timer0_Delay
-	Smain$main$650 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:930: if (wdt_flag == false) {
-	mov	dptr,#_wdt_flag
-	movx	a,@dptr
-	jnz	00127$
-	Smain$main$651 ==.
-	Smain$main$652 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:931: LS_LOG('I');
-	mov	dpl,#0x49
-	lcall	_uart_log
-	Smain$main$653 ==.
-	sjmp	00128$
-00127$:
-	Smain$main$654 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:938: else LS_LOG('W');
-	mov	dpl,#0x57
-	lcall	_uart_log
-00128$:
-	Smain$main$655 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:941: wdt_clear();
+	Smain$main$582 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:932: wdt_clear();
 	lcall	_wdt_clear
-	Smain$main$656 ==.
-	ljmp	00130$
-	Smain$main$657 ==.
-;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:943: }
-	Smain$main$658 ==.
+	Smain$main$583 ==.
+	ljmp	00122$
+	Smain$main$584 ==.
+;	C:/Users/Goosmos/Downloads/MS51_BSP-master/MS51_BSP-master/MS51FB9AE_MS51XB9AE_MS51XB9BE/SampleCode/Template/Project_temp/main.c:934: }
+	Smain$main$585 ==.
 	XG$main$0$0 ==.
 	ret
-	Smain$main$659 ==.
+	Smain$main$586 ==.
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 G$max_amp$0_0$0 == .
@@ -5758,9 +5109,6 @@ __xinit__lamp_state:
 Fmain$__xinit_log_counter$0_0$0 == .
 __xinit__log_counter:
 	.byte #0x00, #0x00, #0x00, #0x00	; 0
-Fmain$__xinit_wdt_flag$0_0$0 == .
-__xinit__wdt_flag:
-	.db #0x00	;  0
 	.area INITIALIZER
 	.area CABS    (ABS,CODE)
 
@@ -5800,7 +5148,7 @@ Ldebug_line_stmt:
 	.db	2
 	.dw	0,(Smain$Timer0_Delay$0)
 	.db	3
-	.sleb128	214
+	.sleb128	253
 	.db	1
 	.db	9
 	.dw	Smain$Timer0_Delay$2-Smain$Timer0_Delay$0
@@ -5875,918 +5223,967 @@ Ldebug_line_stmt:
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$uart_log$19)
-	.db	3
-	.sleb128	237
-	.db	1
-	.db	9
-	.dw	Smain$uart_log$21-Smain$uart_log$19
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$uart_log$22-Smain$uart_log$21
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$uart_log$23-Smain$uart_log$22
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	1+Smain$uart_log$24-Smain$uart_log$23
-	.db	0
-	.uleb128	1
-	.db	1
-	.db	0
-	.uleb128	5
-	.db	2
-	.dw	0,(Smain$uart_logn$26)
-	.db	3
-	.sleb128	244
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$28-Smain$uart_logn$26
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$30-Smain$uart_logn$28
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$31-Smain$uart_logn$30
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$34-Smain$uart_logn$31
-	.db	3
-	.sleb128	3
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$36-Smain$uart_logn$34
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$38-Smain$uart_logn$36
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$39-Smain$uart_logn$38
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$42-Smain$uart_logn$39
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$44-Smain$uart_logn$42
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$45-Smain$uart_logn$44
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$uart_logn$46-Smain$uart_logn$45
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	1+Smain$uart_logn$47-Smain$uart_logn$46
-	.db	0
-	.uleb128	1
-	.db	1
-	.db	0
-	.uleb128	5
-	.db	2
-	.dw	0,(Smain$log_init$49)
-	.db	3
-	.sleb128	265
-	.db	1
-	.db	9
-	.dw	Smain$log_init$51-Smain$log_init$49
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$log_init$52-Smain$log_init$51
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$log_init$54-Smain$log_init$52
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$log_init$56-Smain$log_init$54
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	1+Smain$log_init$57-Smain$log_init$56
-	.db	0
-	.uleb128	1
-	.db	1
-	.db	0
-	.uleb128	5
-	.db	2
-	.dw	0,(Smain$SerialPort1_ISR$59)
+	.dw	0,(Smain$SerialPort1_ISR$19)
 	.db	3
 	.sleb128	291
 	.db	1
 	.db	9
-	.dw	Smain$SerialPort1_ISR$61-Smain$SerialPort1_ISR$59
+	.dw	Smain$SerialPort1_ISR$21-Smain$SerialPort1_ISR$19
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$SerialPort1_ISR$62-Smain$SerialPort1_ISR$61
+	.dw	Smain$SerialPort1_ISR$22-Smain$SerialPort1_ISR$21
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$SerialPort1_ISR$64-Smain$SerialPort1_ISR$62
+	.dw	Smain$SerialPort1_ISR$24-Smain$SerialPort1_ISR$22
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$SerialPort1_ISR$65-Smain$SerialPort1_ISR$64
+	.dw	Smain$SerialPort1_ISR$25-Smain$SerialPort1_ISR$24
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$SerialPort1_ISR$67-Smain$SerialPort1_ISR$65
+	.dw	Smain$SerialPort1_ISR$27-Smain$SerialPort1_ISR$25
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$SerialPort1_ISR$68-Smain$SerialPort1_ISR$67
+	.dw	Smain$SerialPort1_ISR$28-Smain$SerialPort1_ISR$27
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$SerialPort1_ISR$70-Smain$SerialPort1_ISR$68
+	.dw	Smain$SerialPort1_ISR$30-Smain$SerialPort1_ISR$28
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$SerialPort1_ISR$72-Smain$SerialPort1_ISR$70
+	.dw	Smain$SerialPort1_ISR$32-Smain$SerialPort1_ISR$30
 	.db	3
 	.sleb128	4
 	.db	1
 	.db	9
-	.dw	Smain$SerialPort1_ISR$73-Smain$SerialPort1_ISR$72
+	.dw	Smain$SerialPort1_ISR$33-Smain$SerialPort1_ISR$32
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$SerialPort1_ISR$74-Smain$SerialPort1_ISR$73
+	.dw	1+Smain$SerialPort1_ISR$34-Smain$SerialPort1_ISR$33
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$uart_interrupt_init$76)
+	.dw	0,(Smain$uart_interrupt_init$36)
 	.db	3
 	.sleb128	313
 	.db	1
 	.db	9
-	.dw	Smain$uart_interrupt_init$78-Smain$uart_interrupt_init$76
+	.dw	Smain$uart_interrupt_init$38-Smain$uart_interrupt_init$36
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$uart_interrupt_init$79-Smain$uart_interrupt_init$78
+	.dw	Smain$uart_interrupt_init$39-Smain$uart_interrupt_init$38
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$uart_interrupt_init$80-Smain$uart_interrupt_init$79
+	.dw	Smain$uart_interrupt_init$40-Smain$uart_interrupt_init$39
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$uart_interrupt_init$81-Smain$uart_interrupt_init$80
+	.dw	1+Smain$uart_interrupt_init$41-Smain$uart_interrupt_init$40
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$PinInterrupt_ISR$83)
+	.dw	0,(Smain$PinInterrupt_ISR$43)
 	.db	3
 	.sleb128	331
 	.db	1
 	.db	9
-	.dw	Smain$PinInterrupt_ISR$85-Smain$PinInterrupt_ISR$83
+	.dw	Smain$PinInterrupt_ISR$45-Smain$PinInterrupt_ISR$43
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$PinInterrupt_ISR$86-Smain$PinInterrupt_ISR$85
+	.dw	Smain$PinInterrupt_ISR$46-Smain$PinInterrupt_ISR$45
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$PinInterrupt_ISR$88-Smain$PinInterrupt_ISR$86
+	.dw	Smain$PinInterrupt_ISR$48-Smain$PinInterrupt_ISR$46
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$PinInterrupt_ISR$90-Smain$PinInterrupt_ISR$88
+	.dw	Smain$PinInterrupt_ISR$50-Smain$PinInterrupt_ISR$48
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$PinInterrupt_ISR$91-Smain$PinInterrupt_ISR$90
+	.dw	Smain$PinInterrupt_ISR$51-Smain$PinInterrupt_ISR$50
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$PinInterrupt_ISR$92-Smain$PinInterrupt_ISR$91
+	.dw	Smain$PinInterrupt_ISR$52-Smain$PinInterrupt_ISR$51
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$PinInterrupt_ISR$93-Smain$PinInterrupt_ISR$92
+	.dw	1+Smain$PinInterrupt_ISR$53-Smain$PinInterrupt_ISR$52
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$button_interrupt_init$95)
+	.dw	0,(Smain$button_interrupt_init$55)
 	.db	3
 	.sleb128	346
 	.db	1
 	.db	9
-	.dw	Smain$button_interrupt_init$97-Smain$button_interrupt_init$95
+	.dw	Smain$button_interrupt_init$57-Smain$button_interrupt_init$55
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$button_interrupt_init$98-Smain$button_interrupt_init$97
+	.dw	Smain$button_interrupt_init$58-Smain$button_interrupt_init$57
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$button_interrupt_init$99-Smain$button_interrupt_init$98
+	.dw	Smain$button_interrupt_init$59-Smain$button_interrupt_init$58
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$button_interrupt_init$100-Smain$button_interrupt_init$99
+	.dw	Smain$button_interrupt_init$60-Smain$button_interrupt_init$59
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$button_interrupt_init$101-Smain$button_interrupt_init$100
+	.dw	Smain$button_interrupt_init$61-Smain$button_interrupt_init$60
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$button_interrupt_init$102-Smain$button_interrupt_init$101
+	.dw	1+Smain$button_interrupt_init$62-Smain$button_interrupt_init$61
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$enable_ntc$104)
+	.dw	0,(Smain$enable_ntc$64)
 	.db	3
 	.sleb128	357
 	.db	1
 	.db	9
-	.dw	Smain$enable_ntc$106-Smain$enable_ntc$104
+	.dw	Smain$enable_ntc$66-Smain$enable_ntc$64
 	.db	3
-	.sleb128	7
+	.sleb128	3
 	.db	1
 	.db	9
-	.dw	1+Smain$enable_ntc$107-Smain$enable_ntc$106
+	.dw	Smain$enable_ntc$67-Smain$enable_ntc$66
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$enable_ntc$68-Smain$enable_ntc$67
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	1+Smain$enable_ntc$69-Smain$enable_ntc$68
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$disable_ntc$109)
+	.dw	0,(Smain$disable_ntc$71)
 	.db	3
-	.sleb128	366
+	.sleb128	365
 	.db	1
 	.db	9
-	.dw	Smain$disable_ntc$111-Smain$disable_ntc$109
+	.dw	Smain$disable_ntc$73-Smain$disable_ntc$71
 	.db	3
-	.sleb128	7
+	.sleb128	3
 	.db	1
 	.db	9
-	.dw	1+Smain$disable_ntc$112-Smain$disable_ntc$111
+	.dw	Smain$disable_ntc$74-Smain$disable_ntc$73
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$disable_ntc$75-Smain$disable_ntc$74
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	1+Smain$disable_ntc$76-Smain$disable_ntc$75
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$init_sample$114)
+	.dw	0,(Smain$init_sample$78)
 	.db	3
-	.sleb128	375
+	.sleb128	373
 	.db	1
 	.db	9
-	.dw	Smain$init_sample$116-Smain$init_sample$114
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$init_sample$117-Smain$init_sample$116
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$init_sample$119-Smain$init_sample$117
+	.dw	Smain$init_sample$80-Smain$init_sample$78
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_sample$122-Smain$init_sample$119
+	.dw	Smain$init_sample$81-Smain$init_sample$80
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_sample$124-Smain$init_sample$122
+	.dw	Smain$init_sample$83-Smain$init_sample$81
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$init_sample$86-Smain$init_sample$83
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$init_sample$88-Smain$init_sample$86
 	.db	3
 	.sleb128	-1
 	.db	1
 	.db	9
-	.dw	Smain$init_sample$126-Smain$init_sample$124
+	.dw	Smain$init_sample$90-Smain$init_sample$88
 	.db	3
 	.sleb128	4
 	.db	1
 	.db	9
-	.dw	Smain$init_sample$127-Smain$init_sample$126
+	.dw	Smain$init_sample$91-Smain$init_sample$90
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$init_sample$128-Smain$init_sample$127
+	.dw	1+Smain$init_sample$92-Smain$init_sample$91
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$init_peripherals_but_button_n_uart$130)
+	.dw	0,(Smain$init_peripherals_but_button_n_uart$94)
 	.db	3
-	.sleb128	389
+	.sleb128	387
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$132-Smain$init_peripherals_but_button_n_uart$130
+	.dw	Smain$init_peripherals_but_button_n_uart$96-Smain$init_peripherals_but_button_n_uart$94
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$133-Smain$init_peripherals_but_button_n_uart$132
+	.dw	Smain$init_peripherals_but_button_n_uart$97-Smain$init_peripherals_but_button_n_uart$96
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$134-Smain$init_peripherals_but_button_n_uart$133
+	.dw	Smain$init_peripherals_but_button_n_uart$98-Smain$init_peripherals_but_button_n_uart$97
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$135-Smain$init_peripherals_but_button_n_uart$134
+	.dw	Smain$init_peripherals_but_button_n_uart$99-Smain$init_peripherals_but_button_n_uart$98
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$136-Smain$init_peripherals_but_button_n_uart$135
+	.dw	Smain$init_peripherals_but_button_n_uart$100-Smain$init_peripherals_but_button_n_uart$99
 	.db	3
 	.sleb128	4
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$137-Smain$init_peripherals_but_button_n_uart$136
+	.dw	Smain$init_peripherals_but_button_n_uart$101-Smain$init_peripherals_but_button_n_uart$100
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$138-Smain$init_peripherals_but_button_n_uart$137
+	.dw	Smain$init_peripherals_but_button_n_uart$102-Smain$init_peripherals_but_button_n_uart$101
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$139-Smain$init_peripherals_but_button_n_uart$138
+	.dw	Smain$init_peripherals_but_button_n_uart$103-Smain$init_peripherals_but_button_n_uart$102
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$140-Smain$init_peripherals_but_button_n_uart$139
+	.dw	Smain$init_peripherals_but_button_n_uart$104-Smain$init_peripherals_but_button_n_uart$103
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$141-Smain$init_peripherals_but_button_n_uart$140
+	.dw	Smain$init_peripherals_but_button_n_uart$105-Smain$init_peripherals_but_button_n_uart$104
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$142-Smain$init_peripherals_but_button_n_uart$141
+	.dw	Smain$init_peripherals_but_button_n_uart$106-Smain$init_peripherals_but_button_n_uart$105
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$143-Smain$init_peripherals_but_button_n_uart$142
+	.dw	Smain$init_peripherals_but_button_n_uart$107-Smain$init_peripherals_but_button_n_uart$106
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$144-Smain$init_peripherals_but_button_n_uart$143
+	.dw	Smain$init_peripherals_but_button_n_uart$108-Smain$init_peripherals_but_button_n_uart$107
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$145-Smain$init_peripherals_but_button_n_uart$144
+	.dw	Smain$init_peripherals_but_button_n_uart$109-Smain$init_peripherals_but_button_n_uart$108
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$146-Smain$init_peripherals_but_button_n_uart$145
+	.dw	Smain$init_peripherals_but_button_n_uart$110-Smain$init_peripherals_but_button_n_uart$109
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$147-Smain$init_peripherals_but_button_n_uart$146
+	.dw	Smain$init_peripherals_but_button_n_uart$111-Smain$init_peripherals_but_button_n_uart$110
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$148-Smain$init_peripherals_but_button_n_uart$147
+	.dw	Smain$init_peripherals_but_button_n_uart$112-Smain$init_peripherals_but_button_n_uart$111
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$149-Smain$init_peripherals_but_button_n_uart$148
+	.dw	Smain$init_peripherals_but_button_n_uart$113-Smain$init_peripherals_but_button_n_uart$112
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$150-Smain$init_peripherals_but_button_n_uart$149
+	.dw	Smain$init_peripherals_but_button_n_uart$114-Smain$init_peripherals_but_button_n_uart$113
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$151-Smain$init_peripherals_but_button_n_uart$150
+	.dw	Smain$init_peripherals_but_button_n_uart$115-Smain$init_peripherals_but_button_n_uart$114
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$152-Smain$init_peripherals_but_button_n_uart$151
+	.dw	Smain$init_peripherals_but_button_n_uart$116-Smain$init_peripherals_but_button_n_uart$115
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$153-Smain$init_peripherals_but_button_n_uart$152
+	.dw	Smain$init_peripherals_but_button_n_uart$117-Smain$init_peripherals_but_button_n_uart$116
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$154-Smain$init_peripherals_but_button_n_uart$153
+	.dw	Smain$init_peripherals_but_button_n_uart$118-Smain$init_peripherals_but_button_n_uart$117
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$155-Smain$init_peripherals_but_button_n_uart$154
+	.dw	Smain$init_peripherals_but_button_n_uart$119-Smain$init_peripherals_but_button_n_uart$118
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$156-Smain$init_peripherals_but_button_n_uart$155
+	.dw	Smain$init_peripherals_but_button_n_uart$120-Smain$init_peripherals_but_button_n_uart$119
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$init_peripherals_but_button_n_uart$157-Smain$init_peripherals_but_button_n_uart$156
+	.dw	Smain$init_peripherals_but_button_n_uart$121-Smain$init_peripherals_but_button_n_uart$120
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$init_peripherals_but_button_n_uart$158-Smain$init_peripherals_but_button_n_uart$157
+	.dw	1+Smain$init_peripherals_but_button_n_uart$122-Smain$init_peripherals_but_button_n_uart$121
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$sample_amps$160)
+	.dw	0,(Smain$sample_amps$124)
 	.db	3
-	.sleb128	433
+	.sleb128	431
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$162-Smain$sample_amps$160
+	.dw	Smain$sample_amps$126-Smain$sample_amps$124
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$163-Smain$sample_amps$162
+	.dw	Smain$sample_amps$127-Smain$sample_amps$126
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$164-Smain$sample_amps$163
+	.dw	Smain$sample_amps$128-Smain$sample_amps$127
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$165-Smain$sample_amps$164
+	.dw	Smain$sample_amps$129-Smain$sample_amps$128
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$166-Smain$sample_amps$165
+	.dw	Smain$sample_amps$130-Smain$sample_amps$129
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$167-Smain$sample_amps$166
+	.dw	Smain$sample_amps$131-Smain$sample_amps$130
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$168-Smain$sample_amps$167
+	.dw	Smain$sample_amps$132-Smain$sample_amps$131
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$169-Smain$sample_amps$168
+	.dw	Smain$sample_amps$133-Smain$sample_amps$132
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$170-Smain$sample_amps$169
+	.dw	Smain$sample_amps$134-Smain$sample_amps$133
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$171-Smain$sample_amps$170
+	.dw	Smain$sample_amps$135-Smain$sample_amps$134
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$172-Smain$sample_amps$171
+	.dw	Smain$sample_amps$136-Smain$sample_amps$135
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$173-Smain$sample_amps$172
+	.dw	Smain$sample_amps$137-Smain$sample_amps$136
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$sample_amps$174-Smain$sample_amps$173
+	.dw	Smain$sample_amps$138-Smain$sample_amps$137
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$sample_amps$175-Smain$sample_amps$174
+	.dw	1+Smain$sample_amps$139-Smain$sample_amps$138
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$sample_temperature$177)
+	.dw	0,(Smain$sample_temperature$141)
 	.db	3
-	.sleb128	458
+	.sleb128	456
 	.db	1
 	.db	9
-	.dw	Smain$sample_temperature$179-Smain$sample_temperature$177
+	.dw	Smain$sample_temperature$143-Smain$sample_temperature$141
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$sample_temperature$180-Smain$sample_temperature$179
+	.dw	Smain$sample_temperature$144-Smain$sample_temperature$143
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$sample_temperature$181-Smain$sample_temperature$180
+	.dw	Smain$sample_temperature$145-Smain$sample_temperature$144
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$sample_temperature$182-Smain$sample_temperature$181
+	.dw	Smain$sample_temperature$146-Smain$sample_temperature$145
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$sample_temperature$183-Smain$sample_temperature$182
+	.dw	Smain$sample_temperature$147-Smain$sample_temperature$146
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$sample_temperature$184-Smain$sample_temperature$183
+	.dw	Smain$sample_temperature$148-Smain$sample_temperature$147
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$sample_temperature$185-Smain$sample_temperature$184
+	.dw	Smain$sample_temperature$149-Smain$sample_temperature$148
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	1+Smain$sample_temperature$186-Smain$sample_temperature$185
+	.dw	1+Smain$sample_temperature$150-Smain$sample_temperature$149
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$has_high_beam$188)
+	.dw	0,(Smain$has_high_beam$152)
 	.db	3
-	.sleb128	473
+	.sleb128	471
 	.db	1
 	.db	9
-	.dw	Smain$has_high_beam$190-Smain$has_high_beam$188
+	.dw	Smain$has_high_beam$154-Smain$has_high_beam$152
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$has_high_beam$191-Smain$has_high_beam$190
+	.dw	Smain$has_high_beam$155-Smain$has_high_beam$154
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$has_high_beam$192-Smain$has_high_beam$191
+	.dw	1+Smain$has_high_beam$156-Smain$has_high_beam$155
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$avg_amp$194)
+	.dw	0,(Smain$avg_amp$158)
 	.db	3
-	.sleb128	478
+	.sleb128	476
 	.db	1
 	.db	9
-	.dw	Smain$avg_amp$196-Smain$avg_amp$194
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$avg_amp$198-Smain$avg_amp$196
+	.dw	Smain$avg_amp$160-Smain$avg_amp$158
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$avg_amp$201-Smain$avg_amp$198
+	.dw	Smain$avg_amp$162-Smain$avg_amp$160
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$avg_amp$165-Smain$avg_amp$162
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$avg_amp$203-Smain$avg_amp$201
+	.dw	Smain$avg_amp$167-Smain$avg_amp$165
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	1+Smain$avg_amp$204-Smain$avg_amp$203
+	.dw	1+Smain$avg_amp$168-Smain$avg_amp$167
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$target_amp$206)
+	.dw	0,(Smain$target_amp$170)
 	.db	3
-	.sleb128	486
+	.sleb128	484
 	.db	1
 	.db	9
-	.dw	Smain$target_amp$208-Smain$target_amp$206
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$target_amp$210-Smain$target_amp$208
+	.dw	Smain$target_amp$172-Smain$target_amp$170
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$target_amp$212-Smain$target_amp$210
+	.dw	Smain$target_amp$174-Smain$target_amp$172
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$target_amp$215-Smain$target_amp$212
+	.dw	Smain$target_amp$176-Smain$target_amp$174
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$target_amp$179-Smain$target_amp$176
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$target_amp$216-Smain$target_amp$215
+	.dw	Smain$target_amp$180-Smain$target_amp$179
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$target_amp$218-Smain$target_amp$216
+	.dw	Smain$target_amp$182-Smain$target_amp$180
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$target_amp$220-Smain$target_amp$218
+	.dw	Smain$target_amp$184-Smain$target_amp$182
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$target_amp$222-Smain$target_amp$220
+	.dw	Smain$target_amp$186-Smain$target_amp$184
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	1+Smain$target_amp$223-Smain$target_amp$222
+	.dw	1+Smain$target_amp$187-Smain$target_amp$186
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$changeMode$225)
+	.dw	0,(Smain$changeMode$189)
 	.db	3
-	.sleb128	511
+	.sleb128	509
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$227-Smain$changeMode$225
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$changeMode$228-Smain$changeMode$227
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$changeMode$229-Smain$changeMode$228
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$changeMode$230-Smain$changeMode$229
+	.dw	Smain$changeMode$191-Smain$changeMode$189
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$237-Smain$changeMode$230
+	.dw	Smain$changeMode$192-Smain$changeMode$191
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$238-Smain$changeMode$237
+	.dw	Smain$changeMode$193-Smain$changeMode$192
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$239-Smain$changeMode$238
+	.dw	Smain$changeMode$194-Smain$changeMode$193
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$changeMode$201-Smain$changeMode$194
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$240-Smain$changeMode$239
+	.dw	Smain$changeMode$202-Smain$changeMode$201
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$241-Smain$changeMode$240
+	.dw	Smain$changeMode$203-Smain$changeMode$202
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$242-Smain$changeMode$241
+	.dw	Smain$changeMode$204-Smain$changeMode$203
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$243-Smain$changeMode$242
+	.dw	Smain$changeMode$205-Smain$changeMode$204
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$245-Smain$changeMode$243
+	.dw	Smain$changeMode$206-Smain$changeMode$205
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$changeMode$207-Smain$changeMode$206
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$changeMode$209-Smain$changeMode$207
 	.db	3
 	.sleb128	-7
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$247-Smain$changeMode$245
+	.dw	Smain$changeMode$211-Smain$changeMode$209
 	.db	3
 	.sleb128	13
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$249-Smain$changeMode$247
+	.dw	Smain$changeMode$213-Smain$changeMode$211
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$252-Smain$changeMode$249
+	.dw	Smain$changeMode$216-Smain$changeMode$213
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$254-Smain$changeMode$252
+	.dw	Smain$changeMode$218-Smain$changeMode$216
 	.db	3
 	.sleb128	-1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$256-Smain$changeMode$254
+	.dw	Smain$changeMode$220-Smain$changeMode$218
 	.db	3
 	.sleb128	4
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$258-Smain$changeMode$256
+	.dw	Smain$changeMode$222-Smain$changeMode$220
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$262-Smain$changeMode$258
+	.dw	Smain$changeMode$226-Smain$changeMode$222
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$263-Smain$changeMode$262
+	.dw	Smain$changeMode$227-Smain$changeMode$226
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$265-Smain$changeMode$263
+	.dw	Smain$changeMode$229-Smain$changeMode$227
 	.db	3
 	.sleb128	-2
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$267-Smain$changeMode$265
+	.dw	Smain$changeMode$231-Smain$changeMode$229
 	.db	3
 	.sleb128	6
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$268-Smain$changeMode$267
+	.dw	Smain$changeMode$232-Smain$changeMode$231
 	.db	3
-	.sleb128	2
+	.sleb128	4
 	.db	1
 	.db	9
-	.dw	Smain$changeMode$269-Smain$changeMode$268
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$changeMode$270-Smain$changeMode$269
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	1+Smain$changeMode$271-Smain$changeMode$270
+	.dw	1+Smain$changeMode$233-Smain$changeMode$232
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$toNextMode$273)
+	.dw	0,(Smain$toNextMode$235)
 	.db	3
-	.sleb128	551
+	.sleb128	549
 	.db	1
 	.db	9
-	.dw	Smain$toNextMode$275-Smain$toNextMode$273
+	.dw	Smain$toNextMode$237-Smain$toNextMode$235
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$toNextMode$276-Smain$toNextMode$275
+	.dw	Smain$toNextMode$238-Smain$toNextMode$237
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$toNextMode$277-Smain$toNextMode$276
+	.dw	1+Smain$toNextMode$239-Smain$toNextMode$238
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$process_uart$279)
+	.dw	0,(Smain$process_uart$241)
 	.db	3
-	.sleb128	557
+	.sleb128	555
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$281-Smain$process_uart$279
+	.dw	Smain$process_uart$243-Smain$process_uart$241
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$283-Smain$process_uart$281
+	.dw	Smain$process_uart$245-Smain$process_uart$243
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$247-Smain$process_uart$245
+	.db	3
+	.sleb128	3
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$251-Smain$process_uart$247
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$252-Smain$process_uart$251
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$253-Smain$process_uart$252
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$254-Smain$process_uart$253
+	.db	3
+	.sleb128	3
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$255-Smain$process_uart$254
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$256-Smain$process_uart$255
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$257-Smain$process_uart$256
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$258-Smain$process_uart$257
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$259-Smain$process_uart$258
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$260-Smain$process_uart$259
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$261-Smain$process_uart$260
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$262-Smain$process_uart$261
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$263-Smain$process_uart$262
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$264-Smain$process_uart$263
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$265-Smain$process_uart$264
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$266-Smain$process_uart$265
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$267-Smain$process_uart$266
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$268-Smain$process_uart$267
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$269-Smain$process_uart$268
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$270-Smain$process_uart$269
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$271-Smain$process_uart$270
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$272-Smain$process_uart$271
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$273-Smain$process_uart$272
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$274-Smain$process_uart$273
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$275-Smain$process_uart$274
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$276-Smain$process_uart$275
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$277-Smain$process_uart$276
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$278-Smain$process_uart$277
+	.db	3
+	.sleb128	6
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$279-Smain$process_uart$278
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$280-Smain$process_uart$279
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$282-Smain$process_uart$280
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$283-Smain$process_uart$282
 	.db	3
 	.sleb128	1
 	.db	1
@@ -6796,14 +6193,24 @@ Ldebug_line_stmt:
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$286-Smain$process_uart$284
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$290-Smain$process_uart$286
+	.dw	Smain$process_uart$285-Smain$process_uart$284
 	.db	3
 	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$287-Smain$process_uart$285
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$289-Smain$process_uart$287
+	.db	3
+	.sleb128	4
+	.db	1
+	.db	9
+	.dw	Smain$process_uart$290-Smain$process_uart$289
+	.db	3
+	.sleb128	3
 	.db	1
 	.db	9
 	.dw	Smain$process_uart$291-Smain$process_uart$290
@@ -6811,460 +6218,380 @@ Ldebug_line_stmt:
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$292-Smain$process_uart$291
+	.dw	1+Smain$process_uart$292-Smain$process_uart$291
+	.db	0
+	.uleb128	1
+	.db	1
+	.db	0
+	.uleb128	5
+	.db	2
+	.dw	0,(Smain$process_button$294)
 	.db	3
-	.sleb128	1
+	.sleb128	615
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$293-Smain$process_uart$292
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$294-Smain$process_uart$293
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$295-Smain$process_uart$294
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$296-Smain$process_uart$295
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$297-Smain$process_uart$296
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$298-Smain$process_uart$297
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$299-Smain$process_uart$298
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$300-Smain$process_uart$299
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$301-Smain$process_uart$300
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$302-Smain$process_uart$301
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$303-Smain$process_uart$302
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$304-Smain$process_uart$303
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$305-Smain$process_uart$304
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$306-Smain$process_uart$305
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$307-Smain$process_uart$306
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$308-Smain$process_uart$307
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$309-Smain$process_uart$308
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$310-Smain$process_uart$309
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$311-Smain$process_uart$310
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$312-Smain$process_uart$311
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$313-Smain$process_uart$312
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$314-Smain$process_uart$313
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$315-Smain$process_uart$314
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$316-Smain$process_uart$315
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$317-Smain$process_uart$316
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$318-Smain$process_uart$317
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$319-Smain$process_uart$318
-	.db	3
-	.sleb128	6
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$320-Smain$process_uart$319
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$321-Smain$process_uart$320
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_uart$323-Smain$process_uart$321
+	.dw	Smain$process_button$296-Smain$process_button$294
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$324-Smain$process_uart$323
+	.dw	Smain$process_button$298-Smain$process_button$296
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$process_button$299-Smain$process_button$298
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$325-Smain$process_uart$324
+	.dw	Smain$process_button$300-Smain$process_button$299
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$process_button$302-Smain$process_button$300
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$process_button$304-Smain$process_button$302
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$326-Smain$process_uart$325
+	.dw	Smain$process_button$307-Smain$process_button$304
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$process_button$309-Smain$process_button$307
+	.db	3
+	.sleb128	3
+	.db	1
+	.db	9
+	.dw	Smain$process_button$311-Smain$process_button$309
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$process_button$312-Smain$process_button$311
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$328-Smain$process_uart$326
+	.dw	Smain$process_button$314-Smain$process_button$312
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$330-Smain$process_uart$328
+	.dw	Smain$process_button$316-Smain$process_button$314
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$process_button$318-Smain$process_button$316
+	.db	3
+	.sleb128	3
+	.db	1
+	.db	9
+	.dw	Smain$process_button$320-Smain$process_button$318
 	.db	3
 	.sleb128	4
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$331-Smain$process_uart$330
+	.dw	Smain$process_button$321-Smain$process_button$320
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$process_button$323-Smain$process_button$321
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$process_uart$332-Smain$process_uart$331
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	1+Smain$process_uart$333-Smain$process_uart$332
+	.dw	1+Smain$process_button$324-Smain$process_button$323
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$process_button$335)
+	.dw	0,(Smain$stop_leds$326)
 	.db	3
-	.sleb128	617
+	.sleb128	650
 	.db	1
 	.db	9
-	.dw	Smain$process_button$337-Smain$process_button$335
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$process_button$339-Smain$process_button$337
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$340-Smain$process_button$339
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$341-Smain$process_button$340
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$342-Smain$process_button$341
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$process_button$344-Smain$process_button$342
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$345-Smain$process_button$344
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$347-Smain$process_button$345
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$350-Smain$process_button$347
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$process_button$352-Smain$process_button$350
+	.dw	Smain$stop_leds$328-Smain$stop_leds$326
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$process_button$354-Smain$process_button$352
+	.dw	Smain$stop_leds$329-Smain$stop_leds$328
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$process_button$355-Smain$process_button$354
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$356-Smain$process_button$355
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$358-Smain$process_button$356
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$360-Smain$process_button$358
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$362-Smain$process_button$360
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$363-Smain$process_button$362
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$364-Smain$process_button$363
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$367-Smain$process_button$364
-	.db	3
-	.sleb128	3
-	.db	1
-	.db	9
-	.dw	Smain$process_button$368-Smain$process_button$367
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$process_button$370-Smain$process_button$368
+	.dw	Smain$stop_leds$330-Smain$stop_leds$329
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$process_button$372-Smain$process_button$370
+	.dw	Smain$stop_leds$331-Smain$stop_leds$330
 	.db	3
-	.sleb128	3
+	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$process_button$373-Smain$process_button$372
+	.dw	Smain$stop_leds$332-Smain$stop_leds$331
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$stop_leds$333-Smain$stop_leds$332
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$stop_leds$334-Smain$stop_leds$333
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$stop_leds$335-Smain$stop_leds$334
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$stop_leds$336-Smain$stop_leds$335
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	1+Smain$stop_leds$337-Smain$stop_leds$336
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$stop_leds$375)
+	.dw	0,(Smain$activate_leds$339)
 	.db	3
-	.sleb128	652
+	.sleb128	665
 	.db	1
 	.db	9
-	.dw	Smain$stop_leds$377-Smain$stop_leds$375
+	.dw	Smain$activate_leds$341-Smain$activate_leds$339
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$activate_leds$342-Smain$activate_leds$341
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$activate_leds$343-Smain$activate_leds$342
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$activate_leds$344-Smain$activate_leds$343
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$activate_leds$345-Smain$activate_leds$344
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$activate_leds$346-Smain$activate_leds$345
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$activate_leds$347-Smain$activate_leds$346
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	1+Smain$activate_leds$348-Smain$activate_leds$347
+	.db	0
+	.uleb128	1
+	.db	1
+	.db	0
+	.uleb128	5
+	.db	2
+	.dw	0,(Smain$mode_changing_control$350)
+	.db	3
+	.sleb128	682
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$352-Smain$mode_changing_control$350
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$354-Smain$mode_changing_control$352
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$363-Smain$mode_changing_control$354
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$364-Smain$mode_changing_control$363
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$365-Smain$mode_changing_control$364
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$367-Smain$mode_changing_control$365
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$369-Smain$mode_changing_control$367
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$371-Smain$mode_changing_control$369
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$373-Smain$mode_changing_control$371
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$376-Smain$mode_changing_control$373
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$377-Smain$mode_changing_control$376
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$379-Smain$mode_changing_control$377
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$380-Smain$mode_changing_control$379
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$382-Smain$mode_changing_control$380
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$383-Smain$mode_changing_control$382
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$384-Smain$mode_changing_control$383
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$385-Smain$mode_changing_control$384
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$387-Smain$mode_changing_control$385
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$390-Smain$mode_changing_control$387
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$392-Smain$mode_changing_control$390
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$stop_leds$378-Smain$stop_leds$377
+	.dw	Smain$mode_changing_control$393-Smain$mode_changing_control$392
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$stop_leds$379-Smain$stop_leds$378
+	.dw	Smain$mode_changing_control$395-Smain$mode_changing_control$393
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$397-Smain$mode_changing_control$395
+	.db	3
+	.sleb128	3
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$398-Smain$mode_changing_control$397
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$400-Smain$mode_changing_control$398
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$401-Smain$mode_changing_control$400
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$402-Smain$mode_changing_control$401
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$403-Smain$mode_changing_control$402
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$405-Smain$mode_changing_control$403
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$408-Smain$mode_changing_control$405
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$410-Smain$mode_changing_control$408
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_changing_control$413-Smain$mode_changing_control$410
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$stop_leds$380-Smain$stop_leds$379
+	.dw	Smain$mode_changing_control$415-Smain$mode_changing_control$413
 	.db	3
-	.sleb128	1
+	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$stop_leds$381-Smain$stop_leds$380
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$stop_leds$382-Smain$stop_leds$381
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$stop_leds$383-Smain$stop_leds$382
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$stop_leds$384-Smain$stop_leds$383
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$stop_leds$385-Smain$stop_leds$384
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	1+Smain$stop_leds$386-Smain$stop_leds$385
-	.db	0
-	.uleb128	1
-	.db	1
-	.db	0
-	.uleb128	5
-	.db	2
-	.dw	0,(Smain$activate_leds$388)
-	.db	3
-	.sleb128	667
-	.db	1
-	.db	9
-	.dw	Smain$activate_leds$390-Smain$activate_leds$388
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$activate_leds$391-Smain$activate_leds$390
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$activate_leds$392-Smain$activate_leds$391
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$activate_leds$393-Smain$activate_leds$392
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$activate_leds$394-Smain$activate_leds$393
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$activate_leds$395-Smain$activate_leds$394
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$activate_leds$396-Smain$activate_leds$395
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	1+Smain$activate_leds$397-Smain$activate_leds$396
-	.db	0
-	.uleb128	1
-	.db	1
-	.db	0
-	.uleb128	5
-	.db	2
-	.dw	0,(Smain$mode_changing_control$399)
-	.db	3
-	.sleb128	684
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$401-Smain$mode_changing_control$399
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$403-Smain$mode_changing_control$401
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$412-Smain$mode_changing_control$403
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$413-Smain$mode_changing_control$412
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$414-Smain$mode_changing_control$413
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$416-Smain$mode_changing_control$414
+	.dw	Smain$mode_changing_control$416-Smain$mode_changing_control$415
 	.db	3
 	.sleb128	1
 	.db	1
@@ -7276,777 +6603,552 @@ Ldebug_line_stmt:
 	.db	9
 	.dw	Smain$mode_changing_control$420-Smain$mode_changing_control$418
 	.db	3
-	.sleb128	1
+	.sleb128	4
 	.db	1
 	.db	9
 	.dw	Smain$mode_changing_control$422-Smain$mode_changing_control$420
 	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$425-Smain$mode_changing_control$422
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$426-Smain$mode_changing_control$425
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$428-Smain$mode_changing_control$426
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$429-Smain$mode_changing_control$428
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$431-Smain$mode_changing_control$429
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$432-Smain$mode_changing_control$431
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$433-Smain$mode_changing_control$432
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$434-Smain$mode_changing_control$433
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$436-Smain$mode_changing_control$434
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$439-Smain$mode_changing_control$436
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$441-Smain$mode_changing_control$439
-	.db	3
-	.sleb128	3
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$442-Smain$mode_changing_control$441
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$444-Smain$mode_changing_control$442
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$446-Smain$mode_changing_control$444
-	.db	3
-	.sleb128	3
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$447-Smain$mode_changing_control$446
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$449-Smain$mode_changing_control$447
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$450-Smain$mode_changing_control$449
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$451-Smain$mode_changing_control$450
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$452-Smain$mode_changing_control$451
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$454-Smain$mode_changing_control$452
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$457-Smain$mode_changing_control$454
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$459-Smain$mode_changing_control$457
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$462-Smain$mode_changing_control$459
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$464-Smain$mode_changing_control$462
-	.db	3
-	.sleb128	3
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$465-Smain$mode_changing_control$464
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$467-Smain$mode_changing_control$465
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$469-Smain$mode_changing_control$467
-	.db	3
-	.sleb128	4
-	.db	1
-	.db	9
-	.dw	Smain$mode_changing_control$471-Smain$mode_changing_control$469
-	.db	3
 	.sleb128	-47
 	.db	1
 	.db	9
-	.dw	Smain$mode_changing_control$473-Smain$mode_changing_control$471
+	.dw	Smain$mode_changing_control$424-Smain$mode_changing_control$422
 	.db	3
 	.sleb128	49
 	.db	1
 	.db	9
-	.dw	Smain$mode_changing_control$474-Smain$mode_changing_control$473
+	.dw	Smain$mode_changing_control$425-Smain$mode_changing_control$424
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$mode_changing_control$475-Smain$mode_changing_control$474
+	.dw	1+Smain$mode_changing_control$426-Smain$mode_changing_control$425
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$is_stable$477)
+	.dw	0,(Smain$is_stable$428)
 	.db	3
-	.sleb128	740
+	.sleb128	738
 	.db	1
 	.db	9
-	.dw	Smain$is_stable$480-Smain$is_stable$477
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$is_stable$483-Smain$is_stable$480
+	.dw	Smain$is_stable$431-Smain$is_stable$428
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$is_stable$485-Smain$is_stable$483
+	.dw	Smain$is_stable$434-Smain$is_stable$431
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$is_stable$436-Smain$is_stable$434
 	.db	3
 	.sleb128	-1
 	.db	1
 	.db	9
-	.dw	Smain$is_stable$487-Smain$is_stable$485
+	.dw	Smain$is_stable$438-Smain$is_stable$436
 	.db	3
 	.sleb128	4
 	.db	1
 	.db	9
-	.dw	Smain$is_stable$488-Smain$is_stable$487
+	.dw	Smain$is_stable$439-Smain$is_stable$438
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$is_stable$489-Smain$is_stable$488
+	.dw	1+Smain$is_stable$440-Smain$is_stable$439
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$mode_stable_control$491)
+	.dw	0,(Smain$mode_stable_control$442)
 	.db	3
-	.sleb128	748
+	.sleb128	746
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$493-Smain$mode_stable_control$491
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$mode_stable_control$494-Smain$mode_stable_control$493
+	.dw	Smain$mode_stable_control$444-Smain$mode_stable_control$442
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$496-Smain$mode_stable_control$494
+	.dw	Smain$mode_stable_control$445-Smain$mode_stable_control$444
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$501-Smain$mode_stable_control$496
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_stable_control$502-Smain$mode_stable_control$501
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$mode_stable_control$504-Smain$mode_stable_control$502
+	.dw	Smain$mode_stable_control$447-Smain$mode_stable_control$445
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$505-Smain$mode_stable_control$504
+	.dw	Smain$mode_stable_control$452-Smain$mode_stable_control$447
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$506-Smain$mode_stable_control$505
+	.dw	Smain$mode_stable_control$453-Smain$mode_stable_control$452
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$508-Smain$mode_stable_control$506
+	.dw	Smain$mode_stable_control$455-Smain$mode_stable_control$453
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$mode_stable_control$456-Smain$mode_stable_control$455
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$509-Smain$mode_stable_control$508
+	.dw	Smain$mode_stable_control$457-Smain$mode_stable_control$456
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$510-Smain$mode_stable_control$509
+	.dw	Smain$mode_stable_control$459-Smain$mode_stable_control$457
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$511-Smain$mode_stable_control$510
+	.dw	Smain$mode_stable_control$460-Smain$mode_stable_control$459
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$512-Smain$mode_stable_control$511
+	.dw	Smain$mode_stable_control$461-Smain$mode_stable_control$460
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_stable_control$462-Smain$mode_stable_control$461
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$mode_stable_control$463-Smain$mode_stable_control$462
 	.db	3
 	.sleb128	-10
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$513-Smain$mode_stable_control$512
+	.dw	Smain$mode_stable_control$464-Smain$mode_stable_control$463
 	.db	3
 	.sleb128	13
 	.db	1
 	.db	9
-	.dw	Smain$mode_stable_control$514-Smain$mode_stable_control$513
+	.dw	Smain$mode_stable_control$465-Smain$mode_stable_control$464
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	1+Smain$mode_stable_control$515-Smain$mode_stable_control$514
+	.dw	1+Smain$mode_stable_control$466-Smain$mode_stable_control$465
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$control_loop$517)
+	.dw	0,(Smain$control_loop$468)
 	.db	3
-	.sleb128	770
+	.sleb128	768
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$519-Smain$control_loop$517
+	.dw	Smain$control_loop$470-Smain$control_loop$468
 	.db	3
 	.sleb128	4
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$520-Smain$control_loop$519
+	.dw	Smain$control_loop$471-Smain$control_loop$470
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$521-Smain$control_loop$520
+	.dw	Smain$control_loop$472-Smain$control_loop$471
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$523-Smain$control_loop$521
+	.dw	Smain$control_loop$474-Smain$control_loop$472
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$525-Smain$control_loop$523
+	.dw	Smain$control_loop$476-Smain$control_loop$474
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$527-Smain$control_loop$525
+	.dw	Smain$control_loop$478-Smain$control_loop$476
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$528-Smain$control_loop$527
+	.dw	Smain$control_loop$479-Smain$control_loop$478
 	.db	3
 	.sleb128	-1
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$529-Smain$control_loop$528
+	.dw	Smain$control_loop$480-Smain$control_loop$479
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$530-Smain$control_loop$529
+	.dw	Smain$control_loop$481-Smain$control_loop$480
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$532-Smain$control_loop$530
+	.dw	Smain$control_loop$483-Smain$control_loop$481
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$534-Smain$control_loop$532
+	.dw	Smain$control_loop$485-Smain$control_loop$483
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$536-Smain$control_loop$534
+	.dw	Smain$control_loop$487-Smain$control_loop$485
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$538-Smain$control_loop$536
+	.dw	Smain$control_loop$489-Smain$control_loop$487
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$540-Smain$control_loop$538
+	.dw	Smain$control_loop$491-Smain$control_loop$489
 	.db	3
 	.sleb128	4
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$542-Smain$control_loop$540
+	.dw	Smain$control_loop$493-Smain$control_loop$491
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$544-Smain$control_loop$542
+	.dw	Smain$control_loop$495-Smain$control_loop$493
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$546-Smain$control_loop$544
+	.dw	Smain$control_loop$497-Smain$control_loop$495
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$548-Smain$control_loop$546
+	.dw	Smain$control_loop$499-Smain$control_loop$497
 	.db	3
 	.sleb128	4
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$550-Smain$control_loop$548
+	.dw	Smain$control_loop$501-Smain$control_loop$499
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$control_loop$552-Smain$control_loop$550
+	.dw	Smain$control_loop$503-Smain$control_loop$501
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	1+Smain$control_loop$553-Smain$control_loop$552
+	.dw	1+Smain$control_loop$504-Smain$control_loop$503
 	.db	0
 	.uleb128	1
 	.db	1
 	.db	0
 	.uleb128	5
 	.db	2
-	.dw	0,(Smain$wdt_init$555)
+	.dw	0,(Smain$wdt_init$506)
 	.db	3
-	.sleb128	809
+	.sleb128	807
 	.db	1
 	.db	9
-	.dw	Smain$wdt_init$557-Smain$wdt_init$555
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$wdt_init$558-Smain$wdt_init$557
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$wdt_init$559-Smain$wdt_init$558
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$wdt_init$560-Smain$wdt_init$559
+	.dw	Smain$wdt_init$508-Smain$wdt_init$506
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$wdt_init$561-Smain$wdt_init$560
+	.dw	Smain$wdt_init$509-Smain$wdt_init$508
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$wdt_init$562-Smain$wdt_init$561
+	.dw	Smain$wdt_init$510-Smain$wdt_init$509
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$wdt_init$563-Smain$wdt_init$562
+	.dw	Smain$wdt_init$511-Smain$wdt_init$510
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$wdt_init$564-Smain$wdt_init$563
+	.dw	Smain$wdt_init$512-Smain$wdt_init$511
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$wdt_init$565-Smain$wdt_init$564
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$wdt_init$566-Smain$wdt_init$565
+	.dw	Smain$wdt_init$513-Smain$wdt_init$512
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$wdt_init$567-Smain$wdt_init$566
+	.dw	Smain$wdt_init$514-Smain$wdt_init$513
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$wdt_init$568-Smain$wdt_init$567
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$wdt_init$569-Smain$wdt_init$568
-	.db	3
-	.sleb128	3
-	.db	1
-	.db	9
-	.dw	Smain$wdt_init$570-Smain$wdt_init$569
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	1+Smain$wdt_init$571-Smain$wdt_init$570
-	.db	0
-	.uleb128	1
-	.db	1
-	.db	0
-	.uleb128	5
-	.db	2
-	.dw	0,(Smain$wdt_clear$573)
-	.db	3
-	.sleb128	832
-	.db	1
-	.db	9
-	.dw	Smain$wdt_clear$575-Smain$wdt_clear$573
-	.db	3
-	.sleb128	3
-	.db	1
-	.db	9
-	.dw	Smain$wdt_clear$576-Smain$wdt_clear$575
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$wdt_clear$577-Smain$wdt_clear$576
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$wdt_clear$578-Smain$wdt_clear$577
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$wdt_clear$579-Smain$wdt_clear$578
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$wdt_clear$580-Smain$wdt_clear$579
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$wdt_clear$581-Smain$wdt_clear$580
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$wdt_clear$582-Smain$wdt_clear$581
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	1+Smain$wdt_clear$583-Smain$wdt_clear$582
-	.db	0
-	.uleb128	1
-	.db	1
-	.db	0
-	.uleb128	5
-	.db	2
-	.dw	0,(Smain$main$585)
-	.db	3
-	.sleb128	849
-	.db	1
-	.db	9
-	.dw	Smain$main$587-Smain$main$585
-	.db	3
-	.sleb128	3
-	.db	1
-	.db	9
-	.dw	Smain$main$588-Smain$main$587
-	.db	3
-	.sleb128	4
-	.db	1
-	.db	9
-	.dw	Smain$main$589-Smain$main$588
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$main$590-Smain$main$589
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$591-Smain$main$590
+	.dw	Smain$wdt_init$515-Smain$wdt_init$514
 	.db	3
 	.sleb128	6
 	.db	1
 	.db	9
-	.dw	Smain$main$593-Smain$main$591
+	.dw	Smain$wdt_init$516-Smain$wdt_init$515
+	.db	3
+	.sleb128	16
+	.db	1
+	.db	9
+	.dw	Smain$wdt_init$517-Smain$wdt_init$516
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$main$594-Smain$main$593
+	.dw	1+Smain$wdt_init$518-Smain$wdt_init$517
+	.db	0
+	.uleb128	1
+	.db	1
+	.db	0
+	.uleb128	5
+	.db	2
+	.dw	0,(Smain$wdt_clear$520)
 	.db	3
-	.sleb128	1
+	.sleb128	843
 	.db	1
 	.db	9
-	.dw	Smain$main$596-Smain$main$594
-	.db	3
-	.sleb128	-2
-	.db	1
-	.db	9
-	.dw	Smain$main$597-Smain$main$596
-	.db	3
-	.sleb128	5
-	.db	1
-	.db	9
-	.dw	Smain$main$598-Smain$main$597
+	.dw	Smain$wdt_clear$522-Smain$wdt_clear$520
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	Smain$main$600-Smain$main$598
+	.dw	Smain$wdt_clear$523-Smain$wdt_clear$522
 	.db	3
 	.sleb128	1
 	.db	1
 	.db	9
-	.dw	Smain$main$602-Smain$main$600
+	.dw	Smain$wdt_clear$524-Smain$wdt_clear$523
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$wdt_clear$525-Smain$wdt_clear$524
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$wdt_clear$526-Smain$wdt_clear$525
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$wdt_clear$527-Smain$wdt_clear$526
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$wdt_clear$528-Smain$wdt_clear$527
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$main$603-Smain$main$602
+	.dw	1+Smain$wdt_clear$529-Smain$wdt_clear$528
+	.db	0
+	.uleb128	1
+	.db	1
+	.db	0
+	.uleb128	5
+	.db	2
+	.dw	0,(Smain$main$531)
 	.db	3
-	.sleb128	1
+	.sleb128	858
 	.db	1
 	.db	9
-	.dw	Smain$main$604-Smain$main$603
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$main$606-Smain$main$604
-	.db	3
-	.sleb128	4
-	.db	1
-	.db	9
-	.dw	Smain$main$609-Smain$main$606
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$611-Smain$main$609
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$main$612-Smain$main$611
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$main$614-Smain$main$612
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$616-Smain$main$614
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$618-Smain$main$616
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$main$621-Smain$main$618
+	.dw	Smain$main$533-Smain$main$531
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$main$623-Smain$main$621
-	.db	3
-	.sleb128	4
-	.db	1
-	.db	9
-	.dw	Smain$main$625-Smain$main$623
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$626-Smain$main$625
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$628-Smain$main$626
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$629-Smain$main$628
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$630-Smain$main$629
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$main$631-Smain$main$630
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$632-Smain$main$631
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$633-Smain$main$632
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$634-Smain$main$633
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$635-Smain$main$634
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$636-Smain$main$635
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$main$637-Smain$main$636
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$639-Smain$main$637
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$642-Smain$main$639
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$main$644-Smain$main$642
-	.db	3
-	.sleb128	4
-	.db	1
-	.db	9
-	.dw	Smain$main$646-Smain$main$644
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$648-Smain$main$646
-	.db	3
-	.sleb128	3
-	.db	1
-	.db	9
-	.dw	Smain$main$649-Smain$main$648
-	.db	3
-	.sleb128	2
-	.db	1
-	.db	9
-	.dw	Smain$main$650-Smain$main$649
-	.db	3
-	.sleb128	3
-	.db	1
-	.db	9
-	.dw	Smain$main$652-Smain$main$650
-	.db	3
-	.sleb128	1
-	.db	1
-	.db	9
-	.dw	Smain$main$654-Smain$main$652
+	.dw	Smain$main$534-Smain$main$533
 	.db	3
 	.sleb128	7
 	.db	1
 	.db	9
-	.dw	Smain$main$655-Smain$main$654
+	.dw	Smain$main$535-Smain$main$534
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$536-Smain$main$535
+	.db	3
+	.sleb128	5
+	.db	1
+	.db	9
+	.dw	Smain$main$538-Smain$main$536
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$539-Smain$main$538
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$541-Smain$main$539
+	.db	3
+	.sleb128	-2
+	.db	1
+	.db	9
+	.dw	Smain$main$542-Smain$main$541
+	.db	3
+	.sleb128	7
+	.db	1
+	.db	9
+	.dw	Smain$main$544-Smain$main$542
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$546-Smain$main$544
 	.db	3
 	.sleb128	3
 	.db	1
 	.db	9
-	.dw	Smain$main$657-Smain$main$655
+	.dw	Smain$main$547-Smain$main$546
 	.db	3
 	.sleb128	2
 	.db	1
 	.db	9
-	.dw	1+Smain$main$658-Smain$main$657
+	.dw	Smain$main$549-Smain$main$547
+	.db	3
+	.sleb128	10
+	.db	1
+	.db	9
+	.dw	Smain$main$551-Smain$main$549
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$553-Smain$main$551
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$555-Smain$main$553
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$main$558-Smain$main$555
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$main$560-Smain$main$558
+	.db	3
+	.sleb128	3
+	.db	1
+	.db	9
+	.dw	Smain$main$562-Smain$main$560
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$564-Smain$main$562
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$565-Smain$main$564
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$566-Smain$main$565
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$main$567-Smain$main$566
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$568-Smain$main$567
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$569-Smain$main$568
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$570-Smain$main$569
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$571-Smain$main$570
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$572-Smain$main$571
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$main$573-Smain$main$572
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$575-Smain$main$573
+	.db	3
+	.sleb128	1
+	.db	1
+	.db	9
+	.dw	Smain$main$578-Smain$main$575
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$main$580-Smain$main$578
+	.db	3
+	.sleb128	5
+	.db	1
+	.db	9
+	.dw	Smain$main$581-Smain$main$580
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$main$582-Smain$main$581
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	Smain$main$584-Smain$main$582
+	.db	3
+	.sleb128	2
+	.db	1
+	.db	9
+	.dw	1+Smain$main$585-Smain$main$584
 	.db	0
 	.uleb128	1
 	.db	1
@@ -8054,204 +7156,183 @@ Ldebug_line_end:
 
 	.area .debug_loc (NOLOAD)
 Ldebug_loc_start:
+	.dw	0,(Smain$main$532)
 	.dw	0,(Smain$main$586)
-	.dw	0,(Smain$main$659)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$wdt_clear$574)
-	.dw	0,(Smain$wdt_clear$584)
+	.dw	0,(Smain$wdt_clear$521)
+	.dw	0,(Smain$wdt_clear$530)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$wdt_init$556)
-	.dw	0,(Smain$wdt_init$572)
+	.dw	0,(Smain$wdt_init$507)
+	.dw	0,(Smain$wdt_init$519)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$control_loop$518)
-	.dw	0,(Smain$control_loop$554)
+	.dw	0,(Smain$control_loop$469)
+	.dw	0,(Smain$control_loop$505)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$mode_stable_control$492)
-	.dw	0,(Smain$mode_stable_control$516)
+	.dw	0,(Smain$mode_stable_control$443)
+	.dw	0,(Smain$mode_stable_control$467)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$is_stable$478)
-	.dw	0,(Smain$is_stable$490)
+	.dw	0,(Smain$is_stable$429)
+	.dw	0,(Smain$is_stable$441)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$mode_changing_control$400)
-	.dw	0,(Smain$mode_changing_control$476)
+	.dw	0,(Smain$mode_changing_control$351)
+	.dw	0,(Smain$mode_changing_control$427)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$activate_leds$389)
-	.dw	0,(Smain$activate_leds$398)
+	.dw	0,(Smain$activate_leds$340)
+	.dw	0,(Smain$activate_leds$349)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$stop_leds$376)
-	.dw	0,(Smain$stop_leds$387)
+	.dw	0,(Smain$stop_leds$327)
+	.dw	0,(Smain$stop_leds$338)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$process_button$336)
-	.dw	0,(Smain$process_button$374)
+	.dw	0,(Smain$process_button$295)
+	.dw	0,(Smain$process_button$325)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$process_uart$280)
-	.dw	0,(Smain$process_uart$334)
+	.dw	0,(Smain$process_uart$242)
+	.dw	0,(Smain$process_uart$293)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$toNextMode$274)
-	.dw	0,(Smain$toNextMode$278)
+	.dw	0,(Smain$toNextMode$236)
+	.dw	0,(Smain$toNextMode$240)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$changeMode$226)
-	.dw	0,(Smain$changeMode$272)
+	.dw	0,(Smain$changeMode$190)
+	.dw	0,(Smain$changeMode$234)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$target_amp$207)
-	.dw	0,(Smain$target_amp$224)
+	.dw	0,(Smain$target_amp$171)
+	.dw	0,(Smain$target_amp$188)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$avg_amp$195)
-	.dw	0,(Smain$avg_amp$205)
+	.dw	0,(Smain$avg_amp$159)
+	.dw	0,(Smain$avg_amp$169)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$has_high_beam$189)
-	.dw	0,(Smain$has_high_beam$193)
+	.dw	0,(Smain$has_high_beam$153)
+	.dw	0,(Smain$has_high_beam$157)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$sample_temperature$178)
-	.dw	0,(Smain$sample_temperature$187)
+	.dw	0,(Smain$sample_temperature$142)
+	.dw	0,(Smain$sample_temperature$151)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$sample_amps$161)
-	.dw	0,(Smain$sample_amps$176)
+	.dw	0,(Smain$sample_amps$125)
+	.dw	0,(Smain$sample_amps$140)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$init_peripherals_but_button_n_uart$131)
-	.dw	0,(Smain$init_peripherals_but_button_n_uart$159)
+	.dw	0,(Smain$init_peripherals_but_button_n_uart$95)
+	.dw	0,(Smain$init_peripherals_but_button_n_uart$123)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$init_sample$115)
-	.dw	0,(Smain$init_sample$129)
+	.dw	0,(Smain$init_sample$79)
+	.dw	0,(Smain$init_sample$93)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$disable_ntc$110)
-	.dw	0,(Smain$disable_ntc$113)
+	.dw	0,(Smain$disable_ntc$72)
+	.dw	0,(Smain$disable_ntc$77)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$enable_ntc$105)
-	.dw	0,(Smain$enable_ntc$108)
+	.dw	0,(Smain$enable_ntc$65)
+	.dw	0,(Smain$enable_ntc$70)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$button_interrupt_init$96)
-	.dw	0,(Smain$button_interrupt_init$103)
+	.dw	0,(Smain$button_interrupt_init$56)
+	.dw	0,(Smain$button_interrupt_init$63)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$PinInterrupt_ISR$84)
-	.dw	0,(Smain$PinInterrupt_ISR$94)
+	.dw	0,(Smain$PinInterrupt_ISR$44)
+	.dw	0,(Smain$PinInterrupt_ISR$54)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$uart_interrupt_init$77)
-	.dw	0,(Smain$uart_interrupt_init$82)
+	.dw	0,(Smain$uart_interrupt_init$37)
+	.dw	0,(Smain$uart_interrupt_init$42)
 	.dw	2
 	.db	134
 	.sleb128	1
 	.dw	0,0
 	.dw	0,0
-	.dw	0,(Smain$SerialPort1_ISR$60)
-	.dw	0,(Smain$SerialPort1_ISR$75)
-	.dw	2
-	.db	134
-	.sleb128	1
-	.dw	0,0
-	.dw	0,0
-	.dw	0,(Smain$log_init$50)
-	.dw	0,(Smain$log_init$58)
-	.dw	2
-	.db	134
-	.sleb128	1
-	.dw	0,0
-	.dw	0,0
-	.dw	0,(Smain$uart_logn$27)
-	.dw	0,(Smain$uart_logn$48)
-	.dw	2
-	.db	134
-	.sleb128	1
-	.dw	0,0
-	.dw	0,0
-	.dw	0,(Smain$uart_log$20)
-	.dw	0,(Smain$uart_log$25)
+	.dw	0,(Smain$SerialPort1_ISR$20)
+	.dw	0,(Smain$SerialPort1_ISR$35)
 	.dw	2
 	.db	134
 	.sleb128	1
@@ -8347,35 +7428,6 @@ Ldebug_abbrev:
 	.uleb128	0
 	.uleb128	0
 	.uleb128	8
-	.uleb128	11
-	.db	1
-	.uleb128	17
-	.uleb128	1
-	.uleb128	18
-	.uleb128	1
-	.uleb128	0
-	.uleb128	0
-	.uleb128	9
-	.uleb128	11
-	.db	1
-	.uleb128	1
-	.uleb128	19
-	.uleb128	17
-	.uleb128	1
-	.uleb128	0
-	.uleb128	0
-	.uleb128	10
-	.uleb128	52
-	.db	0
-	.uleb128	2
-	.uleb128	10
-	.uleb128	3
-	.uleb128	8
-	.uleb128	73
-	.uleb128	19
-	.uleb128	0
-	.uleb128	0
-	.uleb128	11
 	.uleb128	46
 	.db	1
 	.uleb128	1
@@ -8394,7 +7446,7 @@ Ldebug_abbrev:
 	.uleb128	6
 	.uleb128	0
 	.uleb128	0
-	.uleb128	12
+	.uleb128	9
 	.uleb128	46
 	.db	0
 	.uleb128	3
@@ -8409,7 +7461,16 @@ Ldebug_abbrev:
 	.uleb128	6
 	.uleb128	0
 	.uleb128	0
-	.uleb128	13
+	.uleb128	10
+	.uleb128	11
+	.db	1
+	.uleb128	17
+	.uleb128	1
+	.uleb128	18
+	.uleb128	1
+	.uleb128	0
+	.uleb128	0
+	.uleb128	11
 	.uleb128	46
 	.db	1
 	.uleb128	1
@@ -8428,7 +7489,16 @@ Ldebug_abbrev:
 	.uleb128	19
 	.uleb128	0
 	.uleb128	0
-	.uleb128	14
+	.uleb128	12
+	.uleb128	11
+	.db	1
+	.uleb128	1
+	.uleb128	19
+	.uleb128	17
+	.uleb128	1
+	.uleb128	0
+	.uleb128	0
+	.uleb128	13
 	.uleb128	11
 	.db	1
 	.uleb128	1
@@ -8439,21 +7509,37 @@ Ldebug_abbrev:
 	.uleb128	1
 	.uleb128	0
 	.uleb128	0
-	.uleb128	15
+	.uleb128	14
 	.uleb128	11
 	.db	1
 	.uleb128	1
 	.uleb128	19
 	.uleb128	0
 	.uleb128	0
-	.uleb128	16
+	.uleb128	15
 	.uleb128	11
 	.db	1
 	.uleb128	17
 	.uleb128	1
 	.uleb128	0
 	.uleb128	0
+	.uleb128	16
+	.uleb128	52
+	.db	0
+	.uleb128	2
+	.uleb128	10
+	.uleb128	3
+	.uleb128	8
+	.uleb128	73
+	.uleb128	19
+	.uleb128	0
+	.uleb128	0
 	.uleb128	17
+	.uleb128	11
+	.db	0
+	.uleb128	0
+	.uleb128	0
+	.uleb128	18
 	.uleb128	52
 	.db	0
 	.uleb128	2
@@ -8468,7 +7554,7 @@ Ldebug_abbrev:
 	.uleb128	19
 	.uleb128	0
 	.uleb128	0
-	.uleb128	18
+	.uleb128	19
 	.uleb128	1
 	.db	1
 	.uleb128	1
@@ -8479,14 +7565,14 @@ Ldebug_abbrev:
 	.uleb128	19
 	.uleb128	0
 	.uleb128	0
-	.uleb128	19
+	.uleb128	20
 	.uleb128	33
 	.db	0
 	.uleb128	47
 	.uleb128	11
 	.uleb128	0
 	.uleb128	0
-	.uleb128	20
+	.uleb128	21
 	.uleb128	52
 	.db	0
 	.uleb128	2
@@ -8499,14 +7585,14 @@ Ldebug_abbrev:
 	.uleb128	19
 	.uleb128	0
 	.uleb128	0
-	.uleb128	21
+	.uleb128	22
 	.uleb128	53
 	.db	0
 	.uleb128	73
 	.uleb128	19
 	.uleb128	0
 	.uleb128	0
-	.uleb128	22
+	.uleb128	23
 	.uleb128	38
 	.db	0
 	.uleb128	73
@@ -8535,7 +7621,7 @@ Ldebug_info_start:
 	.dw	0,(_Timer0_Delay)
 	.dw	0,(XG$Timer0_Delay$0$0+1)
 	.db	1
-	.dw	0,(Ldebug_loc_start+580)
+	.dw	0,(Ldebug_loc_start+520)
 	.uleb128	3
 	.db	5
 	.db	3
@@ -8557,11 +7643,11 @@ Ldebug_info_start:
 	.uleb128	6
 	.ascii "TL0TMP"
 	.db	0
-	.dw	0,360
+	.dw	0,853
 	.uleb128	6
 	.ascii "TH0TMP"
 	.db	0
-	.dw	0,360
+	.dw	0,853
 	.uleb128	0
 	.uleb128	7
 	.ascii "unsigned long"
@@ -8573,83 +7659,8 @@ Ldebug_info_start:
 	.db	0
 	.db	2
 	.db	7
-	.uleb128	2
-	.dw	0,360
-	.ascii "uart_log"
-	.db	0
-	.dw	0,(_uart_log)
-	.dw	0,(XG$uart_log$0$0+1)
-	.db	1
-	.dw	0,(Ldebug_loc_start+560)
-	.uleb128	3
-	.db	5
-	.db	3
-	.dw	0,(_uart_log_c_65536_148)
-	.ascii "c"
-	.db	0
-	.dw	0,360
-	.uleb128	0
-	.uleb128	7
-	.ascii "unsigned char"
-	.db	0
-	.db	1
-	.db	8
-	.uleb128	2
-	.dw	0,480
-	.ascii "uart_logn"
-	.db	0
-	.dw	0,(_uart_logn)
-	.dw	0,(XG$uart_logn$0$0+1)
-	.db	1
-	.dw	0,(Ldebug_loc_start+540)
-	.uleb128	3
-	.db	5
-	.db	3
-	.dw	0,(_uart_logn_n_65536_150)
-	.ascii "n"
-	.db	0
-	.dw	0,286
-	.uleb128	5
-	.dw	0,(Smain$uart_logn$29)
-	.dw	0,(Smain$uart_logn$32)
 	.uleb128	8
-	.dw	0,(Smain$uart_logn$33)
-	.dw	0,(Smain$uart_logn$37)
-	.uleb128	9
-	.dw	0,465
-	.dw	0,(Smain$uart_logn$40)
-	.uleb128	8
-	.dw	0,(Smain$uart_logn$41)
-	.dw	0,(Smain$uart_logn$43)
-	.uleb128	6
-	.ascii "res"
-	.db	0
-	.dw	0,286
-	.uleb128	0
-	.uleb128	0
-	.uleb128	10
-	.db	5
-	.db	3
-	.dw	0,(_uart_logn_e_65537_153)
-	.ascii "e"
-	.db	0
-	.dw	0,286
-	.uleb128	0
-	.uleb128	0
-	.uleb128	2
-	.dw	0,517
-	.ascii "log_init"
-	.db	0
-	.dw	0,(_log_init)
-	.dw	0,(XG$log_init$0$0+1)
-	.db	1
-	.dw	0,(Ldebug_loc_start+520)
-	.uleb128	5
-	.dw	0,(Smain$log_init$53)
-	.dw	0,(Smain$log_init$55)
-	.uleb128	0
-	.uleb128	11
-	.dw	0,571
+	.dw	0,373
 	.ascii "SerialPort1_ISR"
 	.db	0
 	.dw	0,(_SerialPort1_ISR)
@@ -8658,21 +7669,21 @@ Ldebug_info_start:
 	.db	1
 	.dw	0,(Ldebug_loc_start+500)
 	.uleb128	5
-	.dw	0,(Smain$SerialPort1_ISR$63)
-	.dw	0,(Smain$SerialPort1_ISR$66)
+	.dw	0,(Smain$SerialPort1_ISR$23)
+	.dw	0,(Smain$SerialPort1_ISR$26)
 	.uleb128	5
-	.dw	0,(Smain$SerialPort1_ISR$69)
-	.dw	0,(Smain$SerialPort1_ISR$71)
+	.dw	0,(Smain$SerialPort1_ISR$29)
+	.dw	0,(Smain$SerialPort1_ISR$31)
 	.uleb128	0
-	.uleb128	12
+	.uleb128	9
 	.ascii "uart_interrupt_init"
 	.db	0
 	.dw	0,(_uart_interrupt_init)
 	.dw	0,(XG$uart_interrupt_init$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+480)
-	.uleb128	11
-	.dw	0,651
+	.uleb128	8
+	.dw	0,453
 	.ascii "PinInterrupt_ISR"
 	.db	0
 	.dw	0,(_PinInterrupt_ISR)
@@ -8681,24 +7692,24 @@ Ldebug_info_start:
 	.db	1
 	.dw	0,(Ldebug_loc_start+460)
 	.uleb128	5
-	.dw	0,(Smain$PinInterrupt_ISR$87)
-	.dw	0,(Smain$PinInterrupt_ISR$89)
+	.dw	0,(Smain$PinInterrupt_ISR$47)
+	.dw	0,(Smain$PinInterrupt_ISR$49)
 	.uleb128	0
-	.uleb128	12
+	.uleb128	9
 	.ascii "button_interrupt_init"
 	.db	0
 	.dw	0,(_button_interrupt_init)
 	.dw	0,(XG$button_interrupt_init$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+440)
-	.uleb128	12
+	.uleb128	9
 	.ascii "enable_ntc"
 	.db	0
 	.dw	0,(_enable_ntc)
 	.dw	0,(XG$enable_ntc$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+420)
-	.uleb128	12
+	.uleb128	9
 	.ascii "disable_ntc"
 	.db	0
 	.dw	0,(_disable_ntc)
@@ -8706,40 +7717,40 @@ Ldebug_info_start:
 	.db	1
 	.dw	0,(Ldebug_loc_start+400)
 	.uleb128	2
-	.dw	0,795
+	.dw	0,597
 	.ascii "init_sample"
 	.db	0
 	.dw	0,(_init_sample)
 	.dw	0,(XG$init_sample$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+380)
-	.uleb128	8
-	.dw	0,(Smain$init_sample$121)
-	.dw	0,(Smain$init_sample$125)
+	.uleb128	10
+	.dw	0,(Smain$init_sample$85)
+	.dw	0,(Smain$init_sample$89)
 	.uleb128	5
-	.dw	0,(Smain$init_sample$118)
-	.dw	0,(Smain$init_sample$120)
+	.dw	0,(Smain$init_sample$82)
+	.dw	0,(Smain$init_sample$84)
 	.uleb128	6
 	.ascii "i"
 	.db	0
-	.dw	0,2518
+	.dw	0,2298
 	.uleb128	0
 	.uleb128	0
-	.uleb128	12
+	.uleb128	9
 	.ascii "init_peripherals_but_button_n_uart"
 	.db	0
 	.dw	0,(_init_peripherals_but_button_n_uart)
 	.dw	0,(XG$init_peripherals_but_button_n_uart$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+360)
-	.uleb128	12
+	.uleb128	9
 	.ascii "sample_amps"
 	.db	0
 	.dw	0,(_sample_amps)
 	.dw	0,(XG$sample_amps$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+340)
-	.uleb128	12
+	.uleb128	9
 	.ascii "sample_temperature"
 	.db	0
 	.dw	0,(_sample_temperature)
@@ -8751,80 +7762,85 @@ Ldebug_info_start:
 	.db	0
 	.db	1
 	.db	5
-	.uleb128	13
-	.dw	0,971
+	.uleb128	11
+	.dw	0,773
 	.ascii "has_high_beam"
 	.db	0
 	.dw	0,(_has_high_beam)
 	.dw	0,(XG$has_high_beam$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+300)
-	.dw	0,903
+	.dw	0,705
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_has_high_beam_mode_65536_186)
+	.dw	0,(_has_high_beam_mode_65536_173)
 	.ascii "mode"
 	.db	0
-	.dw	0,903
+	.dw	0,705
 	.uleb128	0
 	.uleb128	7
 	.ascii "unsigned int"
 	.db	0
 	.db	2
 	.db	7
-	.uleb128	13
-	.dw	0,1051
+	.uleb128	11
+	.dw	0,853
 	.ascii "avg_amp"
 	.db	0
 	.dw	0,(_avg_amp)
 	.dw	0,(XG$avg_amp$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+280)
-	.dw	0,971
+	.dw	0,773
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_avg_amp_idx_65536_188)
+	.dw	0,(_avg_amp_idx_65536_175)
 	.ascii "idx"
 	.db	0
-	.dw	0,360
+	.dw	0,853
 	.uleb128	5
-	.dw	0,(Smain$avg_amp$197)
-	.dw	0,(Smain$avg_amp$199)
+	.dw	0,(Smain$avg_amp$161)
+	.dw	0,(Smain$avg_amp$163)
 	.uleb128	5
-	.dw	0,(Smain$avg_amp$200)
-	.dw	0,(Smain$avg_amp$202)
+	.dw	0,(Smain$avg_amp$164)
+	.dw	0,(Smain$avg_amp$166)
 	.uleb128	0
-	.uleb128	13
-	.dw	0,1162
+	.uleb128	7
+	.ascii "unsigned char"
+	.db	0
+	.db	1
+	.db	8
+	.uleb128	11
+	.dw	0,981
 	.ascii "target_amp"
 	.db	0
 	.dw	0,(_target_amp)
 	.dw	0,(XG$target_amp$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+260)
-	.dw	0,360
+	.dw	0,853
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_target_amp_mode_65536_192)
+	.dw	0,(_target_amp_mode_65536_179)
 	.ascii "mode"
 	.db	0
-	.dw	0,360
+	.dw	0,853
 	.uleb128	4
 	.ascii "idx"
 	.db	0
-	.dw	0,360
-	.uleb128	9
-	.dw	0,1152
-	.dw	0,(Smain$target_amp$209)
+	.dw	0,853
+	.uleb128	12
+	.dw	0,971
+	.dw	0,(Smain$target_amp$173)
 	.uleb128	5
-	.dw	0,(Smain$target_amp$211)
-	.dw	0,(Smain$target_amp$213)
-	.uleb128	8
-	.dw	0,(Smain$target_amp$214)
-	.dw	0,(Smain$target_amp$217)
+	.dw	0,(Smain$target_amp$175)
+	.dw	0,(Smain$target_amp$177)
+	.uleb128	10
+	.dw	0,(Smain$target_amp$178)
+	.dw	0,(Smain$target_amp$181)
 	.uleb128	6
 	.ascii "m"
 	.db	0
@@ -8836,11 +7852,11 @@ Ldebug_info_start:
 	.uleb128	0
 	.uleb128	0
 	.uleb128	5
-	.dw	0,(Smain$target_amp$219)
-	.dw	0,(Smain$target_amp$221)
+	.dw	0,(Smain$target_amp$183)
+	.dw	0,(Smain$target_amp$185)
 	.uleb128	0
 	.uleb128	2
-	.dw	0,1354
+	.dw	0,1173
 	.ascii "changeMode"
 	.db	0
 	.dw	0,(_changeMode)
@@ -8850,68 +7866,68 @@ Ldebug_info_start:
 	.uleb128	3
 	.db	5
 	.db	3
-	.dw	0,(_changeMode_new_mode_65536_198)
+	.dw	0,(_changeMode_new_mode_65536_185)
 	.ascii "new_mode"
 	.db	0
-	.dw	0,360
-	.uleb128	14
-	.dw	0,1281
-	.dw	0,(Smain$changeMode$236)
-	.dw	0,(Smain$changeMode$246)
-	.uleb128	9
-	.dw	0,1273
-	.dw	0,(Smain$changeMode$231)
+	.dw	0,853
+	.uleb128	13
+	.dw	0,1100
+	.dw	0,(Smain$changeMode$200)
+	.dw	0,(Smain$changeMode$210)
+	.uleb128	12
+	.dw	0,1092
+	.dw	0,(Smain$changeMode$195)
 	.uleb128	5
-	.dw	0,(Smain$changeMode$234)
-	.dw	0,(Smain$changeMode$235)
+	.dw	0,(Smain$changeMode$198)
+	.dw	0,(Smain$changeMode$199)
 	.uleb128	5
-	.dw	0,(Smain$changeMode$233)
-	.dw	0,(Smain$changeMode$234)
+	.dw	0,(Smain$changeMode$197)
+	.dw	0,(Smain$changeMode$198)
 	.uleb128	5
-	.dw	0,(Smain$changeMode$232)
-	.dw	0,(Smain$changeMode$233)
+	.dw	0,(Smain$changeMode$196)
+	.dw	0,(Smain$changeMode$197)
 	.uleb128	6
 	.ascii "target"
 	.db	0
-	.dw	0,2525
+	.dw	0,2305
 	.uleb128	0
 	.uleb128	6
 	.ascii "i"
 	.db	0
-	.dw	0,2518
+	.dw	0,2298
 	.uleb128	0
+	.uleb128	13
+	.dw	0,1130
+	.dw	0,(Smain$changeMode$215)
+	.dw	0,(Smain$changeMode$219)
+	.uleb128	5
+	.dw	0,(Smain$changeMode$212)
+	.dw	0,(Smain$changeMode$214)
+	.uleb128	6
+	.ascii "i"
+	.db	0
+	.dw	0,2298
+	.uleb128	0
+	.uleb128	10
+	.dw	0,(Smain$changeMode$225)
+	.dw	0,(Smain$changeMode$230)
 	.uleb128	14
-	.dw	0,1311
-	.dw	0,(Smain$changeMode$251)
-	.dw	0,(Smain$changeMode$255)
+	.dw	0,1164
+	.uleb128	10
+	.dw	0,(Smain$changeMode$223)
+	.dw	0,(Smain$changeMode$224)
 	.uleb128	5
-	.dw	0,(Smain$changeMode$248)
-	.dw	0,(Smain$changeMode$250)
-	.uleb128	6
-	.ascii "i"
-	.db	0
-	.dw	0,2518
-	.uleb128	0
-	.uleb128	8
-	.dw	0,(Smain$changeMode$261)
-	.dw	0,(Smain$changeMode$266)
-	.uleb128	15
-	.dw	0,1345
-	.uleb128	8
-	.dw	0,(Smain$changeMode$259)
-	.dw	0,(Smain$changeMode$260)
-	.uleb128	5
-	.dw	0,(Smain$changeMode$257)
-	.dw	0,(Smain$changeMode$259)
+	.dw	0,(Smain$changeMode$221)
+	.dw	0,(Smain$changeMode$223)
 	.uleb128	0
 	.uleb128	0
 	.uleb128	6
 	.ascii "i"
 	.db	0
-	.dw	0,2518
+	.dw	0,2298
 	.uleb128	0
 	.uleb128	0
-	.uleb128	12
+	.uleb128	9
 	.ascii "toNextMode"
 	.db	0
 	.dw	0,(_toNextMode)
@@ -8923,303 +7939,301 @@ Ldebug_info_start:
 	.db	0
 	.db	1
 	.db	2
-	.uleb128	13
-	.dw	0,1482
+	.uleb128	11
+	.dw	0,1301
 	.ascii "process_uart"
 	.db	0
 	.dw	0,(_process_uart)
 	.dw	0,(XG$process_uart$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+200)
-	.dw	0,1379
+	.dw	0,1198
 	.uleb128	5
-	.dw	0,(Smain$process_uart$282)
-	.dw	0,(Smain$process_uart$285)
-	.uleb128	16
-	.dw	0,(Smain$process_uart$287)
-	.uleb128	14
-	.dw	0,1466
+	.dw	0,(Smain$process_uart$244)
+	.dw	0,(Smain$process_uart$246)
+	.uleb128	15
+	.dw	0,(Smain$process_uart$248)
+	.uleb128	13
+	.dw	0,1285
+	.dw	0,(Smain$process_uart$249)
+	.dw	0,(Smain$process_uart$250)
+	.uleb128	15
+	.dw	0,(Smain$process_uart$281)
+	.uleb128	5
+	.dw	0,(Smain$process_uart$286)
 	.dw	0,(Smain$process_uart$288)
-	.dw	0,(Smain$process_uart$289)
+	.uleb128	0
+	.uleb128	0
 	.uleb128	16
-	.dw	0,(Smain$process_uart$322)
-	.uleb128	5
-	.dw	0,(Smain$process_uart$327)
-	.dw	0,(Smain$process_uart$329)
-	.uleb128	0
-	.uleb128	0
-	.uleb128	10
 	.db	5
 	.db	3
-	.dw	0,(_process_uart_ch_131072_216)
+	.dw	0,(_process_uart_ch_131072_203)
 	.ascii "ch"
 	.db	0
-	.dw	0,360
+	.dw	0,853
 	.uleb128	0
 	.uleb128	0
 	.uleb128	2
-	.dw	0,1594
+	.dw	0,1405
 	.ascii "process_button"
 	.db	0
 	.dw	0,(_process_button)
 	.dw	0,(XG$process_button$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+180)
-	.uleb128	9
-	.dw	0,1549
-	.dw	0,(Smain$process_button$338)
-	.uleb128	16
-	.dw	0,(Smain$process_button$343)
-	.uleb128	5
-	.dw	0,(Smain$process_button$346)
-	.dw	0,(Smain$process_button$348)
-	.uleb128	5
-	.dw	0,(Smain$process_button$349)
-	.dw	0,(Smain$process_button$351)
-	.uleb128	0
-	.uleb128	0
-	.uleb128	16
-	.dw	0,(Smain$process_button$353)
-	.uleb128	8
-	.dw	0,(Smain$process_button$357)
-	.dw	0,(Smain$process_button$371)
-	.uleb128	9
-	.dw	0,1582
-	.dw	0,(Smain$process_button$359)
-	.uleb128	5
-	.dw	0,(Smain$process_button$361)
-	.dw	0,(Smain$process_button$365)
-	.uleb128	0
-	.uleb128	5
-	.dw	0,(Smain$process_button$366)
-	.dw	0,(Smain$process_button$369)
-	.uleb128	0
-	.uleb128	0
-	.uleb128	0
 	.uleb128	12
+	.dw	0,1368
+	.dw	0,(Smain$process_button$297)
+	.uleb128	15
+	.dw	0,(Smain$process_button$301)
+	.uleb128	5
+	.dw	0,(Smain$process_button$303)
+	.dw	0,(Smain$process_button$305)
+	.uleb128	5
+	.dw	0,(Smain$process_button$306)
+	.dw	0,(Smain$process_button$308)
+	.uleb128	0
+	.uleb128	0
+	.uleb128	15
+	.dw	0,(Smain$process_button$310)
+	.uleb128	10
+	.dw	0,(Smain$process_button$313)
+	.dw	0,(Smain$process_button$322)
+	.uleb128	12
+	.dw	0,1401
+	.dw	0,(Smain$process_button$315)
+	.uleb128	5
+	.dw	0,(Smain$process_button$317)
+	.dw	0,(Smain$process_button$319)
+	.uleb128	0
+	.uleb128	17
+	.uleb128	0
+	.uleb128	0
+	.uleb128	0
+	.uleb128	9
 	.ascii "stop_leds"
 	.db	0
 	.dw	0,(_stop_leds)
 	.dw	0,(XG$stop_leds$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+160)
-	.uleb128	12
+	.uleb128	9
 	.ascii "activate_leds"
 	.db	0
 	.dw	0,(_activate_leds)
 	.dw	0,(XG$activate_leds$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+140)
-	.uleb128	13
-	.dw	0,1904
+	.uleb128	11
+	.dw	0,1715
 	.ascii "mode_changing_control"
 	.db	0
 	.dw	0,(_mode_changing_control)
 	.dw	0,(XG$mode_changing_control$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+120)
-	.dw	0,1379
-	.uleb128	14
-	.dw	0,1877
-	.dw	0,(Smain$mode_changing_control$411)
-	.dw	0,(Smain$mode_changing_control$472)
-	.uleb128	14
-	.dw	0,1869
+	.dw	0,1198
+	.uleb128	13
+	.dw	0,1688
+	.dw	0,(Smain$mode_changing_control$362)
+	.dw	0,(Smain$mode_changing_control$423)
+	.uleb128	13
+	.dw	0,1680
+	.dw	0,(Smain$mode_changing_control$358)
+	.dw	0,(Smain$mode_changing_control$421)
+	.uleb128	10
+	.dw	0,(Smain$mode_changing_control$353)
+	.dw	0,(Smain$mode_changing_control$399)
+	.uleb128	5
+	.dw	0,(Smain$mode_changing_control$368)
+	.dw	0,(Smain$mode_changing_control$370)
+	.uleb128	5
+	.dw	0,(Smain$mode_changing_control$372)
+	.dw	0,(Smain$mode_changing_control$374)
+	.uleb128	5
+	.dw	0,(Smain$mode_changing_control$375)
+	.dw	0,(Smain$mode_changing_control$378)
+	.uleb128	13
+	.dw	0,1595
+	.dw	0,(Smain$mode_changing_control$355)
+	.dw	0,(Smain$mode_changing_control$356)
+	.uleb128	5
+	.dw	0,(Smain$mode_changing_control$386)
+	.dw	0,(Smain$mode_changing_control$388)
+	.uleb128	5
+	.dw	0,(Smain$mode_changing_control$389)
+	.dw	0,(Smain$mode_changing_control$391)
+	.uleb128	0
+	.uleb128	13
+	.dw	0,1618
+	.dw	0,(Smain$mode_changing_control$360)
+	.dw	0,(Smain$mode_changing_control$361)
+	.uleb128	5
+	.dw	0,(Smain$mode_changing_control$394)
+	.dw	0,(Smain$mode_changing_control$396)
+	.uleb128	0
+	.uleb128	13
+	.dw	0,1659
+	.dw	0,(Smain$mode_changing_control$357)
 	.dw	0,(Smain$mode_changing_control$407)
-	.dw	0,(Smain$mode_changing_control$470)
-	.uleb128	8
-	.dw	0,(Smain$mode_changing_control$402)
-	.dw	0,(Smain$mode_changing_control$448)
+	.uleb128	5
+	.dw	0,(Smain$mode_changing_control$404)
+	.dw	0,(Smain$mode_changing_control$406)
+	.uleb128	5
+	.dw	0,(Smain$mode_changing_control$409)
+	.dw	0,(Smain$mode_changing_control$411)
+	.uleb128	5
+	.dw	0,(Smain$mode_changing_control$412)
+	.dw	0,(Smain$mode_changing_control$414)
+	.uleb128	0
+	.uleb128	10
+	.dw	0,(Smain$mode_changing_control$359)
+	.dw	0,(Smain$mode_changing_control$360)
 	.uleb128	5
 	.dw	0,(Smain$mode_changing_control$417)
 	.dw	0,(Smain$mode_changing_control$419)
-	.uleb128	5
-	.dw	0,(Smain$mode_changing_control$421)
-	.dw	0,(Smain$mode_changing_control$423)
-	.uleb128	5
-	.dw	0,(Smain$mode_changing_control$424)
-	.dw	0,(Smain$mode_changing_control$427)
-	.uleb128	14
-	.dw	0,1784
-	.dw	0,(Smain$mode_changing_control$404)
-	.dw	0,(Smain$mode_changing_control$405)
-	.uleb128	5
-	.dw	0,(Smain$mode_changing_control$435)
-	.dw	0,(Smain$mode_changing_control$437)
-	.uleb128	5
-	.dw	0,(Smain$mode_changing_control$438)
-	.dw	0,(Smain$mode_changing_control$440)
-	.uleb128	0
-	.uleb128	14
-	.dw	0,1807
-	.dw	0,(Smain$mode_changing_control$409)
-	.dw	0,(Smain$mode_changing_control$410)
-	.uleb128	5
-	.dw	0,(Smain$mode_changing_control$443)
-	.dw	0,(Smain$mode_changing_control$445)
-	.uleb128	0
-	.uleb128	14
-	.dw	0,1848
-	.dw	0,(Smain$mode_changing_control$406)
-	.dw	0,(Smain$mode_changing_control$456)
-	.uleb128	5
-	.dw	0,(Smain$mode_changing_control$453)
-	.dw	0,(Smain$mode_changing_control$455)
-	.uleb128	5
-	.dw	0,(Smain$mode_changing_control$458)
-	.dw	0,(Smain$mode_changing_control$460)
-	.uleb128	5
-	.dw	0,(Smain$mode_changing_control$461)
-	.dw	0,(Smain$mode_changing_control$463)
-	.uleb128	0
-	.uleb128	8
-	.dw	0,(Smain$mode_changing_control$408)
-	.dw	0,(Smain$mode_changing_control$409)
-	.uleb128	5
-	.dw	0,(Smain$mode_changing_control$466)
-	.dw	0,(Smain$mode_changing_control$468)
 	.uleb128	0
 	.uleb128	0
 	.uleb128	0
 	.uleb128	6
 	.ascii "i"
 	.db	0
-	.dw	0,2518
+	.dw	0,2298
 	.uleb128	0
-	.uleb128	10
+	.uleb128	16
 	.db	5
 	.db	3
-	.dw	0,(_mode_changing_control_light_changing_65536_236)
+	.dw	0,(_mode_changing_control_light_changing_65536_223)
 	.ascii "light_changing"
 	.db	0
-	.dw	0,1379
+	.dw	0,1198
 	.uleb128	0
-	.uleb128	13
-	.dw	0,1963
+	.uleb128	11
+	.dw	0,1774
 	.ascii "is_stable"
 	.db	0
 	.dw	0,(_is_stable)
 	.dw	0,(XG$is_stable$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+100)
-	.dw	0,1379
-	.uleb128	8
-	.dw	0,(Smain$is_stable$482)
-	.dw	0,(Smain$is_stable$486)
+	.dw	0,1198
+	.uleb128	10
+	.dw	0,(Smain$is_stable$433)
+	.dw	0,(Smain$is_stable$437)
 	.uleb128	5
-	.dw	0,(Smain$is_stable$479)
-	.dw	0,(Smain$is_stable$481)
+	.dw	0,(Smain$is_stable$430)
+	.dw	0,(Smain$is_stable$432)
 	.uleb128	6
 	.ascii "i"
 	.db	0
-	.dw	0,2518
+	.dw	0,2298
 	.uleb128	0
 	.uleb128	0
-	.uleb128	13
-	.dw	0,2111
+	.uleb128	11
+	.dw	0,1922
 	.ascii "mode_stable_control"
 	.db	0
 	.dw	0,(_mode_stable_control)
 	.dw	0,(XG$mode_stable_control$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+80)
-	.dw	0,1379
-	.uleb128	9
-	.dw	0,2084
-	.dw	0,(Smain$mode_stable_control$499)
-	.uleb128	9
-	.dw	0,2076
-	.dw	0,(Smain$mode_stable_control$500)
-	.uleb128	14
-	.dw	0,2064
-	.dw	0,(Smain$mode_stable_control$503)
-	.dw	0,(Smain$mode_stable_control$507)
+	.dw	0,1198
+	.uleb128	12
+	.dw	0,1895
+	.dw	0,(Smain$mode_stable_control$450)
+	.uleb128	12
+	.dw	0,1887
+	.dw	0,(Smain$mode_stable_control$451)
+	.uleb128	13
+	.dw	0,1875
+	.dw	0,(Smain$mode_stable_control$454)
+	.dw	0,(Smain$mode_stable_control$458)
 	.uleb128	5
-	.dw	0,(Smain$mode_stable_control$497)
-	.dw	0,(Smain$mode_stable_control$498)
+	.dw	0,(Smain$mode_stable_control$448)
+	.dw	0,(Smain$mode_stable_control$449)
 	.uleb128	5
-	.dw	0,(Smain$mode_stable_control$495)
-	.dw	0,(Smain$mode_stable_control$497)
+	.dw	0,(Smain$mode_stable_control$446)
+	.dw	0,(Smain$mode_stable_control$448)
 	.uleb128	6
 	.ascii "amp"
 	.db	0
-	.dw	0,971
+	.dw	0,773
 	.uleb128	0
 	.uleb128	6
 	.ascii "t_amp"
 	.db	0
-	.dw	0,2525
+	.dw	0,2305
 	.uleb128	0
 	.uleb128	6
 	.ascii "i"
 	.db	0
-	.dw	0,2518
+	.dw	0,2298
 	.uleb128	0
-	.uleb128	10
+	.uleb128	16
 	.db	5
 	.db	3
-	.dw	0,(_mode_stable_control_light_changing_65536_259)
+	.dw	0,(_mode_stable_control_light_changing_65536_246)
 	.ascii "light_changing"
 	.db	0
-	.dw	0,1379
+	.dw	0,1198
 	.uleb128	0
 	.uleb128	2
-	.dw	0,2256
+	.dw	0,2067
 	.ascii "control_loop"
 	.db	0
 	.dw	0,(_control_loop)
 	.dw	0,(XG$control_loop$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+60)
-	.uleb128	9
-	.dw	0,2220
-	.dw	0,(Smain$control_loop$522)
-	.uleb128	14
-	.dw	0,2172
-	.dw	0,(Smain$control_loop$524)
-	.dw	0,(Smain$control_loop$526)
+	.uleb128	12
+	.dw	0,2031
+	.dw	0,(Smain$control_loop$473)
+	.uleb128	13
+	.dw	0,1983
+	.dw	0,(Smain$control_loop$475)
+	.dw	0,(Smain$control_loop$477)
 	.uleb128	6
 	.ascii "i"
 	.db	0
-	.dw	0,2518
-	.uleb128	0
-	.uleb128	9
-	.dw	0,2200
-	.dw	0,(Smain$control_loop$531)
-	.uleb128	5
-	.dw	0,(Smain$control_loop$533)
-	.dw	0,(Smain$control_loop$535)
-	.uleb128	5
-	.dw	0,(Smain$control_loop$537)
-	.dw	0,(Smain$control_loop$539)
-	.uleb128	0
-	.uleb128	8
-	.dw	0,(Smain$control_loop$541)
-	.dw	0,(Smain$control_loop$547)
-	.uleb128	5
-	.dw	0,(Smain$control_loop$543)
-	.dw	0,(Smain$control_loop$545)
-	.uleb128	0
-	.uleb128	0
-	.uleb128	5
-	.dw	0,(Smain$control_loop$549)
-	.dw	0,(Smain$control_loop$551)
-	.uleb128	10
-	.db	5
-	.db	3
-	.dw	0,(_control_loop_light_changing_65536_266)
-	.ascii "light_changing"
-	.db	0
-	.dw	0,1379
+	.dw	0,2298
 	.uleb128	0
 	.uleb128	12
+	.dw	0,2011
+	.dw	0,(Smain$control_loop$482)
+	.uleb128	5
+	.dw	0,(Smain$control_loop$484)
+	.dw	0,(Smain$control_loop$486)
+	.uleb128	5
+	.dw	0,(Smain$control_loop$488)
+	.dw	0,(Smain$control_loop$490)
+	.uleb128	0
+	.uleb128	10
+	.dw	0,(Smain$control_loop$492)
+	.dw	0,(Smain$control_loop$498)
+	.uleb128	5
+	.dw	0,(Smain$control_loop$494)
+	.dw	0,(Smain$control_loop$496)
+	.uleb128	0
+	.uleb128	0
+	.uleb128	5
+	.dw	0,(Smain$control_loop$500)
+	.dw	0,(Smain$control_loop$502)
+	.uleb128	16
+	.db	5
+	.db	3
+	.dw	0,(_control_loop_light_changing_65536_253)
+	.ascii "light_changing"
+	.db	0
+	.dw	0,1198
+	.uleb128	0
+	.uleb128	9
 	.ascii "wdt_init"
 	.db	0
 	.dw	0,(_wdt_init)
 	.dw	0,(XG$wdt_init$0$0+1)
 	.db	1
 	.dw	0,(Ldebug_loc_start+40)
-	.uleb128	12
+	.uleb128	9
 	.ascii "wdt_clear"
 	.db	0
 	.dw	0,(_wdt_clear)
@@ -9227,7 +8241,7 @@ Ldebug_info_start:
 	.db	1
 	.dw	0,(Ldebug_loc_start+20)
 	.uleb128	2
-	.dw	0,2448
+	.dw	0,2228
 	.ascii "main"
 	.db	0
 	.dw	0,(_main)
@@ -9235,47 +8249,37 @@ Ldebug_info_start:
 	.db	1
 	.dw	0,(Ldebug_loc_start)
 	.uleb128	5
-	.dw	0,(Smain$main$592)
-	.dw	0,(Smain$main$595)
+	.dw	0,(Smain$main$537)
+	.dw	0,(Smain$main$540)
 	.uleb128	5
-	.dw	0,(Smain$main$599)
-	.dw	0,(Smain$main$601)
-	.uleb128	8
-	.dw	0,(Smain$main$605)
-	.dw	0,(Smain$main$656)
+	.dw	0,(Smain$main$543)
+	.dw	0,(Smain$main$545)
+	.uleb128	10
+	.dw	0,(Smain$main$548)
+	.dw	0,(Smain$main$583)
+	.uleb128	13
+	.dw	0,2187
+	.dw	0,(Smain$main$550)
+	.dw	0,(Smain$main$556)
 	.uleb128	5
-	.dw	0,(Smain$main$608)
-	.dw	0,(Smain$main$610)
-	.uleb128	14
-	.dw	0,2385
-	.dw	0,(Smain$main$613)
-	.dw	0,(Smain$main$619)
-	.uleb128	5
-	.dw	0,(Smain$main$615)
-	.dw	0,(Smain$main$617)
+	.dw	0,(Smain$main$552)
+	.dw	0,(Smain$main$554)
 	.uleb128	0
 	.uleb128	5
-	.dw	0,(Smain$main$620)
-	.dw	0,(Smain$main$622)
-	.uleb128	9
-	.dw	0,2428
-	.dw	0,(Smain$main$624)
-	.uleb128	16
-	.dw	0,(Smain$main$627)
+	.dw	0,(Smain$main$557)
+	.dw	0,(Smain$main$559)
+	.uleb128	15
+	.dw	0,(Smain$main$561)
+	.uleb128	15
+	.dw	0,(Smain$main$563)
 	.uleb128	5
-	.dw	0,(Smain$main$638)
-	.dw	0,(Smain$main$640)
+	.dw	0,(Smain$main$574)
+	.dw	0,(Smain$main$576)
 	.uleb128	5
-	.dw	0,(Smain$main$641)
-	.dw	0,(Smain$main$643)
+	.dw	0,(Smain$main$577)
+	.dw	0,(Smain$main$579)
 	.uleb128	0
 	.uleb128	0
-	.uleb128	5
-	.dw	0,(Smain$main$645)
-	.dw	0,(Smain$main$647)
-	.uleb128	5
-	.dw	0,(Smain$main$651)
-	.dw	0,(Smain$main$653)
 	.uleb128	0
 	.uleb128	0
 	.uleb128	7
@@ -9283,7 +8287,7 @@ Ldebug_info_start:
 	.db	0
 	.db	1
 	.db	8
-	.uleb128	17
+	.uleb128	18
 	.db	5
 	.db	3
 	.dw	0,(_BIT_TMP)
@@ -9291,22 +8295,22 @@ Ldebug_info_start:
 	.db	0
 	.db	1
 	.db	1
-	.dw	0,2448
-	.uleb128	18
-	.dw	0,2490
-	.db	16
-	.dw	0,360
+	.dw	0,2228
 	.uleb128	19
+	.dw	0,2270
+	.db	16
+	.dw	0,853
+	.uleb128	20
 	.db	15
 	.uleb128	0
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_uart1_rx_buffer)
 	.ascii "uart1_rx_buffer"
 	.db	0
 	.db	1
-	.dw	0,2477
+	.dw	0,2257
 	.uleb128	7
 	.ascii "int"
 	.db	0
@@ -9317,92 +8321,92 @@ Ldebug_info_start:
 	.db	0
 	.db	2
 	.db	5
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_light_mode)
 	.ascii "light_mode"
 	.db	0
 	.db	1
-	.dw	0,360
-	.uleb128	20
+	.dw	0,853
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_is_uart_mode)
 	.ascii "is_uart_mode"
 	.db	0
 	.db	1
-	.dw	0,1379
-	.uleb128	20
+	.dw	0,1198
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_flashing_on)
 	.ascii "flashing_on"
 	.db	0
 	.db	1
-	.dw	0,1379
-	.uleb128	20
+	.dw	0,1198
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_flashing_count)
 	.ascii "flashing_count"
 	.db	0
 	.db	1
-	.dw	0,971
-	.uleb128	18
-	.dw	0,2644
-	.db	4
-	.dw	0,971
+	.dw	0,773
 	.uleb128	19
+	.dw	0,2424
+	.db	4
+	.dw	0,773
+	.uleb128	20
 	.db	1
 	.uleb128	0
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_pwm)
 	.ascii "pwm"
 	.db	0
 	.db	1
-	.dw	0,2631
-	.uleb128	18
-	.dw	0,2673
-	.db	2
-	.dw	0,903
+	.dw	0,2411
 	.uleb128	19
+	.dw	0,2453
+	.db	2
+	.dw	0,705
+	.uleb128	20
 	.db	1
 	.uleb128	0
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_light_control_mode)
 	.ascii "light_control_mode"
 	.db	0
 	.db	1
-	.dw	0,2660
-	.uleb128	20
+	.dw	0,2440
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_sample_count)
 	.ascii "sample_count"
 	.db	0
 	.db	1
-	.dw	0,360
-	.uleb128	18
-	.dw	0,2742
+	.dw	0,853
+	.uleb128	19
+	.dw	0,2522
 	.db	8
 	.dw	0,286
-	.uleb128	19
+	.uleb128	20
 	.db	1
 	.uleb128	0
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_acc_amp)
 	.ascii "acc_amp"
 	.db	0
 	.db	1
-	.dw	0,2729
-	.uleb128	20
+	.dw	0,2509
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_acc_temp)
@@ -9410,62 +8414,62 @@ Ldebug_info_start:
 	.db	0
 	.db	1
 	.dw	0,286
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_cur_amp)
 	.ascii "cur_amp"
 	.db	0
 	.db	1
-	.dw	0,2631
-	.uleb128	20
+	.dw	0,2411
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_cur_temp)
 	.ascii "cur_temp"
 	.db	0
 	.db	1
-	.dw	0,971
-	.uleb128	18
-	.dw	0,2837
-	.db	2
-	.dw	0,360
+	.dw	0,773
 	.uleb128	19
+	.dw	0,2617
+	.db	2
+	.dw	0,853
+	.uleb128	20
 	.db	1
 	.uleb128	0
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_good_amp_count)
 	.ascii "good_amp_count"
 	.db	0
 	.db	1
-	.dw	0,2824
-	.uleb128	20
+	.dw	0,2604
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_uart1_next_idx)
 	.ascii "uart1_next_idx"
 	.db	0
 	.db	1
-	.dw	0,360
-	.uleb128	20
+	.dw	0,853
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_uart1_read_idx)
 	.ascii "uart1_read_idx"
 	.db	0
 	.db	1
-	.dw	0,360
-	.uleb128	20
+	.dw	0,853
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_uart_flag)
 	.ascii "uart_flag"
 	.db	0
 	.db	1
-	.dw	0,903
-	.uleb128	20
+	.dw	0,705
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_button_pressed)
@@ -9473,7 +8477,7 @@ Ldebug_info_start:
 	.db	0
 	.db	1
 	.dw	0,286
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_button_unpressed)
@@ -9481,7 +8485,7 @@ Ldebug_info_start:
 	.db	0
 	.db	1
 	.dw	0,286
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_uart_counter)
@@ -9489,23 +8493,23 @@ Ldebug_info_start:
 	.db	0
 	.db	1
 	.dw	0,286
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_uart_rx_state)
 	.ascii "uart_rx_state"
 	.db	0
 	.db	1
-	.dw	0,360
-	.uleb128	20
+	.dw	0,853
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_lamp_state)
 	.ascii "lamp_state"
 	.db	0
 	.db	1
-	.dw	0,360
-	.uleb128	20
+	.dw	0,853
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_log_counter)
@@ -9513,2125 +8517,2110 @@ Ldebug_info_start:
 	.db	0
 	.db	1
 	.dw	0,286
-	.uleb128	20
-	.db	5
-	.db	3
-	.dw	0,(_wdt_flag)
-	.ascii "wdt_flag"
-	.db	0
-	.db	1
-	.dw	0,1379
+	.uleb128	22
+	.dw	0,853
 	.uleb128	21
-	.dw	0,360
-	.uleb128	20
 	.db	5
 	.db	3
 	.dw	0,(_P0)
 	.ascii "P0"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SP)
 	.ascii "SP"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_DPL)
 	.ascii "DPL"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_DPH)
 	.ascii "DPH"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RCTRIM0)
 	.ascii "RCTRIM0"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RCTRIM1)
 	.ascii "RCTRIM1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RWK)
 	.ascii "RWK"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PCON)
 	.ascii "PCON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TCON)
 	.ascii "TCON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TMOD)
 	.ascii "TMOD"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TL0)
 	.ascii "TL0"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TL1)
 	.ascii "TL1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TH0)
 	.ascii "TH0"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TH1)
 	.ascii "TH1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CKCON)
 	.ascii "CKCON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_WKCON)
 	.ascii "WKCON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P1)
 	.ascii "P1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SFRS)
 	.ascii "SFRS"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CAPCON0)
 	.ascii "CAPCON0"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CAPCON1)
 	.ascii "CAPCON1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CAPCON2)
 	.ascii "CAPCON2"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CKDIV)
 	.ascii "CKDIV"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CKSWT)
 	.ascii "CKSWT"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CKEN)
 	.ascii "CKEN"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SCON)
 	.ascii "SCON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SBUF)
 	.ascii "SBUF"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SBUF_1)
 	.ascii "SBUF_1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EIE)
 	.ascii "EIE"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EIE1)
 	.ascii "EIE1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CHPCON)
 	.ascii "CHPCON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P2)
 	.ascii "P2"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_AUXR1)
 	.ascii "AUXR1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_BODCON0)
 	.ascii "BODCON0"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IAPTRG)
 	.ascii "IAPTRG"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IAPUEN)
 	.ascii "IAPUEN"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IAPAL)
 	.ascii "IAPAL"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IAPAH)
 	.ascii "IAPAH"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IE)
 	.ascii "IE"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SADDR)
 	.ascii "SADDR"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_WDCON)
 	.ascii "WDCON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_BODCON1)
 	.ascii "BODCON1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P3M1)
 	.ascii "P3M1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P3S)
 	.ascii "P3S"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P3M2)
 	.ascii "P3M2"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P3SR)
 	.ascii "P3SR"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IAPFD)
 	.ascii "IAPFD"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IAPCN)
 	.ascii "IAPCN"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P3)
 	.ascii "P3"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P0M1)
 	.ascii "P0M1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P0S)
 	.ascii "P0S"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P0M2)
 	.ascii "P0M2"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P0SR)
 	.ascii "P0SR"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P1M1)
 	.ascii "P1M1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P1S)
 	.ascii "P1S"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P1M2)
 	.ascii "P1M2"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P1SR)
 	.ascii "P1SR"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P2S)
 	.ascii "P2S"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IPH)
 	.ascii "IPH"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWMINTC)
 	.ascii "PWMINTC"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IP)
 	.ascii "IP"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SADEN)
 	.ascii "SADEN"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SADEN_1)
 	.ascii "SADEN_1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SADDR_1)
 	.ascii "SADDR_1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_I2DAT)
 	.ascii "I2DAT"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_I2STAT)
 	.ascii "I2STAT"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_I2CLK)
 	.ascii "I2CLK"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_I2TOC)
 	.ascii "I2TOC"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_I2CON)
 	.ascii "I2CON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_I2ADDR)
 	.ascii "I2ADDR"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCRL)
 	.ascii "ADCRL"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCRH)
 	.ascii "ADCRH"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_T3CON)
 	.ascii "T3CON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM4H)
 	.ascii "PWM4H"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RL3)
 	.ascii "RL3"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM5H)
 	.ascii "PWM5H"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RH3)
 	.ascii "RH3"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PIOCON1)
 	.ascii "PIOCON1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TA)
 	.ascii "TA"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_T2CON)
 	.ascii "T2CON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_T2MOD)
 	.ascii "T2MOD"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RCMP2L)
 	.ascii "RCMP2L"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RCMP2H)
 	.ascii "RCMP2H"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TL2)
 	.ascii "TL2"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM4L)
 	.ascii "PWM4L"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TH2)
 	.ascii "TH2"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM5L)
 	.ascii "PWM5L"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCMPL)
 	.ascii "ADCMPL"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCMPH)
 	.ascii "ADCMPH"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PSW)
 	.ascii "PSW"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWMPH)
 	.ascii "PWMPH"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM0H)
 	.ascii "PWM0H"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM1H)
 	.ascii "PWM1H"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM2H)
 	.ascii "PWM2H"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM3H)
 	.ascii "PWM3H"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PNP)
 	.ascii "PNP"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_FBD)
 	.ascii "FBD"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWMCON0)
 	.ascii "PWMCON0"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWMPL)
 	.ascii "PWMPL"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM0L)
 	.ascii "PWM0L"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM1L)
 	.ascii "PWM1L"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM2L)
 	.ascii "PWM2L"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWM3L)
 	.ascii "PWM3L"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PIOCON0)
 	.ascii "PIOCON0"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWMCON1)
 	.ascii "PWMCON1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ACC)
 	.ascii "ACC"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCCON1)
 	.ascii "ADCCON1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCCON2)
 	.ascii "ADCCON2"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCDLY)
 	.ascii "ADCDLY"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_C0L)
 	.ascii "C0L"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_C0H)
 	.ascii "C0H"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_C1L)
 	.ascii "C1L"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_C1H)
 	.ascii "C1H"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCCON0)
 	.ascii "ADCCON0"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PICON)
 	.ascii "PICON"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PINEN)
 	.ascii "PINEN"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PIPEN)
 	.ascii "PIPEN"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PIF)
 	.ascii "PIF"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_C2L)
 	.ascii "C2L"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_C2H)
 	.ascii "C2H"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EIP)
 	.ascii "EIP"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_B)
 	.ascii "B"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CAPCON3)
 	.ascii "CAPCON3"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CAPCON4)
 	.ascii "CAPCON4"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SPCR)
 	.ascii "SPCR"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SPCR2)
 	.ascii "SPCR2"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SPSR)
 	.ascii "SPSR"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SPDR)
 	.ascii "SPDR"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_AINDIDS)
 	.ascii "AINDIDS"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EIPH)
 	.ascii "EIPH"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SCON_1)
 	.ascii "SCON_1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PDTEN)
 	.ascii "PDTEN"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PDTCNT)
 	.ascii "PDTCNT"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PMEN)
 	.ascii "PMEN"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PMD)
 	.ascii "PMD"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EIP1)
 	.ascii "EIP1"
 	.db	0
 	.db	1
-	.dw	0,3115
-	.uleb128	20
+	.dw	0,2874
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EIPH1)
 	.ascii "EIPH1"
 	.db	0
 	.db	1
-	.dw	0,3115
+	.dw	0,2874
 	.uleb128	7
 	.ascii "_sbit"
 	.db	0
 	.db	1
 	.db	8
+	.uleb128	22
+	.dw	0,5269
 	.uleb128	21
-	.dw	0,5510
-	.uleb128	20
 	.db	5
 	.db	3
 	.dw	0,(_SM0_1)
 	.ascii "SM0_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_FE_1)
 	.ascii "FE_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SM1_1)
 	.ascii "SM1_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SM2_1)
 	.ascii "SM2_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_REN_1)
 	.ascii "REN_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TB8_1)
 	.ascii "TB8_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RB8_1)
 	.ascii "RB8_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TI_1)
 	.ascii "TI_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RI_1)
 	.ascii "RI_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCF)
 	.ascii "ADCF"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCS)
 	.ascii "ADCS"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ETGSEL1)
 	.ascii "ETGSEL1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ETGSEL0)
 	.ascii "ETGSEL0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCHS3)
 	.ascii "ADCHS3"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCHS2)
 	.ascii "ADCHS2"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCHS1)
 	.ascii "ADCHS1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ADCHS0)
 	.ascii "ADCHS0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWMRUN)
 	.ascii "PWMRUN"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_LOAD)
 	.ascii "LOAD"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PWMF)
 	.ascii "PWMF"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CLRPWM)
 	.ascii "CLRPWM"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CY)
 	.ascii "CY"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_AC)
 	.ascii "AC"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_F0)
 	.ascii "F0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RS1)
 	.ascii "RS1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RS0)
 	.ascii "RS0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_OV)
 	.ascii "OV"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P)
 	.ascii "P"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TF2)
 	.ascii "TF2"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TR2)
 	.ascii "TR2"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_CM_RL2)
 	.ascii "CM_RL2"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_I2CEN)
 	.ascii "I2CEN"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_STA)
 	.ascii "STA"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_STO)
 	.ascii "STO"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SI)
 	.ascii "SI"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_AA)
 	.ascii "AA"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_I2CPX)
 	.ascii "I2CPX"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PADC)
 	.ascii "PADC"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PBOD)
 	.ascii "PBOD"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PS)
 	.ascii "PS"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PT1)
 	.ascii "PT1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PX1)
 	.ascii "PX1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PT0)
 	.ascii "PT0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_PX0)
 	.ascii "PX0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P30)
 	.ascii "P30"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EA)
 	.ascii "EA"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EADC)
 	.ascii "EADC"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EBOD)
 	.ascii "EBOD"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ES)
 	.ascii "ES"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ET1)
 	.ascii "ET1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EX1)
 	.ascii "EX1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_ET0)
 	.ascii "ET0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_EX0)
 	.ascii "EX0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P20)
 	.ascii "P20"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SM0)
 	.ascii "SM0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_FE)
 	.ascii "FE"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SM1)
 	.ascii "SM1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SM2)
 	.ascii "SM2"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_REN)
 	.ascii "REN"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TB8)
 	.ascii "TB8"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RB8)
 	.ascii "RB8"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TI)
 	.ascii "TI"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RI)
 	.ascii "RI"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P17)
 	.ascii "P17"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P16)
 	.ascii "P16"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TXD_1)
 	.ascii "TXD_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P15)
 	.ascii "P15"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P14)
 	.ascii "P14"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SDA)
 	.ascii "SDA"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P13)
 	.ascii "P13"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_SCL)
 	.ascii "SCL"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P12)
 	.ascii "P12"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P11)
 	.ascii "P11"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P10)
 	.ascii "P10"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TF1)
 	.ascii "TF1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TR1)
 	.ascii "TR1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TF0)
 	.ascii "TF0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TR0)
 	.ascii "TR0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IE1)
 	.ascii "IE1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IT1)
 	.ascii "IT1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IE0)
 	.ascii "IE0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_IT0)
 	.ascii "IT0"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P07)
 	.ascii "P07"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RXD)
 	.ascii "RXD"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P06)
 	.ascii "P06"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_TXD)
 	.ascii "TXD"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P05)
 	.ascii "P05"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P04)
 	.ascii "P04"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_STADC)
 	.ascii "STADC"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P03)
 	.ascii "P03"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P02)
 	.ascii "P02"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_RXD_1)
 	.ascii "RXD_1"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P01)
 	.ascii "P01"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_MISO)
 	.ascii "MISO"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_P00)
 	.ascii "P00"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	20
+	.dw	0,5278
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_MOSI)
 	.ascii "MOSI"
 	.db	0
 	.db	1
-	.dw	0,5519
-	.uleb128	22
-	.dw	0,360
-	.uleb128	18
-	.dw	0,7128
-	.db	2
-	.dw	0,7110
+	.dw	0,5278
+	.uleb128	23
+	.dw	0,853
 	.uleb128	19
+	.dw	0,6887
+	.db	2
+	.dw	0,6869
+	.uleb128	20
 	.db	1
 	.uleb128	0
-	.uleb128	18
-	.dw	0,7141
-	.db	20
-	.dw	0,7115
 	.uleb128	19
+	.dw	0,6900
+	.db	20
+	.dw	0,6874
+	.uleb128	20
 	.db	9
 	.uleb128	0
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_max_amp)
 	.ascii "max_amp"
 	.db	0
 	.db	1
-	.dw	0,7128
-	.uleb128	20
+	.dw	0,6887
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_min_amp)
 	.ascii "min_amp"
 	.db	0
 	.db	1
-	.dw	0,7115
-	.uleb128	18
-	.dw	0,7194
-	.db	10
-	.dw	0,7110
+	.dw	0,6874
 	.uleb128	19
+	.dw	0,6953
+	.db	10
+	.dw	0,6869
+	.uleb128	20
 	.db	9
 	.uleb128	0
-	.uleb128	20
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_flashing)
 	.ascii "flashing"
 	.db	0
 	.db	1
-	.dw	0,7181
-	.uleb128	20
+	.dw	0,6940
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_temp_controlling)
 	.ascii "temp_controlling"
 	.db	0
 	.db	1
-	.dw	0,7181
-	.uleb128	20
+	.dw	0,6940
+	.uleb128	21
 	.db	5
 	.db	3
 	.dw	0,(_next_mode)
 	.ascii "next_mode"
 	.db	0
 	.db	1
-	.dw	0,7181
-	.uleb128	10
+	.dw	0,6940
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__light_mode)
 	.ascii "__xinit_light_mode"
 	.db	0
-	.dw	0,7110
-	.uleb128	22
-	.dw	0,1379
-	.uleb128	10
+	.dw	0,6869
+	.uleb128	23
+	.dw	0,1198
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__is_uart_mode)
 	.ascii "__xinit_is_uart_mode"
 	.db	0
-	.dw	0,7296
-	.uleb128	10
+	.dw	0,7055
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__flashing_on)
 	.ascii "__xinit_flashing_on"
 	.db	0
-	.dw	0,7296
-	.uleb128	22
-	.dw	0,971
-	.uleb128	10
+	.dw	0,7055
+	.uleb128	23
+	.dw	0,773
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__flashing_count)
 	.ascii "__xinit_flashing_count"
 	.db	0
-	.dw	0,7364
-	.uleb128	18
-	.dw	0,7416
-	.db	4
-	.dw	0,7364
+	.dw	0,7123
 	.uleb128	19
+	.dw	0,7175
+	.db	4
+	.dw	0,7123
+	.uleb128	20
 	.db	1
 	.uleb128	0
-	.uleb128	10
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__pwm)
 	.ascii "__xinit_pwm"
 	.db	0
-	.dw	0,7403
-	.uleb128	22
-	.dw	0,903
-	.uleb128	18
-	.dw	0,7457
-	.db	2
-	.dw	0,7439
+	.dw	0,7162
+	.uleb128	23
+	.dw	0,705
 	.uleb128	19
+	.dw	0,7216
+	.db	2
+	.dw	0,7198
+	.uleb128	20
 	.db	1
 	.uleb128	0
-	.uleb128	10
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__light_control_mode)
 	.ascii "__xinit_light_control_mode"
 	.db	0
-	.dw	0,7444
-	.uleb128	10
+	.dw	0,7203
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__sample_count)
 	.ascii "__xinit_sample_count"
 	.db	0
-	.dw	0,7110
-	.uleb128	22
+	.dw	0,6869
+	.uleb128	23
 	.dw	0,286
-	.uleb128	18
-	.dw	0,7545
-	.db	8
-	.dw	0,7527
 	.uleb128	19
+	.dw	0,7304
+	.db	8
+	.dw	0,7286
+	.uleb128	20
 	.db	1
 	.uleb128	0
-	.uleb128	10
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__acc_amp)
 	.ascii "__xinit_acc_amp"
 	.db	0
-	.dw	0,7532
-	.uleb128	10
+	.dw	0,7291
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__acc_temp)
 	.ascii "__xinit_acc_temp"
 	.db	0
-	.dw	0,7527
-	.uleb128	10
+	.dw	0,7286
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__cur_amp)
 	.ascii "__xinit_cur_amp"
 	.db	0
-	.dw	0,7403
-	.uleb128	10
+	.dw	0,7162
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__cur_temp)
 	.ascii "__xinit_cur_temp"
 	.db	0
-	.dw	0,7364
-	.uleb128	10
+	.dw	0,7123
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__good_amp_count)
 	.ascii "__xinit_good_amp_count"
 	.db	0
-	.dw	0,7115
-	.uleb128	10
+	.dw	0,6874
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__uart1_next_idx)
 	.ascii "__xinit_uart1_next_idx"
 	.db	0
-	.dw	0,7110
-	.uleb128	10
+	.dw	0,6869
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__uart1_read_idx)
 	.ascii "__xinit_uart1_read_idx"
 	.db	0
-	.dw	0,7110
-	.uleb128	10
+	.dw	0,6869
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__uart_flag)
 	.ascii "__xinit_uart_flag"
 	.db	0
-	.dw	0,7439
-	.uleb128	10
+	.dw	0,7198
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__button_pressed)
 	.ascii "__xinit_button_pressed"
 	.db	0
-	.dw	0,7527
-	.uleb128	10
+	.dw	0,7286
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__button_unpressed)
 	.ascii "__xinit_button_unpressed"
 	.db	0
-	.dw	0,7527
-	.uleb128	10
+	.dw	0,7286
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__uart_counter)
 	.ascii "__xinit_uart_counter"
 	.db	0
-	.dw	0,7527
-	.uleb128	10
+	.dw	0,7286
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__uart_rx_state)
 	.ascii "__xinit_uart_rx_state"
 	.db	0
-	.dw	0,7110
-	.uleb128	10
+	.dw	0,6869
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__lamp_state)
 	.ascii "__xinit_lamp_state"
 	.db	0
-	.dw	0,7110
-	.uleb128	10
+	.dw	0,6869
+	.uleb128	16
 	.db	5
 	.db	3
 	.dw	0,(__xinit__log_counter)
 	.ascii "__xinit_log_counter"
 	.db	0
-	.dw	0,7527
-	.uleb128	10
-	.db	5
-	.db	3
-	.dw	0,(__xinit__wdt_flag)
-	.ascii "__xinit_wdt_flag"
-	.db	0
-	.dw	0,7296
+	.dw	0,7286
 	.uleb128	0
 Ldebug_info_end:
 
@@ -11645,873 +10634,861 @@ Ldebug_pubnames_start:
 	.ascii "Timer0_Delay"
 	.db	0
 	.dw	0,319
-	.ascii "uart_log"
-	.db	0
-	.dw	0,377
-	.ascii "uart_logn"
-	.db	0
-	.dw	0,480
-	.ascii "log_init"
-	.db	0
-	.dw	0,517
 	.ascii "SerialPort1_ISR"
 	.db	0
-	.dw	0,571
+	.dw	0,373
 	.ascii "uart_interrupt_init"
 	.db	0
-	.dw	0,605
+	.dw	0,407
 	.ascii "PinInterrupt_ISR"
 	.db	0
-	.dw	0,651
+	.dw	0,453
 	.ascii "button_interrupt_init"
 	.db	0
-	.dw	0,687
+	.dw	0,489
 	.ascii "enable_ntc"
 	.db	0
-	.dw	0,712
+	.dw	0,514
 	.ascii "disable_ntc"
 	.db	0
-	.dw	0,738
+	.dw	0,540
 	.ascii "init_sample"
 	.db	0
-	.dw	0,795
+	.dw	0,597
 	.ascii "init_peripherals_but_button_n_uart"
 	.db	0
-	.dw	0,844
+	.dw	0,646
 	.ascii "sample_amps"
 	.db	0
-	.dw	0,870
+	.dw	0,672
 	.ascii "sample_temperature"
 	.db	0
-	.dw	0,918
+	.dw	0,720
 	.ascii "has_high_beam"
 	.db	0
-	.dw	0,987
+	.dw	0,789
 	.ascii "avg_amp"
 	.db	0
-	.dw	0,1051
+	.dw	0,870
 	.ascii "target_amp"
 	.db	0
-	.dw	0,1162
+	.dw	0,981
 	.ascii "changeMode"
 	.db	0
-	.dw	0,1354
+	.dw	0,1173
 	.ascii "toNextMode"
 	.db	0
-	.dw	0,1388
+	.dw	0,1207
 	.ascii "process_uart"
 	.db	0
-	.dw	0,1482
+	.dw	0,1301
 	.ascii "process_button"
 	.db	0
-	.dw	0,1594
+	.dw	0,1405
 	.ascii "stop_leds"
 	.db	0
-	.dw	0,1618
+	.dw	0,1429
 	.ascii "activate_leds"
 	.db	0
-	.dw	0,1646
+	.dw	0,1457
 	.ascii "mode_changing_control"
 	.db	0
-	.dw	0,1904
+	.dw	0,1715
 	.ascii "is_stable"
 	.db	0
-	.dw	0,1963
+	.dw	0,1774
 	.ascii "mode_stable_control"
 	.db	0
-	.dw	0,2111
+	.dw	0,1922
 	.ascii "control_loop"
 	.db	0
-	.dw	0,2256
+	.dw	0,2067
 	.ascii "wdt_init"
 	.db	0
-	.dw	0,2279
+	.dw	0,2090
 	.ascii "wdt_clear"
 	.db	0
-	.dw	0,2303
+	.dw	0,2114
 	.ascii "main"
 	.db	0
-	.dw	0,2456
+	.dw	0,2236
 	.ascii "BIT_TMP"
 	.db	0
-	.dw	0,2490
+	.dw	0,2270
 	.ascii "uart1_rx_buffer"
 	.db	0
-	.dw	0,2532
+	.dw	0,2312
 	.ascii "light_mode"
 	.db	0
-	.dw	0,2555
+	.dw	0,2335
 	.ascii "is_uart_mode"
 	.db	0
-	.dw	0,2580
+	.dw	0,2360
 	.ascii "flashing_on"
 	.db	0
-	.dw	0,2604
+	.dw	0,2384
 	.ascii "flashing_count"
 	.db	0
-	.dw	0,2644
+	.dw	0,2424
 	.ascii "pwm"
 	.db	0
-	.dw	0,2673
+	.dw	0,2453
 	.ascii "light_control_mode"
 	.db	0
-	.dw	0,2704
+	.dw	0,2484
 	.ascii "sample_count"
 	.db	0
-	.dw	0,2742
+	.dw	0,2522
 	.ascii "acc_amp"
 	.db	0
-	.dw	0,2762
+	.dw	0,2542
 	.ascii "acc_temp"
 	.db	0
-	.dw	0,2783
+	.dw	0,2563
 	.ascii "cur_amp"
 	.db	0
-	.dw	0,2803
+	.dw	0,2583
 	.ascii "cur_temp"
 	.db	0
-	.dw	0,2837
+	.dw	0,2617
 	.ascii "good_amp_count"
 	.db	0
-	.dw	0,2864
+	.dw	0,2644
 	.ascii "uart1_next_idx"
 	.db	0
-	.dw	0,2891
+	.dw	0,2671
 	.ascii "uart1_read_idx"
 	.db	0
-	.dw	0,2918
+	.dw	0,2698
 	.ascii "uart_flag"
 	.db	0
-	.dw	0,2940
+	.dw	0,2720
 	.ascii "button_pressed"
 	.db	0
-	.dw	0,2967
+	.dw	0,2747
 	.ascii "button_unpressed"
 	.db	0
-	.dw	0,2996
+	.dw	0,2776
 	.ascii "uart_counter"
 	.db	0
-	.dw	0,3021
+	.dw	0,2801
 	.ascii "uart_rx_state"
 	.db	0
-	.dw	0,3047
+	.dw	0,2827
 	.ascii "lamp_state"
 	.db	0
-	.dw	0,3070
+	.dw	0,2850
 	.ascii "log_counter"
 	.db	0
-	.dw	0,3094
-	.ascii "wdt_flag"
-	.db	0
-	.dw	0,3120
+	.dw	0,2879
 	.ascii "P0"
 	.db	0
-	.dw	0,3135
+	.dw	0,2894
 	.ascii "SP"
 	.db	0
-	.dw	0,3150
+	.dw	0,2909
 	.ascii "DPL"
 	.db	0
-	.dw	0,3166
+	.dw	0,2925
 	.ascii "DPH"
 	.db	0
-	.dw	0,3182
+	.dw	0,2941
 	.ascii "RCTRIM0"
 	.db	0
-	.dw	0,3202
+	.dw	0,2961
 	.ascii "RCTRIM1"
 	.db	0
-	.dw	0,3222
+	.dw	0,2981
 	.ascii "RWK"
 	.db	0
-	.dw	0,3238
+	.dw	0,2997
 	.ascii "PCON"
 	.db	0
-	.dw	0,3255
+	.dw	0,3014
 	.ascii "TCON"
 	.db	0
-	.dw	0,3272
+	.dw	0,3031
 	.ascii "TMOD"
 	.db	0
-	.dw	0,3289
+	.dw	0,3048
 	.ascii "TL0"
 	.db	0
-	.dw	0,3305
+	.dw	0,3064
 	.ascii "TL1"
 	.db	0
-	.dw	0,3321
+	.dw	0,3080
 	.ascii "TH0"
 	.db	0
-	.dw	0,3337
+	.dw	0,3096
 	.ascii "TH1"
 	.db	0
-	.dw	0,3353
+	.dw	0,3112
 	.ascii "CKCON"
 	.db	0
-	.dw	0,3371
+	.dw	0,3130
 	.ascii "WKCON"
 	.db	0
-	.dw	0,3389
+	.dw	0,3148
 	.ascii "P1"
 	.db	0
-	.dw	0,3404
+	.dw	0,3163
 	.ascii "SFRS"
 	.db	0
-	.dw	0,3421
+	.dw	0,3180
 	.ascii "CAPCON0"
 	.db	0
-	.dw	0,3441
+	.dw	0,3200
 	.ascii "CAPCON1"
 	.db	0
-	.dw	0,3461
+	.dw	0,3220
 	.ascii "CAPCON2"
 	.db	0
-	.dw	0,3481
+	.dw	0,3240
 	.ascii "CKDIV"
 	.db	0
-	.dw	0,3499
+	.dw	0,3258
 	.ascii "CKSWT"
 	.db	0
-	.dw	0,3517
+	.dw	0,3276
 	.ascii "CKEN"
 	.db	0
-	.dw	0,3534
+	.dw	0,3293
 	.ascii "SCON"
 	.db	0
-	.dw	0,3551
+	.dw	0,3310
 	.ascii "SBUF"
 	.db	0
-	.dw	0,3568
+	.dw	0,3327
 	.ascii "SBUF_1"
 	.db	0
-	.dw	0,3587
+	.dw	0,3346
 	.ascii "EIE"
 	.db	0
-	.dw	0,3603
+	.dw	0,3362
 	.ascii "EIE1"
 	.db	0
-	.dw	0,3620
+	.dw	0,3379
 	.ascii "CHPCON"
 	.db	0
-	.dw	0,3639
+	.dw	0,3398
 	.ascii "P2"
 	.db	0
-	.dw	0,3654
+	.dw	0,3413
 	.ascii "AUXR1"
 	.db	0
-	.dw	0,3672
+	.dw	0,3431
 	.ascii "BODCON0"
 	.db	0
-	.dw	0,3692
+	.dw	0,3451
 	.ascii "IAPTRG"
 	.db	0
-	.dw	0,3711
+	.dw	0,3470
 	.ascii "IAPUEN"
 	.db	0
-	.dw	0,3730
+	.dw	0,3489
 	.ascii "IAPAL"
 	.db	0
-	.dw	0,3748
+	.dw	0,3507
 	.ascii "IAPAH"
 	.db	0
-	.dw	0,3766
+	.dw	0,3525
 	.ascii "IE"
 	.db	0
-	.dw	0,3781
+	.dw	0,3540
 	.ascii "SADDR"
 	.db	0
-	.dw	0,3799
+	.dw	0,3558
 	.ascii "WDCON"
 	.db	0
-	.dw	0,3817
+	.dw	0,3576
 	.ascii "BODCON1"
 	.db	0
-	.dw	0,3837
+	.dw	0,3596
 	.ascii "P3M1"
 	.db	0
-	.dw	0,3854
+	.dw	0,3613
 	.ascii "P3S"
 	.db	0
-	.dw	0,3870
+	.dw	0,3629
 	.ascii "P3M2"
 	.db	0
-	.dw	0,3887
+	.dw	0,3646
 	.ascii "P3SR"
 	.db	0
-	.dw	0,3904
+	.dw	0,3663
 	.ascii "IAPFD"
 	.db	0
-	.dw	0,3922
+	.dw	0,3681
 	.ascii "IAPCN"
 	.db	0
-	.dw	0,3940
+	.dw	0,3699
 	.ascii "P3"
 	.db	0
-	.dw	0,3955
+	.dw	0,3714
 	.ascii "P0M1"
 	.db	0
-	.dw	0,3972
+	.dw	0,3731
 	.ascii "P0S"
 	.db	0
-	.dw	0,3988
+	.dw	0,3747
 	.ascii "P0M2"
 	.db	0
-	.dw	0,4005
+	.dw	0,3764
 	.ascii "P0SR"
 	.db	0
-	.dw	0,4022
+	.dw	0,3781
 	.ascii "P1M1"
 	.db	0
-	.dw	0,4039
+	.dw	0,3798
 	.ascii "P1S"
 	.db	0
-	.dw	0,4055
+	.dw	0,3814
 	.ascii "P1M2"
 	.db	0
-	.dw	0,4072
+	.dw	0,3831
 	.ascii "P1SR"
 	.db	0
-	.dw	0,4089
+	.dw	0,3848
 	.ascii "P2S"
 	.db	0
-	.dw	0,4105
+	.dw	0,3864
 	.ascii "IPH"
 	.db	0
-	.dw	0,4121
+	.dw	0,3880
 	.ascii "PWMINTC"
 	.db	0
-	.dw	0,4141
+	.dw	0,3900
 	.ascii "IP"
 	.db	0
-	.dw	0,4156
+	.dw	0,3915
 	.ascii "SADEN"
 	.db	0
-	.dw	0,4174
+	.dw	0,3933
 	.ascii "SADEN_1"
 	.db	0
-	.dw	0,4194
+	.dw	0,3953
 	.ascii "SADDR_1"
 	.db	0
-	.dw	0,4214
+	.dw	0,3973
 	.ascii "I2DAT"
 	.db	0
-	.dw	0,4232
+	.dw	0,3991
 	.ascii "I2STAT"
 	.db	0
-	.dw	0,4251
+	.dw	0,4010
 	.ascii "I2CLK"
 	.db	0
-	.dw	0,4269
+	.dw	0,4028
 	.ascii "I2TOC"
 	.db	0
-	.dw	0,4287
+	.dw	0,4046
 	.ascii "I2CON"
 	.db	0
-	.dw	0,4305
+	.dw	0,4064
 	.ascii "I2ADDR"
 	.db	0
-	.dw	0,4324
+	.dw	0,4083
 	.ascii "ADCRL"
 	.db	0
-	.dw	0,4342
+	.dw	0,4101
 	.ascii "ADCRH"
 	.db	0
-	.dw	0,4360
+	.dw	0,4119
 	.ascii "T3CON"
 	.db	0
-	.dw	0,4378
+	.dw	0,4137
 	.ascii "PWM4H"
 	.db	0
-	.dw	0,4396
+	.dw	0,4155
 	.ascii "RL3"
 	.db	0
-	.dw	0,4412
+	.dw	0,4171
 	.ascii "PWM5H"
 	.db	0
-	.dw	0,4430
+	.dw	0,4189
 	.ascii "RH3"
 	.db	0
-	.dw	0,4446
+	.dw	0,4205
 	.ascii "PIOCON1"
 	.db	0
-	.dw	0,4466
+	.dw	0,4225
 	.ascii "TA"
 	.db	0
-	.dw	0,4481
+	.dw	0,4240
 	.ascii "T2CON"
 	.db	0
-	.dw	0,4499
+	.dw	0,4258
 	.ascii "T2MOD"
 	.db	0
-	.dw	0,4517
+	.dw	0,4276
 	.ascii "RCMP2L"
 	.db	0
-	.dw	0,4536
+	.dw	0,4295
 	.ascii "RCMP2H"
 	.db	0
-	.dw	0,4555
+	.dw	0,4314
 	.ascii "TL2"
 	.db	0
-	.dw	0,4571
+	.dw	0,4330
 	.ascii "PWM4L"
 	.db	0
-	.dw	0,4589
+	.dw	0,4348
 	.ascii "TH2"
 	.db	0
-	.dw	0,4605
+	.dw	0,4364
 	.ascii "PWM5L"
 	.db	0
-	.dw	0,4623
+	.dw	0,4382
 	.ascii "ADCMPL"
 	.db	0
-	.dw	0,4642
+	.dw	0,4401
 	.ascii "ADCMPH"
 	.db	0
-	.dw	0,4661
+	.dw	0,4420
 	.ascii "PSW"
 	.db	0
-	.dw	0,4677
+	.dw	0,4436
 	.ascii "PWMPH"
 	.db	0
-	.dw	0,4695
+	.dw	0,4454
 	.ascii "PWM0H"
 	.db	0
-	.dw	0,4713
+	.dw	0,4472
 	.ascii "PWM1H"
 	.db	0
-	.dw	0,4731
+	.dw	0,4490
 	.ascii "PWM2H"
 	.db	0
-	.dw	0,4749
+	.dw	0,4508
 	.ascii "PWM3H"
 	.db	0
-	.dw	0,4767
+	.dw	0,4526
 	.ascii "PNP"
 	.db	0
-	.dw	0,4783
+	.dw	0,4542
 	.ascii "FBD"
 	.db	0
-	.dw	0,4799
+	.dw	0,4558
 	.ascii "PWMCON0"
 	.db	0
-	.dw	0,4819
+	.dw	0,4578
 	.ascii "PWMPL"
 	.db	0
-	.dw	0,4837
+	.dw	0,4596
 	.ascii "PWM0L"
 	.db	0
-	.dw	0,4855
+	.dw	0,4614
 	.ascii "PWM1L"
 	.db	0
-	.dw	0,4873
+	.dw	0,4632
 	.ascii "PWM2L"
 	.db	0
-	.dw	0,4891
+	.dw	0,4650
 	.ascii "PWM3L"
 	.db	0
-	.dw	0,4909
+	.dw	0,4668
 	.ascii "PIOCON0"
 	.db	0
-	.dw	0,4929
+	.dw	0,4688
 	.ascii "PWMCON1"
 	.db	0
-	.dw	0,4949
+	.dw	0,4708
 	.ascii "ACC"
 	.db	0
-	.dw	0,4965
+	.dw	0,4724
 	.ascii "ADCCON1"
 	.db	0
-	.dw	0,4985
+	.dw	0,4744
 	.ascii "ADCCON2"
 	.db	0
-	.dw	0,5005
+	.dw	0,4764
 	.ascii "ADCDLY"
 	.db	0
-	.dw	0,5024
+	.dw	0,4783
 	.ascii "C0L"
 	.db	0
-	.dw	0,5040
+	.dw	0,4799
 	.ascii "C0H"
 	.db	0
-	.dw	0,5056
+	.dw	0,4815
 	.ascii "C1L"
 	.db	0
-	.dw	0,5072
+	.dw	0,4831
 	.ascii "C1H"
 	.db	0
-	.dw	0,5088
+	.dw	0,4847
 	.ascii "ADCCON0"
 	.db	0
-	.dw	0,5108
+	.dw	0,4867
 	.ascii "PICON"
 	.db	0
-	.dw	0,5126
+	.dw	0,4885
 	.ascii "PINEN"
 	.db	0
-	.dw	0,5144
+	.dw	0,4903
 	.ascii "PIPEN"
 	.db	0
-	.dw	0,5162
+	.dw	0,4921
 	.ascii "PIF"
 	.db	0
-	.dw	0,5178
+	.dw	0,4937
 	.ascii "C2L"
 	.db	0
-	.dw	0,5194
+	.dw	0,4953
 	.ascii "C2H"
 	.db	0
-	.dw	0,5210
+	.dw	0,4969
 	.ascii "EIP"
 	.db	0
-	.dw	0,5226
+	.dw	0,4985
 	.ascii "B"
 	.db	0
-	.dw	0,5240
+	.dw	0,4999
 	.ascii "CAPCON3"
 	.db	0
-	.dw	0,5260
+	.dw	0,5019
 	.ascii "CAPCON4"
 	.db	0
-	.dw	0,5280
+	.dw	0,5039
 	.ascii "SPCR"
 	.db	0
-	.dw	0,5297
+	.dw	0,5056
 	.ascii "SPCR2"
 	.db	0
-	.dw	0,5315
+	.dw	0,5074
 	.ascii "SPSR"
 	.db	0
-	.dw	0,5332
+	.dw	0,5091
 	.ascii "SPDR"
 	.db	0
-	.dw	0,5349
+	.dw	0,5108
 	.ascii "AINDIDS"
 	.db	0
-	.dw	0,5369
+	.dw	0,5128
 	.ascii "EIPH"
 	.db	0
-	.dw	0,5386
+	.dw	0,5145
 	.ascii "SCON_1"
 	.db	0
-	.dw	0,5405
+	.dw	0,5164
 	.ascii "PDTEN"
 	.db	0
-	.dw	0,5423
+	.dw	0,5182
 	.ascii "PDTCNT"
 	.db	0
-	.dw	0,5442
+	.dw	0,5201
 	.ascii "PMEN"
 	.db	0
-	.dw	0,5459
+	.dw	0,5218
 	.ascii "PMD"
 	.db	0
-	.dw	0,5475
+	.dw	0,5234
 	.ascii "EIP1"
 	.db	0
-	.dw	0,5492
+	.dw	0,5251
 	.ascii "EIPH1"
 	.db	0
-	.dw	0,5524
+	.dw	0,5283
 	.ascii "SM0_1"
 	.db	0
-	.dw	0,5542
+	.dw	0,5301
 	.ascii "FE_1"
 	.db	0
-	.dw	0,5559
+	.dw	0,5318
 	.ascii "SM1_1"
 	.db	0
-	.dw	0,5577
+	.dw	0,5336
 	.ascii "SM2_1"
 	.db	0
-	.dw	0,5595
+	.dw	0,5354
 	.ascii "REN_1"
 	.db	0
-	.dw	0,5613
+	.dw	0,5372
 	.ascii "TB8_1"
 	.db	0
-	.dw	0,5631
+	.dw	0,5390
 	.ascii "RB8_1"
 	.db	0
-	.dw	0,5649
+	.dw	0,5408
 	.ascii "TI_1"
 	.db	0
-	.dw	0,5666
+	.dw	0,5425
 	.ascii "RI_1"
 	.db	0
-	.dw	0,5683
+	.dw	0,5442
 	.ascii "ADCF"
 	.db	0
-	.dw	0,5700
+	.dw	0,5459
 	.ascii "ADCS"
 	.db	0
-	.dw	0,5717
+	.dw	0,5476
 	.ascii "ETGSEL1"
 	.db	0
-	.dw	0,5737
+	.dw	0,5496
 	.ascii "ETGSEL0"
 	.db	0
-	.dw	0,5757
+	.dw	0,5516
 	.ascii "ADCHS3"
 	.db	0
-	.dw	0,5776
+	.dw	0,5535
 	.ascii "ADCHS2"
 	.db	0
-	.dw	0,5795
+	.dw	0,5554
 	.ascii "ADCHS1"
 	.db	0
-	.dw	0,5814
+	.dw	0,5573
 	.ascii "ADCHS0"
 	.db	0
-	.dw	0,5833
+	.dw	0,5592
 	.ascii "PWMRUN"
 	.db	0
-	.dw	0,5852
+	.dw	0,5611
 	.ascii "LOAD"
 	.db	0
-	.dw	0,5869
+	.dw	0,5628
 	.ascii "PWMF"
 	.db	0
-	.dw	0,5886
+	.dw	0,5645
 	.ascii "CLRPWM"
 	.db	0
-	.dw	0,5905
+	.dw	0,5664
 	.ascii "CY"
 	.db	0
-	.dw	0,5920
+	.dw	0,5679
 	.ascii "AC"
 	.db	0
-	.dw	0,5935
+	.dw	0,5694
 	.ascii "F0"
 	.db	0
-	.dw	0,5950
+	.dw	0,5709
 	.ascii "RS1"
 	.db	0
-	.dw	0,5966
+	.dw	0,5725
 	.ascii "RS0"
 	.db	0
-	.dw	0,5982
+	.dw	0,5741
 	.ascii "OV"
 	.db	0
-	.dw	0,5997
+	.dw	0,5756
 	.ascii "P"
 	.db	0
-	.dw	0,6011
+	.dw	0,5770
 	.ascii "TF2"
 	.db	0
-	.dw	0,6027
+	.dw	0,5786
 	.ascii "TR2"
 	.db	0
-	.dw	0,6043
+	.dw	0,5802
 	.ascii "CM_RL2"
 	.db	0
-	.dw	0,6062
+	.dw	0,5821
 	.ascii "I2CEN"
 	.db	0
-	.dw	0,6080
+	.dw	0,5839
 	.ascii "STA"
 	.db	0
-	.dw	0,6096
+	.dw	0,5855
 	.ascii "STO"
 	.db	0
-	.dw	0,6112
+	.dw	0,5871
 	.ascii "SI"
 	.db	0
-	.dw	0,6127
+	.dw	0,5886
 	.ascii "AA"
 	.db	0
-	.dw	0,6142
+	.dw	0,5901
 	.ascii "I2CPX"
 	.db	0
-	.dw	0,6160
+	.dw	0,5919
 	.ascii "PADC"
 	.db	0
-	.dw	0,6177
+	.dw	0,5936
 	.ascii "PBOD"
 	.db	0
-	.dw	0,6194
+	.dw	0,5953
 	.ascii "PS"
 	.db	0
-	.dw	0,6209
+	.dw	0,5968
 	.ascii "PT1"
 	.db	0
-	.dw	0,6225
+	.dw	0,5984
 	.ascii "PX1"
 	.db	0
-	.dw	0,6241
+	.dw	0,6000
 	.ascii "PT0"
 	.db	0
-	.dw	0,6257
+	.dw	0,6016
 	.ascii "PX0"
 	.db	0
-	.dw	0,6273
+	.dw	0,6032
 	.ascii "P30"
 	.db	0
-	.dw	0,6289
+	.dw	0,6048
 	.ascii "EA"
 	.db	0
-	.dw	0,6304
+	.dw	0,6063
 	.ascii "EADC"
 	.db	0
-	.dw	0,6321
+	.dw	0,6080
 	.ascii "EBOD"
 	.db	0
-	.dw	0,6338
+	.dw	0,6097
 	.ascii "ES"
 	.db	0
-	.dw	0,6353
+	.dw	0,6112
 	.ascii "ET1"
 	.db	0
-	.dw	0,6369
+	.dw	0,6128
 	.ascii "EX1"
 	.db	0
-	.dw	0,6385
+	.dw	0,6144
 	.ascii "ET0"
 	.db	0
-	.dw	0,6401
+	.dw	0,6160
 	.ascii "EX0"
 	.db	0
-	.dw	0,6417
+	.dw	0,6176
 	.ascii "P20"
 	.db	0
-	.dw	0,6433
+	.dw	0,6192
 	.ascii "SM0"
 	.db	0
-	.dw	0,6449
+	.dw	0,6208
 	.ascii "FE"
 	.db	0
-	.dw	0,6464
+	.dw	0,6223
 	.ascii "SM1"
 	.db	0
-	.dw	0,6480
+	.dw	0,6239
 	.ascii "SM2"
 	.db	0
-	.dw	0,6496
+	.dw	0,6255
 	.ascii "REN"
 	.db	0
-	.dw	0,6512
+	.dw	0,6271
 	.ascii "TB8"
 	.db	0
-	.dw	0,6528
+	.dw	0,6287
 	.ascii "RB8"
 	.db	0
-	.dw	0,6544
+	.dw	0,6303
 	.ascii "TI"
 	.db	0
-	.dw	0,6559
+	.dw	0,6318
 	.ascii "RI"
 	.db	0
-	.dw	0,6574
+	.dw	0,6333
 	.ascii "P17"
 	.db	0
-	.dw	0,6590
+	.dw	0,6349
 	.ascii "P16"
 	.db	0
-	.dw	0,6606
+	.dw	0,6365
 	.ascii "TXD_1"
 	.db	0
-	.dw	0,6624
+	.dw	0,6383
 	.ascii "P15"
 	.db	0
-	.dw	0,6640
+	.dw	0,6399
 	.ascii "P14"
 	.db	0
-	.dw	0,6656
+	.dw	0,6415
 	.ascii "SDA"
 	.db	0
-	.dw	0,6672
+	.dw	0,6431
 	.ascii "P13"
 	.db	0
-	.dw	0,6688
+	.dw	0,6447
 	.ascii "SCL"
 	.db	0
-	.dw	0,6704
+	.dw	0,6463
 	.ascii "P12"
 	.db	0
-	.dw	0,6720
+	.dw	0,6479
 	.ascii "P11"
 	.db	0
-	.dw	0,6736
+	.dw	0,6495
 	.ascii "P10"
 	.db	0
-	.dw	0,6752
+	.dw	0,6511
 	.ascii "TF1"
 	.db	0
-	.dw	0,6768
+	.dw	0,6527
 	.ascii "TR1"
 	.db	0
-	.dw	0,6784
+	.dw	0,6543
 	.ascii "TF0"
 	.db	0
-	.dw	0,6800
+	.dw	0,6559
 	.ascii "TR0"
 	.db	0
-	.dw	0,6816
+	.dw	0,6575
 	.ascii "IE1"
 	.db	0
-	.dw	0,6832
+	.dw	0,6591
 	.ascii "IT1"
 	.db	0
-	.dw	0,6848
+	.dw	0,6607
 	.ascii "IE0"
 	.db	0
-	.dw	0,6864
+	.dw	0,6623
 	.ascii "IT0"
 	.db	0
-	.dw	0,6880
+	.dw	0,6639
 	.ascii "P07"
 	.db	0
-	.dw	0,6896
+	.dw	0,6655
 	.ascii "RXD"
 	.db	0
-	.dw	0,6912
+	.dw	0,6671
 	.ascii "P06"
 	.db	0
-	.dw	0,6928
+	.dw	0,6687
 	.ascii "TXD"
 	.db	0
-	.dw	0,6944
+	.dw	0,6703
 	.ascii "P05"
 	.db	0
-	.dw	0,6960
+	.dw	0,6719
 	.ascii "P04"
 	.db	0
-	.dw	0,6976
+	.dw	0,6735
 	.ascii "STADC"
 	.db	0
-	.dw	0,6994
+	.dw	0,6753
 	.ascii "P03"
 	.db	0
-	.dw	0,7010
+	.dw	0,6769
 	.ascii "P02"
 	.db	0
-	.dw	0,7026
+	.dw	0,6785
 	.ascii "RXD_1"
 	.db	0
-	.dw	0,7044
+	.dw	0,6803
 	.ascii "P01"
 	.db	0
-	.dw	0,7060
+	.dw	0,6819
 	.ascii "MISO"
 	.db	0
-	.dw	0,7077
+	.dw	0,6836
 	.ascii "P00"
 	.db	0
-	.dw	0,7093
+	.dw	0,6852
 	.ascii "MOSI"
 	.db	0
-	.dw	0,7141
+	.dw	0,6900
 	.ascii "max_amp"
 	.db	0
-	.dw	0,7161
+	.dw	0,6920
 	.ascii "min_amp"
 	.db	0
-	.dw	0,7194
+	.dw	0,6953
 	.ascii "flashing"
 	.db	0
-	.dw	0,7215
+	.dw	0,6974
 	.ascii "temp_controlling"
 	.db	0
-	.dw	0,7244
+	.dw	0,7003
 	.ascii "next_mode"
 	.db	0
 	.dw	0,0
@@ -12538,10 +11515,10 @@ Ldebug_CIE0_start:
 Ldebug_CIE0_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE0_start-4)
-	.dw	0,(Smain$main$586)	;initial loc
-	.dw	0,Smain$main$659-Smain$main$586
+	.dw	0,(Smain$main$532)	;initial loc
+	.dw	0,Smain$main$586-Smain$main$532
 	.db	1
-	.dw	0,(Smain$main$586)
+	.dw	0,(Smain$main$532)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12567,10 +11544,10 @@ Ldebug_CIE1_start:
 Ldebug_CIE1_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE1_start-4)
-	.dw	0,(Smain$wdt_clear$574)	;initial loc
-	.dw	0,Smain$wdt_clear$584-Smain$wdt_clear$574
+	.dw	0,(Smain$wdt_clear$521)	;initial loc
+	.dw	0,Smain$wdt_clear$530-Smain$wdt_clear$521
 	.db	1
-	.dw	0,(Smain$wdt_clear$574)
+	.dw	0,(Smain$wdt_clear$521)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12596,10 +11573,10 @@ Ldebug_CIE2_start:
 Ldebug_CIE2_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE2_start-4)
-	.dw	0,(Smain$wdt_init$556)	;initial loc
-	.dw	0,Smain$wdt_init$572-Smain$wdt_init$556
+	.dw	0,(Smain$wdt_init$507)	;initial loc
+	.dw	0,Smain$wdt_init$519-Smain$wdt_init$507
 	.db	1
-	.dw	0,(Smain$wdt_init$556)
+	.dw	0,(Smain$wdt_init$507)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12625,10 +11602,10 @@ Ldebug_CIE3_start:
 Ldebug_CIE3_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE3_start-4)
-	.dw	0,(Smain$control_loop$518)	;initial loc
-	.dw	0,Smain$control_loop$554-Smain$control_loop$518
+	.dw	0,(Smain$control_loop$469)	;initial loc
+	.dw	0,Smain$control_loop$505-Smain$control_loop$469
 	.db	1
-	.dw	0,(Smain$control_loop$518)
+	.dw	0,(Smain$control_loop$469)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12654,10 +11631,10 @@ Ldebug_CIE4_start:
 Ldebug_CIE4_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE4_start-4)
-	.dw	0,(Smain$mode_stable_control$492)	;initial loc
-	.dw	0,Smain$mode_stable_control$516-Smain$mode_stable_control$492
+	.dw	0,(Smain$mode_stable_control$443)	;initial loc
+	.dw	0,Smain$mode_stable_control$467-Smain$mode_stable_control$443
 	.db	1
-	.dw	0,(Smain$mode_stable_control$492)
+	.dw	0,(Smain$mode_stable_control$443)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12683,10 +11660,10 @@ Ldebug_CIE5_start:
 Ldebug_CIE5_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE5_start-4)
-	.dw	0,(Smain$is_stable$478)	;initial loc
-	.dw	0,Smain$is_stable$490-Smain$is_stable$478
+	.dw	0,(Smain$is_stable$429)	;initial loc
+	.dw	0,Smain$is_stable$441-Smain$is_stable$429
 	.db	1
-	.dw	0,(Smain$is_stable$478)
+	.dw	0,(Smain$is_stable$429)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12712,10 +11689,10 @@ Ldebug_CIE6_start:
 Ldebug_CIE6_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE6_start-4)
-	.dw	0,(Smain$mode_changing_control$400)	;initial loc
-	.dw	0,Smain$mode_changing_control$476-Smain$mode_changing_control$400
+	.dw	0,(Smain$mode_changing_control$351)	;initial loc
+	.dw	0,Smain$mode_changing_control$427-Smain$mode_changing_control$351
 	.db	1
-	.dw	0,(Smain$mode_changing_control$400)
+	.dw	0,(Smain$mode_changing_control$351)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12741,10 +11718,10 @@ Ldebug_CIE7_start:
 Ldebug_CIE7_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE7_start-4)
-	.dw	0,(Smain$activate_leds$389)	;initial loc
-	.dw	0,Smain$activate_leds$398-Smain$activate_leds$389
+	.dw	0,(Smain$activate_leds$340)	;initial loc
+	.dw	0,Smain$activate_leds$349-Smain$activate_leds$340
 	.db	1
-	.dw	0,(Smain$activate_leds$389)
+	.dw	0,(Smain$activate_leds$340)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12770,10 +11747,10 @@ Ldebug_CIE8_start:
 Ldebug_CIE8_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE8_start-4)
-	.dw	0,(Smain$stop_leds$376)	;initial loc
-	.dw	0,Smain$stop_leds$387-Smain$stop_leds$376
+	.dw	0,(Smain$stop_leds$327)	;initial loc
+	.dw	0,Smain$stop_leds$338-Smain$stop_leds$327
 	.db	1
-	.dw	0,(Smain$stop_leds$376)
+	.dw	0,(Smain$stop_leds$327)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12799,10 +11776,10 @@ Ldebug_CIE9_start:
 Ldebug_CIE9_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE9_start-4)
-	.dw	0,(Smain$process_button$336)	;initial loc
-	.dw	0,Smain$process_button$374-Smain$process_button$336
+	.dw	0,(Smain$process_button$295)	;initial loc
+	.dw	0,Smain$process_button$325-Smain$process_button$295
 	.db	1
-	.dw	0,(Smain$process_button$336)
+	.dw	0,(Smain$process_button$295)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12828,10 +11805,10 @@ Ldebug_CIE10_start:
 Ldebug_CIE10_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE10_start-4)
-	.dw	0,(Smain$process_uart$280)	;initial loc
-	.dw	0,Smain$process_uart$334-Smain$process_uart$280
+	.dw	0,(Smain$process_uart$242)	;initial loc
+	.dw	0,Smain$process_uart$293-Smain$process_uart$242
 	.db	1
-	.dw	0,(Smain$process_uart$280)
+	.dw	0,(Smain$process_uart$242)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12857,10 +11834,10 @@ Ldebug_CIE11_start:
 Ldebug_CIE11_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE11_start-4)
-	.dw	0,(Smain$toNextMode$274)	;initial loc
-	.dw	0,Smain$toNextMode$278-Smain$toNextMode$274
+	.dw	0,(Smain$toNextMode$236)	;initial loc
+	.dw	0,Smain$toNextMode$240-Smain$toNextMode$236
 	.db	1
-	.dw	0,(Smain$toNextMode$274)
+	.dw	0,(Smain$toNextMode$236)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12886,10 +11863,10 @@ Ldebug_CIE12_start:
 Ldebug_CIE12_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE12_start-4)
-	.dw	0,(Smain$changeMode$226)	;initial loc
-	.dw	0,Smain$changeMode$272-Smain$changeMode$226
+	.dw	0,(Smain$changeMode$190)	;initial loc
+	.dw	0,Smain$changeMode$234-Smain$changeMode$190
 	.db	1
-	.dw	0,(Smain$changeMode$226)
+	.dw	0,(Smain$changeMode$190)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12915,10 +11892,10 @@ Ldebug_CIE13_start:
 Ldebug_CIE13_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE13_start-4)
-	.dw	0,(Smain$target_amp$207)	;initial loc
-	.dw	0,Smain$target_amp$224-Smain$target_amp$207
+	.dw	0,(Smain$target_amp$171)	;initial loc
+	.dw	0,Smain$target_amp$188-Smain$target_amp$171
 	.db	1
-	.dw	0,(Smain$target_amp$207)
+	.dw	0,(Smain$target_amp$171)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12944,10 +11921,10 @@ Ldebug_CIE14_start:
 Ldebug_CIE14_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE14_start-4)
-	.dw	0,(Smain$avg_amp$195)	;initial loc
-	.dw	0,Smain$avg_amp$205-Smain$avg_amp$195
+	.dw	0,(Smain$avg_amp$159)	;initial loc
+	.dw	0,Smain$avg_amp$169-Smain$avg_amp$159
 	.db	1
-	.dw	0,(Smain$avg_amp$195)
+	.dw	0,(Smain$avg_amp$159)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -12973,10 +11950,10 @@ Ldebug_CIE15_start:
 Ldebug_CIE15_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE15_start-4)
-	.dw	0,(Smain$has_high_beam$189)	;initial loc
-	.dw	0,Smain$has_high_beam$193-Smain$has_high_beam$189
+	.dw	0,(Smain$has_high_beam$153)	;initial loc
+	.dw	0,Smain$has_high_beam$157-Smain$has_high_beam$153
 	.db	1
-	.dw	0,(Smain$has_high_beam$189)
+	.dw	0,(Smain$has_high_beam$153)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -13002,10 +11979,10 @@ Ldebug_CIE16_start:
 Ldebug_CIE16_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE16_start-4)
-	.dw	0,(Smain$sample_temperature$178)	;initial loc
-	.dw	0,Smain$sample_temperature$187-Smain$sample_temperature$178
+	.dw	0,(Smain$sample_temperature$142)	;initial loc
+	.dw	0,Smain$sample_temperature$151-Smain$sample_temperature$142
 	.db	1
-	.dw	0,(Smain$sample_temperature$178)
+	.dw	0,(Smain$sample_temperature$142)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -13031,10 +12008,10 @@ Ldebug_CIE17_start:
 Ldebug_CIE17_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE17_start-4)
-	.dw	0,(Smain$sample_amps$161)	;initial loc
-	.dw	0,Smain$sample_amps$176-Smain$sample_amps$161
+	.dw	0,(Smain$sample_amps$125)	;initial loc
+	.dw	0,Smain$sample_amps$140-Smain$sample_amps$125
 	.db	1
-	.dw	0,(Smain$sample_amps$161)
+	.dw	0,(Smain$sample_amps$125)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -13060,10 +12037,10 @@ Ldebug_CIE18_start:
 Ldebug_CIE18_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE18_start-4)
-	.dw	0,(Smain$init_peripherals_but_button_n_uart$131)	;initial loc
-	.dw	0,Smain$init_peripherals_but_button_n_uart$159-Smain$init_peripherals_but_button_n_uart$131
+	.dw	0,(Smain$init_peripherals_but_button_n_uart$95)	;initial loc
+	.dw	0,Smain$init_peripherals_but_button_n_uart$123-Smain$init_peripherals_but_button_n_uart$95
 	.db	1
-	.dw	0,(Smain$init_peripherals_but_button_n_uart$131)
+	.dw	0,(Smain$init_peripherals_but_button_n_uart$95)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -13089,10 +12066,10 @@ Ldebug_CIE19_start:
 Ldebug_CIE19_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE19_start-4)
-	.dw	0,(Smain$init_sample$115)	;initial loc
-	.dw	0,Smain$init_sample$129-Smain$init_sample$115
+	.dw	0,(Smain$init_sample$79)	;initial loc
+	.dw	0,Smain$init_sample$93-Smain$init_sample$79
 	.db	1
-	.dw	0,(Smain$init_sample$115)
+	.dw	0,(Smain$init_sample$79)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -13118,10 +12095,10 @@ Ldebug_CIE20_start:
 Ldebug_CIE20_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE20_start-4)
-	.dw	0,(Smain$disable_ntc$110)	;initial loc
-	.dw	0,Smain$disable_ntc$113-Smain$disable_ntc$110
+	.dw	0,(Smain$disable_ntc$72)	;initial loc
+	.dw	0,Smain$disable_ntc$77-Smain$disable_ntc$72
 	.db	1
-	.dw	0,(Smain$disable_ntc$110)
+	.dw	0,(Smain$disable_ntc$72)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -13147,10 +12124,10 @@ Ldebug_CIE21_start:
 Ldebug_CIE21_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE21_start-4)
-	.dw	0,(Smain$enable_ntc$105)	;initial loc
-	.dw	0,Smain$enable_ntc$108-Smain$enable_ntc$105
+	.dw	0,(Smain$enable_ntc$65)	;initial loc
+	.dw	0,Smain$enable_ntc$70-Smain$enable_ntc$65
 	.db	1
-	.dw	0,(Smain$enable_ntc$105)
+	.dw	0,(Smain$enable_ntc$65)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -13176,10 +12153,10 @@ Ldebug_CIE22_start:
 Ldebug_CIE22_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE22_start-4)
-	.dw	0,(Smain$button_interrupt_init$96)	;initial loc
-	.dw	0,Smain$button_interrupt_init$103-Smain$button_interrupt_init$96
+	.dw	0,(Smain$button_interrupt_init$56)	;initial loc
+	.dw	0,Smain$button_interrupt_init$63-Smain$button_interrupt_init$56
 	.db	1
-	.dw	0,(Smain$button_interrupt_init$96)
+	.dw	0,(Smain$button_interrupt_init$56)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -13205,10 +12182,10 @@ Ldebug_CIE23_start:
 Ldebug_CIE23_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE23_start-4)
-	.dw	0,(Smain$PinInterrupt_ISR$84)	;initial loc
-	.dw	0,Smain$PinInterrupt_ISR$94-Smain$PinInterrupt_ISR$84
+	.dw	0,(Smain$PinInterrupt_ISR$44)	;initial loc
+	.dw	0,Smain$PinInterrupt_ISR$54-Smain$PinInterrupt_ISR$44
 	.db	1
-	.dw	0,(Smain$PinInterrupt_ISR$84)
+	.dw	0,(Smain$PinInterrupt_ISR$44)
 	.db	14
 	.uleb128	6
 	.db	0
@@ -13234,10 +12211,10 @@ Ldebug_CIE24_start:
 Ldebug_CIE24_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE24_start-4)
-	.dw	0,(Smain$uart_interrupt_init$77)	;initial loc
-	.dw	0,Smain$uart_interrupt_init$82-Smain$uart_interrupt_init$77
+	.dw	0,(Smain$uart_interrupt_init$37)	;initial loc
+	.dw	0,Smain$uart_interrupt_init$42-Smain$uart_interrupt_init$37
 	.db	1
-	.dw	0,(Smain$uart_interrupt_init$77)
+	.dw	0,(Smain$uart_interrupt_init$37)
 	.db	14
 	.uleb128	2
 	.db	0
@@ -13263,10 +12240,10 @@ Ldebug_CIE25_start:
 Ldebug_CIE25_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE25_start-4)
-	.dw	0,(Smain$SerialPort1_ISR$60)	;initial loc
-	.dw	0,Smain$SerialPort1_ISR$75-Smain$SerialPort1_ISR$60
+	.dw	0,(Smain$SerialPort1_ISR$20)	;initial loc
+	.dw	0,Smain$SerialPort1_ISR$35-Smain$SerialPort1_ISR$20
 	.db	1
-	.dw	0,(Smain$SerialPort1_ISR$60)
+	.dw	0,(Smain$SerialPort1_ISR$20)
 	.db	14
 	.uleb128	6
 	.db	0
@@ -13292,93 +12269,6 @@ Ldebug_CIE26_start:
 Ldebug_CIE26_end:
 	.dw	0,20
 	.dw	0,(Ldebug_CIE26_start-4)
-	.dw	0,(Smain$log_init$50)	;initial loc
-	.dw	0,Smain$log_init$58-Smain$log_init$50
-	.db	1
-	.dw	0,(Smain$log_init$50)
-	.db	14
-	.uleb128	2
-	.db	0
-
-	.area .debug_frame (NOLOAD)
-	.dw	0
-	.dw	Ldebug_CIE27_end-Ldebug_CIE27_start
-Ldebug_CIE27_start:
-	.dw	0xffff
-	.dw	0xffff
-	.db	1
-	.db	0
-	.uleb128	1
-	.sleb128	1
-	.db	9
-	.db	12
-	.uleb128	22
-	.uleb128	2
-	.db	137
-	.uleb128	1
-	.db	0
-	.db	0
-Ldebug_CIE27_end:
-	.dw	0,20
-	.dw	0,(Ldebug_CIE27_start-4)
-	.dw	0,(Smain$uart_logn$27)	;initial loc
-	.dw	0,Smain$uart_logn$48-Smain$uart_logn$27
-	.db	1
-	.dw	0,(Smain$uart_logn$27)
-	.db	14
-	.uleb128	2
-	.db	0
-
-	.area .debug_frame (NOLOAD)
-	.dw	0
-	.dw	Ldebug_CIE28_end-Ldebug_CIE28_start
-Ldebug_CIE28_start:
-	.dw	0xffff
-	.dw	0xffff
-	.db	1
-	.db	0
-	.uleb128	1
-	.sleb128	1
-	.db	9
-	.db	12
-	.uleb128	22
-	.uleb128	2
-	.db	137
-	.uleb128	1
-	.db	0
-	.db	0
-Ldebug_CIE28_end:
-	.dw	0,20
-	.dw	0,(Ldebug_CIE28_start-4)
-	.dw	0,(Smain$uart_log$20)	;initial loc
-	.dw	0,Smain$uart_log$25-Smain$uart_log$20
-	.db	1
-	.dw	0,(Smain$uart_log$20)
-	.db	14
-	.uleb128	2
-	.db	0
-
-	.area .debug_frame (NOLOAD)
-	.dw	0
-	.dw	Ldebug_CIE29_end-Ldebug_CIE29_start
-Ldebug_CIE29_start:
-	.dw	0xffff
-	.dw	0xffff
-	.db	1
-	.db	0
-	.uleb128	1
-	.sleb128	1
-	.db	9
-	.db	12
-	.uleb128	22
-	.uleb128	2
-	.db	137
-	.uleb128	1
-	.db	0
-	.db	0
-Ldebug_CIE29_end:
-	.dw	0,20
-	.dw	0,(Ldebug_CIE29_start-4)
 	.dw	0,(Smain$Timer0_Delay$1)	;initial loc
 	.dw	0,Smain$Timer0_Delay$18-Smain$Timer0_Delay$1
 	.db	1
